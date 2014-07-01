@@ -9,10 +9,15 @@
    ========================================================================== */
 
 body {
+   color:#fff;
    background: #000;
-   color: #fff;
+   -webkit-font-smoothing: antialiased;
+   font:10pt/1.6 "proxima-nova-1", Meiryo, Arial, sans-serif;
 }
 
+h1, h2, h3, h4, h5{
+   line-height:1.4;
+}
 
 
 /* ==========================================================================
@@ -69,6 +74,125 @@ body {
 .content-info { }
 
 
+/* ==========================================================================
+   Frontpage
+   ========================================================================== */
+
+.home{
+   .background{
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -100;
+      background-size: cover;
+   }
+   header {
+      .clearfix();
+      margin: 65px 0;
+      .logo{
+         float:left;
+      }
+      nav{
+         float:right;
+         ul{
+            .clearfix();            
+            list-style:none;
+            font-size:15px;            
+            li{
+               float:right;
+               margin-left: 40px;
+               a{
+                  color: #fff;
+                  padding: 8px 0;
+                  opacity:0.8;
+                  &:hover{
+                     opacity:1;
+                     text-decoration:none;
+                  }
+               }
+               a.border{
+                  border-radius: 25px;
+                  border: 2px solid #fff;
+                  padding: 8px 45px;
+                  &:hover{
+                     background:rgba(255,255,255,0.1);
+                  }
+               }
+            }
+         }
+      }
+   }
+   .taglines{
+      max-width:650px;
+      text-shadow: 0px 0px 5px rgba(150, 150, 150, 1);
+      h1{
+         font-size:36px;
+      }
+      h2{
+         font-size:22px;
+         margin-bottom:75px;
+         opacity:0.9;
+         a{
+            font-size: 14px;
+            color: #fff;
+            opacity: 0.8;
+            margin-left: 10px;
+         }
+      }
+      h3{
+         font-size:16px;
+         opacity:0.5;
+      }
+   }
+   footer{
+      position: absolute;
+      bottom: 25px;
+      left:0;
+      right:0;
+      text-align: center;
+      h4{
+         opacity:0.8;
+         font-size:15px;
+         text-transform: uppercase;
+         margin-bottom:25px;
+      }
+      ul{
+         .clearfix();            
+         list-style:none;
+         font-size:18px;
+         margin:20px 0;
+         padding:0;
+         li{
+            margin: 0 20px;
+            display: inline-block;
+            a{
+               color: #fff;
+               padding: 8px 0;
+               opacity:0.9;
+               width: 275px;
+               display:block;
+               &:hover{
+                  opacity:1;
+                  text-decoration:none;
+               }
+            }
+            a.border{
+               border-radius: 25px;
+               border: 2px solid #fff;
+               padding: 8px 45px;
+               &:hover{
+                  background:rgba(255,255,255,0.1);
+               }
+            }
+         }
+      }
+   }
+}
+
 
 /* ==========================================================================
    WordPress Generated Classes
@@ -79,7 +203,6 @@ body {
 .alignleft { float: left; }
 .alignright { float: right; }
 figure.alignnone { margin-left: 0; margin-right: 0; }
-
 
 
 /* ==========================================================================

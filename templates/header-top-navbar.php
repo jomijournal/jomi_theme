@@ -1,7 +1,7 @@
 <div class="container" role="document">
   <div class="content row">
     <main class="col-sm-12" role="main">
-      <header>
+      <header class="site-header">
         <div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
         <nav class="nav-top">
           <ul>

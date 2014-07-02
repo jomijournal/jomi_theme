@@ -28,3 +28,28 @@ foreach($roots_includes as $file){
   require_once $filepath;
 }
 unset($file, $filepath);
+
+// Bug testing only. Not to be used on a production site!!
+/*add_action('wp_footer', 'roots_wrap_info');
+
+function roots_wrap_info() {  
+  $format = '<h6>The %s template being used is: %s</h6>';
+  $main   = Roots_Wrapping::$main_template;
+  global $template;
+
+  printf($format, 'Main', $main);
+  printf($format, 'Base', $template);
+}*/
+
+add_filter('pre_get_posts', 'query_post_type');
+function query_post_type($query) {
+  if(is_category() || is_tag()) {
+    $post_type = get_query_var('post_type');
+    if($post_type)
+        $post_type = $post_type;
+    else
+        $post_type = array('post','article',);
+    $query->set('post_type',$post_type);
+    return $query;
+    }
+}

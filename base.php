@@ -18,6 +18,10 @@
 
   <div class="container wrap" role="document">
     <div class="content row">
+      <div class="video">
+        <div id="wistia" class="wistia_embed" style="width:720px;height:405px;display:none;">&nbsp;</div>
+        <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
+      </div>
       <main class="main <?php echo roots_main_class(); ?>" role="main">
         <?php include roots_template_path(); ?>
       </main><!-- /.main -->

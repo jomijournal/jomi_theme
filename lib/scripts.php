@@ -12,7 +12,7 @@
  */
 function roots_scripts() {
   
-  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, 'd19bbd86e24ab26bfe52cd61cc3528be');
+  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, 'dfc3fbe6d29a4bd758534b7c32084c1d');
   wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, 'a9f6c19d4b44f9e0a0d1a77ac050e9a1');
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:

@@ -26,6 +26,14 @@
         e.preventDefault();
         $(this).tab('show');
       });
+     $(document).ready(function(){
+        $('.widget_search').hide();
+        $('.widget_categories ul').empty();
+        $('.widget_categories h3').text('Chapters');
+        $('section.video').each(function(){
+          $('.widget_categories ul').append('<li class="cat-item"><a href="#video" onclick="wistiaEmbed.time('+$(this).attr('time')+').play();">'+$(this).attr('name')+'</a></li>');
+        });
+     });
     </script>
     <footer>
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>

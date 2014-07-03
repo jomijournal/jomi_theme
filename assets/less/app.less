@@ -2,14 +2,34 @@
  * Roots 6.5.2
  */
 
+//*
+//* IMPORTS
+//* VARIABLES
+//* GENERAL
+//* TYPOGRAPHY
+//* UI
+//* HEADER
+//* FRONTPAGE
+//* PRICING
+//* CONTENT
+//* SIDEBAR
+//* FOOTER
+//* ERRORS
+//* WIP
+//* PRINT
+//* MOBILE
+//*
+
+//* IMPORTS
+
 @import "bootstrap/bootstrap.less";
+
+//* VARIABLES
 
 @jomi-light: #fff;
 @jomi-dark: #111;
 
-/* ==========================================================================
-   Base
-   ========================================================================== */
+//* GENERAL
 
 html, body {
 	//height: 100%;
@@ -35,10 +55,20 @@ h1, h2, h3, h4, h5{
 	border-radius: 15px;
 }
 
+.aligncenter { display: block; margin: 0 auto; }
+.alignleft { float: left; }
+.alignright { float: right; }
+figure.alignnone { margin-left: 0; margin-right: 0; }
 
-/* ==========================================================================
-   Header
-   ========================================================================== */
+//* TYPOGRAPHY
+
+
+
+//* UI
+
+
+
+//* HEADER
 
 header.site-header {
    .clearfix();
@@ -110,125 +140,7 @@ header.site-header {
    }
 }
 
-/* ==========================================================================
-   Content
-   ========================================================================== */
-
-.content { }
-
-
-
-/* ==========================================================================
-   Primary Content
-   ========================================================================== */
-
-.main { }
-
-/* Gallery Shortcode */
-.gallery-row { padding: 15px 0; }
-
-
-
-/* ==========================================================================
-   Sidebar
-   ========================================================================== */
-
-.sidebar {
-   h3{
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 14px;
-      color: #333;
-      font-weight: 700;
-      padding-top: 15px;
-   }
-}
-
-.widget_categories{
-   ul{
-      list-style: none;
-      -webkit-padding-start: 0;
-      li{
-         margin-bottom: 5px;
-         a{
-            display:block;
-            color: #111;
-            font-size: 18px;
-            background: #eee;
-            padding: 10px 25px;
-            border-radius: 5px;
-            &:hover{
-               text-decoration:none;
-               background:#ddd;
-            }
-         }
-      }
-   }
-}
-
-
-
-/* ==========================================================================
-   Posts
-   ========================================================================== */
-
-.hentry header { }
-.hentry time { }
-.hentry .byline { }
-.hentry .entry-content { }
-.hentry footer { }
-
-.single, .page{
-   font-size:16px;
-}
-
-
-.single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap{
-   background: #fff;
-   color: #111;
-   border-radius: 5px;
-   padding: 50px 50px;
-   margin-bottom:30px;
-}
-
-.kcite{
-   font-variant: small-caps;
-   a span, a:hover{
-      text-decoration: none !important;
-   }
-}
-.kcite-boilerplate{
-   font-family: Consolas;
-   font-size: 14px;
-   color: #333;
-   padding: 15px 25px;
-   background: #f5f5f5;
-   margin: 14px 0 30px;
-}
-
-.page-header{
-   margin-top:0;
-   h1{
-      margin-top:0;
-   }
-}
-
-.csl-entry{
-   font-variant: small-caps;
-}
-
-
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-
-.content-info { }
-
-
-/* ==========================================================================
-   Frontpage
-   ========================================================================== */
+//* FRONTPAGE
 
 .home{
    .background{
@@ -311,9 +223,106 @@ header.site-header {
       }
    }
 }
-/* ==========================================================================
-   404
-   ========================================================================== */
+
+//* PRICING
+
+//* CONTENT
+
+.hentry header { }
+.hentry time { }
+.hentry .byline { }
+.hentry .entry-content { }
+.hentry footer { }
+
+.single, .page{
+   font-size:16px;
+}
+
+
+.single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap{
+   background: #fff;
+   color: #111;
+   border-radius: 5px;
+   padding: 50px 50px;
+   margin-bottom:30px;
+}
+
+.entry-title{
+   margin-top:0;
+}
+
+.kcite{
+   font-variant: small-caps;
+   a span, a:hover{
+      text-decoration: none !important;
+   }
+}
+.kcite-boilerplate{
+   font-family: Consolas;
+   font-size: 14px;
+   color: #333;
+   padding: 15px 25px;
+   background: #f5f5f5;
+   margin: 14px 0 30px;
+}
+
+.page-header{
+   margin-top:0;
+   h1{
+      margin-top:0;
+   }
+}
+
+.csl-entry{
+   font-variant: small-caps;
+}
+
+
+/* Gallery Shortcode */
+.gallery-row { padding: 15px 0; }
+
+
+//* SIDEBAR
+
+.sidebar {
+   h3{
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: #333;
+      font-weight: 700;
+      padding-top: 15px;
+   }
+}
+
+.widget_categories{
+   ul{
+      list-style: none;
+      -webkit-padding-start: 0;
+      li{
+         margin-bottom: 5px;
+         a{
+            display:block;
+            color: #111;
+            font-size: 18px;
+            background: #eee;
+            padding: 10px 25px;
+            border-radius: 5px;
+            &:hover{
+               text-decoration:none;
+               background:#ddd;
+            }
+         }
+      }
+   }
+}
+
+//* FOOTER
+
+.content-info { }
+
+//* ERRORS
+
 .fourohfour {
 	margin-top: -15px;
 	.andi {
@@ -331,20 +340,11 @@ header.site-header {
 	}
 }
 
-/* ==========================================================================
-   WordPress Generated Classes
-   See: http://codex.wordpress.org/CSS#WordPress_Generated_Classes
-   ========================================================================== */
-
-.aligncenter { display: block; margin: 0 auto; }
-.alignleft { float: left; }
-.alignright { float: right; }
-figure.alignnone { margin-left: 0; margin-right: 0; }
+//* PRINT
 
 
-/* ==========================================================================
-   Media Queries
-   ========================================================================== */
+
+//* MOBILE
 
 @media (min-width: @screen-sm-min) { }
 

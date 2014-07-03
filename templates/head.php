@@ -1,3 +1,53 @@
+<?php
+/* USERAPP */
+use \UserApp\Widget\User;
+
+User::setAppId("53b5e44372154");
+
+$auth = false;
+if (User::authenticated()) {
+	$auth = true;
+}
+else
+{
+	if(isset($_COOKIE["ua_session_token"]))
+	{
+		$token = $_COOKIE["ua_session_token"];
+		try
+		{
+			$auth = User::loginWithToken($token);
+		}
+		catch(Exception $e)
+		{
+			//
+		}
+	}
+}
+if($auth)
+{
+	try{
+		$user = User::current();
+	}
+	catch(Exception $e){
+		echo $e;
+	}
+}
+elseif(!is_front_page())
+{
+	header("Location: /");
+}
+
+/* LOGOUT */
+if($user && is_page('Logout'))
+{
+	$user->logout();
+	$user = null;
+	if(isset($_COOKIE['ua_session_token'])) {
+		unset($_COOKIE['ua_session_token']);
+		setcookie('ua_session_token', '', time() - 3600, "/"); // empty value and old timestamp
+	}
+}
+?>
 <!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?>>
 <head>

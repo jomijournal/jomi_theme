@@ -36,10 +36,10 @@
   </div><!-- /.wrap -->
 
   <?php if(is_front_page()){ ?>
-      <?php get_template_part('templates/front', 'footer'); ?>
-    <?php } ?>
+    <?php get_template_part('templates/front', 'footer'); ?>
+  <?php } ?>
 
-    <?php get_template_part('templates/footer'); ?>
+  <?php get_template_part('templates/footer'); ?>
 
 </body>
 </html>

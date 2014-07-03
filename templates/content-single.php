@@ -10,15 +10,23 @@
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
       <?php get_template_part('templates/entry-meta'); ?>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#main">Main Text</a></li>
+        <li><a href="#outline">Procedure Outline</a></li>
+      </ul>
     </header>
     <div class="entry-content">
-      <section data-title="Main Text">
-        <?php the_content(); ?>
-      </section>
-      <section data-title="Procedure Outline">
-        <?php the_block( 'Procedure Outline' ); ?>
-      </section>
+      <div class="tab-content">
+        <div class="tab-pane active" id="main"><?php the_content(); ?></div>
+        <div class="tab-pane" id="outline"><?php the_block( 'Procedure Outline' ); ?></div>
+      </div>
     </div>
+    <script>
+      $('.nav-tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+    </script>
     <footer>
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>
     </footer>

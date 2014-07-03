@@ -7,7 +7,7 @@
 		  <nav class="nav-bottom">
 		    <ul>
 		      <div class='col-md-4'>
-		      	<li><a href="/paediatry/" class="border">Paediatry</a></li>
+		      	<li><a href="/paediatrics/" class="border">Paediatrics</a></li>
 		      </div>
 		      <div class='col-md-4'>
 		      	<li><a href="/neurology/" class="border">Neurology</a></li>

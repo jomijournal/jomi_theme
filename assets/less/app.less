@@ -66,7 +66,71 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 //* UI
 
+.btn {
+   display: inline-block;
+   padding: 4px 10px 4px;
+   margin-bottom: 0; // For input.btn
+   font-size: 16px;
+   font-weight: 700;
+   color: #333;
+   text-align: center;
+   vertical-align: middle;
+   border: 1px solid #ccc;
+   border: 2px solid darken(#eee, 20%);
+   border-radius: 25px;
+   cursor: pointer;
+   background: #DDD;
+  &.border{
+    border: 2px #ddd solid;
+    background: transparent;
+    color: #999;
+    text-shadow: none;
+    &:hover{
+      color: #555;
+      background-color: #f8f8f8;
+    }
+  }
+  &.white{
+    border: 2px #ddd solid;
+    background: #fff;
+    color: #999;
+    text-shadow: none;
+    &:hover{
+      color: #555;
+      background-color: #f8f8f8;
+    }
+  }
+}
 
+// Large
+.btn.large {
+  padding: 8px 14px;
+  width: 200px;
+}
+.btn.large [class^="icon-"] {
+  margin-top: 1px;
+}
+
+//Fat
+.btn.fat {
+  padding: 8px 35px;
+}
+.btn.fat [class^="icon-"] {
+  margin-top: 1px;
+}
+
+// Small
+.btn.small {
+  padding: 5px 9px;
+}
+.btn.small [class^="icon-"] {
+  margin-top: -1px;
+}
+
+// Mini
+.btn.mini {
+  padding: 2px 6px;
+}
 
 //* HEADER
 

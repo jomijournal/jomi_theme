@@ -1,4 +1,6 @@
 # Include your project-specific ignores in this file
-# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-
+
 node_modules
 assets/css/main.min.css.map
+assets/css/main.min.css

@@ -4,19 +4,31 @@
 
 @import "bootstrap/bootstrap.less";
 
+@jomi-light: #fff;
+@jomi-dark: #111;
+
 /* ==========================================================================
    Base
    ========================================================================== */
 
 body {
-   color:#fff;
-   background: #111;
+   color: @jomi-light;
+   background: @jomi-dark;
    -webkit-font-smoothing: antialiased;
    font:10pt/1.6 "proxima-nova-1", Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5{
    line-height:1.4;
+}
+
+.white-panel {
+	padding: 25px 40px;
+	color: @jomi-dark;
+	background: @jomi-light;
+	-webkit-font-smoothing: antialiased;
+	font:10pt/1.6 "proxima-nova-1", Arial, sans-serif;
+	border-radius: 15px;
 }
 
 
@@ -26,7 +38,8 @@ h1, h2, h3, h4, h5{
 
 header.site-header {
    .clearfix();
-   margin: 65px 35px;
+   margin: 15px 35px;
+   margin-top: 25px; 
    .logo{
       float:left;
    }
@@ -261,7 +274,25 @@ header.site-header {
       }
    }
 }
-
+/* ==========================================================================
+   404
+   ========================================================================== */
+.fourohfour {
+	margin-top: -15px;
+	.andi {
+		width: 85%;
+		border-radius: 15px;
+	}
+	.title {
+		margin: 0px 40px;
+	}
+	h1 {
+		border-bottom: 1px solid #999;
+	}
+	h5 {
+		font-size: 45px;
+	}
+}
 
 /* ==========================================================================
    WordPress Generated Classes

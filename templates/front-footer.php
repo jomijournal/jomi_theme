@@ -6,17 +6,14 @@
 	  <div class='col-sm-8 col-sm-offset-2'>
 		  <nav class="nav-bottom">
 		    <ul>
-		      <div class='col-md-3'>
-		      	<li><a href="/category/paediatry/" class="border">Paediatry</a></li>
+		      <div class='col-md-4'>
+		      	<li><a href="/paediatry/" class="border">Paediatry</a></li>
 		      </div>
-		      <div class='col-md-3'>
-		      	<li><a href="/category/neurology/" class="border">Neurology</a></li>
+		      <div class='col-md-4'>
+		      	<li><a href="/neurology/" class="border">Neurology</a></li>
 		      </div>
-		      <div class='col-md-3'>
-		      	<li><a href="/category/otolaryngology/" class="border">Otolaryngology</a></li>
-		      </div>
-		      <div class='col-md-3'>
-		      	<li><a href="/category/poop/" class="border">Poop</a></li>
+		      <div class='col-md-4'>
+		      	<li><a href="/otolaryngology/" class="border">Otolaryngology</a></li>
 		      </div>
 		    </ul>
 		  </nav>

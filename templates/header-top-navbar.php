@@ -22,8 +22,8 @@
 		        </nav>
 		    </div>
 		    <!-- Collapsable navbar for mobile -->
-		    <div class='col-xs-8 visible-xs mobile-menu'>
-		    	<div class='dropdown alignright'>
+		    <div class='col-xs-8 visible-xs'>
+		    	<div class='dropdown alignright mobile-menu'>
 				  <a class='dropdown-toggle' data-toggle='dropdown' href='#'> <span class='glyphicon glyphicon-th-list'></span> </a>
 
 				  <ul class='dropdown-menu dropdown-menu-right' role='menu'>

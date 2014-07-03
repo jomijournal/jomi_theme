@@ -11,6 +11,10 @@
    Base
    ========================================================================== */
 
+html, body {
+	height: 100%;
+}
+
 body {
    color: @jomi-light;
    background: @jomi-dark;
@@ -74,6 +78,7 @@ header.site-header {
       }
    }
    .mobile-menu {
+   	margin-top: 5px;
    	  a{
    	  	color: #fff;
    	  	opacity: 0.8;
@@ -262,8 +267,9 @@ header.site-header {
       }
    }
    footer{
-      position: absolute;
-      bottom: 25px;
+      //position: absolute; // needs to be relative to prevent wrapping
+      position: relative;
+      margin-top: 100px;
       left:0;
       right:0;
       text-align: center;
@@ -280,7 +286,7 @@ header.site-header {
          margin:20px 0;
          padding:0;
          li{
-            margin: 0 20px;
+            margin: 0 0px;
             display: inline-block;
             width: 95%;
             a{
@@ -297,7 +303,7 @@ header.site-header {
             a.border{
                border-radius: 25px;
                border: 2px solid #fff;
-               padding: 8px 45px;
+               padding: 8px 4px;
                &:hover{
                   background:rgba(255,255,255,0.2);
                }

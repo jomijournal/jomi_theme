@@ -16,7 +16,7 @@
     get_template_part('templates/header-top-navbar');
   ?>
 
-  <div class="wrap container" role="document">
+  <div class="container" role="document">
     <div class="content row">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
         <?php include roots_template_path(); ?>
@@ -27,12 +27,15 @@
         </aside><!-- /.sidebar -->
       <?php endif; ?>
     </div><!-- /.content -->
-    <?php if(is_front_page()){ ?>
-      <?php get_template_part('templates/front', 'footer'); ?>
-    <?php } ?>
+    
+    
   </div><!-- /.wrap -->
 
-  <?php get_template_part('templates/footer'); ?>
+  <?php if(is_front_page()){ ?>
+      <?php get_template_part('templates/front', 'footer'); ?>
+    <?php } ?>
+
+    <?php get_template_part('templates/footer'); ?>
 
 </body>
 </html>

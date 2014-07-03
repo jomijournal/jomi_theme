@@ -12,7 +12,12 @@
       <?php get_template_part('templates/entry-meta'); ?>
     </header>
     <div class="entry-content">
-      <?php the_content(); ?>
+      <section data-title="Main Text">
+        <?php the_content(); ?>
+      </section>
+      <section data-title="Procedure Outline">
+        <?php the_block( 'Procedure Outline' ); ?>
+      </section>
     </div>
     <footer>
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>

@@ -1,6 +1,6 @@
 <?php if(is_front_page()) : ?>
 	<video autoplay="" loop="" class='background hidden-xs' poster="https://d2ysendh9zluod.cloudfront.net/images/web_still_blur.jpg">
-		<source src="https://d2ysendh9zluod.cloudfront.net/everest_intro.mp4" type="video/mp4">
+		<source src="/wp-content/themes/jomi/assets/video/background.mp4" type="video/mp4">
 	</video>
 <?php endif; ?>
 <div class="container" role="document">

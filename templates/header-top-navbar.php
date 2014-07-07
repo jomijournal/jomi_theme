@@ -15,23 +15,20 @@
 	        <div class='col-xs-8 hidden-xs'>
 		        <nav class="nav-top">
 		          <ul>
-		            <li><a href="#" class="border" id="login-btn">Login</a></li>
+		            <li class="dropdown">
+						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Login</a>
+						<div class="dropdown-menu" style="padding: 15px;">
+							<div id="login-form">
+							  <input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
+							  <input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
+							  <input class="btn" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+							</div>
+						</div>
+					</li>
 		            <li><a href="#">Pricing</a></li>
 		            <li><a href="#">Contact</a></li>
 		          </ul>
 		        </nav>
-		    </div>
-		    <!-- Collapsable navbar for mobile -->
-		    <div class='col-xs-8 visible-xs'>
-		    	<div class='dropdown alignright mobile-menu'>
-				  <a class='dropdown-toggle' data-toggle='dropdown' href='#'> <span class='glyphicon glyphicon-th-list'></span> </a>
-
-				  <ul class='dropdown-menu dropdown-menu-right' role='menu'>
-				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="login-btn">Login</a></li>
-				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Pricing</a></li>
-				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact</a></li>
-				  </ul>
-				</div>
 		    </div>
 	    </div>
       </header>
@@ -41,6 +38,15 @@
 
 <script>
 	/* SIGNUP & LOGIN */
+	$(function() {
+		// Setup drop down menu
+		$('.dropdown-toggle').dropdown();
+
+		// Fix input element click problem
+		$('.dropdown input, .dropdown label').click(function(e) {
+			e.stopPropagation();
+		});
+	});
 	$(document).ready(function(){
 		UserApp.initialize({ appId: "53b5e44372154" });
 
@@ -50,7 +56,7 @@
 		}
 
 		function emailLogin(){
-			UserApp.User.login({ "login": 'seifip@gmail.com', "password": 'jomicat' }, function(error, result) {		
+			UserApp.User.login({ "login": $('#login-form input[name="login"]').val(), "password": $('#login-form input[name="password"]').val() }, function(error, result) {		
 			    if (error) {
 			        // Something went wrong...
 			        // Check error.name. Might just be a wrong password?
@@ -61,6 +67,7 @@
 			        // User is logged in, save result.token in a cookie called 'ua_session_token'	        
 			        onLoginSuccessful(result.token);
 			        console.log(result);
+			        location.reload();
 			    }
 			});
 		}
@@ -71,8 +78,7 @@
 			UserApp.setToken(token);
 			onLoginSuccessful(token);
 		}
-
-		$('#login-btn').click(function(){
+		$('#login-form input[type=submit]').click(function(){
 			emailLogin();
 		});
 	});

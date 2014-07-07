@@ -15,6 +15,7 @@
 	        <div class='col-xs-8 hidden-xs'>
 		        <nav class="nav-top">
 		          <ul>
+		          	<?php if($user){ ?>
 		            <li class="dropdown">
 						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Login</a>
 						<div class="dropdown-menu" style="padding: 15px;">
@@ -29,6 +30,10 @@
 					</li>
 		            <li><a href="#">Pricing</a></li>
 		            <li><a href="#">Contact</a></li>
+		            <?php } else { ?>
+		            <li><input placeholder="Search articles" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" class="border" /></li>
+		            <li><a href="#">All articles</a></li>
+		            <?php } ?>
 		          </ul>
 		        </nav>
 		    </div>

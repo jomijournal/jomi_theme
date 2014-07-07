@@ -19,9 +19,11 @@
 						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Login</a>
 						<div class="dropdown-menu" style="padding: 15px;">
 							<div id="login-form">
-							  <input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
-							  <input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
-							  <input class="btn" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+								<span class="label label-danger" id="error-login" style="display:none;">User does not exist</span>
+								<input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
+								<span class="label label-danger" id="error-password" style="display:none;">Invalid password</span>
+								<input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
+								<input class="btn" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
 							</div>
 						</div>
 					</li>
@@ -56,11 +58,26 @@
 		}
 
 		function emailLogin(){
-			UserApp.User.login({ "login": $('#login-form input[name="login"]').val(), "password": $('#login-form input[name="password"]').val() }, function(error, result) {		
+			UserApp.User.login({ "login": $('#login-form input[name="login"]').val(), "password": $('#login-form input[name="password"]').val() }, function(error, result) {
 			    if (error) {
 			        // Something went wrong...
 			        // Check error.name. Might just be a wrong password?
 			        console.log(error);
+			        $('#login-form .label').hide();
+			        $('#login-form input').removeClass('error');
+			        if($('#login-form input[name="password"]').val() == '')
+			        {
+			        	$('#login-form input[name="password"]').addClass('error');
+			        	$('#error-password').show();
+			    	}
+			        else if(error.name == 'INVALID_ARGUMENT_LOGIN'){
+			        	$('#login-form input[name="login"]').addClass('error');
+			        	$('#error-login').show();
+			        }
+			        else if(error.name == 'INVALID_ARGUMENT_PASSWORD' || error.name == 'INVALID_ARGUMENT_LOGIN'){
+			        	$('#login-form input[name="password"]').addClass('error');
+			        	$('#error-password').show();
+			        }
 			    } else if (result.locks && result.locks.length > 0) {
 			        // This user is locked
 			    } else {

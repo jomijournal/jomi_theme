@@ -1,4 +1,6 @@
 <?php
+global $user;
+
 /* USERAPP */
 use \UserApp\Widget\User;
 
@@ -38,7 +40,7 @@ elseif(!is_front_page())
 }
 
 /* LOGOUT */
-if($user && is_page('Logout'))
+if($user && isset($_GET["logout"]))
 {
 	$user->logout();
 	$user = null;

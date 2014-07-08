@@ -1,3 +1,6 @@
+<?php
+global $user;
+?>
 <?php if(is_front_page()) : ?>
 	<video autoplay="" loop="" class='background hidden-xs' poster="https://d2ysendh9zluod.cloudfront.net/images/web_still_blur.jpg">
 		<source src="/wp-content/themes/jomi/assets/video/background.mp4" type="video/mp4">
@@ -15,9 +18,9 @@
 	        <div class='col-xs-8 hidden-xs'>
 		        <nav class="nav-top">
 		          <ul>
-		          	<?php if($user){ ?>
+		          	<?php if(!$user){ ?>
 		            <li class="dropdown">
-						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Login</a>
+						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign in</a>
 						<div class="dropdown-menu" style="padding: 15px;">
 							<div id="login-form">
 								<span class="label label-danger" id="error-login" style="display:none;">User does not exist</span>
@@ -31,8 +34,9 @@
 		            <li><a href="#">Pricing</a></li>
 		            <li><a href="#">Contact</a></li>
 		            <?php } else { ?>
-		            <li><input placeholder="Search articles" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" class="border" /></li>
+		            <li><input placeholder="Search articles" id="user_username" style="margin-top: -10px;" type="text" name="login" size="30" class="border" /></li>
 		            <li><a href="#">All articles</a></li>
+		            <li><a href="#" id="logout-btn">Sign out</a></li>
 		            <?php } ?>
 		          </ul>
 		        </nav>
@@ -59,7 +63,7 @@
 
 		function onLoginSuccessful(token){
 			Cookies.set('ua_session_token', token);
-			window.location.href = "/";		
+			window.location.href = "/";
 		}
 
 		function emailLogin(){
@@ -89,7 +93,6 @@
 			        // User is logged in, save result.token in a cookie called 'ua_session_token'	        
 			        onLoginSuccessful(result.token);
 			        console.log(result);
-			        location.reload();
 			    }
 			});
 		}
@@ -102,6 +105,9 @@
 		}
 		$('#login-form input[type=submit]').click(function(){
 			emailLogin();
+		});
+		$('#logout-btn').click(function(){
+			window.location.href = "/?logout";
 		});
 	});
 </script>

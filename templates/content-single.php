@@ -6,7 +6,12 @@
       wistiaEmbed = Wistia.embed("<?php echo $wistia ?>", {
         videoFoam: true
       });
-      </script>
+      wistiaEmbed.bind("secondchange", function (s) {
+        if(s === 60*10) {
+          $('.wistia_embed').empty().append('<h2>Please sign in to watch the rest of the video.</h2><h3>Contact your hospital or educational institution for login details.</h3><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 653px;text-align: center;padding-top: 200px;border: 3px solid #eee;');
+        }
+      });
+    </script>
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
       <?php get_template_part('templates/entry-meta'); ?>

@@ -36,7 +36,7 @@ if($auth)
 }
 elseif(!is_front_page())
 {
-	header("Location: /");
+	//header("Location: /");
 }
 
 /* LOGOUT */

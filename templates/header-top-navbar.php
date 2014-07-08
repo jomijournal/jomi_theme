@@ -34,7 +34,7 @@ global $user;
 		            <li><a href="#">Pricing</a></li>
 		            <li><a href="#">Contact</a></li>
 		            <?php } else { ?>
-		            <li><input placeholder="Search articles" id="user_username" style="margin-top: -10px;" type="text" name="login" size="30" class="border" /></li>
+		            <li><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
 		            <li><a href="#">All articles</a></li>
 		            <li><a href="#" id="logout-btn">Sign out</a></li>
 		            <?php } ?>
@@ -108,6 +108,13 @@ global $user;
 		});
 		$('#logout-btn').click(function(){
 			window.location.href = "/?logout";
+		});
+		$('#search-field').keydown(function(event){
+			if(event.which == 13)
+			{
+				event.preventDefault();
+				window.location.href = "/?s="+$(this).val();
+			}
 		});
 	});
 </script>

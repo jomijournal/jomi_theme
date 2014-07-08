@@ -1,7 +1,11 @@
 <article <?php post_class(); ?> style="margin-bottom:35px;">
 	<?php
 		if ( has_post_thumbnail() ) {
-			the_post_thumbnail('large');
+		?>
+			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" >
+				<?php the_post_thumbnail('large'); ?>
+			</a>
+		<?php
 		}
 	?>
 	<header>

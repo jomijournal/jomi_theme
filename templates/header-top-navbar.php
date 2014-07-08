@@ -35,8 +35,8 @@ global $user;
 		            <li><a href="#">Contact</a></li>
 		            <?php } else { ?>
 		            <li><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
-		            <li><a href="#">All articles</a></li>
-		            <li><a href="#" id="logout-btn">Sign out</a></li>
+		            <li><a href="/articles">All articles</a></li>
+		            <li><a href="/?logout" id="logout-btn">Sign out</a></li>
 		            <?php } ?>
 		          </ul>
 		        </nav>
@@ -63,7 +63,7 @@ global $user;
 
 		function onLoginSuccessful(token){
 			Cookies.set('ua_session_token', token);
-			window.location.href = "/";
+			window.location.href = "/articles";
 		}
 
 		function emailLogin(){
@@ -105,9 +105,6 @@ global $user;
 		}
 		$('#login-form input[type=submit]').click(function(){
 			emailLogin();
-		});
-		$('#logout-btn').click(function(){
-			window.location.href = "/?logout";
 		});
 		$('#search-field').keydown(function(event){
 			if(event.which == 13)

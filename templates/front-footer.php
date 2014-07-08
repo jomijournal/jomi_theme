@@ -7,13 +7,13 @@
 		  <nav class="nav-bottom">
 		    <ul>
 		      <div class='col-md-4'>
-		      	<li><a href="/paediatrics/" class="border">Paediatrics</a></li>
+		      	<li><a href="/orthopedics/" class="border">Orthopedics</a></li>
 		      </div>
 		      <div class='col-md-4'>
-		      	<li><a href="/neurology/" class="border">Neurology</a></li>
+		      	<li><a href="/general/" class="border">General Surgery</a></li>
 		      </div>
 		      <div class='col-md-4'>
-		      	<li><a href="/otolaryngology/" class="border">Otolaryngology</a></li>
+		      	<li><a href="/ophthalomology/" class="border">Ophthalomology</a></li>
 		      </div>
 		    </ul>
 		  </nav>

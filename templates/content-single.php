@@ -26,6 +26,11 @@
         <div class="tab-pane" id="outline"><?php the_block( 'Procedure Outline' ); ?></div>
       </div>
     </div>
+    <div>
+      <h3>Citations</h3>
+      <?php the_block( 'Citations' ); ?>
+    </div>
+
     <script>
       $('.nav-tabs a').click(function (e) {
         e.preventDefault();

@@ -5,6 +5,8 @@ global $user;
 	<video autoplay="" loop="" class='background hidden-xs' poster="https://d2ysendh9zluod.cloudfront.net/images/web_still_blur.jpg">
 		<source src="/wp-content/themes/jomi/assets/video/background.mp4" type="video/mp4">
 	</video>
+	<div class='blackbox background'></div>
+
 <?php endif; ?>
 <div class="container" role="document">
   <div class="content row">

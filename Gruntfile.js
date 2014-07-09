@@ -120,7 +120,7 @@ module.exports = function(grunt) {
           'assets/less/*.less',
           'assets/less/**/*.less'
         ],
-        tasks: ['less:dev', 'autoprefixer:dev']
+        tasks: ['less:dev'/*, 'autoprefixer:dev'*/]
       },
       js: {
         files: [

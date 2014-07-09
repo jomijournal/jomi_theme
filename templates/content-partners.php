@@ -3,12 +3,52 @@
   <h2>Partners and early adopters</h4>
   <div class="orgs large">
   	<div class="row">
-	  	<div class="org col-xs-3"><div class="logo"><img src="https://www.edx.org/sites/default/files/school/image/banner/mit_logo_200x101_0.png"></div><div class="lab">Visionary</div></div>
-	  	<div class="org col-xs-3"><div class="logo"><img src="https://www.edx.org/sites/default/files/school/image/banner/harvard_logo_200x101_0.png"></div><div class="lab">Visionary</div></div>
-	  	<div class="org col-xs-3"><div class="logo"><img src="https://www.edx.org/sites/default/files/school/image/banner/berkeley_logo_200x101_0.png"></div><div class="lab">Partner</div></div>
-	  	<div class="org col-xs-3"><div class="logo"><img src="https://www.edx.org/sites/default/files/school/image/banner/ut_logo_200x101_0.png"></div><div class="lab">Partner</div></div>
+	  	<a href="http://www.brighamandwomensfaulkner.org/about-us/patient-visitor-information/Ingersoll-Bowditch-Medical-Library.aspx#.U72il_ldVMI" >
+	  		<div class="org col-xs-3">
+	  			<div class="logo">
+	  				<img src="http://squash.jomi.com/wp-content/uploads/2014/07/bawh.gif">
+	  			</div>
+	  			<div class="lab">
+	  				Visionary
+	  			</div>
+	  		</div>
+	  	</a>
+
+	  	<a href="https://www.countway.harvard.edu/index.html" >
+	  		<div class="org col-xs-3"><div class="logo">
+	  			<img src="https://www.edx.org/sites/default/files/school/image/banner/harvard_logo_200x101_0.png">
+	  				</div>
+	  				<div class="lab">
+	  					Visionary
+	  				</div>
+	  			</div>
+	  		</a>
+
+	  	<a href="https://www.countway.harvard.edu/index.html" >
+	  		<div class="org col-xs-3">
+	  			<div class="logo">
+	  				<img src="https://www.edx.org/sites/default/files/school/image/banner/berkeley_logo_200x101_0.png">
+	  					</div>
+	  					<div class="lab">
+	  						Partner
+	  					</div>
+	  					</div>
+	  	</a>
+
+	  	<a href="https://www.countway.harvard.edu/index.html" >
+	  		<div class="org col-xs-3">
+	  			<div class="logo">
+	  				<img src="https://www.edx.org/sites/default/files/school/image/banner/ut_logo_200x101_0.png">
+	  					</div>
+	  					<div class="lab">
+	  						Partner
+	  					</div>
+	  					</div>
+	  	</a>
+
 	</div>
   </div>
+  
   <h2>Journal subscribers</h2>
   <div class="orgs small">
 	<div class="row">

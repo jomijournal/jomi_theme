@@ -109,6 +109,6 @@ register_sidebar(array(
 	'description' => __('Sidebar for the About Page'),
 	'before_widget' => '',
 	'after_widget' => '',
-	'before_title' => '<h2>',
-	'after_title' => '</h2>',
+	'before_title' => '<h3>',
+	'after_title' => '</h3>',
 ) );

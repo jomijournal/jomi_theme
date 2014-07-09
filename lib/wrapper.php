@@ -12,6 +12,9 @@ function roots_template_path() {
 function roots_sidebar_path() {
   return new Roots_Wrapping('templates/sidebar.php');
 }
+function about_sidebar_path() {
+  return new Roots_Wrapping('templates/sidebar-about.php');
+}
 
 class Roots_Wrapping {
   // Stores the full path to the main template file

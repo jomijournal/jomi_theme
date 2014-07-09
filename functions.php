@@ -96,3 +96,19 @@ register_post_type('article', array(
   'parent' => 'Parent Article',
 )
 ) ); }
+
+/*
+=================================
+CUSTOM SIDEBARS
+=================================
+ */
+
+register_sidebar(array(
+	'name' => __('About Sidebar'),
+	'id' => 'sidebar-about',
+	'description' => __('Sidebar for the About Page'),
+	'before_widget' => '',
+	'after_widget' => '',
+	'before_title' => '<h4>',
+	'after_title' => '</h4>',
+) );

@@ -11,11 +11,14 @@
   </div>
   <h2>Journal subscribers</h2>
   <div class="orgs small">
-  	<div class="row">
-	  	<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/colgatex_logo200x101.png?itok=BBNL_p1g"></div></div>
-	  	<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/smithsonianx_logo200x101.png?itok=4cLkwS1r"></div></div>
-	  	<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/osakaux_logo200x101.jpg?itok=103Wdum2"></div></div>
-	  	<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/gems-200x101.png?itok=n31KRQP2"></div></div>
+	<div class="row">
+		<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/colgatex_logo200x101.png?itok=BBNL_p1g"></div></div>
+		<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/smithsonianx_logo200x101.png?itok=4cLkwS1r"></div></div>
+		<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/osakaux_logo200x101.jpg?itok=103Wdum2"></div></div>
+		<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/gems-200x101.png?itok=n31KRQP2"></div></div>
+		<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/mexicox-200x110.png?itok=4tJbF2Gh"></div></div>
+		<div class="org col-xs-2"><div class="logo"><img src="https://www.edx.org/sites/default/files/styles/small/public/school/image/logo/imf_logo200x101_0.png?itok=mx7F-aZB"></div></div>
 	</div>
   </div>
+  <div style="text-align:center;"><a href="/pricing" class="btn fat white">Subscription &amp; pricing</a></div>
 <?php endwhile; ?>

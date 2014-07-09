@@ -33,8 +33,8 @@ global $user;
 							</div>
 						</div>
 					</li>
-		            <li><a href="#">Pricing</a></li>
-		            <li><a href="#">Contact</a></li>
+		            <li><a href="/pricing">Pricing</a></li>
+		            <li><a href="/contact">Contact</a></li>
 		            <?php } else { ?>
 		            <li><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
 		            <li><a href="/articles">All articles</a></li>

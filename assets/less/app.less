@@ -68,7 +68,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 *:focus {outline: none;}
 
-input[type=text], input[type=password]{
+input[type=text], input[type=password], input[type=email], textarea{
    border: 2px #ddd solid;
    font-size: 16px;
    border-radius: 5px;
@@ -89,6 +89,13 @@ input[type=text], input[type=password]{
          background:rgba(255,255,255,0.2);
       }
    }
+}
+
+.wpcf7 input[type=text], input[type=password], input[type=email]{
+   width:70%;
+}
+.wpcf7 textarea{
+   width:100%;
 }
 
 .btn {
@@ -265,29 +272,35 @@ header.site-header {
       text-shadow: 0px 0px 5px rgba(150, 150, 150, 1);
       h1{
          font-size:36px;
+         margin-top: 15px;
       }
       h2{
          font-size:22px;
          margin-bottom:35px;
          opacity:0.9;
-         a{
-            font-size: 14px;
-            color: #fff;
-            opacity: 0.8;
-            margin-left: 10px;
-         }
       }
       h3{
          font-size:16px;
-         opacity:0.5;
-         a{
-            text-decoration: none;
+         opacity:0.7;
+      }
+      .mini-link{
+         font-size: 14px;
+         color: #fff;
+         opacity: 0.5;
+         margin-left: 10px;
+         &:hover{
             color: #fff;
-            opacity: 0.85;
-            &:hover{
-               color: #fff;
-               opacity: 1;
-            }
+            opacity: 1;
+         }
+      }
+      .partners{
+         margin-top:55px;
+         h3{
+            margin-left: 10px;
+         }
+         .logos{
+            margin:10px 0;
+            opacity:0.8;
          }
       }
       img{
@@ -415,6 +428,19 @@ header.site-header {
 .csl-entry{
    font-variant: small-caps;
 }
+
+.orgs {margin-bottom:45px;}
+.org{text-align:center;}
+.org .logo{padding: 20px 0;background-color:#F8F8F8;}
+.org .lab{
+   background-color: #eee;
+   color: #333;
+   font-weight: 700;
+   font-size: .8em;
+   padding: 5px 0;
+}
+.org:hover .logo {background-color:#ddd;}
+.org:hover .lab{background-color:#bbb;}
 
 
 /* Gallery Shortcode */

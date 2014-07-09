@@ -13,10 +13,23 @@
 		      	<li><a href="/general/" class="border">General Surgery</a></li>
 		      </div>
 		      <div class='col-md-4'>
-		      	<li><a href="/ophthalomology/" class="border">Ophthalomology</a></li>
+		      	<li class='coming-soon'><a href="/ophthalomology/" class="border">Ophthalomology</a></li>
 		      </div>
 		    </ul>
 		  </nav>
 	  </div>
   </div>
 </footer>
+
+<script>
+$('li').each(function(index){
+	if($(this).hasClass('coming-soon')) {
+		og = $(this).find('a').text();
+		$(this).hover( function() {
+			$(this).find('a').text('Coming Soon');
+		}, function() {
+			$(this).find('a').text(og);
+		});
+	}
+});
+</script>

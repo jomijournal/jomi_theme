@@ -7,6 +7,6 @@
 				<img src='/wp-content/themes/jomi/assets/img/clients/logo-ucsf.png'></img>
 				<img src='/wp-content/themes/jomi/assets/img/clients/logo-mgh.png'></img>
 			</div>
-			<a class="mini-link" href='/subscribers/'>See all partners and subscribers →</a>
+			<a class="mini-link" href='/institutions/'>See all partners and subscribers →</a>
 		</div>
 </div>

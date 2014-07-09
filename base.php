@@ -25,7 +25,7 @@
       <main class="main <?php echo roots_main_class(); ?>" role="main">
         <?php include roots_template_path(); ?>
       </main><!-- /.main -->
-      <?php if (!is_front_page() && !is_page_template('default') && roots_display_sidebar()) : ?>
+      <?php if (roots_display_sidebar()) : ?>
         <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
           <?php include roots_sidebar_path(); ?>
         </aside><!-- /.sidebar -->

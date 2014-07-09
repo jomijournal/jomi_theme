@@ -25,13 +25,11 @@
       <main class="main <?php echo roots_main_class(); ?>" role="main">
         <?php include roots_template_path(); ?>
       </main><!-- /.main -->
-      <?php if (!is_front_page() && roots_display_sidebar()) : ?>
+      <?php if (roots_display_sidebar()) : ?>
         <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
           <?php 
-          if(is_page_template('default')) {
-            if(is_page('about')) {
-              include about_sidebar_path();
-            }
+          if(is_page('about') || is_page('contact')) {
+            include about_sidebar_path();
           } else {
             include roots_sidebar_path(); 
           }

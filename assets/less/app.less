@@ -431,17 +431,28 @@ header.site-header {
 
 .orgs {margin-bottom:45px;}
 .org{text-align:center;}
-.org .logo{padding: 20px 0;background-color:#F8F8F8;}
+.org .logo{padding: 20px 0;background-color:#EBEBEB;border-radius:8px 8px 0px 0px;}
 .org .lab{
-   background-color: #eee;
-   color: #333;
+   background-color: #CECECE;
+   color: #646464;
    font-weight: 700;
-   font-size: .8em;
+   font-size: .7em;
    padding: 5px 0;
+   border-radius: 0px 0px 8px 8px;
 }
-.org:hover .logo {background-color:#ddd;}
-.org:hover .lab{background-color:#bbb;}
+.org .logosmall{
+   padding: 20px 0;
+   background-color:#EBEBEB;
+   border-radius:8px;
+}
 
+.org:hover .logo {background-color:#CECECE;}
+.org:hover .logosmall {background-color:#CECECE;}
+.org:hover .lab{background-color:#B3B3B3;
+               color: #ffffff;}
+.logopic{
+   width: 80%;
+}
 
 /* Gallery Shortcode */
 .gallery-row { padding: 15px 0; }

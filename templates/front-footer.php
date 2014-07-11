@@ -13,7 +13,7 @@
 		      	<li><a href="/general/" class="border">General Surgery</a></li>
 		      </div>
 		      <div class='col-md-4'>
-		      	<li class='coming-soon'><a href="/ophthalomology/" class="border">Ophthalomology</a></li>
+		      	<li class='coming-soon'><a href="/ophthalmology/" class="border">Ophthalmology</a></li>
 		      </div>
 		    </ul>
 		  </nav>

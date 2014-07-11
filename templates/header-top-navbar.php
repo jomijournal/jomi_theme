@@ -17,7 +17,7 @@ global $user;
 	        	<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
 	        </div>
 	        <!-- Navbar buttons for desktop -->
-	        <div class='col-xs-8 hidden-xs'>
+	        <div class='col-xs-8'>
 		        <nav class="nav-top">
 		          <ul>
 		          	<?php if(!$user){ ?>
@@ -33,16 +33,19 @@ global $user;
 							</div>
 						</div>
 					</li>
-		            <li><a href="/pricing">Pricing</a></li>
-		            <li><a href="/contact">Contact</a></li>
+		            <li><a href="/pricing" class="hidden-xs">Pricing</a></li>
+		            <li><a href="/contact" class="hidden-xs">Contact</a></li>
 		            <?php } else { ?>
-		            <li><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
+		            <li class="hidden-xs"><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
 		            <li><a href="/articles">All articles</a></li>
 		            <li><a href="/?logout" id="logout-btn">Sign out</a></li>
 		            <?php } ?>
 		          </ul>
 		        </nav>
 		    </div>
+	    </div>
+	    <div class="row visible-xs" style="margin-top:25px;">
+	    	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" />
 	    </div>
       </header>
     </main>

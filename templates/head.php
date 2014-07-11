@@ -4,8 +4,6 @@ global $user;
 /* USERAPP */
 use \UserApp\Widget\User;
 
-User::setAppId("53b5e44372154");
-
 $auth = false;
 if (User::authenticated()) {
 	$auth = true;

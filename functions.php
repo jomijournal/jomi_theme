@@ -1,12 +1,12 @@
 <?php
 
+/* COMPOSER */
+require_once('vendor/autoload.php');
+
 /* USERAPP */
 
-require __DIR__.'/lib/UserApp/Autoloader.php';
-require __DIR__.'/lib/UserAppWidget/Autoloader.php';
-
-UserApp\Autoloader::register();
-UserApp\Widget\Autoloader::register();
+use \UserApp\Widget\User;
+User::setAppId("53b5e44372154");
 
 /**
  * Roots includes

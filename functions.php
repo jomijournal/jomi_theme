@@ -50,6 +50,12 @@ function roots_wrap_info() {
   printf($format, 'Base', $template);
 }*/
 
+/*
+=================================
+POST TYPES
+=================================
+*/
+
 add_filter('pre_get_posts', 'query_post_type');
 function query_post_type($query) {
   if(is_category() || is_tag()) {
@@ -97,6 +103,12 @@ register_post_type('article', array(
 )
 ) ); }
 
+/*
+=================================
+REWRITE RULES
+=================================
+*/
+
 function add_article_rewrite_rules() {
     add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
     add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
@@ -126,46 +138,11 @@ function article_permalink($post_link, $id = 0, $leavename) {
   return $newlink;
 }
 
-/*add_filter('post_type_link', 'article_permalink', 1, 3);
-function article_permalink($post_link, $id = 0, $leavename) {
-  global $wp_rewrite;
-  $post = &get_post($id);
-  if ( is_wp_error( $post ) )
-    return $post;
-  $newlink = $wp_rewrite->get_extra_permastruct('article');
-  $newlink = str_replace("%article_id%", $post->ID, $newlink);
-  $newlink = str_replace("%article_name%", $post->post_name, $newlink);
-  $newlink = home_url(user_trailingslashit($newlink));
-  return $newlink;
-}*/
-
-/*add_action('init', 'article_rewrite');
-function article_rewrite() {
-  global $wp_rewrite;
-  $queryarg = 'post_type=article&p=';
-  $wp_rewrite->add_rewrite_tag('%article_id%', '([^/]+)', $queryarg);
-  $wp_rewrite->add_rewrite_tag('%article_name%', '([^/]+)', $queryarg);
-  $wp_rewrite->add_permastruct('article', '/article/%article_id%/%article_name%/', false);
-}
-
-add_filter('post_type_link', 'article_permalink', 1, 3);
-function article_permalink($post_link, $id = 0, $leavename) {
-  global $wp_rewrite;
-  $post = &get_post($id);
-  if ( is_wp_error( $post ) )
-    return $post;
-  $newlink = $wp_rewrite->get_extra_permastruct('article');
-  $newlink = str_replace("%article_id%", $post->ID, $newlink);
-  $newlink = str_replace("%article_name%", $post->post_name, $newlink);
-  $newlink = home_url(user_trailingslashit($newlink));
-  return $newlink;
-}*/
-
 /*
 =================================
 CUSTOM SIDEBARS
 =================================
- */
+*/
 
 register_sidebar(array(
 	'name' => __('About Sidebar'),

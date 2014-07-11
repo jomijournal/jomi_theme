@@ -100,19 +100,19 @@
   <h2>Tier 2</h2>
   <div class="orgs small">
 	<div class="row">
-		<a href = "http://www2.kent.edu/library/index.cfm"><div class="org col-xs-2"><div class="logosmall"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/kentstate.png"></div></div></a>
-		<a href = "http://library.nmsu.edu/"><div class="org col-xs-2"><div class="logosmall"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/newmexico.png"></div></div></a>
-		<a href = "http://ahsl.arizona.edu/"><div class="org col-xs-2"><div class="logosmall"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/arizona.png"></div></div></a>
+		<a href = "http://www2.kent.edu/library/index.cfm"><div class="org col-xs-2"><div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/kentstate.png"></div></div></a>
+		<a href = "http://library.nmsu.edu/"><div class="org col-xs-2"><div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/newmexico.png"></div></div></a>
+		<a href = "http://ahsl.arizona.edu/"><div class="org col-xs-2"><div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/arizona.png"></div></div></a>
 	</div>
   </div>
 
   <h2>Tier 3</h2>
   <div class="orgs small">
 	<div class="row">
-		<a href = "http://www.jmmc.com/"><div class="org col-xs-2"><div class="logosmall"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/johnston.png"></div></div></a>
-		<a href = "http://www.nvrh.org/interior.php/pid/6/sid/51"><div class="org col-xs-2"><div class="logosmall"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/vermont.png"></div></div></a>
-		<a href = "http://bhson.org/health-sciences-library/"><div class="org col-xs-2"><div class="logosmall"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/signature.png"></div></div></a>
-		<a href = "http://www.westernconnecticuthealthnetwork.org/"><div class="org col-xs-2"><div class="logosmall"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/conneticut.png"></div></div></a>
+		<a href = "http://www.jmmc.com/"><div class="org col-xs-2"><div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/johnston.png"></div></div></a>
+		<a href = "http://www.nvrh.org/interior.php/pid/6/sid/51"><div class="org col-xs-2"><div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/vermont.png"></div></div></a>
+		<a href = "http://bhson.org/health-sciences-library/"><div class="org col-xs-2"><div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/signature.png"></div></div></a>
+		<a href = "http://www.westernconnecticuthealthnetwork.org/"><div class="org col-xs-2"><div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/conneticut.png"></div></div></a>
 	</div>
   </div>
 

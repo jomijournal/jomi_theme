@@ -593,8 +593,18 @@ header.site-header {
 
 //* MOBILE
 
-@media (min-width: @screen-sm-min) { }
-
-@media (min-width: @screen-md-min) { }
-
-@media (min-width: @screen-lg-min) { }
+@media (max-width : 980px) {
+   .taglines h1 br{
+      display: none;
+   }
+   .partners img{
+      width: 45% !important;
+   }
+   footer{
+      position: relative !important;
+      margin-top: 65px;
+      li{
+         margin-bottom: 15px !important;
+      }
+   }
+}

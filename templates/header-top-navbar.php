@@ -29,7 +29,7 @@ global $user;
 								<input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
 								<span class="label label-danger" id="error-password" style="display:none;">Invalid password</span>
 								<input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
-								<input class="btn" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+								<input class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
 							</div>
 						</div>
 					</li>

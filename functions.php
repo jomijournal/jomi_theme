@@ -98,7 +98,8 @@ register_post_type('article', array(
 ) ); }
 
 function add_article_rewrite_rules() {
-    add_rewrite_rule('^article/([^/]*)/([^/]*)?','index.php?post_type=article&p=$matches[1]','top');
+    add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
+    add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
     flush_rewrite_rules();
 }
 add_action( 'init', 'add_article_rewrite_rules' );

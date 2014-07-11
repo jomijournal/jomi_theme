@@ -17,7 +17,7 @@ global $user;
 	        	<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
 	        </div>
 	        <!-- Navbar buttons for desktop -->
-	        <div class='col-xs-8 hidden-xs'>
+	        <div class='col-xs-8'>
 		        <nav class="nav-top">
 		          <ul>
 		          	<?php if(!$user){ ?>
@@ -29,14 +29,14 @@ global $user;
 								<input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
 								<span class="label label-danger" id="error-password" style="display:none;">Invalid password</span>
 								<input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
-								<input class="btn" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+								<input class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
 							</div>
 						</div>
 					</li>
-		            <li><a href="/pricing">Pricing</a></li>
-		            <li><a href="/contact">Contact</a></li>
+		            <li><a href="/pricing" class="hidden-xs">Pricing</a></li>
+		            <li><a href="/contact" class="hidden-xs">Contact</a></li>
 		            <?php } else { ?>
-		            <li><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
+		            <li class="hidden-xs"><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
 		            <li><a href="/articles">All articles</a></li>
 		            <li><a href="/?logout" id="logout-btn">Sign out</a></li>
 		            <?php } ?>
@@ -44,6 +44,11 @@ global $user;
 		        </nav>
 		    </div>
 	    </div>
+	    <?php if($user){ ?>
+	    <div class="row visible-xs" style="margin-top:25px;">
+	    	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" />
+	    </div>
+	    <?php } ?>
       </header>
     </main>
   </div>

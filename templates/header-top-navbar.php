@@ -44,7 +44,7 @@ global $user;
 		        </nav>
 		    </div>
 	    </div>
-	    <?php if(!$user){ ?>
+	    <?php if($user){ ?>
 	    <div class="row visible-xs" style="margin-top:25px;">
 	    	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" />
 	    </div>

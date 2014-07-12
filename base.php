@@ -16,17 +16,20 @@
     get_template_part('templates/header-top-navbar');
   ?>
 
+  <div class="container">
+    <div class="video-area row">
+      <div id="chapters" class="col-xs-4">
+        <ul></ul>
+      </div>
+      <div class="video-holder col-xs-8" id="video">
+        <div id="wistia" class="wistia_embed" style="width:720px;height:405px;display:none;">&nbsp;</div>
+        <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
+      </div>
+    </div>
+  </div>
+
   <div class="container wrap" role="document">
     <div class="content row">
-      <div class="video-area">
-        <div id="chapters">
-          <ul></ul>
-        </div>
-        <div class="video-holder" id="video">
-          <div id="wistia" class="wistia_embed" style="width:720px;height:405px;display:none;">&nbsp;</div>
-          <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
-        </div>
-      </div>
       <main class="main <?php echo roots_main_class(); ?>" role="main">
         <?php include roots_template_path(); ?>
       </main><!-- /.main -->

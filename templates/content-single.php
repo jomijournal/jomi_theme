@@ -8,9 +8,9 @@
       });
       wistiaEmbed.bind("secondchange", function (s) {
         if(s > 60*10 && !user) {
-          $('.wistia_embed').empty().append('<h2>Please sign in to watch the rest of the video.</h2><h3>Contact your hospital or educational institution for login details.</h3><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 653px;text-align: center;padding-top: 200px;border: 3px solid #eee;');
+          $('.wistia_embed').empty().append('<h2 style="color:#fff">Please sign in to watch the rest of the video.</h2><h3 style="color:#fff">Contact your hospital or educational institution for login details.</h3><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 653px;text-align: center;padding-top: 200px;border: 3px solid #eee;');
         }
-        $('.vtime-item').removeClass('done, current');
+        $('.vtime-item').removeClass('done').removeClass('current');
         $('.vtime-item').each(function(index){
           if($(this).data('time') < s)
           {

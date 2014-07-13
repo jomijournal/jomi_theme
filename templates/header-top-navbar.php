@@ -33,8 +33,11 @@ global $user;
 							</div>
 						</div>
 					</li>
-		            <li><a href="/pricing" class="hidden-xs">Pricing</a></li>
-		            <li><a href="/contact" class="hidden-xs">Contact</a></li>
+
+		            <li><a href='/institutions/' class="hidden-xs<?php 	if( is_page( 'institutions') ) echo " active"; ?>">Subscribers</a></li>
+		            <li><a href="/pricing" class="hidden-xs<?php 		if( is_page( 'pricing') ) echo " active"; ?>">Pricing</a></li>
+		            <li><a href="/contact" class="hidden-xs<?php 		if( is_page( 'contact') ) echo " active"; ?>">Contact</a></li>
+		            <li><a href="/about" class="hidden-xs<?php 			if( is_page( 'about') ) echo " active"; ?>">About</a></li>
 		            <?php } else { ?>
 		            <li class="hidden-xs"><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
 		            <li><a href="/articles">All articles</a></li>

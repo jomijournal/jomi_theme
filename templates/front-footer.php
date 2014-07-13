@@ -1,6 +1,6 @@
 <footer>
   <div class='row'>
-	  <h4>Preview content on:</h4>
+	  <h4>Specialties:</h4>
   </div>
   <div class='row'>
 	  <div class='col-sm-8 col-sm-offset-2'>

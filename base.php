@@ -36,7 +36,7 @@
       <?php if (roots_display_sidebar()) : ?>
         <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
           <?php 
-          if(is_page('about') || is_page('contact') || is_page('pricing')) {
+          if(is_page('about') || is_page('contact') || is_page('pricing') || is_page('area-notification-request')) {
             include about_sidebar_path();
           } else {
             include roots_sidebar_path();

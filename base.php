@@ -51,7 +51,9 @@
 
   </div><!-- /.wrap -->
 
-  <?php get_template_part('templates/footer'); ?>
+  <?php if(!is_front_page()){ ?>
+    <?php get_template_part('templates/footer'); ?>
+  <?php } ?>
 
 </body>
 </html>

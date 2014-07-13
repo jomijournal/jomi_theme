@@ -22,7 +22,7 @@ global $user;
 		          <ul>
 		          	<?php if(!$user){ ?>
 		            <li class="dropdown">
-						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign in</a>
+						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 						<div class="dropdown-menu" style="padding: 15px;">
 							<div id="login-form">
 								<span class="label label-danger" id="error-login" style="display:none;">User does not exist</span>
@@ -38,7 +38,7 @@ global $user;
 		            <?php } else { ?>
 		            <li class="hidden-xs"><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
 		            <li><a href="/articles">All articles</a></li>
-		            <li><a href="/?logout" id="logout-btn">Sign out</a></li>
+		            <li><a href="/?logout" id="logout-btn">Sign&nbsp;out</a></li>
 		            <?php } ?>
 		          </ul>
 		        </nav>

@@ -3,7 +3,7 @@
 		<div class="container">
 		    <div class="row">
 	            <div class="col-sm-7">
-	            <img src="/wp-content/themes/jomi/assets/img/logo.png">
+	            <a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a>
 	            <h5>ISSN: 2373-6003</h5>
 	            </div>
 	            <div class="col-sm-3">

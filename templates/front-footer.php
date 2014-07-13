@@ -7,13 +7,25 @@
 		  <nav class="nav-bottom">
 		    <ul>
 		      <div class='col-md-4'>
+		      	<li><a href="/articles/" class="border">All</a></li>
+		      </div>
+		      <div class='col-md-4'>
 		      	<li><a href="/orthopedics/" class="border">Orthopedics</a></li>
 		      </div>
 		      <div class='col-md-4'>
 		      	<li><a href="/general/" class="border">General Surgery</a></li>
 		      </div>
+		    </ul>
+
+		    <ul>
 		      <div class='col-md-4'>
-		      	<li class='coming-soon'><a href="/ophthalmology/" class="border">Ophthalmology</a></li>
+		      	<li class='coming-soon'><a href="/area-notification-request/?area=ENT" class="border">ENT</a></li>
+		      </div>
+		      <div class='col-md-4'>
+		      	<li class='coming-soon'><a href="/area-notification-request/?area=ophthalmology" class="border">Ophthalmology</a></li>
+		      </div>
+		      <div class='col-md-4'>
+		      	<li class='coming-soon'><a href="/area-notification-request/?area=fundamentals" class="border">Fundamentals</a></li>
 		      </div>
 		    </ul>
 		  </nav>

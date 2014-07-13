@@ -49,11 +49,9 @@
     <?php get_template_part('templates/front', 'footer'); ?>
   <?php } ?>
 
-  <?php get_template_part('templates/footer'); ?>
-
   </div><!-- /.wrap -->
 
-
+  <?php get_template_part('templates/footer'); ?>
 
 </body>
 </html>

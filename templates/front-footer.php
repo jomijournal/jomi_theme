@@ -36,11 +36,11 @@
 <script>
 $('li').each(function(index){
 	if($(this).hasClass('coming-soon')) {
-		og = $(this).find('a').text();
+		$(this).attr('og', $(this).find('a').text());
 		$(this).hover( function() {
 			$(this).find('a').text('Coming Soon');
 		}, function() {
-			$(this).find('a').text(og);
+			$(this).find('a').text($(this).attr('og'));
 		});
 	}
 });

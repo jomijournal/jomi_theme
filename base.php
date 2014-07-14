@@ -62,11 +62,11 @@ Base is the entry point for most pages.
     <?php get_template_part('templates/front', 'footer'); ?>
   <?php } ?>
 
-  <?php get_template_part('templates/footer'); ?>
-
   </div><!-- /.wrap -->
 
-
+  <?php if(!is_front_page()){ ?>
+    <?php get_template_part('templates/footer'); ?>
+  <?php } ?>
 
 </body>
 </html>

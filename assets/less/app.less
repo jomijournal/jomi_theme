@@ -91,6 +91,17 @@ input[type=text], input[type=password], input[type=email], textarea{
    }
 }
 
+.dropdown-menu{
+   position: fixed;
+   width: 100%;
+   top: 100px;
+   //left: 0;
+   margin: 0;
+   input{
+      width:100% !important;
+   }
+}
+
 .wpcf7 input[type=text], .wpcf7 input[type=password], .wpcf7 input[type=email]{
    width:70%;
 }
@@ -219,6 +230,7 @@ header.site-header {
                color: #000;
                text-decoration: none;
             }
+            
          }
       }
    }
@@ -327,7 +339,7 @@ header.site-header {
       position: absolute; // needs to be relative to prevent wrapping
       //position: relative;
       //margin-top: 100px;
-      bottom: 25px;
+      bottom: -5px;
       left:0;
       right:0;
       text-align: center;
@@ -656,16 +668,7 @@ header.site-header {
    html.js {
       margin-top: 32px !important;
    }
-   .dropdown-menu{
-      position: fixed;
-      width: 100%;
-      top: 55px;
-      left: 0;
-      margin: 0;
-      input{
-         width:100% !important;
-      }
-   }
+
    .taglines{
       margin:0 !important;
    }
@@ -691,6 +694,12 @@ header.site-header {
       nav ul li{
          margin-left: 15px;
       }
+   }
+   .dropdown-menu {
+      position: absolute;
+      top: 30px;
+      width: 300px;
+      margin: 0 0;
    }
    .taglines h1 br{
       display: none;

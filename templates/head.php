@@ -4,8 +4,6 @@ global $user;
 /* USERAPP */
 use \UserApp\Widget\User;
 
-User::setAppId("53b5e44372154");
-
 $auth = false;
 if (User::authenticated()) {
 	$auth = true;
@@ -69,3 +67,7 @@ if($user && isset($_GET["logout"]))
 
 	<link rel="alternate" type="application/rss+xml" title="<?php echo get_bloginfo('name'); ?> Feed" href="<?php echo esc_url(get_feed_link()); ?>">
 </head>
+
+<script>
+ var user = '<?php echo $user->user_id; ?>';
+</script>

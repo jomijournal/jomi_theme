@@ -1,9 +1,9 @@
 <?php while (have_posts()) : the_post(); ?>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#thoughts" role="tab" data-toggle="tab">Send Your Thoughts</a></li>
-    <li><a href="#request" role="tab" data-toggle="tab">Request A Topic</a></li>
-    <li><a href="#propose" role="tab" data-toggle="tab">Propose A Procedure</a></li>
+    <li class="active"><a href="#thoughts" role="tab" data-toggle="tab">Send your Thoughts</a></li>
+    <li><a href="#request" role="tab" data-toggle="tab">Request a Topic</a></li>
+    <li><a href="#propose" role="tab" data-toggle="tab">Propose a Procedure</a></li>
   </ul>
 
   <!-- Tab panes -->

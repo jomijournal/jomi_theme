@@ -9,6 +9,11 @@ function roots_template_path() {
   return Roots_Wrapping::$main_template;
 }
 
+function article_sidebar_path()
+{
+  return new Roots_Wrapping('templates/sidebar-article.php');  
+}
+
 function roots_sidebar_path() {
   return new Roots_Wrapping('templates/sidebar.php');
 }

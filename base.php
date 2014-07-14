@@ -1,3 +1,8 @@
+<?php /*
+Base is the entry point for most pages. 
+
+
+*/?>
 <?php get_template_part('templates/head'); ?>
 <body <?php body_class(); ?>>
 
@@ -16,6 +21,9 @@
     get_template_part('templates/header-top-navbar');
   ?>
 
+  <?php 
+  if(is_single()) {?>
+
   <div class="container">
     <div class="video-area row">
       <div id="chapters" class="col-xs-4">
@@ -28,6 +36,8 @@
     </div>
   </div>
 
+  <?php } ?>
+
   <div class="container wrap" role="document">
     <div class="content row">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
@@ -38,6 +48,8 @@
           <?php 
           if(is_page('about') || is_page('contact') || is_page('pricing') || is_page('area-notification-request')) {
             include about_sidebar_path();
+          } else if ( is_singular() ) {
+            include article_sidebar_path();
           } else {
             include roots_sidebar_path();
           }
@@ -45,6 +57,7 @@
         </aside><!-- /.sidebar -->
       <?php endif; ?>
     </div><!-- /.content -->
+
   <?php if(is_front_page()){ ?>
     <?php get_template_part('templates/front', 'footer'); ?>
   <?php } ?>

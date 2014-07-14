@@ -1,6 +1,8 @@
 <?php while (have_posts()) : the_post(); ?>
-  <h4>We believe in offering the highest quality surgical videos, created in partnership with leading schools and professionals who share our commitment to excellence in medical instruction.</p>
-  <h2>Tier 1</h4>
+  <p>JoMI's goal is to contribute to improvement in quality of care and medical education through publishing
+  high quality surgical videos.  The following institutions share our commitment to 
+  excellence in medical instruction.
+  <h2>Tier 1</h2>
 
   <div class="orgs large">
   	<div class="row">

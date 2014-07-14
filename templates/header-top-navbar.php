@@ -34,7 +34,7 @@ global $user;
 						</div>
 					</li>
 
-		            <li><a href='/institutions/' class="hidden-xs<?php 	if( is_page( 'institutions') ) echo " active"; ?>">Subscribers</a></li>
+		            <li><a href='/subscribers/' class="hidden-xs<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribers</a></li>
 		            <li><a href="/pricing" class="hidden-xs<?php 		if( is_page( 'pricing') ) echo " active"; ?>">Pricing</a></li>
 		            <li><a href="/contact" class="hidden-xs<?php 		if( is_page( 'contact') ) echo " active"; ?>">Contact</a></li>
 		            <li><a href="/about" class="hidden-xs<?php 			if( is_page( 'about') ) echo " active"; ?>">About</a></li>

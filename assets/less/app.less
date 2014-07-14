@@ -638,7 +638,22 @@ header.site-header {
 
 //* MOBILE
 
-@media (max-width : 980px) {
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+footer{
+   position: relative !important;
+   margin-top: 65px;
+   li{
+      margin-bottom: 15px !important;
+   }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+   html.js {
+      margin-top: 32px !important;
+   }
    .dropdown-menu{
       position: fixed;
       width: 100%;
@@ -666,13 +681,13 @@ header.site-header {
          }
       }
    }
-   .site-header{
+   header.site-header{
       margin: 25px 0 !important;
       .logo img{
          width: 80%;
       }
       nav ul li{
-         margin-left:0 !important;
+         margin-left: 15px;
       }
    }
    .taglines h1 br{
@@ -697,12 +712,15 @@ header.site-header {
    }
 }
 
-@media (max-height : 700px) {
-   footer{
-      position: relative !important;
-      margin-top: 65px;
-      li{
-         margin-bottom: 15px !important;
-      }
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  header.site-header {
+   nav ul li {
+      margin-left: 25px;
    }
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
 }

@@ -500,26 +500,70 @@ header.site-header {
    font-variant: small-caps;
 }
 
-.orgs {margin-bottom:45px;}
-.org{text-align:center;}
-.org .logo{padding: 20px 0;background-color:#f8f8f8;}
-.org .lab{
-   background-color: #eee;
-   color: #646464;
-   font-weight: 700;
-   font-size: .7em;
-   padding: 5px 0;
+.orgs {
+   //margin-bottom:45px;
+   &.small{
+      .logo{
+         display: none;
+      }
+   }
+   &.large{
+      .logo{
+         display:block;
+      }
+      .lab{
+         margin-bottom: 10px;
+      }
+   }
 }
-.org .logosmall{
-   padding: 20px 0;
-   background-color:#EBEBEB;
-   border-radius:8px;
-}
+.org{
+   text-align:center;
 
-.org:hover .logo {background-color:#CECECE;}
-.org:hover .logosmall {background-color:#CECECE;}
-.org:hover .lab{background-color:#B3B3B3;
-               color: #ffffff;}
+   .logo{
+      padding: 20px 0;
+      background-color:#f8f8f8;
+      //display: none;
+      img{
+         //width: 100%;
+         width: auto;
+      }
+      &:hover{
+
+      }
+   }
+   .link{
+      text-decoration: none;
+      color: #555;
+      font-size: 20px;
+      text-align: left;
+   }
+   .lab{
+      background-color: #eee;
+      color: #646464;
+      font-weight: 700;
+      font-size: .7em;
+      padding: 5px 0;
+   }
+   .logosmall{
+      padding: 20px 0;
+      background-color:#EBEBEB;
+      border-radius:8px;
+   }
+
+   &:hover{ 
+      .logo {
+         background-color:#CECECE;
+      }
+      .logosmall {
+         background-color:#CECECE;
+      }
+      .lab{
+         background-color:#B3B3B3;
+         color: #ffffff;
+      }
+   }
+
+}
 .logopic{
    width: 80%;
 }
@@ -668,23 +712,29 @@ header.site-header {
    html.js {
       margin-top: 32px !important;
    }
-
-   .taglines{
-      margin:0 !important;
-   }
    .orgs{
-      .org{
+      margin-bottom:45px;
+      .org .logo img{
          width: 100%;
-         margin-bottom:10px !important;
+         //margin-bottom:10px !important;
       }
-      &.large{
 
+      &.large{
+         .lab{
+            margin-bottom: 0px;
+         }
       }
       &.small{
          .logo{
             display:none;
          }
+         .link{
+            display:block;
+         }
       }
+   }
+   .taglines{
+      margin:0 !important;
    }
    header.site-header{
       margin: 25px 0 !important;
@@ -730,8 +780,31 @@ header.site-header {
       margin-left: 25px;
    }
   }
+   .orgs{
+      .org .logo img{
+         //width: 100%;
+         //margin-bottom:10px !important;
+      }
+      &.large{
+
+      }
+      &.small{
+         .logo{
+            display: block;
+         }
+         .link{
+            display: none;
+         }
+      }
+   }
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
+   .orgs{
+      .org .logo img{
+         width: auto;
+         //margin-bottom:10px !important;
+      }
+   }
 }

@@ -38,6 +38,12 @@ Base is the entry point for most pages.
 
   <?php } ?>
 
+
+<?php if(is_page('support-us') ){ ?>
+  <?php include roots_template_path(); ?>
+  <?php } else { ?>
+
+
   <div class="container wrap" role="document">
     <div class="content row">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
@@ -57,6 +63,8 @@ Base is the entry point for most pages.
         </aside><!-- /.sidebar -->
       <?php endif; ?>
     </div><!-- /.content -->
+
+  <?php } ?>
 
   <?php if(is_front_page()){ ?>
     <?php get_template_part('templates/front', 'footer'); ?>

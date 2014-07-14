@@ -116,6 +116,11 @@ global $user;
 		$('#login-form input[type=submit]').click(function(){
 			emailLogin();
 		});
+		$('#login-form input[name="password"]').keypress(function (event) {
+			if ( event.which == 13 || event.which == 10) {
+		      emailLogin();
+		    }
+		});
 		$('#search-field').keydown(function(event){
 			if(event.which == 13)
 			{

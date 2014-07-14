@@ -641,11 +641,13 @@ header.site-header {
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 
-footer{
-   position: relative !important;
-   margin-top: 65px;
-   li{
-      margin-bottom: 15px !important;
+@media (max-height : 700px) {
+   footer{
+      position: relative !important;
+      margin-top: 65px;
+      li{
+         margin-bottom: 15px !important;
+      }
    }
 }
 

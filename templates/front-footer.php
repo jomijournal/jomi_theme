@@ -3,7 +3,7 @@
 	  <h4>Specialties:</h4>
   </div>
   <div class='row'>
-	  <div class='col-sm-8 col-sm-offset-2'>
+	  <div class='col-md-12'>
 		  <nav class="nav-bottom">
 		    <ul>
 		      <div class='col-md-4'>

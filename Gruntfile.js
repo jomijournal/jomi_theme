@@ -105,13 +105,20 @@ module.exports = function(grunt) {
         parseFiles: true
       }
     },
-    version: {
+    /*version: {
       options: {
         file: 'lib/scripts.php',
         css: 'assets/css/main.min.css',
         cssHandle: 'roots_main',
         js: 'assets/js/scripts.min.js',
         jsHandle: 'roots_scripts'
+      }
+    },*/
+    version: {
+      assets: {
+        files: {
+          'lib/scripts.php': ['assets/css/main.min.css', 'assets/js/scripts.min.js']
+        }
       }
     },
     watch: {
@@ -135,8 +142,8 @@ module.exports = function(grunt) {
           livereload: true
         },
         files: [
-          'assets/css/main.css',
-          'assets/js/scripts.js',
+          'assets/css/main.min.css',
+          'assets/js/scripts.min.js',
           'templates/*.php',
           '*.php'
         ]

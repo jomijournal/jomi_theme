@@ -4,7 +4,9 @@
 node_modules
 assets/css/main.min.css.map
 assets/css/main.min.css
+assets/css/*.min.css
 assets/js/scripts.min.js
 assets/js/scripts.js
+assets/js/*.min.js
 lib/scripts.php
 refresh.sh

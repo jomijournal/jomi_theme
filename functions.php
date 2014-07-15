@@ -105,6 +105,59 @@ register_post_type('article', array(
 
 /*
 =================================
+POST STATUSES
+=================================
+*/
+
+function unread_post_status(){
+  register_post_status( 'preprint', array(
+    'label'                     => _x( 'Preprint', 'article' ),
+    'public'                    => true,
+    'exclude_from_search'       => true,
+    'show_in_admin_all_list'    => true,
+    'show_in_admin_status_list' => true,
+    'label_count'               => _n_noop( 'Preprint <span class="count">(%s)</span>', 'Preprint <span class="count">(%s)</span>' ),
+  ) );
+}
+add_action( 'init', 'unread_post_status' );
+
+add_action('admin_footer-post.php', 'append_post_status_list');
+function append_post_status_list(){
+  global $post;
+  $complete = '';
+  $label = '';
+  if($post->post_type == 'article')
+  {
+      if($post->post_status == 'preprint')
+      {
+           $complete = ' selected=\"selected\"';
+           $label = '<span id=\"post-status-display\"> Preprint</span>';
+      }
+      echo '
+      <script>
+      jQuery(document).ready(function($){
+           $("select#post_status").append("<option value=\"preprint\" '.$complete.'>Preprint</option>");
+           $(".misc-pub-section label").append("'.$label.'");
+      });
+      </script>
+      ';
+  }
+}
+
+function display_archive_state( $states ) {
+     global $post;
+     $arg = get_query_var( 'post_status' );
+     if($arg != 'preprint'){
+          if($post->post_status == 'preprint'){
+               return array('Preprint');
+          }
+     }
+    return $states;
+}
+add_filter( 'display_post_states', 'display_archive_state' );
+
+/*
+=================================
 REWRITE RULES
 =================================
 */

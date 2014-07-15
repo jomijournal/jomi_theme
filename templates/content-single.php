@@ -35,7 +35,7 @@
     <div class="entry-content">
       <div class="tab-content">
         <div class="tab-pane active" id="main"><?php the_content(); ?></div>
-        <div class="tab-pane" id="outline"><?php the_block( 'Procedure Outline' ); ?></div>
+        <div class="tab-pane" id="outline"><?php the_field('outline'); ?></div>
       </div>
     </div>
     <div>

@@ -16,6 +16,9 @@ $args=array(
 );
 $my_query = null;
 $my_query = new WP_Query($args);
+
+$post_count = 0;
+
 if (!$my_query->have_posts()) : ?>
   <div class="alert alert-warning">
     <?php _e('Sorry, no results were found.', 'roots'); ?>
@@ -23,8 +26,21 @@ if (!$my_query->have_posts()) : ?>
   <?php get_search_form(); ?>
 <?php endif; ?>
 
-<?php while ($my_query->have_posts()) : $my_query->the_post(); ?>
-  <?php get_template_part('templates/content', get_post_format()); ?>
+<?php while ($my_query->have_posts()) : 
+  $my_query->the_post(); ?>
+  <?php if($post_count == 0): ?>
+    <div class='row'>
+    <div class='col-sm-6'>
+    <?php get_template_part('templates/content', get_post_format()); ?>
+    <?php $post_count++; ?>
+    </div>
+  <?php elseif($post_count == 1): ?>
+    <div class='col-sm-6'>
+    <?php get_template_part('templates/content', get_post_format()); ?>
+    <?php $post_count = 0; ?>
+    </div>
+    </div>
+  <?php endif ?>
 <?php endwhile; ?>
 
 <?php if ($wp_query->max_num_pages > 1) : ?>

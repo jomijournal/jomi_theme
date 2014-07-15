@@ -54,7 +54,7 @@ Base is the entry point for most pages.
           <?php 
           if(is_page('about') || is_page('contact') || is_page('pricing') || is_page('area-notification-request')) {
             include about_sidebar_path();
-          } else if ( is_singular() ) {
+          } else if ( is_single() ) {
             include article_sidebar_path();
           } else {
             include roots_sidebar_path();

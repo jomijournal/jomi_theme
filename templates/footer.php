@@ -1,5 +1,5 @@
 <footer class="content-info" role="contentinfo">
-	<div class="footer" style="border-top:solid 1px #424242; margin-top: 40px; padding-top:20px;">
+	<div class="footer">
 		<div class="container">
 		    <div class="row">
 	            <div class="col-sm-7">

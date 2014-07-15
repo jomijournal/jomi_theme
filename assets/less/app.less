@@ -35,6 +35,10 @@ html, body {
 	//height: 100%;
 }
 
+html.js {
+   margin-top: 0px !important;
+}
+
 body {
    color: @jomi-light;
    background: @jomi-dark;
@@ -44,6 +48,11 @@ body {
 
 h1, h2, h3, h4, h5{
    line-height:1.4;
+}
+
+.container {
+   padding-left: 0px;
+   padding-right: 0px;
 }
 
 .white-panel {
@@ -469,9 +478,23 @@ header.site-header {
 .page .kcite-boilerplate {
 	display: none;
 }
-
-.entry-title{
+// ------------------
+// ARTICLE THUMBNAILS
+// ------------------
+article .entry-title{
    margin-top:0;
+   font-size: 16px;
+   a {
+      color: #fff;
+      text-decoration: none;
+   }
+}
+article .article-overlay{
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   background: #000;
+   opacity: .5;
 }
 
 .kcite{
@@ -667,6 +690,15 @@ header.site-header {
 
 .content-info { }
 
+footer .footer{
+   border-top:solid 1px #424242; 
+   //margin-top: 40px; 
+   padding: 10px 20px;
+   ul.social-icons li {
+      margin-bottom: 0px;
+   }
+}
+
 //* ERRORS
 
 .fourohfour {
@@ -703,9 +735,9 @@ header.site-header {
    }
    footer{
       position: relative !important;
-      margin-top: 65px;
+      margin-top: 45px;
       li{
-         margin-bottom: 15px !important;
+         //margin-bottom: 15px !important;
       }
    }
 }
@@ -714,6 +746,10 @@ header.site-header {
 @media (min-width: 768px) { 
    html.js {
       margin-top: 32px !important;
+   }
+   .container {
+      padding-left: 15px;
+      padding-right: 15px;
    }
    .orgs{
       margin-bottom:45px;
@@ -766,9 +802,9 @@ header.site-header {
    }
    footer{
       position: relative !important;
-      margin-top: 65px;
+      margin-top: 45px;
       li{
-         margin-bottom: 15px !important;
+         //margin-bottom: 15px !important;
       }
    }
 }

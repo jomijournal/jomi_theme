@@ -59,7 +59,8 @@ function roots_display_sidebar() {
       array('is_page', 'is_page_template'),
       array('is_page', 'pricing'),
       array('is_page', 'support-us'),
-      array('is_page', 'subscribers')
+      array('is_page', 'subscribers'),
+      array('is_page', 'articles')
     ),
     /**
      * Page template checks (via is_page_template())

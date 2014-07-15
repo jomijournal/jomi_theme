@@ -46,13 +46,9 @@ Base is the entry point for most pages.
   <div class="container wrap" role="document">
     <div class="content row">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
-      <?php echo "XXX" ?>
         <?php include roots_template_path(); ?>
-      <?php echo "YYY" ?>
       </main><!-- /.main -->
-      <?php echo "AAA" ?>
       <?php if (roots_display_sidebar()) : ?>
-        <?php echo "BBB" ?>
         <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
           <?php 
           if(is_page('about') || is_page('contact') || is_page('pricing') || is_page('area-notification-request')) {

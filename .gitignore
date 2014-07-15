@@ -7,3 +7,5 @@ assets/css/main.min.css
 assets/js/scripts.min.js
 assets/js/scripts.js
 lib/scripts.php
+*.sublime-project
+*.sublime-workspace

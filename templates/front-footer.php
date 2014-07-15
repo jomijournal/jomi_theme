@@ -3,7 +3,7 @@
 	  <h4>Specialties:</h4>
   </div>
   <div class='row'>
-	  <div class='col-sm-8 col-sm-offset-2'>
+	  <div class='col-md-12'>
 		  <nav class="nav-bottom">
 		    <ul>
 		      <div class='col-md-4'>
@@ -36,11 +36,11 @@
 <script>
 $('li').each(function(index){
 	if($(this).hasClass('coming-soon')) {
-		og = $(this).find('a').text();
+		$(this).attr('og', $(this).find('a').text());
 		$(this).hover( function() {
 			$(this).find('a').text('Coming Soon');
 		}, function() {
-			$(this).find('a').text(og);
+			$(this).find('a').text($(this).attr('og'));
 		});
 	}
 });

@@ -9,6 +9,6 @@
 				<img src='/wp-content/themes/jomi/assets/img/clients/logo-ucsf.png'></img>
 				<img src='/wp-content/themes/jomi/assets/img/clients/logo-mgh.png'></img>
 			</div>
-			<a class="mini-link" href='/institutions/'>See all subscribers →</a>
+			<a class="mini-link" href='/subscribers/'>See all subscribers →</a>
 		</div>
 </div>

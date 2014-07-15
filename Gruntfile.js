@@ -114,6 +114,13 @@ module.exports = function(grunt) {
         jsHandle: 'roots_scripts'
       }
     },
+    /*(version: {
+      assets: {
+        files: {
+          'lib/scripts.php': ['assets/css/main.min.css', 'assets/js/scripts.min.js']
+        }
+      }
+    },*/
     watch: {
       less: {
         files: [
@@ -135,8 +142,8 @@ module.exports = function(grunt) {
           livereload: true
         },
         files: [
-          'assets/css/main.css',
-          'assets/js/scripts.js',
+          'assets/css/main.min.css',
+          'assets/js/scripts.min.js',
           'templates/*.php',
           '*.php'
         ]

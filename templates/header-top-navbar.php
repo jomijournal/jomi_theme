@@ -23,7 +23,7 @@ global $user;
 		          	<?php if(!$user){ ?>
 		            <li class="dropdown">
 						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
-						<div class="dropdown-menu" style="padding: 15px;">
+						<div class="dropdown-menu pull-right" style="padding: 15px;">
 							<div id="login-form">
 								<span class="label label-danger" id="error-login" style="display:none;">User does not exist</span>
 								<input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
@@ -115,6 +115,11 @@ global $user;
 		}
 		$('#login-form input[type=submit]').click(function(){
 			emailLogin();
+		});
+		$('#login-form input[name="password"]').keypress(function (event) {
+			if ( event.which == 13 || event.which == 10) {
+		      emailLogin();
+		    }
 		});
 		$('#search-field').keydown(function(event){
 			if(event.which == 13)

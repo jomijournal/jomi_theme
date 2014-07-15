@@ -1,8 +1,8 @@
-<?php /*
+<?php
+/*
 Base is the entry point for most pages. 
-
-
-*/?>
+*/
+?>
 <?php get_template_part('templates/head'); ?>
 <body <?php body_class(); ?>>
 
@@ -38,9 +38,8 @@ Base is the entry point for most pages.
 
   <?php } ?>
 
-
-<?php if(is_page('support-us') ){ ?>
-  <?php include roots_template_path(); ?>
+  <?php if(is_page('support-us')){ ?>
+    <?php include roots_template_path(); ?>
   <?php } else { ?>
 
 

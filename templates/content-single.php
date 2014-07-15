@@ -27,15 +27,15 @@
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
       <?php get_template_part('templates/entry-meta'); ?>
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#main">Main Text</a></li>
-        <li><a href="#outline">Procedure Outline</a></li>
+      <ul class="nav nav-tabs" role="tablist" data-toggle="tabs">
+        <li class="active"><a href="#main" data-toggle="tab">Main Text</a></li>
+        <li><a href="#outline" data-toggle="tab">Procedure Outline</a></li>
       </ul>
     </header>
     <div class="entry-content">
       <div class="tab-content">
         <div class="tab-pane active" id="main"><?php the_content(); ?></div>
-        <div class="tab-pane" id="outline"><?php the_block( 'Procedure Outline' ); ?></div>
+        <div class="tab-pane" id="outline"><?php the_field('outline'); ?></div>
       </div>
     </div>
     <div>

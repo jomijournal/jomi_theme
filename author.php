@@ -8,6 +8,7 @@ Template Name: Articles
 
 <?php
 $type = 'article';
+$author_name = $_GET['author_name'];
 $args=array(
   'post_type' => $type,
   'post_status' => 'publish',

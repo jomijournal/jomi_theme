@@ -1,6 +1,6 @@
 <?php while (have_posts()) : the_post(); ?>
   <article <?php post_class(); ?>>
-    <?php $wistia = get_post_meta( $post->ID, 'wistia', true ); ?>
+    <?php $wistia = get_the_field('wistia_id'); ?>
     <script>
       $("#wistia").attr('id', 'wistia_<?php echo $wistia ?>').show();
       wistiaEmbed = Wistia.embed("<?php echo $wistia ?>", {

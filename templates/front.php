@@ -1,5 +1,5 @@
 <div class="taglines">
-		<h1>Surgical Video Articles<br>for Attendings, Residents, and Medical Students</h1>
+		<h1>Surgical Video Articles <br/> for Attendings, Residents, and Medical Students</h1>
 		<h2>The Journal of Medical Insight seeks to improve outcomes through publication  
 		of videos of cutting-edge and standard of care surgical procedures.
 		<br/><a class="mini-link" href="/about">Learn more about us →</a></h2>

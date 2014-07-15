@@ -1,8 +1,8 @@
-<?php /*
+<?php
+/*
 Base is the entry point for most pages. 
-
-
-*/?>
+*/
+?>
 <?php get_template_part('templates/head'); ?>
 <body <?php body_class(); ?>>
 
@@ -38,18 +38,21 @@ Base is the entry point for most pages.
 
   <?php } ?>
 
-
-<?php if(is_page('support-us') ){ ?>
-  <?php include roots_template_path(); ?>
+  <?php if(is_page('support-us')){ ?>
+    <?php include roots_template_path(); ?>
   <?php } else { ?>
 
 
   <div class="container wrap" role="document">
     <div class="content row">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
+      <?php echo "XXX" ?>
         <?php include roots_template_path(); ?>
+      <?php echo "YYY" ?>
       </main><!-- /.main -->
+      <?php echo "AAA" ?>
       <?php if (roots_display_sidebar()) : ?>
+        <?php echo "BBB" ?>
         <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
           <?php 
           if(is_page('about') || is_page('contact') || is_page('pricing') || is_page('area-notification-request')) {

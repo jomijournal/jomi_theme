@@ -40,7 +40,7 @@
     </div>
     <div>
       <h3>Citations</h3>
-      <?php the_block( 'Citations' ); ?>
+      <?php the_field('citations'); ?>
     </div>
 
     <script>

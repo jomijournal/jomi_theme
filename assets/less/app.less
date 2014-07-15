@@ -308,6 +308,7 @@ header.site-header {
       h1{
          font-size:36px;
          margin-top: 15px;
+         white-space: pre-line; //wrap on line breaks
       }
       h2{
          font-size:22px;
@@ -366,6 +367,7 @@ header.site-header {
          padding:0;
          li{
             margin: 0 0px;
+            margin-bottom: 20px;
             display: inline-block;
             width: 95%;
             a{
@@ -481,20 +483,37 @@ header.site-header {
 // ------------------
 // ARTICLE THUMBNAILS
 // ------------------
-article .entry-title{
-   margin-top:0;
-   font-size: 16px;
-   a {
-      color: #fff;
-      text-decoration: none;
+article {
+   a img{
+      width: 100%;
+      height: auto;
    }
-}
-article .article-overlay{
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   background: #000;
-   opacity: .5;
+   margin-bottom: 10px !important;
+   margin-left: -10px;
+   margin-right: -10px;
+   .entry-title{
+      margin-top:0;
+      font-size: 16px;
+      a {
+         color: #fff;
+         text-decoration: none;
+         opacity: 1;
+      }
+   }
+   .article-overlay{
+      margin: 0 5px;
+      padding: 10px;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      background: rgba(0, 0, 0, 0.7);
+      width: 97.25%;
+      height: 100px;
+      p a{
+         color: #aaa;
+         text-decoration: none;
+      }
+   }
 }
 
 .kcite{
@@ -790,15 +809,24 @@ footer .footer{
       width: 300px;
       margin: 0 0;
    }
+   .taglines h1 br{
+      //display: none;
+   }
    .partners img{
       width: 45% !important;
    }
    .single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap{
       border-radius: 0;
    }
-   article img{
-      width:100%;
-      height:auto;
+   article {
+      img{
+         width:100%;
+         height:auto;
+      }
+      .article-overlay{
+         margin-bottom: -10px;
+         width: 97.5%;
+      }
    }
    footer{
       position: relative !important;
@@ -812,10 +840,10 @@ footer .footer{
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
   header.site-header {
-   nav ul li {
-      margin-left: 25px;
+      nav ul li {
+         margin-left: 25px;
+      }
    }
-  }
    .orgs{
       .org .logo img{
          //width: 100%;
@@ -833,6 +861,12 @@ footer .footer{
          }
       }
    }
+   article {
+      .article-overlay{
+         margin-bottom: -10px;
+         width: 98.3%;
+      }
+   }
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -843,4 +877,8 @@ footer .footer{
          //margin-bottom:10px !important;
       }
    }
+   .article-overlay{
+         margin-bottom: 0px !important;
+         width: 97.25% !important;
+      }
 }

@@ -2,7 +2,7 @@
 global $user;
 ?>
 <?php if(is_front_page()) : ?>
-	<video autoplay="" loop="" class='background hidden-xs' poster="https://d2ysendh9zluod.cloudfront.net/images/web_still_blur.jpg">
+	<video autoplay="" loop="" class='background hidden-xs' poster="/wp-content/themes/jomi/assets/img/vid_poster.png">
 		<source src="/wp-content/themes/jomi/assets/video/background.mp4" type="video/mp4">
 	</video>
 	<div class='blackbox background'></div>
@@ -22,7 +22,7 @@ global $user;
 	        <!--div class='col-xs-7'-->
 		        <nav class="nav-top">
 		          <ul>
-		          	<?php if(!$user){ ?>
+		          	<?php if(!$user): ?>
 		            <li class="dropdown">
 						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 						<div class="dropdown-menu pull-right" style="padding: 15px;">
@@ -35,25 +35,19 @@ global $user;
 							</div>
 						</div>
 					</li>
+					<?php else: ?>
+					<li><a href="/?logout" id="logout-btn">Sign&nbsp;out</a></li>
+					<?php endif; ?>
 
 		            <li><a href='/subscribers/' class="hidden-xs<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribers</a></li>
 		            <li><a href="/pricing" class="hidden-xs<?php 		if( is_page( 'pricing') ) echo " active"; ?>">Pricing</a></li>
 		            <li><a href="/contact" class="hidden-xs<?php 		if( is_page( 'contact') ) echo " active"; ?>">Contact</a></li>
 		            <li><a href="/about" class="hidden-xs<?php 			if( is_page( 'about') ) echo " active"; ?>">About</a></li>
-		            <?php } else { ?>
-		            <li class="hidden-xs"><input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" /></li>
-		            <li><a href="/articles">All articles</a></li>
-		            <li><a href="/?logout" id="logout-btn">Sign&nbsp;out</a></li>
-		            <?php } ?>
+		            
 		          </ul>
 		        </nav>
 		    </div>
 	    </div>
-	    <?php if($user){ ?>
-	    <div class="row visible-xs" style="margin-top:25px;">
-	    	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border" id="search-field" />
-	    </div>
-	    <?php } ?>
       </header>
     </main>
   </div>

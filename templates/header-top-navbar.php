@@ -13,11 +13,13 @@ global $user;
     <main class="col-sm-12" role="main">
       <header class='site-header'>
       	<div class='row'>
-	      	<div class='col-xs-4'>
+	      	<div class='col-xs-12'>
 	        	<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
-	        </div>
+	       	 	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border hidden-xs" id="search-field"/>
+	       	 	<span class="glyphicon glyphicon-search search-icon hidden-xs"></span>
+	       	<!--/div-->
 	        <!-- Navbar buttons for desktop -->
-	        <div class='col-xs-8'>
+	        <!--div class='col-xs-7'-->
 		        <nav class="nav-top">
 		          <ul>
 		          	<?php if(!$user){ ?>

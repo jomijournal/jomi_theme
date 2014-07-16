@@ -49,9 +49,8 @@
         $(this).tab('show');
       });
      $(document).ready(function(){
-        $('.widget_search, .widget_categories').hide();
-        $('section.video').each(function(){
-          $('#chapters ul').append('<li class="vtime-item" data-time="'+$(this).attr('time')+'"><a href="#video" onclick="wistiaEmbed.time('+$(this).attr('time')+').play();">'+$(this).attr('name')+'</a></li>');
+        $('#meta-chapters section').each(function(){
+          $('#chapters ul').append('<li class="vtime-item" data-time="'+$(this).data('time')+'"><a href="#video" onclick="wistiaEmbed.time('+$(this).data('time')+').play();">'+$(this).data('title')+'</a></li>');
         });
         $('#chapters').show();
      });

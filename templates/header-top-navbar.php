@@ -81,7 +81,6 @@ global $user;
 			    if (error) {
 			        // Something went wrong...
 			        // Check error.name. Might just be a wrong password?
-			        console.log(error);
 			        $('#login-form .label').hide();
 			        $('#login-form input').removeClass('error');
 			        if($('#login-form input[name="password"]').val() == '')
@@ -102,7 +101,6 @@ global $user;
 			    } else {
 			        // User is logged in, save result.token in a cookie called 'ua_session_token'	        
 			        onLoginSuccessful(result.token);
-			        console.log(result);
 			    }
 			});
 		}

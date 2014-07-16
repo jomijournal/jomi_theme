@@ -1,21 +1,23 @@
-<?php
-/*
-Template Name: Articles
-*/
-?>
+<?php echo 'test'; ?>
 
 <?php get_template_part('templates/page', 'header'); ?>
 
 <?php
 $type = 'article';
-$author_name = $_GET['author_name'];
+$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+echo $curauth;
 $args=array(
   'post_type' => $type,
+  'tax_query' => array(
+    array(
+      'taxonomy' => 'author',
+      'field' => 'slug',
+      'terms' => $curauth->user_login
+    )
+  ),
   'post_status' => 'publish',
   'posts_per_page' => -1,
-  'caller_get_posts'=> 1,
-  'meta_key'=>'author_name',
-  'meta_value'=>$author_name
+  'caller_get_posts'=> 1
 );
 $my_query = null;
 $my_query = new WP_Query($args);

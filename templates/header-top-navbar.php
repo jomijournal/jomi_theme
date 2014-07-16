@@ -5,6 +5,7 @@ global $user;
 	<video autoplay="" loop="" class='background hidden-xs' poster="/wp-content/themes/jomi/assets/img/vid_poster.png">
 		<source src="/wp-content/themes/jomi/assets/video/background.mp4" type="video/mp4">
 	</video>
+	<img src='/wp-content/themes/jomi/assets/img/background_mobile.png' class='background visible-xs'/>
 	<div class='blackbox background'></div>
 
 <?php endif; ?>

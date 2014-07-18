@@ -11,9 +11,34 @@
  * 3. /theme/assets/js/main.min.js (in footer)
  */
 function roots_scripts() {
+
+  function get_ip_address(){
+    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
+        if (array_key_exists($key, $_SERVER) === true){
+            foreach (explode(',', $_SERVER[$key]) as $ip){
+                $ip = trim($ip); // just to be safe
+
+                if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
+                    return $ip;
+                }
+            }
+        }
+    }
+  }
+  $whitelist = array(
+      '127.0.0.1',
+      '::1'
+  );
+  // if localhost
+  if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+    wp_enqueue_style('roots_main', 'http://localhost/wp-content/themes/jomi/assets/css/main.min.css', false, '593f4df70af76c5d8c5be95e782362c4');
+  } else {
+    wp_enqueue_style('roots_main', 'http://squash.jomi.com/wp-content/themes/jomi/assets/css/main.min.css', false, '593f4df70af76c5d8c5be95e782362c4');
+  }
+
   
-  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '593f4df70af76c5d8c5be95e782362c4');
-  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, 'a9f6c19d4b44f9e0a0d1a77ac050e9a1');
+  
+  //wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, 'a9f6c19d4b44f9e0a0d1a77ac050e9a1');
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:
   // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline

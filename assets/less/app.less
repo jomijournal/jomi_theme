@@ -208,6 +208,7 @@ input[type=text], input[type=password], input[type=email], textarea{
 header.site-header {
    .clearfix();
    margin: 25px 35px;
+   margin-bottom: 0px;
    .logo{
       float:left;
    }
@@ -828,7 +829,13 @@ footer .footer{
          width: 80%;
       }
       nav ul li{
-         margin-left: 15px;
+         margin-left: 10px;
+         a {
+            font-size: 15px;
+         }
+         a.border {
+            padding: 9px 15px;
+         }
       }
    }
    .dropdown-menu {
@@ -883,8 +890,12 @@ footer .footer{
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
   header.site-header {
+      margin: 25px 35px;
       nav ul li {
          margin-left: 25px;
+         a.border {
+            padding: 9px 25px;
+         }
       }
    }
    .orgs{
@@ -918,6 +929,13 @@ footer .footer{
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
+   header.site-header{
+      nav ul li {
+         a.border {
+            padding: 9px 40px;
+         }
+      }
+   }
    .orgs{
       .org .logo img{
          width: auto;

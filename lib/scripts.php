@@ -32,8 +32,10 @@ function roots_scripts() {
   // if localhost
   if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
     wp_enqueue_style('roots_main', 'http://localhost/wp-content/themes/jomi/assets/css/main.min.css', false, '593f4df70af76c5d8c5be95e782362c4');
+    wp_register_script('roots_scripts', 'http://localhost/wp-content/themes/jomi/assets/js/scripts.min.js', array(), null, false);
   } else {
     wp_enqueue_style('roots_main', 'http://squash.jomi.com/wp-content/themes/jomi/assets/css/main.min.css', false, '593f4df70af76c5d8c5be95e782362c4');
+    wp_register_script('roots_scripts', 'http://squash.jomi.com/wp-content/themes/jomi/assets/js/scripts.min.js', array(), null, false);
   }
 
   
@@ -56,7 +58,7 @@ function roots_scripts() {
   wp_register_script('modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-2.7.0.min.js', array(), null, false);
   wp_register_script('userapp', '//app.userapp.io/js/userapp.client.js', array(), null, false);
   wp_register_script('cookies', get_template_directory_uri() . '/assets/js/vendor/cookies.min.js', array(), null, false);
-  wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);
+  
   wp_enqueue_script('modernizr');
   wp_enqueue_script('userapp');
   wp_enqueue_script('cookies');

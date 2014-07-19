@@ -49,6 +49,17 @@ global $user;
 			          </ul>
 			        </nav>
 			    </div>
+			    <!-- Collapsable navbar for mobile -->
+			    <div class='col-xs-6 visible-xs mobile-menu'>
+			    	<div class='dropdown alignright'>
+					  <a class='dropdown-toggle' data-toggle='dropdown' href='#'> <span class='glyphicon glyphicon-th-list'></span> </a>
+					  <ul class='dropdown-menu dropdown-menu-right' role='menu'>
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Login</a></li>
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Pricing</a></li>
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact</a></li>
+					  </ul>
+					</div>
+			    </div>
 		    </div>
 	    </div>
       </header>

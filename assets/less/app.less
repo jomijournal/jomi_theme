@@ -106,17 +106,6 @@ input[type=text], input[type=password], input[type=email], textarea{
    opacity: 0.7;
 }
 
-.dropdown-menu{
-   position: fixed;
-   width: 100%;
-   top: 100px;
-   //left: 0;
-   margin: 0;
-   input{
-      width:100% !important;
-   }
-}
-
 .wpcf7 input[type=text], .wpcf7 input[type=password], .wpcf7 input[type=email]{
    width:70%;
 }
@@ -208,9 +197,15 @@ input[type=text], input[type=password], input[type=email], textarea{
 header.site-header {
    .clearfix();
    margin: 25px 35px;
-   margin-bottom: 0px;
+   //margin-bottom: 0px;
    .logo{
-      float:left;
+      float: left;
+      position: absolute;
+   }
+   input.search{
+      position: absolute;
+      left: 130px;
+      top: 3px;
    }
    nav{
       float:right;
@@ -252,36 +247,54 @@ header.site-header {
       }
    }
    .mobile-menu {
-   	margin-top: 5px;
-   	  a{
-   	  	color: #fff;
-   	  	opacity: 0.8;
-   	  	border-radius: 10px;
-   	  	border: 2px solid #fff;
-   	  	padding: 8px 15px;
-   	  	text-decoration: none;
-   	  	white-space: pre; //needed to pad menu button so it isn't cut in half
-   	  	&:hover{
-   	  		opacity: 1;
-   	  		color: #fff;
-   	  		background:rgba(255, 255, 255, 0.2);
-   	  	}
-   	  }
-   	  ul{
-   	  	margin-top: 10px;
-   	  	background: #eee;
-   	  	li{
-   	  		a{
-   	  			color: #444;
-   	  			border: none;
-   	  			white-space: normal;
-   	  			&:hover{
-   	  				color: #111;
-   	  				background: #eee;
-   	  			}
-   	  		}
-   	  	}
-   	  }
+      margin-bottom: 0px;
+      .panel {
+         background: rgba(0, 0, 0, 0);
+         .panel-heading {
+
+            .panel-title a{
+               float: right;
+               margin-top: -5px;
+            }
+         }
+         .panel-collapse {
+            .collapsing{
+               overflow: visible;
+            }
+            //width: 
+            ul.panel-body {
+               border: none;
+               padding: 0 0;
+               margin-top: 40px;
+               list-style-type: none;
+               a{
+                  color: #fff;
+                  opacity: 0.8;
+                  text-decoration: none;
+                  &:hover{
+                     opacity: 1.0;
+                  }
+                  li{
+                     background: rgba(255, 255, 255, 0.1);
+                     padding: 8px 15px;
+                     border-bottom: 1px solid #aaa;
+                     &.top{
+                        border-top: 1px solid #aaa;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px;
+                     }
+                     &.bottom{
+                        border-bottom-left-radius: 15px;
+                        border-bottom-right-radius: 15px;
+                     }
+                     &:hover{
+                        background: rgba(255, 255, 255, 0.2);
+                     }
+                  }
+               }
+            }
+         }
+      }
    }
 }
 
@@ -823,12 +836,6 @@ footer .footer{
             padding: 9px 15px;
          }
       }
-   }
-   .dropdown-menu {
-      position: absolute;
-      top: 30px;
-      width: 300px;
-      margin: 0 0;
    }
    .taglines h1 br{
       //display: none;

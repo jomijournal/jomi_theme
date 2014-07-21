@@ -1,4 +1,4 @@
-<footer>
+<footer class='container wrap'>
   <div class='row'>
 	  <h4>Specialties:</h4>
   </div>

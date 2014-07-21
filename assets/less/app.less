@@ -354,8 +354,8 @@ header.site-header {
 
    }
    footer{
-      position: absolute; // needs to be relative to prevent wrapping
-      //position: relative;
+      //position: absolute;
+      position: relative;
       //margin-top: 100px;
       bottom: -5px;
       left:0;
@@ -776,20 +776,6 @@ footer .footer{
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 
-@media (max-height : 700px) {
-   .taglines h1 br{
-      display: none;
-   }
-
-   footer{
-      position: relative !important;
-      margin-top: 45px;
-      li{
-         //margin-bottom: 15px !important;
-      }
-   }
-}
-
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
    html.js {
@@ -874,7 +860,7 @@ footer .footer{
       }
    }
    footer{
-      position: relative !important;
+      //position: relative !important;
       margin-top: 45px;
       li{
          //margin-bottom: 15px !important;
@@ -889,6 +875,19 @@ footer .footer{
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
+  @media (min-height: 700px) {
+   .taglines h1 br{
+      display: none;
+   }
+
+   footer{
+      position: absolute !important;
+      margin-top: 45px;
+      li{
+         //margin-bottom: 15px !important;
+      }
+   }
+  }
   header.site-header {
       margin: 25px 35px;
       nav ul li {

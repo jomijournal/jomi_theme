@@ -23,8 +23,8 @@ global $user;
         	<div class='col-xs-12'>
 
         		<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
-	       	 	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border hidden-xs search" id="search-field"/>
-	       	 	<span class="glyphicon glyphicon-search search-icon hidden-xs"></span>
+	       	 	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border search" id="search-field"/>
+	       	 	<span class="glyphicon glyphicon-search search-icon"></span>
 
 		        <nav class='nav-top hidden-xs'>
 		          <ul>

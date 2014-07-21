@@ -58,9 +58,18 @@ global $user;
 		    	<div class='panel-group mobile-menu visible-xs'>
 			    	<div class='panel'>
 					  <div class='panel-heading'><div class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#menu'> <span class='glyphicon glyphicon-th-list'></span> </a></div></div>
-					  <div class='panel-collapse collapse' id='menu'>
+					  <div class='panel-collapse collapse row' id='menu'>
 						  <ul class='panel-body'>
-						    <a href="#"><li class='top'>Login</li></a>
+						    <a href="#" data-toggle='collapse' data-target='#login'><li class='top'>Login</li></a>
+						    <div id='login' class='panel-collapse collapse'>
+						    	<div class='panel-body' id="login-form">
+									<span class="label label-danger" id="error-login" style="display:none;">User does not exist</span>
+									<input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
+									<span class="label label-danger" id="error-password" style="display:none;">Invalid password</span>
+									<input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
+									<input class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
+								</div>
+						    </div>
 						    <a href='/about'><li>About</li></a>
 						    <a href='/contact'><li>Contact</li></a>
 						    <a href='/pricing'><li>Pricing</li></a>

@@ -6,18 +6,18 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   var jsFileList = [
-    'assets/js/plugins/bootstrap/transition.js',
-    'assets/js/plugins/bootstrap/alert.js',
-    'assets/js/plugins/bootstrap/button.js',
-    'assets/js/plugins/bootstrap/carousel.js',
-    'assets/js/plugins/bootstrap/collapse.js',
-    'assets/js/plugins/bootstrap/dropdown.js',
-    'assets/js/plugins/bootstrap/modal.js',
-    'assets/js/plugins/bootstrap/tooltip.js',
-    'assets/js/plugins/bootstrap/popover.js',
-    'assets/js/plugins/bootstrap/scrollspy.js',
-    'assets/js/plugins/bootstrap/tab.js',
-    'assets/js/plugins/bootstrap/affix.js',
+    'assets/vendor/bootstrap/js/transition.js',
+    'assets/vendor/bootstrap/js/alert.js',
+    'assets/vendor/bootstrap/js/button.js',
+    'assets/vendor/bootstrap/js/carousel.js',
+    'assets/vendor/bootstrap/js/collapse.js',
+    'assets/vendor/bootstrap/js/dropdown.js',
+    'assets/vendor/bootstrap/js/modal.js',
+    'assets/vendor/bootstrap/js/tooltip.js',
+    'assets/vendor/bootstrap/js/popover.js',
+    'assets/vendor/bootstrap/js/scrollspy.js',
+    'assets/vendor/bootstrap/js/tab.js',
+    'assets/vendor/bootstrap/js/affix.js',
     'assets/js/plugins/*.js',
     'assets/js/_*.js'
   ];
@@ -37,23 +37,23 @@ module.exports = function(grunt) {
     less: {
       dev: {
         files: {
-          'assets/css/main.min.css': [
-            'assets/less/app.less'
+          'assets/css/main.css': [
+            'assets/less/main.less'
           ]
         },
         options: {
-          compress: true,
+          compress: false,
           // LESS source map
           // To enable, set sourceMap to true and update sourceMapRootpath based on your install
           sourceMap: true,
-          sourceMapFilename: 'assets/css/main.min.css.map',
+          sourceMapFilename: 'assets/css/main.css.map',
           sourceMapRootpath: '/app/themes/roots/'
         }
       },
       build: {
         files: {
           'assets/css/main.min.css': [
-            'assets/less/app.less'
+            'assets/less/main.less'
           ]
         },
         options: {
@@ -83,7 +83,9 @@ module.exports = function(grunt) {
       },
       dev: {
         options: {
-          map: 'assets/css/'
+          map: {
+            prev: 'assets/css/'
+          }
         },
         src: 'assets/css/main.css'
       },
@@ -106,31 +108,32 @@ module.exports = function(grunt) {
       }
     },
     version: {
-      options: {
-        file: 'lib/scripts.php',
-        css: 'assets/css/main.min.css',
-        cssHandle: 'roots_main',
-        js: 'assets/js/scripts.min.js',
-        jsHandle: 'roots_scripts'
-      }
-    },
-    /*(version: {
-      assets: {
+      default: {
+        options: {
+          format: true,
+          length: 32,
+          manifest: 'assets/manifest.json',
+          querystring: {
+            style: 'roots_css',
+            script: 'roots_js'
+          }
+        },
         files: {
-          'lib/scripts.php': ['assets/css/main.min.css', 'assets/js/scripts.min.js']
+          'lib/scripts.php': 'assets/{css,js}/{main,scripts}.min.{css,js}'
         }
       }
-    },*/
+    },
     watch: {
       less: {
         files: [
           'assets/less/*.less',
           'assets/less/**/*.less'
         ],
-        tasks: ['less:dev'/*, 'autoprefixer:dev'*/]
+        tasks: ['less:dev', 'autoprefixer:dev']
       },
       js: {
         files: [
+          jsFileList,
           '<%= jshint.all %>'
         ],
         tasks: ['jshint', 'concat']
@@ -139,11 +142,11 @@ module.exports = function(grunt) {
         // Browser live reloading
         // https://github.com/gruntjs/grunt-contrib-watch#live-reloading
         options: {
-          livereload: true
+          livereload: false
         },
         files: [
-          'assets/css/main.min.css',
-          'assets/js/scripts.min.js',
+          'assets/css/main.css',
+          'assets/js/scripts.js',
           'templates/*.php',
           '*.php'
         ]
@@ -158,16 +161,15 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', [
     'jshint',
     'less:dev',
-    //'autoprefixer:dev',
-    'concat',
-    'watch'
+    'autoprefixer:dev',
+    'concat'
   ]);
   grunt.registerTask('build', [
     'jshint',
     'less:build',
-    //'autoprefixer:build',
+    'autoprefixer:build',
     'uglify',
-    //'modernizr',
+    'modernizr',
     'version'
   ]);
 };

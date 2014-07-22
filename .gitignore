@@ -12,3 +12,6 @@ lib/scripts.php
 *.sublime-workspace
 assets/js/*.min.js
 refresh.sh
+assets/vendor
+assets/manifest.json
+assets/js/vendor/modernizr.min.js

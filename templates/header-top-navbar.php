@@ -23,8 +23,8 @@ global $user;
         	<div class='col-xs-12'>
 
         		<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
-	       	 	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border search" id="search-field"/>
-	       	 	<span class="glyphicon glyphicon-search search-icon"></span>
+	       	 	<input placeholder="Search articles" type="text" name="login" size="30" class="border search hidden-xs" id="search-field"/>
+	       	 	<span class="glyphicon glyphicon-search search-icon hidden-xs"></span>
 
 		        <nav class='nav-top hidden-xs'>
 		          <ul>
@@ -74,6 +74,9 @@ global $user;
 							<?php else: ?>
 							<a href="/?logout" id="logout-btn"><li class='top'>Sign&nbsp;out</li></a>
 							<?php endif; ?>
+							<li>
+								<input placeholder="Search articles" type="text" name="login" size="30" class="search-mobile" id="search-field-m"/>
+							</li>
 						    <a href='/about'><li>About</li></a>
 						    <a href='/contact'><li>Contact</li></a>
 						    <a href='/pricing'><li>Pricing</li></a>
@@ -170,6 +173,13 @@ global $user;
 		    }
 		});
 		$('#search-field').keydown(function(event){
+			if(event.which == 13)
+			{
+				event.preventDefault();
+				window.location.href = "/?s="+$(this).val();
+			}
+		});
+		$('#search-field-m').keydown(function(event){
 			if(event.which == 13)
 			{
 				event.preventDefault();

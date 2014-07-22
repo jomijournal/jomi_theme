@@ -63,6 +63,9 @@ if($user && isset($_GET["logout"]))
 	<!-- FONT AWESOME -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
+	<!-- ADDTHIS -->
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-538f69071761b8d2"></script>
+
 	<?php wp_head(); ?>
 
 	<link rel="alternate" type="application/rss+xml" title="<?php echo get_bloginfo('name'); ?> Feed" href="<?php echo esc_url(get_feed_link()); ?>">

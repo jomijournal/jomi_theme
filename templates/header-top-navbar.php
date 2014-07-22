@@ -38,6 +38,10 @@ global $user;
 								<span class="label label-danger" id="error-password" style="display:none;">Invalid password</span>
 								<input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
 								<input class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
+								<br><br>
+									<button style="width:100%;" class="btn fat white social-login" data-provider="facebook"><i class="fa fa-facebook"></i>&nbsp;&nbsp;Log in with Facebook</button>
+									<br><br>
+									<button style="width:100%;" class="btn fat white social-login" data-provider="google"><i class="fa fa-google"></i>&nbsp;&nbsp;Log in with Google</button>
 							</div>
 						</div>
 					</li>
@@ -69,6 +73,10 @@ global $user;
 									<span class="label label-danger" id="error-password-2" style="display:none;">Invalid password</span>
 									<input placeholder="Password" id="user_password_2" style="margin-bottom: 15px;" type="password" name="password" size="30" />
 									<input id='submit-2' class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
+									<br><br>
+									<button style="width:100%;" class="btn fat white social-login" data-provider="facebook"><i class="fa fa-facebook"></i>&nbsp;&nbsp;Log in with Facebook</button>
+									<br><br>
+									<button style="width:100%;" class="btn fat white social-login" data-provider="google"><i class="fa fa-google"></i>&nbsp;&nbsp;Log in with Google</button>						
 								</div>
 						    </div>
 							<?php else: ?>
@@ -121,6 +129,10 @@ global $user;
 	$(document).ready(function(){
 		UserApp.initialize({ appId: "53b5e44372154" });
 
+		$('.social-login').click(function(){
+			socialLogin($(this).data('provider'));
+		});
+
 		function onLoginSuccessful(token){
 			Cookies.set('ua_session_token', token);
 			window.location.href = "/articles";
@@ -153,6 +165,17 @@ global $user;
 			        onLoginSuccessful(result.token);
 			    }
 			});
+		}
+
+		function socialLogin(providerId) {
+			var redirectUrl = window.location.protocol+'//'+window.location.host+window.location.pathname;
+			UserApp.OAuth.getAuthorizationUrl({ provider_id: providerId, redirect_uri: redirectUrl },
+				function(error, result) {
+					if (!error) {
+						window.location.href = result.authorization_url;
+					}
+				}
+			);
 		}
 
 		var matches = window.location.href.match(/ua_token=([a-z0-9_-]+)/i);

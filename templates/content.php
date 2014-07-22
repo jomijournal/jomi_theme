@@ -19,6 +19,6 @@
 			}
 		?>
 		</p>
-		<h4><?php $a = get_coauthors(); $b = $a[0]; print($b->aim); ?></h4>
+		<h4><?php $a = get_coauthors(); $b = $a[0]; print($b->description); ?></h4>
 	</div>
 </article>

@@ -1,58 +1,41 @@
-<?php echo 'test'; ?>
+<?php get_header(); ?>
 
-<?php get_template_part('templates/page', 'header'); ?>
+<div id="content" class="narrowcolumn">
 
-<?php
-$type = 'article';
-$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
-echo $curauth;
-$args=array(
-  'post_type' => $type,
-  'tax_query' => array(
-    array(
-      'taxonomy' => 'author',
-      'field' => 'slug',
-      'terms' => $curauth->user_login
-    )
-  ),
-  'post_status' => 'publish',
-  'posts_per_page' => -1,
-  'caller_get_posts'=> 1
-);
-$my_query = null;
-$my_query = new WP_Query($args);
+<!-- This sets the $curauth variable -->
 
-$post_count = 0;
+    <?php
+    $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+    ?>
 
-if (!$my_query->have_posts()) : ?>
-  <div class="alert alert-warning">
-    <?php _e('Sorry, no results were found.', 'roots'); ?>
-  </div>
-  <?php get_search_form(); ?>
-<?php endif; ?>
+    <h2>About: <?php echo $curauth->nickname; ?></h2>
+    <dl>
+        <dt>Website</dt>
+        <dd><a href="<?php echo $curauth->user_url; ?>"><?php echo $curauth->user_url; ?></a></dd>
+        <dt>Profile</dt>
+        <dd><?php echo $curauth->user_description; ?></dd>
+    </dl>
 
-<?php while ($my_query->have_posts()) : 
-  $my_query->the_post(); ?>
-  <?php if($post_count == 0): ?>
-    <div class='row'>
-    <div class='col-lg-6'>
-    <?php get_template_part('templates/content', get_post_format()); ?>
-    <?php $post_count++; ?>
-    </div>
-  <?php elseif($post_count == 1): ?>
-    <div class='col-lg-6'>
-    <?php get_template_part('templates/content', get_post_format()); ?>
-    <?php $post_count = 0; ?>
-    </div>
-    </div>
-  <?php endif ?>
-<?php endwhile; ?>
+    <h2>Posts by <?php echo $curauth->nickname; ?>:</h2>
 
-<?php if ($wp_query->max_num_pages > 1) : ?>
-  <nav class="post-nav">
-    <ul class="pager">
-      <li class="previous"><?php next_posts_link(__('&larr; Older posts', 'roots')); ?></li>
-      <li class="next"><?php previous_posts_link(__('Newer posts &rarr;', 'roots')); ?></li>
+    <ul>
+<!-- The Loop -->
+
+    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+        <li>
+            <a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link: <?php the_title(); ?>">
+            <?php the_title(); ?></a>,
+            <?php the_time('d M Y'); ?> in <?php the_category('&');?>
+        </li>
+
+    <?php endwhile; else: ?>
+        <p><?php _e('No posts by this author.'); ?></p>
+
+    <?php endif; ?>
+
+<!-- End Loop -->
+
     </ul>
-  </nav>
-<?php endif; ?>
+</div>
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>

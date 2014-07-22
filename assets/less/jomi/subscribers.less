@@ -1,0 +1,126 @@
+//* SUBSCRIBERS
+
+.orgs {
+   //margin-bottom:45px;
+   &.small{
+      .logo{
+         display: none;
+      }
+   }
+   &.large{
+      .logo{
+         display:block;
+      }
+      .lab{
+         margin-bottom: 10px;
+      }
+   }
+}
+.org{
+   text-align:center;
+
+   .logo{
+      padding: 20px 0;
+      background-color:#f8f8f8;
+      //display: none;
+      img{
+         //width: 100%;
+         width: auto;
+      }
+      &:hover{
+
+      }
+   }
+   .link{
+      text-decoration: none;
+      color: #555;
+      font-size: 20px;
+      text-align: left;
+      border-bottom: 1px solid #000
+   }
+   .lab{
+      background-color: #eee;
+      color: #646464;
+      font-weight: 700;
+      font-size: .7em;
+      padding: 5px 0;
+   }
+   .logosmall{
+      padding: 20px 0;
+      background-color:#EBEBEB;
+      border-radius:8px;
+   }
+
+   &:hover{ 
+      .logo {
+         background-color:#CECECE;
+      }
+      .logosmall {
+         background-color:#CECECE;
+      }
+      .lab{
+         background-color:#B3B3B3;
+         color: #ffffff;
+      }
+   }
+
+}
+.logopic{
+   width: 80%;
+}
+
+//* MOBILE
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+   .orgs{
+      margin-bottom:45px;
+      .org .logo img{
+         width: 100%;
+         //margin-bottom:10px !important;
+      }
+
+      &.large{
+         .lab{
+            margin-bottom: 0px;
+         }
+      }
+      &.small{
+         .logo{
+            display:none;
+         }
+         .link{
+            display:block;
+         }
+      }
+   }
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+   .orgs{
+      .org .logo img{
+         //width: 100%;
+         //margin-bottom:10px !important;
+      }
+      &.large{
+
+      }
+      &.small{
+         .logo{
+            display: block;
+         }
+         .link{
+            display: none;
+         }
+      }
+   }
+}
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+   .orgs{
+      .org .logo img{
+         width: auto;
+         //margin-bottom:10px !important;
+      }
+   }
+}

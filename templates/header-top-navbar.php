@@ -23,7 +23,7 @@ global $user;
         	<div class='col-xs-12'>
 
         		<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
-	       	 	<input placeholder="Search articles" style="margin-top: -10px;" type="text" name="login" size="30" class="border hidden-xs search" id="search-field"/>
+	       	 	<input placeholder="Search articles" type="text" name="login" size="30" class="border search hidden-xs" id="search-field"/>
 	       	 	<span class="glyphicon glyphicon-search search-icon hidden-xs"></span>
 
 		        <nav class='nav-top hidden-xs'>
@@ -60,16 +60,23 @@ global $user;
 					  <div class='panel-heading'><div class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#menu'> <span class='glyphicon glyphicon-th-list'></span> </a></div></div>
 					  <div class='panel-collapse collapse row' id='menu'>
 						  <ul class='panel-body'>
+						  	<?php if(!$user): ?>
 						    <a href="#" data-toggle='collapse' data-target='#login'><li class='top'>Login</li></a>
 						    <div id='login' class='panel-collapse collapse'>
-						    	<div class='panel-body' id="login-form">
-									<span class="label label-danger" id="error-login" style="display:none;">User does not exist</span>
-									<input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
-									<span class="label label-danger" id="error-password" style="display:none;">Invalid password</span>
-									<input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
-									<input class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
+						    	<div class='panel-body' id="login-form-2">
+									<span class="label label-danger" id="error-login-2" style="display:none;">User does not exist</span>
+									<input placeholder="Username" id="user_username_2" style="margin-bottom: 15px;" type="text" name="login" size="30" />
+									<span class="label label-danger" id="error-password-2" style="display:none;">Invalid password</span>
+									<input placeholder="Password" id="user_password_2" style="margin-bottom: 15px;" type="password" name="password" size="30" />
+									<input id='submit-2' class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
 								</div>
 						    </div>
+							<?php else: ?>
+							<a href="/?logout" id="logout-btn"><li class='top'>Sign&nbsp;out</li></a>
+							<?php endif; ?>
+							<li>
+								<input placeholder="Search articles" type="text" name="login" size="30" class="search-mobile" id="search-field-m"/>
+							</li>
 						    <a href='/about'><li>About</li></a>
 						    <a href='/contact'><li>Contact</li></a>
 						    <a href='/pricing'><li>Pricing</li></a>
@@ -119,8 +126,8 @@ global $user;
 			window.location.href = "/articles";
 		}
 
-		function emailLogin(){
-			UserApp.User.login({ "login": $('#login-form input[name="login"]').val(), "password": $('#login-form input[name="password"]').val() }, function(error, result) {
+		function emailLogin(user, pass){
+			UserApp.User.login({ "login": user, "password": pass}, function(error, result) {
 			    if (error) {
 			        // Something went wrong...
 			        // Check error.name. Might just be a wrong password?
@@ -155,14 +162,24 @@ global $user;
 			onLoginSuccessful(token);
 		}
 		$('#login-form input[type=submit]').click(function(){
-			emailLogin();
+			emailLogin($('#login-form input[name="login"]').val(), $('#login-form input[name="password"]').val());
+		});
+		$('#submit-2').click(function(){
+			emailLogin($('#login-form-2 input[name="login"]').val(), $('#login-form-2 input[name="password"]').val());
 		});
 		$('#login-form input[name="password"]').keypress(function (event) {
 			if ( event.which == 13 || event.which == 10) {
-		      emailLogin();
+		      emailLogin($('#login-form input[name="login"]').val(), $('#login-form input[name="password"]').val());
 		    }
 		});
 		$('#search-field').keydown(function(event){
+			if(event.which == 13)
+			{
+				event.preventDefault();
+				window.location.href = "/?s="+$(this).val();
+			}
+		});
+		$('#search-field-m').keydown(function(event){
 			if(event.which == 13)
 			{
 				event.preventDefault();

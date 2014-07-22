@@ -1,0 +1,58 @@
+//* GENERAL
+
+html, body {
+	//height: 100%;
+}
+
+html.js {
+   margin-top: 0px !important;
+}
+
+body {
+   color: @jomi-light;
+   background: @jomi-dark;
+   -webkit-font-smoothing: antialiased;
+   font:10pt/1.6 "proxima-nova-1", Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5{
+   line-height:1.4;
+}
+
+.container {
+   padding-left: 0px;
+   padding-right: 0px;
+}
+
+.white-panel {
+	padding: 25px 40px;
+	color: @jomi-dark;
+	background: @jomi-light;
+	-webkit-font-smoothing: antialiased;
+	font:10pt/1.6 "proxima-nova-1", Arial, sans-serif;
+	border-radius: 15px;
+}
+
+.aligncenter { display: block; margin: 0 auto; }
+.alignleft { float: left; }
+.alignright { float: right; }
+figure.alignnone { margin-left: 0; margin-right: 0; }
+
+//* MOBILE
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+   html.js {
+      margin-top: 32px !important;
+   }
+   .container {
+      padding-left: 15px;
+      padding-right: 15px;
+   }
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+}
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+}

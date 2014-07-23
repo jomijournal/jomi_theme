@@ -162,9 +162,35 @@ REWRITE RULES
 =================================
 */
 
+add_filter( 'template_include', 'wpse_97347_force_article' );
+
+function wpse_97347_force_article( $template )
+{
+  global $wp_query;
+
+  if ( $wp_query->get( 'publication_id' ) )
+      return get_query_template( 'base' );
+
+  return $template;
+}
+
+function register_publication_id() {
+  global $wp;
+  $wp->add_query_var( 'publication_id' );
+}
+add_action( 'init', 'register_publication_id' );
+
+function map_publication_id( $wp_query ) {
+  if ( $meta_value = $wp_query->get( 'publication_id' ) ) {
+    $wp_query->set( 'meta_key', 'publication_id' );
+    $wp_query->set( 'meta_value', $meta_value );
+  }
+}
+add_action( 'parse_query', 'map_publication_id' );
+
 function add_article_rewrite_rules() {
-    add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
-    add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
+    add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
+    add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
     flush_rewrite_rules();
 }
 add_action( 'init', 'add_article_rewrite_rules' );
@@ -172,10 +198,10 @@ add_action( 'init', 'add_article_rewrite_rules' );
 add_action('init', 'article_rewrite');
 function article_rewrite() {
   global $wp_rewrite;
-  $queryarg = 'post_type=article&p=';
-  $wp_rewrite->add_rewrite_tag('%article_id%', '([^/]+)', $queryarg);
-  $wp_rewrite->add_rewrite_tag('%article_name%', '([^/]+)', $queryarg);
-  $wp_rewrite->add_permastruct('article', '/article/%article_id%/%article_name%/', false);
+  $wp_rewrite->add_rewrite_tag('%publication_id%', '([^/]+)', 'publication_id=');
+  $wp_rewrite->add_rewrite_tag('%article_name%', '([^/]+)', 'article_name=');
+  $wp_rewrite->add_permastruct('article', '/article/%publication_id%/%article_name%/', false);
+  flush_rewrite_rules();
 }
 
 add_filter('post_type_link', 'article_permalink', 1, 3);
@@ -185,7 +211,8 @@ function article_permalink($post_link, $id = 0, $leavename) {
   if ( is_wp_error( $post ) )
     return $post;
   $newlink = $wp_rewrite->get_extra_permastruct('article');
-  $newlink = str_replace("%article_id%", $post->ID, $newlink);
+  $pubID = get_field( "publication_id", $post->ID ); 
+  $newlink = str_replace("%publication_id%", $pubID, $newlink);
   $newlink = str_replace("%article_name%", $post->post_name, $newlink);
   $newlink = home_url(user_trailingslashit($newlink));
   return $newlink;

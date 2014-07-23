@@ -110,13 +110,15 @@ module.exports = function(grunt) {
     version: {
       default: {
         options: {
-          format: true,
-          length: 32,
+          algorith: 'sha1',
+          format: false,
+          rename: true,
+          length: 6,
           manifest: 'assets/manifest.json',
-          querystring: {
+          /*querystring: {
             style: 'roots_css',
             script: 'roots_js'
-          }
+          }*/
         },
         files: {
           'lib/scripts.php': 'assets/{css,js}/{main,scripts}.min.{css,js}'

@@ -162,15 +162,19 @@ REWRITE RULES
 =================================
 */
 
-add_filter( 'template_include', 'wpse_97347_force_article' );
+//add_filter( 'template_include', 'wpse_97347_force_article' );
 
-function wpse_97347_force_article( $template )
+/*function wpse_97347_force_article( $template )
 {
   global $wp_query;
 
-  if ( $wp_query->get( 'publication_id' ) )
-      return get_query_template( 'base' );
+  if ( $wp_query->get( 'publication_id' ) ) {
+    #echo "<pre>";
+    #print_r($wp_query);
 
+    #echo "</pre>";
+    return "C:/wamp/www/wp-content/themes/jomi/base.php";
+  }
   return $template;
 }
 
@@ -213,6 +217,35 @@ function article_permalink($post_link, $id = 0, $leavename) {
   $newlink = $wp_rewrite->get_extra_permastruct('article');
   $pubID = get_field( "publication_id", $post->ID ); 
   $newlink = str_replace("%publication_id%", $pubID, $newlink);
+  $newlink = str_replace("%article_name%", $post->post_name, $newlink);
+  $newlink = home_url(user_trailingslashit($newlink));
+  return $newlink;
+}*/
+
+function add_article_rewrite_rules() {
+    add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
+    add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&p=$matches[1]','top');
+    flush_rewrite_rules();
+}
+add_action( 'init', 'add_article_rewrite_rules' );
+
+add_action('init', 'article_rewrite');
+function article_rewrite() {
+  global $wp_rewrite;
+  $queryarg = 'post_type=article&p=';
+  $wp_rewrite->add_rewrite_tag('%article_id%', '([^/]+)', $queryarg);
+  $wp_rewrite->add_rewrite_tag('%article_name%', '([^/]+)', $queryarg);
+  $wp_rewrite->add_permastruct('article', '/article/%article_id%/%article_name%/', false);
+}
+
+add_filter('post_type_link', 'article_permalink', 1, 3);
+function article_permalink($post_link, $id = 0, $leavename) {
+  global $wp_rewrite;
+  $post = &get_post($id);
+  if ( is_wp_error( $post ) )
+    return $post;
+  $newlink = $wp_rewrite->get_extra_permastruct('article');
+  $newlink = str_replace("%article_id%", $post->ID, $newlink);
   $newlink = str_replace("%article_name%", $post->post_name, $newlink);
   $newlink = home_url(user_trailingslashit($newlink));
   return $newlink;

@@ -13,8 +13,8 @@
 function roots_scripts() {
 
 
-    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.efbdfdd5.min.css', false, false);
-    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.23718ac4.min.js', array(), null, false);
+    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, false);
+    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:
   // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline

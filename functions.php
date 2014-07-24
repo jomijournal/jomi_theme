@@ -162,6 +162,7 @@ add_filter( 'display_post_states', 'display_archive_state' );
 /*
 =================================
 REWRITE RULES 
+BLACK MAGIC BEGINS HERE
 =================================
 */
 
@@ -171,9 +172,6 @@ function wpse_97347_force_article( $template )
   global $wp_query;
 
   if ( $wp_query->get( 'publication_id' ) ) {
-    #echo "<pre>";
-    #print_r($wp_query);
-    #echo "</pre>";
     Roots_Wrapping::wrap(@realpath(dirname(__FILE__)) . '/templates/content-single.php');
     return @realpath(dirname(__FILE__)) . "/base.php";
 
@@ -212,8 +210,8 @@ function map_publication_id( $wp_query ) {
       while( $rd_query->have_posts() ) {
         $rd_query->the_post();
         $postID = get_the_ID();
-      } // end while
-    } // end if
+      }
+    }
     wp_reset_postdata();
     
     $wp_query->set( 'p', $postID );
@@ -237,28 +235,28 @@ function article_rewrite() {
 }
 add_action('init', 'article_rewrite');
 
-add_filter('post_type_link', 'article_permalink', 10, 3);
 function article_permalink($permalink, $post, $leavename) {
-
   $no_data = 'no-article';
   $post_id = $post->ID;
 
   if($post->post_type != 'article' || empty($permalink) || in_array($post->post_status, array('draft', 'pending', 'auto-draft')))
     return $permalink;
-  //$var1 = get_post_meta($post_id, 'publication_id', true);
+
   $pubID = get_field( "publication_id", $post->ID );
   if(!$pubID) { $pubID = $no_data; }
 
-  global $wp_rewrite;
-
-
-  //$newlink = $wp_rewrite->get_extra_permastruct('article');
-   
   $permalink = str_replace("%publication_id%", $pubID, $permalink);
   $permalink = str_replace("%article_name%", $post->post_name, $permalink);
-  //$permalink = home_url(user_trailingslashit($permalink));
+
   return $permalink;
 }
+add_filter('post_type_link', 'article_permalink', 10, 3);
+/*
+=================================
+BLACK MAGIC ENDS HERE
+=================================
+*/
+
 
 /*
 =================================

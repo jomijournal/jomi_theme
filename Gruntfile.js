@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     less: {
       dev: {
         files: {
-          'assets/css/main.css': [
+          'assets/css/main.min.css': [
             'assets/less/app.less'
           ]
         },
@@ -87,7 +87,7 @@ module.exports = function(grunt) {
             prev: 'assets/css/'
           }
         },
-        src: 'assets/css/main.css'
+        src: 'assets/css/main.min.css'
       },
       build: {
         src: 'assets/css/main.min.css'

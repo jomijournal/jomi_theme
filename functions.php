@@ -80,7 +80,8 @@ register_post_type('article', array(
 'capability_type' => 'post',
 'map_meta_cap' => true,
 'hierarchical' => false,
-'rewrite' => array('slug' => 'article', 'with_front' => true),
+#'rewrite' => array('slug' => 'article', 'with_front' => true),
+'rewrite' => false,
 'query_var' => true,
 'menu_icon' => '/wp-content/themes/jomi/assets/img/logo-notext-s.png',
 'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes','post-formats'),
@@ -102,6 +103,8 @@ register_post_type('article', array(
   'parent' => 'Parent Article',
 )
 ) ); }
+
+
 
 /*
 =================================
@@ -158,12 +161,11 @@ add_filter( 'display_post_states', 'display_archive_state' );
 
 /*
 =================================
-REWRITE RULES
+REWRITE RULES 
 =================================
 */
 
-//add_filter( 'template_include', 'wpse_97347_force_article' );
-
+add_filter( 'template_include', 'wpse_97347_force_article', 100);
 function wpse_97347_force_article( $template )
 {
   global $wp_query;
@@ -171,12 +173,22 @@ function wpse_97347_force_article( $template )
   if ( $wp_query->get( 'publication_id' ) ) {
     #echo "<pre>";
     #print_r($wp_query);
-
     #echo "</pre>";
-    return "C:/wamp/www/wp-content/themes/jomi/base.php";
+    Roots_Wrapping::wrap(@realpath(dirname(__FILE__)) . '/templates/content-single.php');
+    return @realpath(dirname(__FILE__)) . "/base.php";
+
   }
   return $template;
 }
+function set_single()
+{
+  global $wp_query;
+  if($wp_query->get('publication_id')) {
+
+    $wp_query->is_single = true;
+  }
+}
+add_action('wp', 'set_single', 0, 0);
 
 function register_publication_id() {
   global $wp;
@@ -186,20 +198,36 @@ add_action( 'init', 'register_publication_id' );
 
 function map_publication_id( $wp_query ) {
   if ( $meta_value = $wp_query->get( 'publication_id' ) ) {
-    $wp_query->set( 'meta_key', 'publication_id' );
-    $wp_query->set( 'meta_value', $meta_value );
+
+    $rd_args = array(
+      'post_type' => 'article',
+      'post_count' => 1,
+      'meta_key' => 'publication_id',
+      'meta_value' => $meta_value
+    );
+     
+    $rd_query = new WP_Query( $rd_args );
+
+    if( $rd_query->have_posts() ) {
+      while( $rd_query->have_posts() ) {
+        $rd_query->the_post();
+        $postID = get_the_ID();
+      } // end while
+    } // end if
+    wp_reset_postdata();
+    
+    $wp_query->set( 'p', $postID );
   }
 }
 add_action( 'parse_query', 'map_publication_id' );
 
 function add_article_rewrite_rules() {
-    add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
-    add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
-    flush_rewrite_rules();
+  add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
+  add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
+  //flush_rewrite_rules();
 }
 add_action( 'init', 'add_article_rewrite_rules' );
 
-add_action('init', 'article_rewrite');
 function article_rewrite() {
   global $wp_rewrite;
   $wp_rewrite->add_rewrite_tag('%publication_id%', '([^/]+)', 'publication_id=');
@@ -207,19 +235,29 @@ function article_rewrite() {
   $wp_rewrite->add_permastruct('article', '/article/%publication_id%/%article_name%/', false);
   flush_rewrite_rules();
 }
+add_action('init', 'article_rewrite');
 
-add_filter('post_type_link', 'article_permalink', 1, 3);
-function article_permalink($post_link, $id = 0, $leavename) {
+add_filter('post_type_link', 'article_permalink', 10, 3);
+function article_permalink($permalink, $post, $leavename) {
+
+  $no_data = 'no-article';
+  $post_id = $post->ID;
+
+  if($post->post_type != 'article' || empty($permalink) || in_array($post->post_status, array('draft', 'pending', 'auto-draft')))
+    return $permalink;
+  //$var1 = get_post_meta($post_id, 'publication_id', true);
+  $pubID = get_field( "publication_id", $post->ID );
+  if(!$pubID) { $pubID = $no_data; }
+
   global $wp_rewrite;
-  $post = &get_post($id);
-  if ( is_wp_error( $post ) )
-    return $post;
-  $newlink = $wp_rewrite->get_extra_permastruct('article');
-  $pubID = get_field( "publication_id", $post->ID ); 
-  $newlink = str_replace("%publication_id%", $pubID, $newlink);
-  $newlink = str_replace("%article_name%", $post->post_name, $newlink);
-  $newlink = home_url(user_trailingslashit($newlink));
-  return $newlink;
+
+
+  //$newlink = $wp_rewrite->get_extra_permastruct('article');
+   
+  $permalink = str_replace("%publication_id%", $pubID, $permalink);
+  $permalink = str_replace("%article_name%", $post->post_name, $permalink);
+  //$permalink = home_url(user_trailingslashit($permalink));
+  return $permalink;
 }
 
 /*

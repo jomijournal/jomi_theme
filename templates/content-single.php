@@ -44,16 +44,17 @@
     </div>
 
     <script>
+      window.history.pushState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
       $('.nav-tabs a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
       });
-     $(document).ready(function(){
+      $(document).ready(function(){
         $('#meta-chapters section').each(function(){
           $('#chapters ul').append('<li class="vtime-item" data-time="'+$(this).data('time')+'"><a href="#video" onclick="wistiaEmbed.time('+$(this).data('time')+').play();">'+$(this).data('title')+'</a></li>');
         });
         $('#chapters').show();
-     });
+      });
     </script>
     <footer>
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>

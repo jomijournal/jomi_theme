@@ -1,6 +1,7 @@
 <article <?php post_class(); ?>>
 	<?php
-		if ( in_array(get_post_status(), array('preprint', 'in_production', 'coming_soon') ) {
+		if ( in_array(get_post_status(), array('preprint', 'in_production', 'coming_soon') ) )
+		{
 			$link = '/notifications';
 		} else {
 			$link = get_permalink();

@@ -68,14 +68,23 @@
    padding:0;
 }
 
-
-.single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap{
+.articles .wrap, .category .wrap {
+   background: rgba(0, 0, 0, 0.0) !important;
+   h1{
+      color: #fff;
+   }
+   .content .sidebar h3{
+      color: #fff;
+   }
+}
+.single .wrap, .page:not(.home) .wrap,.archive .wrap, .search .wrap{
    background: #fff;
    color: #111;
    border-radius: 5px;
    padding: 50px 50px;
    margin-bottom:30px;
 }
+
 
 .page .kcite-boilerplate {
 	display: none;
@@ -84,9 +93,10 @@
 // ARTICLE THUMBNAILS
 // ------------------
 article {
-   margin-bottom: 2px !important;
-   margin-left: -14px;
-   margin-right: -14px;
+   margin-bottom: 0px !important;
+   margin-left: -15px;
+   margin-right: -15px;
+   border: 2px inset #fff;
    position: relative;
    a img{
       width: 100%;
@@ -123,6 +133,7 @@ article {
       p {
          color: #ccc;
          margin: 0px 0px;
+         font-size: 10px;
          a{
             color: #ccc;
             font-weight: 700;
@@ -136,6 +147,23 @@ article {
          color: #999;
          font-size: 10px;
       }
+   }
+   .unavailable{
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      h3{
+         position: relative;
+         color: #fff;
+         display: block;
+         text-align: center;
+      }
+   }
+   h5{
+      position: absolute;
    }
 }
 
@@ -180,10 +208,10 @@ article {
 }
 
 .article-container{
-   margin-left: -34px;
+   /*margin-left: -34px;
    margin-right: -34px;
    margin-top: -48px;
-   margin-bottom: -50px;
+   margin-bottom: -50px;*/
 }
 
 .kcite{
@@ -222,6 +250,7 @@ article {
             font-size: 20px;
          }
           p{
+            font-size: 14px;
             a{
                font-size: 14px;
             }

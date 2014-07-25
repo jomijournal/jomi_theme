@@ -7,17 +7,17 @@
 			switch ($status) {
 				case 'preprint':
 					$status_text = 'Preprint';
+					$link = get_permalink();
 					break;
 				case 'in_production':
 					$status_text = 'In Production';
+					$link = '/notifications';
 					break;
 				case 'coming_soon':
 					$status_text = "Coming Soon";
+					$link = '/notifications';
 					break;
 			}
-
-			$link = '/notifications';
-
 		} else {
 			$link = get_permalink();
 		}

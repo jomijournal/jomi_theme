@@ -19,13 +19,13 @@
 
 		    <ul>
 		      <div class='col-md-4'>
-		      	<li class='coming-soon'><a href="/area-notification-request/?area=ENT" class="border">ENT</a></li>
+		      	<li class='coming-soon'><a href="/notifications/?area=ENT" class="border">ENT</a></li>
 		      </div>
 		      <div class='col-md-4'>
-		      	<li class='coming-soon'><a href="/area-notification-request/?area=ophthalmology" class="border">Ophthalmology</a></li>
+		      	<li class='coming-soon'><a href="/notifications/?area=ophthalmology" class="border">Ophthalmology</a></li>
 		      </div>
 		      <div class='col-md-4'>
-		      	<li class='coming-soon'><a href="/area-notification-request/?area=fundamentals" class="border">Fundamentals</a></li>
+		      	<li class='coming-soon'><a href="/notifications/?area=fundamentals" class="border">Fundamentals</a></li>
 		      </div>
 		    </ul>
 		  </nav>

@@ -104,6 +104,14 @@ register_post_type('article', array(
 )
 ) ); }
 
+// register post types with author archive
+function custom_post_author_archive($query) {
+    if ($query->is_author)
+        $query->set( 'post_type', array('article', 'post') );
+    remove_action( 'pre_get_posts', 'custom_post_author_archive' );
+}
+add_action('pre_get_posts', 'custom_post_author_archive');
+
 
 
 /*

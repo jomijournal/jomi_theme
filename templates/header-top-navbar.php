@@ -4,6 +4,7 @@ global $user;
 <?php if(is_front_page()) : ?>
 	<video id="video" autoplay="" loop="" class='background hidden-xs' poster="/wp-content/themes/jomi/assets/img/vid_poster.png">
 		<source id="video-source" src="/wp-content/themes/jomi/assets/video/background.mp4" type="video/mp4">
+		<source id="video-source-webm" src="/wp-content/themes/jomi/assets/video/background.webm" type="video/webm">
 	</video>
 	<img src='/wp-content/themes/jomi/assets/img/background_mobile.png' class='background visible-xs'/>
 	<div class='blackbox background'></div>
@@ -103,14 +104,17 @@ global $user;
 <script>
 	if ($(window).width() < 768) {
 		$('#video-source').attr("src", "");
+		$('#video-source-webm').attr("src", "");
 	}
 	/* VIDEO LOAD CONDITIONALS */
 	$(window).resize(function() {
 		if ($(window).width() < 768 && $('#video-source').attr("src") != '') {
 			$('#video-source').attr('src', '');
+			$('#video-source-webm').attr('src', '');
 			$('#video').load();
 		} else if ($(window).width() >= 768 && $('#video-source').attr("src") == ''){
 			$('#video-source').attr('src', '/wp-content/themes/jomi/assets/video/background.mp4');
+			$('#video-source-webm').attr('src', '/wp-content/themes/jomi/assets/video/background.webm');
 			$('#video').load();
 		}
 	});

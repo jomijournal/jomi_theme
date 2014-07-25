@@ -30,12 +30,12 @@ if (!$my_query->have_posts()) : ?>
   $my_query->the_post(); ?>
   <?php if($post_count == 0): ?>
     <div class='row'>
-    <div class='col-lg-6'>
+    <div class='col-sm-6'>
     <?php get_template_part('templates/content', get_post_format()); ?>
     <?php $post_count++; ?>
     </div>
   <?php elseif($post_count == 1): ?>
-    <div class='col-lg-6'>
+    <div class='col-sm-6'>
     <?php get_template_part('templates/content', get_post_format()); ?>
     <?php $post_count = 0; ?>
     </div>

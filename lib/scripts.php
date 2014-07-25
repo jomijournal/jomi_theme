@@ -13,8 +13,21 @@
 function roots_scripts() {
 
 
-    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, false);
-    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);
+  $whitelist = array(
+      '127.0.0.1',
+      '::1'
+  );
+  // if localhost
+  if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+    wp_enqueue_style('roots_main', 'http://localhost/wp-content/themes/jomi/assets/css/main.min.css', false, false);
+    wp_register_script('roots_scripts', 'http://localhost/wp-content/themes/jomi/assets/js/scripts.min.js', array(), null, false);
+  } else {
+    wp_enqueue_style('roots_main', 'http://squash.jomi.com/wp-content/themes/jomi/assets/css/main.min.css', false, false);
+    wp_register_script('roots_scripts', 'http://squash.jomi.com/wp-content/themes/jomi/assets/js/scripts.min.js', array(), null, false);
+  }
+
+  #wp_enqueue_style('roots_main', get_theme_directory_uri() . '/assets/css/main.min.css', false, false);
+  #wp_register_script('roots_scripts', get_theme_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:
   // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline

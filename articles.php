@@ -4,7 +4,7 @@ Template Name: Articles
 */
 ?>
 
-<?php get_template_part('templates/page', 'header'); ?>
+<?php #get_template_part('templates/page', 'header'); ?>
 
 <?php
 $type = 'article';
@@ -26,6 +26,7 @@ if (!$my_query->have_posts()) : ?>
   <?php get_search_form(); ?>
 <?php endif; ?>
 
+<div class='article-container'>
 <?php while ($my_query->have_posts()) : 
   $my_query->the_post(); ?>
   <?php if($post_count == 0): ?>
@@ -51,3 +52,5 @@ if (!$my_query->have_posts()) : ?>
     </ul>
   </nav>
 <?php endif; ?>
+
+</div>

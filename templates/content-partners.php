@@ -31,9 +31,7 @@
 	  		</div>
 	  	</a>
 	</div>
-  </div>
-  <div class="orgs large">
-  	<div class="row">
+	<div class="row">
 	  	<a href="http://www2.massgeneral.org/library/default.asp" >
 	  		<div class="org col-sm-3">
 	  			<div class="logo"><img src="/wp-content/themes/jomi/assets/img/clients/standardized/mass general.png"></div>
@@ -59,7 +57,22 @@
 	  		</div>
 	  	</a>
 	</div>
+	<div class="row">
+		<a href="http://www.library.ucsf.edu/" >
+	  		<div class="org col-sm-3">
+	  			<div class="logo"><img src="/wp-content/themes/jomi/assets/img/clients/standardized/UCSF.png"></div>
+	  			<div class="lab">UCSF Library</div>
+	  		</div>
+	  	</a>
+	  	<a href="http://www.mamc.amedd.army.mil/education/graduate-medical-education/medical-library/default.aspx" >
+	  		<div class="org col-sm-3">
+	  			<div class="logo"><img src="/wp-content/themes/jomi/assets/img/clients/standardized/madigan.png"></div>
+	  			<div class="lab">Madigan Medical Library</div>
+	  		</div>
+	  	</a>
+	</div>
   </div>
+  	
 
   <h2>Tier 2</h2>
   <div class="orgs small">

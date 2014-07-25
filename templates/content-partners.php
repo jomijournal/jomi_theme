@@ -2,7 +2,6 @@
   <p>JoMI's goal is to contribute to improvement in quality of care and medical education through publishing
   high quality surgical videos.  The following institutions share our commitment to 
   excellence in medical instruction.
-  <h2>Tier 1</h2>
 
   <div class="orgs large">
   	<div class="row">
@@ -73,56 +72,51 @@
 	</div>
   </div>
   	
-
-  <h2>Tier 2</h2>
   <div class="orgs small">
 	<div class="row">
 		<a href = "http://www2.kent.edu/library/index.cfm">
-			<div class="org col-md-3">
+			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/kentstate.png"></div>
 				<div class="link">Kent State University</div>
 			</div>
 		</a>
 		<a href = "http://library.nmsu.edu/">
-			<div class="org col-md-3">
+			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/newmexico.png"></div>
 				<div class="link">New Mexico State University</div>
 			</div>
 		</a>
 		<a href = "http://ahsl.arizona.edu/">
-			<div class="org col-md-3">
+			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/arizona.png"></div>
 				<div class="link">University of Arizona: Arizona Health Sciences Library</div>
 			</div>
 		</a>
-	</div>
-  </div>
-
-  <h2>Tier 3</h2>
-  <div class="orgs small">
-	<div class="row">
+		<a href = "http://www.westernconnecticuthealthnetwork.org/">
+			<div class="org col-md-2">
+				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/conneticut.png"></div>
+				<div class="link">Western Connecticut Health Network</div>
+			</div>
+		</a>
 		<a href = "http://www.jmmc.com/">
-			<div class="org col-md-3">
+			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/johnston.png"></div>
 				<div class="link">Johnston Memorial Medical Center</div>
 			</div>
 		</a>
 		<a href = "http://www.nvrh.org/interior.php/pid/6/sid/51">
-			<div class="org col-md-3">
+			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/vermont.png"></div>
 				<div class="link">Northern Vermont Regional Hospital</div>
 			</div>
 		</a>
+	</div>
+	<br/>
+	<div class="row">
 		<a href = "http://bhson.org/health-sciences-library/">
-			<div class="org col-md-3">
+			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/signature.png"></div>
 				<div class="link">Signature Brockton Healthcare Hospital: Health Sciences Library</div>
-			</div>
-		</a>
-		<a href = "http://www.westernconnecticuthealthnetwork.org/">
-			<div class="org col-md-3">
-				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/conneticut.png"></div>
-				<div class="link">Western Connecticut Health Network</div>
 			</div>
 		</a>
 	</div>

@@ -4,13 +4,13 @@ Template Name: Articles
 */
 ?>
 
-<?php #get_template_part('templates/page', 'header'); ?>
+<?php get_template_part('templates/page', 'header'); ?>
 
 <?php
 $type = 'article';
 $args=array(
   'post_type' => $type,
-  'post_status' => 'publish',
+  'post_status' => array('publish', 'preprint', 'coming_soon', 'in_production'),
   'posts_per_page' => -1,
   'caller_get_posts'=> 1
 );

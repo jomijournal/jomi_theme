@@ -45,14 +45,18 @@
                background:#555;
             }
          }
-         &.done:not(.current){
-            opacity:0.6;
-         }
          &.current{
             a{
                background:#555;
+
             }
             font-weight:700;
+         }
+         &.done:not(.current) a{
+            background:#111;
+            &:hover{
+               background:#555;
+            }
          }
       }
    }

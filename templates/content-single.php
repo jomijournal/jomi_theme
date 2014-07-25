@@ -37,9 +37,9 @@
         <div class="tab-pane active" id="main">
           <?php the_content(); ?>
           <h3>Citations</h3>
-          <?php /*the_field('citations');*/ the_block('citations'); ?>
+          <?php the_field('citations'); ?>
         </div>
-        <div class="tab-pane" id="outline"><?php /*the_field('outline');*/ the_block('procedure-outline'); ?></div>
+        <div class="tab-pane" id="outline"><?php the_field('outline'); ?></div>
       </div>
     </div>
 

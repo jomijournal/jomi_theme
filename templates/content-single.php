@@ -59,6 +59,6 @@
     <footer>
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>
     </footer>
-    <?php comments_template('/templates/comments.php'); ?>
   </article>
+  <?php comments_template(); ?>
 <?php endwhile; ?>

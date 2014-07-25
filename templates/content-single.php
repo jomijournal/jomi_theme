@@ -44,7 +44,7 @@
     </div>
 
     <script>
-      window.history.pushState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
+      window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
       $('.nav-tabs a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');

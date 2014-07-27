@@ -82,6 +82,34 @@
    .content .main .page-header {
       border: none;
    }
+   .sidebar{
+      h3{
+         font-size: 18px;
+      }
+      ul li{
+         list-style-type: none;
+         //margin-bottom: 10px;
+         &.current-cat a{
+            color: rgba(255, 255, 255, 0.8);
+            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
+         }
+         a{
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            display: block;
+            padding: 10px 25px;
+            border-radius: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            margin-bottom: 10px;
+            font-size: 18px;
+            &:hover{
+               border-color: rgba(255, 255, 255, 1.0);
+               color: rgba(255, 255, 255, 1.0);
+            }
+         }
+      }
+   }
 }
 .single .wrap, .page:not(.home) .wrap,.archive .wrap, .search .wrap{
    background: #fff;

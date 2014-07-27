@@ -2,7 +2,7 @@
 	<?php
 		if ( in_array(get_post_status(), array('preprint', 'in_production', 'coming_soon') ) )
 		{
-			$link = '/notifications';
+			$link = '/notifications?area=' . get_the_title();
 		} else {
 			$link = get_permalink();
 		}

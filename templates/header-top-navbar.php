@@ -139,7 +139,7 @@ global $user;
 
 		function onLoginSuccessful(token){
 			Cookies.set('ua_session_token', token);
-			//window.location.href = "/articles";
+			window.location.reload(false);
 		}
 
 		function emailLogin(user, pass){

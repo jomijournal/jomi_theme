@@ -4,7 +4,10 @@ Template Name: Articles
 */
 ?>
 
-<?php get_template_part('templates/page', 'header'); ?>
+<?php #get_template_part('templates/page', 'header'); ?>
+<div class='page-header'>
+  <h1>All Articles</h1>
+</div>
 
 <?php
 $type = 'article';
@@ -30,17 +33,17 @@ if (!$my_query->have_posts()) : ?>
 <?php while ($my_query->have_posts()) : 
   $my_query->the_post(); ?>
   <?php if($post_count == 0): ?>
-    <div class='row'>
-    <div class='col-sm-6'>
+    <!--div class='row'>
+    <div class='col-sm-6'-->
     <?php get_template_part('templates/content', get_post_format()); ?>
     <?php $post_count++; ?>
-    </div>
+    <!--/div-->
   <?php elseif($post_count == 1): ?>
-    <div class='col-sm-6'>
+    <!--div class='col-sm-6'-->
     <?php get_template_part('templates/content', get_post_format()); ?>
     <?php $post_count = 0; ?>
-    </div>
-    </div>
+    <!--/div>
+    </div-->
   <?php endif ?>
 <?php endwhile; ?>
 

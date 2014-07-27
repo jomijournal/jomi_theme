@@ -8,7 +8,7 @@
       });
       wistiaEmbed.bind("secondchange", function (s) {
         if(s > 60*10 && !user) {
-          $('.wistia_embed').empty().append('<h2 style="color:#fff">Please sign in to watch the rest of the video.</h2><h3 style="color:#fff">Contact your hospital or educational institution for login details.</h3><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 653px;text-align: center;padding-top: 200px;border: 3px solid #eee;');
+          $('.wistia_embed').empty().append('<h2 style="color:#fff">Please sign in to watch the rest of the video.</h2><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 100%;text-align: center;padding-top: 150px;padding-bottom: 150px;border: 3px solid #eee;');
         }
         $('.vtime-item').removeClass('done').removeClass('current');
         $('.vtime-item').each(function(index){
@@ -37,9 +37,9 @@
         <div class="tab-pane active" id="main">
           <?php the_content(); ?>
           <h3>Citations</h3>
-          <?php /*the_field('citations');*/ the_block('citations'); ?>
+          <?php the_field('citations'); ?>
         </div>
-        <div class="tab-pane" id="outline"><?php /*the_field('outline');*/ the_block('procedure-outline'); ?></div>
+        <div class="tab-pane" id="outline"><?php the_field('outline'); ?></div>
       </div>
     </div>
 
@@ -59,6 +59,6 @@
     <footer>
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>
     </footer>
-    <?php comments_template('/templates/comments.php'); ?>
   </article>
+  <?php comments_template(); ?>
 <?php endwhile; ?>

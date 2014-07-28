@@ -15,10 +15,9 @@ Base is the entry point for most pages.
   <?php
     do_action('get_header');
     // Use Bootstrap's navbar if enabled in config.php
-    /*if(!is_front_page()){
+    if(!is_page('login')){
       get_template_part('templates/header-top-navbar');
-    }*/
-    get_template_part('templates/header-top-navbar');
+    }
   ?>
 
   <?php 

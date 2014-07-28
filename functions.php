@@ -268,7 +268,8 @@ add_action( 'parse_query', 'map_publication_id' );
 function add_article_rewrite_rules() {
   add_rewrite_rule('^article/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
   add_rewrite_rule('^article/([^/]*)/([^/]*)','index.php?post_type=article&publication_id=$matches[1]','top');
-  //flush_rewrite_rules();
+
+  flush_rewrite_rules();
 }
 add_action( 'init', 'add_article_rewrite_rules' );
 
@@ -303,6 +304,13 @@ BLACK MAGIC ENDS HERE
 =================================
 */
 
+function login_rewrite($wp_rewrite) {
+  add_rewrite_rule('^login/','wp-login.php?action=login','top');
+  add_rewrite_rule('^register/','wp-login.php?action=register','top');
+}
+add_filter('init', 'login_rewrite');
+
+
 
 /*
 =================================
@@ -329,3 +337,38 @@ register_sidebar(array(
   'before_title' => '<h3>',
   'after_title' => '</h3>',
 ) );
+
+/*
+===============================
+wp-login page style
+===============================
+ */
+function jomi_login_head() {
+  get_template_part('templates/head');
+  do_action('get_header');
+}
+add_action('login_head', 'jomi_login_head');
+function jomi_login_stylesheet() {
+    wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/assets/css/main.min.css' );
+    wp_enqueue_script( 'custom-login', get_template_directory_uri() . '/assets/js/scripts.min.js' );
+}
+//add_action( 'login_enqueue_scripts', 'jomi_login_stylesheet' );
+function jomi_login_header_url($url) {
+  return site_url();
+}
+add_filter('login_headerurl', 'jomi_login_header_url');
+function jomi_login_footer(){
+  echo '
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>
+  $(function(){
+    $("#loginform").attr("action", "' . site_url() . '/login/");
+    $("#registerform").attr("action", "' . site_url() . '/register/");
+    $("#login a").attr("title","Journal of Medical Insight");
+    $("input[name=' . "'redirect_to'" . ']").attr("value","'.site_url().'");
+  });
+  </script>
+  ';
+}
+add_action('login_footer', 'jomi_login_footer');
+add_action('register_footer', 'jomi_login_footer');

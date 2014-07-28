@@ -29,25 +29,71 @@ global $user;
 
 		        <nav class='nav-top hidden-xs'>
 		          <ul>
-		          	<?php if(!$user): ?>
+		          	<?php if(!is_user_logged_in()): ?>
 		            <li class="dropdown">
 						<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 						<div class="dropdown-menu pull-right" style="padding: 15px;">
 							<div id="login-form">
-								<span class="label label-danger" id="error-login" style="display:none;">User does not exist</span>
-								<input placeholder="Username" id="user_username" style="margin-bottom: 15px;" type="text" name="login" size="30" />
-								<span class="label label-danger" id="error-password" style="display:none;">Invalid password</span>
-								<input placeholder="Password" id="user_password" style="margin-bottom: 15px;" type="password" name="password" size="30" />
-								<input class="btn fat" style="clear: left; width: 100%;" type="submit" name="commit" value="Sign In" />
-								<br><br>
-									<button style="width:100%;" class="btn fat white social-login" data-provider="facebook"><i class="fa fa-facebook"></i>&nbsp;&nbsp;Log in with Facebook</button>
-									<br><br>
-									<button style="width:100%;" class="btn fat white social-login" data-provider="google"><i class="fa fa-google"></i>&nbsp;&nbsp;Log in with Google</button>
+								<form name="loginform" id="loginform" action="">
+									<p class="login-username">
+										<label for="user_login">Username</label>
+										<input type="text" name="log" id="user_login" class="input" value="" size="20">
+									</p>
+									<p class="login-password">
+										<label for="user_pass">Password</label>
+										<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+									</p>
+									<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
+									<p class="login-submit">
+										<input type="submit" name="submit" id="submit" class="button-primary" value="Log In">
+										<input type="hidden" name="redirect_to" value="/">
+									</p>
+								</form>
 							</div>
+							<script>
+							$(function() {
+								$('#loginform').on('submit', function(e) {
+
+									e.preventDefault();
+
+									var login = $('#login-form input[name="log"]').val();
+									if(login === '') {
+										console.log('no username specified');
+										return;
+									}
+									var pass = $('#login-form input[name="pwd"]').val();
+									if(pass === '') {
+										console.log('no password specified');
+										return;
+									}
+									console.log('user: ' + login);
+									console.log('pass: ' + pass);
+
+									var dataString = 'log='+ login + '&pwd=' + pass;
+									//alert (dataString);return false;
+									$.ajax({
+									  type: "POST",
+									  url: "/wp-login.php",
+									  data: $('#login-form form').serialize(),
+									  success: function(data) {
+									  	//console.log(String(data));
+									    if(String(data).indexOf("login_error") > 0) {
+									    	// login error occured
+									    	console.log('whoops')
+									    } else {
+									    	console.log('success');
+									    	window.location.reload();
+									    }
+									  }
+									});
+								});
+							});
+
+							</script>
 						</div>
 					</li>
 					<?php else: ?>
-					<li><a href="/?logout" id="logout-btn">Sign&nbsp;out</a></li>
+					<li><!--a href="/?logout" id="logout-btn">Sign&nbsp;out</a--><?php wp_loginout($_SERVER['REQUEST_URI']);?></li>
 					<?php endif; ?>
 
 		            <li><a href='/subscribers/' class="hidden-xs<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribers</a></li>
@@ -143,7 +189,7 @@ global $user;
 		}
 
 		function emailLogin(user, pass){
-			UserApp.User.login({ "login": user, "password": pass}, function(error, result) {
+			/*UserApp.User.login({ "login": user, "password": pass}, function(error, result) {
 			    if (error) {
 			        // Something went wrong...
 			        // Check error.name. Might just be a wrong password?
@@ -168,7 +214,7 @@ global $user;
 			        // User is logged in, save result.token in a cookie called 'ua_session_token'	        
 			        onLoginSuccessful(result.token);
 			    }
-			});
+			});*/
 		}
 
 		function socialLogin(providerId) {

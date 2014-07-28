@@ -42,11 +42,11 @@ module.exports = function(grunt) {
           ]
         },
         options: {
-          compress: false,
+          compress: true,
           // LESS source map
           // To enable, set sourceMap to true and update sourceMapRootpath based on your install
           sourceMap: true,
-          sourceMapFilename: 'assets/css/main.css.map',
+          sourceMapFilename: 'assets/css/main.min.css.map',
           sourceMapRootpath: '/app/themes/roots/'
         }
       },
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
           'assets/less/*.less',
           'assets/less/**/*.less'
         ],
-        tasks: ['less:dev', 'autoprefixer:dev']
+        tasks: ['less:dev'/*, 'autoprefixer:dev'*/]
       },
       js: {
         files: [
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
         // Browser live reloading
         // https://github.com/gruntjs/grunt-contrib-watch#live-reloading
         options: {
-          livereload: false
+          livereload: true
         },
         files: [
           'assets/css/main.min.css',

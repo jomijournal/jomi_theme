@@ -37,16 +37,16 @@ module.exports = function(grunt) {
     less: {
       dev: {
         files: {
-          'assets/css/main.css': [
+          'assets/css/main.min.css': [
             'assets/less/app.less'
           ]
         },
         options: {
-          compress: false,
+          compress: true,
           // LESS source map
           // To enable, set sourceMap to true and update sourceMapRootpath based on your install
           sourceMap: true,
-          sourceMapFilename: 'assets/css/main.css.map',
+          sourceMapFilename: 'assets/css/main.min.css.map',
           sourceMapRootpath: '/app/themes/roots/'
         }
       },
@@ -87,7 +87,7 @@ module.exports = function(grunt) {
             prev: 'assets/css/'
           }
         },
-        src: 'assets/css/main.css'
+        src: 'assets/css/main.min.css'
       },
       build: {
         src: 'assets/css/main.min.css'
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
           'assets/less/*.less',
           'assets/less/**/*.less'
         ],
-        tasks: ['less:dev', 'autoprefixer:dev']
+        tasks: ['less:dev'/*, 'autoprefixer:dev'*/]
       },
       js: {
         files: [
@@ -144,11 +144,11 @@ module.exports = function(grunt) {
         // Browser live reloading
         // https://github.com/gruntjs/grunt-contrib-watch#live-reloading
         options: {
-          livereload: false
+          livereload: true
         },
         files: [
-          'assets/css/main.css',
-          'assets/js/scripts.js',
+          'assets/css/main.min.css',
+          'assets/js/scripts.min.js',
           'templates/*.php',
           '*.php'
         ]
@@ -163,8 +163,9 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', [
     'jshint',
     'less:dev',
-    'autoprefixer:dev',
-    'concat'
+    //'autoprefixer:dev',
+    'concat',
+    'watch'
   ]);
   grunt.registerTask('build', [
     'jshint',

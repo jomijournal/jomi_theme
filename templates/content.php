@@ -11,11 +11,11 @@
 					break;
 				case 'in_production':
 					$status_text = 'In Production';
-					$link = '/notifications';
+					$link = '/notifications?area=' . get_the_title();
 					break;
 				case 'coming_soon':
 					$status_text = "Coming Soon";
-					$link = '/notifications';
+					$link = '/notifications?area=' . get_the_title();
 					break;
 			}
 		} else {

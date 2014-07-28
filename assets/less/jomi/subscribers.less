@@ -11,14 +11,12 @@
       .logo{
          display:block;
       }
-      .lab{
-         margin-bottom: 10px;
-      }
    }
 }
 .org{
    text-align:center;
    margin-top: 10px;
+   margin-bottom: 10px;
    .logo{
       padding: 20px 0;
       background-color:#f0f0f0;
@@ -38,7 +36,7 @@
       text-align: left;
       border-bottom: 1px solid #000
    }
-   .lab{
+   .lab{ // Label 
       background-color: #ddd;
       color: #646464;
       font-weight: 700;
@@ -80,6 +78,11 @@
          //margin-bottom:10px !important;
       }
 
+      .org{
+         margin-top: 10px;
+         margin-bottom: 10px;
+      }
+
       &.large{
          .lab{
             margin-bottom: 0px;
@@ -98,6 +101,11 @@
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
    .orgs{
+      .org{
+         margin-top: 15px;
+         margin-bottom: 15px;
+      }
+
       .org .logo img{
          width: 85%;
          //margin-bottom:10px !important;

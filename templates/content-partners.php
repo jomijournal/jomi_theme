@@ -20,13 +20,13 @@
 	  	<a href="http://library.med.cornell.edu/" >
 	  		<div class="org col-sm-3">
 	  			<div class="logo"><img src="/wp-content/themes/jomi/assets/img/clients/standardized/cornell.png"></div>	
-				<div class="lab">Weill Medical College - Medical Library</div>
+				<div class="lab">Weill Medical College Medical Library</div>
 	  		</div>
 	  	</a>
 	  	<a href="https://www.countway.harvard.edu/index.html" >
 	  		<div class="org col-sm-3">
 	  			<div class="logo"><img src="/wp-content/themes/jomi/assets/img/clients/standardized/harvard.png"></div>
-				<div class="lab">Francis A. Countway Library of Medicine</div>
+				<div class="lab">Countway Library of Medicine</div>
 	  		</div>
 	  	</a>
 	  	<a href="http://www.mamc.amedd.army.mil/education/graduate-medical-education/medical-library/default.aspx" >
@@ -106,9 +106,6 @@
 				<div class="link">Western Connecticut Health Network</div>
 			</div>
 		</a>
-	</div>
-	<br/>
-	<div class="row">
 		<a href = "http://bhson.org/health-sciences-library/">
 			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/signature.png"></div>

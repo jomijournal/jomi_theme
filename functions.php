@@ -305,8 +305,8 @@ BLACK MAGIC ENDS HERE
 */
 
 function login_rewrite($wp_rewrite) {
-  add_rewrite_rule('^login/','wp-login.php?action=login','top');
-  add_rewrite_rule('^register/','wp-login.php?action=register','top');
+  //add_rewrite_rule('^login/','wp-login.php?action=login','top');
+  //add_rewrite_rule('^register/','wp-login.php?action=register','top');
 }
 add_filter('init', 'login_rewrite');
 

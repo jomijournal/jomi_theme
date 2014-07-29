@@ -64,7 +64,7 @@ global $user;
 					</div>
 				</li>
 				<?php else: ?>
-				<li><a href="/?logout" id="logout-btn">Sign&nbsp;out</a></li>
+				<li><a href="#" id="logout-btn">Sign&nbsp;out</a></li>
 			<?php endif; ?>
 			<li><a href='/login/' class=" active visible-xs">Sign in</a></li>
 			<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribers</a></li>
@@ -144,76 +144,6 @@ global $user;
 		$('.dropdown input, .dropdown label').click(function(e) {
 			e.stopPropagation();
 		});
-	});
-	$(document).ready(function(){
-		UserApp.initialize({ appId: "53b5e44372154" });
-
-		$('.social-login').click(function(){
-			socialLogin($(this).data('provider'));
-		});
-
-		function onLoginSuccessful(token){
-			Cookies.set('ua_session_token', token);
-			window.location.reload(false);
-		}
-
-		function emailLogin(user, pass){
-			/*UserApp.User.login({ "login": user, "password": pass}, function(error, result) {
-			    if (error) {
-			        // Something went wrong...
-			        // Check error.name. Might just be a wrong password?
-			        $('#login-form .label').hide();
-			        $('#login-form input').removeClass('error');
-			        if($('#login-form input[name="password"]').val() == '')
-			        {
-			        	$('#login-form input[name="password"]').addClass('error');
-			        	$('#error-password').show();
-			    	}
-			        else if(error.name == 'INVALID_ARGUMENT_LOGIN'){
-			        	$('#login-form input[name="login"]').addClass('error');
-			        	$('#error-login').show();
-			        }
-			        else if(error.name == 'INVALID_ARGUMENT_PASSWORD' || error.name == 'INVALID_ARGUMENT_LOGIN'){
-			        	$('#login-form input[name="password"]').addClass('error');
-			        	$('#error-password').show();
-			        }
-			    } else if (result.locks && result.locks.length > 0) {
-			        // This user is locked
-			    } else {
-			        // User is logged in, save result.token in a cookie called 'ua_session_token'	        
-			        onLoginSuccessful(result.token);
-			    }
-			});*/
-		}
-
-		function socialLogin(providerId) {
-			var redirectUrl = window.location.protocol+'//'+window.location.host+window.location.pathname;
-			UserApp.OAuth.getAuthorizationUrl({ provider_id: providerId, redirect_uri: redirectUrl },
-				function(error, result) {
-					if (!error) {
-						window.location.href = result.authorization_url;
-					}
-				}
-			);
-		}
-
-		var matches = window.location.href.match(/ua_token=([a-z0-9_-]+)/i);
-		if (matches && matches.length == 2) {
-			var token = matches[1];
-			UserApp.setToken(token);
-			onLoginSuccessful(token);
-		}
-		$('#login-form input[type=submit]').click(function(){
-			emailLogin($('#login-form input[name="login"]').val(), $('#login-form input[name="password"]').val());
-		});
-		$('#submit-2').click(function(){
-			emailLogin($('#login-form-2 input[name="login"]').val(), $('#login-form-2 input[name="password"]').val());
-		});
-		$('#login-form input[name="password"]').keypress(function (event) {
-			if ( event.which == 13 || event.which == 10) {
-		      emailLogin($('#login-form input[name="login"]').val(), $('#login-form input[name="password"]').val());
-		    }
-		});
 		$('#search-field').keydown(function(event){
 			if(event.which == 13)
 			{
@@ -221,12 +151,6 @@ global $user;
 				window.location.href = "/?s="+$(this).val();
 			}
 		});
-		$('#search-field-m').keydown(function(event){
-			if(event.which == 13)
-			{
-				event.preventDefault();
-				window.location.href = "/?s="+$(this).val();
-			}
-		});
 	});
+
 </script>

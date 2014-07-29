@@ -165,7 +165,6 @@ margin-left: 15px !important;
 }
 
 .navbar-nav .open .dropdown-menu {
-position: static;
 float: none;
 width: auto;
 margin-top: 0;
@@ -174,6 +173,12 @@ border: 0;
 box-shadow: none;
 z-index: 5;
 }
+
+.dropdown.open#login-btn{
+color: #000 !important;
+}
+
+
 
 //* MOBILE
 
@@ -276,9 +281,7 @@ z-index: 5;
    nav.site-header{
       .collapse ul li {
          margin-left: 40px;
-         a.border {
-            padding: 9px 40px;
-         }
+
       }
    input.search{
       position: relative;

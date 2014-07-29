@@ -64,7 +64,7 @@ global $user;
 					</div>
 				</li>
 				<?php else: ?>
-				<li><a href="#" id="logout-btn">Sign&nbsp;out</a></li>
+				<li><?php wp_loginout(); ?></li>
 			<?php endif; ?>
 			<li><a href='/login/' class=" active visible-xs">Sign in</a></li>
 			<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribers</a></li>

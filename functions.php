@@ -386,9 +386,15 @@ if (!function_exists('possibly_redirect'))
     global $pagenow;
     if( 'wp-login.php' == $pagenow )
     {
-      if($_GET["action"]=="logout"){
+      $action = $_GET["action"];
+      if($action=="logout"){
          wp_logout();
          header("Location: /login?loggedout=true");
+      }
+      # hide wp-login
+      if($_SERVER['REQUEST_URI'] == "/wp-login.php?action=".$action)
+      {
+        wp_redirect('/login?action='.$action);
       }
       /*else
       {
@@ -399,6 +405,5 @@ if (!function_exists('possibly_redirect'))
   }
   add_action('init','possibly_redirect');
 }
-
 
 ?>

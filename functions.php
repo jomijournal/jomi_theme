@@ -376,5 +376,29 @@ function jomi_login_footer(){
 }
 add_action('login_footer', 'jomi_login_footer');
 add_action('register_footer', 'jomi_login_footer');
-add_action('lostpassword_footer', 'jomi_login_footer')
+add_action('lostpassword_footer', 'jomi_login_footer');
+
+
+if (!function_exists('possibly_redirect'))
+{
+  function possibly_redirect()
+  {
+    global $pagenow;
+    if( 'wp-login.php' == $pagenow )
+    {
+      if($_GET["action"]=="logout"){
+         wp_logout();
+         header("Location: /login?loggedout=true");
+      }
+      /*else
+      {
+        wp_redirect('/');       
+      }*/
+      //exit();
+    }
+  }
+  add_action('init','possibly_redirect');
+}
+
+
 ?>

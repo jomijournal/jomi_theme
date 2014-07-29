@@ -43,95 +43,11 @@ nav.site-header{
       }
    }
 }
-      //float:right;
-   .mobile-menu {
-      margin-bottom: 0px;
-      .panel {
-         background: rgba(0, 0, 0, 0);
-         .panel-heading {
-            padding: 15px 15px;
-            .panel-title a{
-               float: right;
-               margin-top: -15px;
-               margin-right: 15px;
-               border: 2px solid #fff;
-               border-radius: 15px;
-               background: rgba(255, 255, 255, 0.0);
-               &:hover{
-                  background: rgba(255, 255, 255, 0.1);
-               }
-               .glyphicon{
-                  margin: 3px 15px;
-                  top: 2px;
-               }
-            }
-         }
-         .panel-collapse {
-            .collapsing{
-               overflow: visible;
-            }
-            //width: 
-            ul.panel-body {
-               border: none;
-               padding: 0 15px;
-               margin-top: 20px;
-               list-style-type: none;
-               a{
-                  color: #fff;
-                  opacity: 0.8;
-                  text-decoration: none;
-                  &:hover{
-                     opacity: 1.0;
-                  }
-                  li{
-                     background: rgba(255, 255, 255, 0.1);
-                     padding: 8px 15px;
-                     border-bottom: 1px solid #aaa;
-                     &.top{
-                        border-top: 1px solid #aaa;
-                        //border-top-left-radius: 15px;
-                        //border-top-right-radius: 15px;
-                     }
-                     &.bottom{
-                        //border-bottom-left-radius: 15px;
-                        //border-bottom-right-radius: 15px;
-                     }
-                     &:hover{
-                        background: rgba(255, 255, 255, 0.2);
-                     }
-                  }
-               }
-               .search-mobile{
-                  width: 100%;
-                  background: rgba(255, 255, 255, 0.1);
-                  border: none;
-                  border-bottom: 1px solid #aaa;
-                  border-radius: 0px;
-                  padding: 8px 15px;
-                  color: #fff;
-               }
-               .panel-collapse{
-                  z-index: -2000;
-                  input{
-                     width: 100%;
-                  }
-               }
-            }
-         }
-      }
-   }
-   #login-form{
-      z-index: 5 !important;
-      color: #000000;
-      input{
-         border-radius: 25px;
-         color: #000000;
-      }
-   }
+
    .btn {
       border: 1px solid #bbb;
       font-weight: 500;
-      color: #fff;
+      color: #000;
    }
 }
 
@@ -172,11 +88,11 @@ background-color: #ffffff !important;
 border: 0;
 box-shadow: none;
 z-index: 5;
+color: #000000;
 }
 
-.dropdown.open#login-btn{
-color: #000 !important;
-}
+
+
 
 
 
@@ -217,7 +133,7 @@ color: #000 !important;
                }
                &.open a.border{
                   border-radius: 20px 20px 0 0;
-                  background: #fff;
+                  background: rgba(0,0,0,0);
                   color: #000;
                   text-decoration: none;
                }
@@ -275,7 +191,14 @@ color: #000 !important;
       opacity: 0.7;
    }
    }
+   nav.site-header .collapse ul li.open a.border {
+border-radius: 20px 20px 0 0;
+background: #fff;
+color: #000;
+text-decoration: none;
 }
+
+   }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
    nav.site-header{

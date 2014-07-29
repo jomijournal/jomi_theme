@@ -31,6 +31,7 @@ nav.site-header{
          font-size:15px;      
          li{
             margin-left: 10px;
+<<<<<<< HEAD
             a{
                color: #fff;
                opacity:0.8;
@@ -51,10 +52,25 @@ nav.site-header{
          color: #000000;
       }
    }
+=======
+               a{
+                  color: #fff;
+                  opacity:0.8;
+                  &:hover{
+                     opacity:1;
+                     text-decoration:none;
+                     color:#fff;
+                  }
+         }
+      }
+   }
+}
+
+>>>>>>> 92595b80efef98b933998c38146dd4bab21a403b
    .btn {
       border: 1px solid #bbb;
       font-weight: 500;
-      color: #fff;
+      color: #000;
    }
 }
 
@@ -95,11 +111,11 @@ background-color: #ffffff !important;
 border: 0;
 box-shadow: none;
 z-index: 5;
+color: #000000;
 }
 
-.dropdown.open#login-btn{
-color: #000 !important;
-}
+
+
 
 
 
@@ -198,7 +214,14 @@ color: #000 !important;
       opacity: 0.7;
    }
    }
+   nav.site-header .collapse ul li.open a.border {
+border-radius: 20px 20px 0 0;
+background: #fff;
+color: #000;
+text-decoration: none;
 }
+
+   }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
    nav.site-header{

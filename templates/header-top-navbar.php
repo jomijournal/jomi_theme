@@ -27,9 +27,6 @@ global $user;
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	 
-   
-
-
 	 <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
 
@@ -44,7 +41,7 @@ global $user;
       <ul class="nav navbar-nav navbar-right">
  
 	      <?php if(!$user): ?>
-		        <li class="dropdown hidden-xs">
+		        <li class="dropdown">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 						<div class="dropdown-menu pull-right" style="padding: 15px;">
 							<div id="login-form">
@@ -125,9 +122,9 @@ global $user;
 			$.ajax({
 			  type: "POST",
 			  url: "/wp-login.php",
-			  data: $('#login-form form').serialize(),
+			  data: dataString,
 			  success: function(data) {
-			  	//console.log(String(data));
+			  	console.log(String(data));
 			    if(String(data).indexOf("login_error") > 0) {
 			    	// login error occured
 			    	console.log('whoops')

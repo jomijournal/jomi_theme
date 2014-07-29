@@ -41,7 +41,7 @@ global $user;
       <ul class="nav navbar-nav navbar-right">
  
 	      <?php if(!is_user_logged_in()): ?>
-		        <li class="dropdown">
+		        <li class="dropdown hidden-xs">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 						<div class="dropdown-menu pull-right" style="padding: 15px; z-index: 5;">
 							<div id="login-form">

@@ -121,6 +121,7 @@ nav.site-header{
       }
    }
    #login-form{
+      z-index: 5 !important;
       color: #000000;
       input{
          border-radius: 25px;
@@ -149,6 +150,7 @@ margin-bottom: 0px;
 margin-right: -15px;
 -webkit-box-shadow: inset 0 0px 0 rgba(255,255,255,0.1),0 0px 0 rgba(255,255,255,0.1);
 box-shadow: inset 0 0px 0 rgba(255,255,255,0.1),0 0px 0 rgba(255,255,255,0.1);
+z-index: 5;
 }
 
 .navbar-collapse {
@@ -159,6 +161,18 @@ margin-left: 15px !important;
 .dropdown-menu{
    box-shadow: 0 0 0 #000;
    border: 0px solid;
+   background-color: #ffffff;
+}
+
+.navbar-nav .open .dropdown-menu {
+position: static;
+float: none;
+width: auto;
+margin-top: 0;
+background-color: #ffffff !important;
+border: 0;
+box-shadow: none;
+z-index: 5;
 }
 
 //* MOBILE
@@ -248,10 +262,11 @@ margin-left: 15px !important;
       position: relative;
       left: 10px;
       margin-top: -10px;
+      width: 250px;
    }
    .search-icon{
       position: relative;
-      left: -278px;
+      left: -234px;
       opacity: 0.7;
    }
    }
@@ -269,6 +284,7 @@ margin-left: 15px !important;
       position: relative;
       left: 30px;
       margin-top: -10px;
+      width: inherit;
    }
    .search-icon{
       position: relative;

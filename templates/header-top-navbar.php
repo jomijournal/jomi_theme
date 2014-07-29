@@ -46,7 +46,7 @@ global $user;
 	      <?php if(!$user): ?>
 		        <li class="dropdown hidden-xs">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
-						<div class="dropdown-menu pull-right" style="padding: 15px;">
+						<div class="dropdown-menu pull-right" style="padding: 15px; z-index: 5;">
 							<div id="login-form">
 								<form name="loginform" id="loginform" action="">
 									<p class="login-username">
@@ -69,6 +69,7 @@ global $user;
 				<?php else: ?>
 				<li><a href="/?logout" id="logout-btn">Sign&nbsp;out</a></li>
 			<?php endif; ?>
+			<li><a href='/login/' class=" active visible-xs">Sign in</a></li>
 			<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribers</a></li>
 	        <li><a href="/pricing" class="<?php 		if( is_page( 'pricing') ) echo " active"; ?>">Pricing</a></li>
 	        <li><a href="/contact" class="<?php 		if( is_page( 'contact') ) echo " active"; ?>">Contact</a></li>

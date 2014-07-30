@@ -58,7 +58,7 @@ global $user;
 									<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
 
 									<p class="login-submit">
-										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In" onblur="this.style.color='white'">
+										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
 										<input type="hidden" name="redirect_to" value="/">
 									</p>
 									<p>

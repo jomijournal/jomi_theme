@@ -116,5 +116,5 @@
   </div>
   <br/>
 
-  <div style="text-align:center;"><a href="/pricing" class="btn fat white">Subscription &amp; pricing</a></div>
+  <div style="text-align:center;"><a href="/pricing" class="btn fat white">Subscription &amp; Pricing</a></div>
 <?php endwhile; ?>

@@ -2,15 +2,30 @@
 
 .content-info { }
 
+// standard footer
 footer .footer{
    border-top:solid 1px #424242; 
-   //margin-top: 40px; 
    padding: 10px 20px;
    ul.social-icons li {
       margin-bottom: 0px;
    }
 }
 
+// footer on frontpage
+footer.front-footer{
+   div nav.nav-bottom{
+      ul{
+         div{
+            &:first-child{ padding-left: 0px; }
+            &:last-child{ padding-right: 0px; }
+         }
+      }
+   }
+}
+
+
+// social icons used in the standard footer
+// stolen from mak's mockup, jomi.maks.com
 .social-icons {
    margin: 0;
    padding: 0; 
@@ -83,13 +98,13 @@ footer .footer{
 @media (min-width: 992px) { 
   @media (min-height: 700px) {
 
-   footer.container{
+   footer.front-footer{
       position: absolute !important;
       margin-top: 45px;
       li{
          //margin-bottom: 15px !important;
       }
-   	}
+   }
   }
 }
 /* Large devices (large desktops, 1200px and up) */

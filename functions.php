@@ -412,9 +412,4 @@ if (!function_exists('possibly_redirect'))
   add_action('init','possibly_redirect');
 }
 
-add_filter( 'registration_redirect', 'ckc_registration_redirect', 10000);
-function ckc_registration_redirect() {
-    return site_url('/login?checkemail=registered');
-}
-
 ?>

@@ -82,7 +82,7 @@
 				<div class="link">Kent State University</div>
 			</div>
 		</a>
-		<a href = "http://library.nmsu.edu/">
+		<a href = "http://www.unm.edu/">
 			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/newmexico.png"></div>
 				<div class="link">New Mexico State University</div>

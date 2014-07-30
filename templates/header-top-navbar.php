@@ -57,11 +57,11 @@ global $user;
 									<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
 
 									<p class="login-submit">
-										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In" style="float: right">
+										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In" onblur="this.style.color='white'">
 										<input type="hidden" name="redirect_to" value="/">
 									</p>
 									<p>
-									<a href="/register" style="color:#000 !important; padding: 6px 6px 0px; margin-bottom: 0; font-size: 12px; position: absolute;top: 208px">register</a>
+									<a href="/register" class="register">Register</a>
 									</p>
 
 									<!--p class="login-register" style="width:45%">

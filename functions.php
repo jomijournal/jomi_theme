@@ -412,4 +412,7 @@ if (!function_exists('possibly_redirect'))
   add_action('init','possibly_redirect');
 }
 
+// hide admin bar for now
+add_filter('show_admin_bar', '__return_false');
+
 ?>

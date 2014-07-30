@@ -20,7 +20,7 @@
 	  	<a href="http://library.med.cornell.edu/" >
 	  		<div class="org col-sm-3">
 	  			<div class="logo"><img src="/wp-content/themes/jomi/assets/img/clients/standardized/cornell.png"></div>	
-				<div class="lab">Weill Medical College Medical Library</div>
+				<div class="lab">Weill Cornell Medical College Library</div>
 	  		</div>
 	  	</a>
 	  	<a href="https://www.countway.harvard.edu/index.html" >

@@ -55,10 +55,19 @@ global $user;
 										<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
 									</p>
 									<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
+
 									<p class="login-submit">
-										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
+										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In" style="float: right">
 										<input type="hidden" name="redirect_to" value="/">
 									</p>
+									<p>
+									<a href="/register" style="color:#000 !important; padding: 6px 6px 0px; margin-bottom: 0; font-size: 12px; position: absolute;top: 208px">register</a>
+									</p>
+
+									<!--p class="login-register" style="width:45%">
+										<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
+									</p-->
+
 								</form>
 							</div>
 					</div>

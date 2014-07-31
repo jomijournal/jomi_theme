@@ -68,7 +68,9 @@ global $user;
 									<!--p class="login-register" style="width:45%">
 										<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
 									</p-->
-									<?php do_action('oa_social_login'); ?>
+									<div class="social-box">
+										<?php do_action('oa_social_login'); ?>
+									</div>
 								</form>
 							</div>
 					</div>

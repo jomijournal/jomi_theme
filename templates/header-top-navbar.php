@@ -64,11 +64,11 @@ global $user;
 									<p>
 									<a href="/register" class="register">Register</a>
 									</p>
-
+									<br>
 									<!--p class="login-register" style="width:45%">
 										<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
 									</p-->
-
+									<?php do_action('oa_social_login'); ?>
 								</form>
 							</div>
 					</div>

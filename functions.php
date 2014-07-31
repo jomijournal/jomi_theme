@@ -352,7 +352,7 @@ function jomi_login_stylesheet() {
     wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/assets/css/main.min.css' );
     wp_enqueue_script( 'custom-login', get_template_directory_uri() . '/assets/js/scripts.min.js' );
 }
-//add_action( 'login_enqueue_scripts', 'jomi_login_stylesheet' );
+add_action( 'login_enqueue_scripts', 'jomi_login_stylesheet' );
 function jomi_login_header_url($url) {
   return site_url();
 }

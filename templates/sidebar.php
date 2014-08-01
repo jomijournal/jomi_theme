@@ -28,7 +28,7 @@ $coming_soon = (count($posts) == 0) ? true : false;
 $notification_url = site_url() . "/notifications/?area=" . $category->cat_name;
 ?>
   <li class="cat-item <?php echo $cat_ID_text?> <?php if($current) echo 'current-cat'; ?> <?php if($coming_soon) echo 'coming-soon' ?>">
-    <a href="<?php if($coming-soon) { echo $notification_url; } else { echo get_category_link($category->cat_ID); }?>"><?php echo $category->cat_name; ?></a>
+    <a href="<?php if($coming_soon) { echo $notification_url; } else { echo get_category_link($category->cat_ID); }?>"><?php echo $category->cat_name; ?></a>
   </li>
 <?php } ?>
 </ul>

@@ -121,7 +121,7 @@ ADMIN DISPLAY
 //Add custom column
 add_filter('manage_edit-article_columns', 'my_columns_head');
 function my_columns_head($defaults) {
-  $defaults['publication_id'] = 'Publication ID';
+  $defaults['publication_id'] = 'Publication ID/Article ID';
   return $defaults;
 }
 //Add rows data

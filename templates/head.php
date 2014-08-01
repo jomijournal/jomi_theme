@@ -64,8 +64,10 @@ if($user && isset($_GET["logout"]))
 	foreach( $coauthors as $coauthor ) { ?>
 	<meta name="citation_author" content="<?php echo $coauthor->last_name; ?>, <?php echo $coauthor->first_name; ?>">
 	<?php } ?>
-	<meta name="citation_journal" content="Journal of Medical Insight">
+	<meta name="citation_journal_title" content="Journal of Medical Insight">
 	<meta name="citation_publication_date" content="<?php echo the_date(); ?>">
+	<meta name="citation_volume" content="<?php #the_year(); ?>">
+	<meta name="citation_issue" content="<?php #the_month(); ?>">
 	<?php endwhile; ?>
 	<?php endif; ?>
 	<!-- TYPEKIT -->

@@ -20,7 +20,7 @@
 	  	<a href="http://library.med.cornell.edu/" >
 	  		<div class="org col-sm-3">
 	  			<div class="logo"><img src="/wp-content/themes/jomi/assets/img/clients/standardized/cornell.png"></div>	
-				<div class="lab">Weill Medical College Medical Library</div>
+				<div class="lab">Weill Cornell Medical College Library</div>
 	  		</div>
 	  	</a>
 	  	<a href="https://www.countway.harvard.edu/index.html" >
@@ -82,7 +82,7 @@
 				<div class="link">Kent State University</div>
 			</div>
 		</a>
-		<a href = "http://library.nmsu.edu/">
+		<a href = "http://www.unm.edu/">
 			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/newmexico.png"></div>
 				<div class="link">New Mexico State University</div>
@@ -116,5 +116,5 @@
   </div>
   <br/>
 
-  <div style="text-align:center;"><a href="/pricing" class="btn fat white">Subscription &amp; pricing</a></div>
+  <div style="text-align:center;"><a href="/pricing" class="btn fat white">Subscription &amp; Pricing</a></div>
 <?php endwhile; ?>

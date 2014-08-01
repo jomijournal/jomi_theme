@@ -370,6 +370,8 @@ function jomi_login_footer(){
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=register'" . ']").attr("href", "'.site_url().'/register");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=lostpassword'" . ']").attr("href", "'.site_url().'/forgot");
     $("a[href=' . "'" . site_url() . "/wp-login.php'" . ']").attr("href", "'.site_url().'/login");
+
+    $("#registerform input[name=' . "'redirect_to'" . ']").attr("value","'.site_url('/login?checkemail=registered').'")
   });
   </script>
   ';
@@ -396,6 +398,10 @@ if (!function_exists('possibly_redirect'))
       {
         wp_redirect('/login?action='.$action);
       }
+      if($_SERVER['REQUEST_URI'] == "/wp-login.php?checkemail=registered")
+      {
+        wp_redirect('/login?checkemail=registered');
+      }
       /*else
       {
         wp_redirect('/');       
@@ -405,5 +411,8 @@ if (!function_exists('possibly_redirect'))
   }
   add_action('init','possibly_redirect');
 }
+
+// hide admin bar for now
+add_filter('show_admin_bar', '__return_false');
 
 ?>

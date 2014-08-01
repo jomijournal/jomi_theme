@@ -46,6 +46,7 @@ global $user;
 						<div class="dropdown-menu pull-right" style="padding: 15px; z-index: 5;">
 							<div id="login-form">
 								<form name="loginform" id="loginform" action="">
+									<p class="error" id="error"></p>
 									<p class="login-username">
 										<label for="user_login">Username</label>
 										<input type="text" name="log" id="user_login" class="input" value="" size="20">
@@ -57,29 +58,31 @@ global $user;
 									<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
 
 									<p class="login-submit">
-										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In" onblur="this.style.color='white'">
+										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
 										<input type="hidden" name="redirect_to" value="/">
 									</p>
 									<p>
 									<a href="/register" class="register">Register</a>
 									</p>
-
+									<br>
 									<!--p class="login-register" style="width:45%">
 										<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
 									</p-->
-
+									<div class="social-box">
+										<?php do_action('oa_social_login'); ?>
+									</div>
 								</form>
 							</div>
 					</div>
 				</li>
 				<?php else: ?>
-				<li><?php wp_loginout(); ?></li>
+				<li><?php wp_loginout($_SERVER['REQUEST_URI']); ?></li>
 			<?php endif; ?>
 			<li><a href='/login/' class=" active visible-xs">Sign in</a></li>
-			<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribers</a></li>
-	        <li><a href="/pricing/" class="<?php 		if( is_page( 'pricing') ) echo " active"; ?>">Pricing</a></li>
-	        <li><a href="/contact/" class="<?php 		if( is_page( 'contact') ) echo " active"; ?>">Contact</a></li>
-	        <li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>">About</a></li>
+	        <li><a href="/contact/" class="<?php 		if( is_page( 'contact') ) echo " active"; ?>"    >Contact</a></li>
+	        <li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
+	        <li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
+	        <li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
 
      </ul>
     </div><!-- /.navbar-collapse -->
@@ -116,16 +119,20 @@ global $user;
 
 			var login = $('#login-form input[name="log"]').val();
 			if(login === '') {
-				console.log('no username specified');
+				//console.log('no username specified');
+				$('#error').text("ERROR: No username entered");
+				$('#error').show();
 				return;
 			}
 			var pass = $('#login-form input[name="pwd"]').val();
 			if(pass === '') {
-				console.log('no password specified');
+				//console.log('no password specified');
+				$('#error').text("ERROR: No password entered");
+				$('#error').show();
 				return;
 			}
-			console.log('user: ' + login);
-			console.log('pass: ' + pass);
+			//console.log('user: ' + login);
+			//console.log('pass: ' + pass);
 
 			var dataString = 'log='+ login + '&pwd=' + pass;
 			//alert (dataString);return false;
@@ -137,7 +144,8 @@ global $user;
 			  	console.log(String(data));
 			    if(String(data).indexOf("login_error") > 0) {
 			    	// login error occured
-			    	console.log('whoops')
+			    	//console.log('whoops');
+			    	$('#error').text("ERROR: Username and password do not match.\nPlease try again.")
 			    } else {
 			    	console.log('success');
 			    	window.location.reload();
@@ -145,6 +153,8 @@ global $user;
 			  }
 			});
 		});
+
+		$('#error').hide();
 
 		// Setup drop down menu
 		$('.dropdown-toggle').dropdown();

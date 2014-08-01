@@ -125,6 +125,7 @@
       }
    }
 }
+
 .single .wrap, .page:not(.home) .wrap,.archive .wrap, .search .wrap{
    background: #fff;
    color: #111;
@@ -150,10 +151,18 @@
 .page .kcite-boilerplate {
 	display: none;
 }
+
+a.pdf{
+   background: url("/assets/img/icons/pdficon_small.png");
+   background-repeat: no-repeat;
+   padding-left: 18px;  /* width of the image plus a little extra padding */
+   display: block;  /* may not need this, but I've found I do */
+}
+
 // ------------------
 // ARTICLE THUMBNAILS
 // ------------------
-article {
+article.has-post-thumbnail {
    margin-bottom: 10px !important;
    margin-left: -15px;
    margin-right: -15px;
@@ -311,6 +320,11 @@ article {
    font-variant: small-caps;
 }
 
+.articles .wrap .sidebar ul li.current-cat a, .category .wrap .sidebar ul li.current-cat a, .search .wrap .sidebar ul li.current-cat a {
+color: rgba(255, 255, 255, 1);
+border-color: rgba(255, 255, 255, 1);
+background: rgba(255,255,255,0.1);
+}
 
 
 //* MOBILE

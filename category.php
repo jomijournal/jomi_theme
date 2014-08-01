@@ -7,6 +7,7 @@
 <?php endif; ?>
 
 <?php while (have_posts()) : the_post(); ?>
+  <?php if(get_post_status() == 'internal_review') continue; ?>
   <?php get_template_part('templates/content', get_post_format()); ?>
 <?php endwhile; ?>
 

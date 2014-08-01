@@ -55,7 +55,7 @@ global $user;
 										<label for="user_pass">Password</label>
 										<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
 									</p>
-									<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
+									<p class="login-remember"><label class="active"><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Remember Me</label></p>
 
 									<p class="login-submit">
 										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">

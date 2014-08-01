@@ -159,6 +159,10 @@ a.pdf{
    display: block;  /* may not need this, but I've found I do */
 }
 
+.single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap {
+padding: 50px 0px;
+}
+
 // ------------------
 // ARTICLE THUMBNAILS
 // ------------------
@@ -244,6 +248,16 @@ article.has-post-thumbnail {
       font-size: 14px;
       font-weight: bold;
       border-radius: 5px;
+   }
+   .tab-pane{
+      h5{
+         color: #000;
+         background: rgba(0,0,0,0);
+         position: relative;
+         padding: 0px;
+         right: 0px;
+         border-radius: 0px;
+      }
    }
 }
 
@@ -332,8 +346,10 @@ background: rgba(255,255,255,0.1);
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 
+
    .single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap{
       border-radius: 0;
+      padding: 50px 50px;
    } 
 
    .articles .wrap, .category .wrap {

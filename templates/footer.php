@@ -12,7 +12,7 @@
 	                <br>
 	                Boston, MA 02110
 	                <br>
-	                Email: <a href="mailto:contact@jomi.com">contact@jomi.com</a>
+	                Email: <a href="mailto:contact@jomi.com" style>contact@jomi.com</a>
 	                <br>
 	                <a href="/contact/">Contact Us</a>
 	            </div>

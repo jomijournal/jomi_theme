@@ -5,9 +5,6 @@ Template Name: Articles
 ?>
 
 <?php #get_template_part('templates/page', 'header'); ?>
-<div class='page-header'>
-  <h1>All Articles</h1>
-</div>
 
 <?php
 $type = 'article';

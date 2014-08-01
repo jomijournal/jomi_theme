@@ -20,13 +20,12 @@ Base is the entry point for most pages.
     }
   ?>
 
-<?php if($status_text == preprint){ ?>
-
-<div style="color: #ffffff; padding-top: 10px; padding-bottom: 10px;">PREPRINT</div>
-
-<?php } ?>
-
 <?php if(is_single()) { ?>
+  <?php 
+  $cur_post = get_post();
+  if($cur_post->post_status == "preprint") { ?>
+  <div class="preprint"><strong>PREPRINT</strong></div>
+  <?php } ?>
 
   <div class="container">
     <div class="video-area row">
@@ -39,7 +38,7 @@ Base is the entry point for most pages.
       </div>
     </div>
   </div>
-  <?php } ?>
+<?php } ?>
 
   <?php if(is_page('support-us')){ ?>
     <?php include roots_template_path(); ?>

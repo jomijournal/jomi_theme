@@ -130,6 +130,15 @@ function unread_post_status(){
     'label_count'               => _n_noop( 'Preprint <span class="count">(%s)</span>', 'Preprint <span class="count">(%s)</span>' ),
   ) );
 
+  register_post_status( 'internal_review', array(
+    'label'                     => _x( 'Internal Review', 'article' ),
+    'public'                    => true,
+    'exclude_from_search'       => true,
+    'show_in_admin_all_list'    => true,
+    'show_in_admin_status_list' => true,
+    'label_count'               => _n_noop( 'Internal Review <span class="count">(%s)</span>', 'Internal Review <span class="count">(%s)</span>' ),
+  ) );
+
   register_post_status( 'in_production', array(
     'label'                     => _x( 'In Production', 'article' ),
     'public'                    => true,
@@ -164,6 +173,11 @@ function append_post_status_list(){
            $complete = ' selected=\"selected\"';
            $label = '<span id=\"post-status-display\"> Preprint</span>';
       }
+      if($post->post_status == 'internal_review')
+      {
+           $complete = ' selected=\"selected\"';
+           $label = '<span id=\"post-status-display\"> Internal Review</span>';
+      }
       if($post->post_status == 'coming_soon')
       {
            $complete = ' selected=\"selected\"';
@@ -174,10 +188,12 @@ function append_post_status_list(){
            $complete = ' selected=\"selected\"';
            $label = '<span id=\"post-status-display\"> In Production</span>';
       }
+
       echo '
       <script>
       jQuery(document).ready(function($){
            $("select#post_status").append("<option value=\"preprint\" '.$complete.'>Preprint</option>");
+           $("select#post_status").append("<option value=\"internal_review\" '.$complete.'>Internal Review</option>");
            $("select#post_status").append("<option value=\"coming_soon\" '.$complete.'>Coming Soon</option>");
            $("select#post_status").append("<option value=\"in_production\" '.$complete.'>In Production</option>");
            $(".misc-pub-section label").append("'.$label.'");
@@ -193,6 +209,9 @@ function display_archive_state( $states ) {
      if($arg != 'preprint'){
           if($post->post_status == 'preprint'){
                return array('Preprint');
+          }
+          if($post->post_status == 'internal_review'){
+               return array('Internal Review');
           }
           if($post->post_status == 'in_production'){
                return array('In Production');

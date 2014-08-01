@@ -24,15 +24,17 @@ Base is the entry point for most pages.
   <?php 
   $cur_post = get_post();
   if($cur_post->post_status == "preprint") { ?>
-  <div class="preprint"><strong>PREPRINT</strong></div>
+  <div class="container preprint-container">
+    <div class="preprint"><strong>PREPRINT</strong></div>
+  </div>
   <?php } ?>
 
   <div class="container">
     <div class="video-area row">
-      <div id="chapters" class="col-xs-4">
+      <div id="chapters" class="col-sm-4">
         <ul></ul>
       </div>
-      <div class="video-holder col-xs-8" id="video">
+      <div class="video-holder col-sm-8" id="video">
         <div id="wistia" class="wistia_embed" style="width:720px;height:405px;display:none;">&nbsp;</div>
         <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
       </div>

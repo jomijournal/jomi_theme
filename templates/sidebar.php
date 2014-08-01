@@ -14,8 +14,17 @@
 <?php foreach($categories as $category) { ?>
 <?php 
 $cat_ID_text = "cat-item-" . $category->cat_ID; 
-if(is_category($category->cat_ID)) $current = true; else $current = false;
-if($category->count == 0) $coming_soon = true; else $coming_soon = false;
+$current = (is_category($category->cat_ID)) ? true : false;
+
+$post_args = array(
+	'post_type' => 'article',
+	'category' => $category->cat_ID,
+	'post_status' => array('publish', 'preprint')
+);
+$posts = get_posts($post_args);
+
+
+$coming_soon = (count($posts) == 0) ? true : false;
 $notification_url = site_url() . "/notifications/?area=" . $category->cat_name;
 ?>
   <li class="cat-item <?php echo $cat_ID_text?> <?php if($current) echo 'current-cat'; ?> <?php if($coming_soon) echo 'coming-soon' ?>">

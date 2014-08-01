@@ -20,8 +20,13 @@ Base is the entry point for most pages.
     }
   ?>
 
-  <?php 
-  if(is_single()) {?>
+<?php if($status_text == preprint){ ?>
+
+<div style="color: #ffffff; padding-top: 10px; padding-bottom: 10px;">PREPRINT</div>
+
+<?php } ?>
+
+<?php if(is_single()) { ?>
 
   <div class="container">
     <div class="video-area row">
@@ -34,7 +39,6 @@ Base is the entry point for most pages.
       </div>
     </div>
   </div>
-
   <?php } ?>
 
   <?php if(is_page('support-us')){ ?>

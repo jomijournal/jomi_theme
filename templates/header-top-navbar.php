@@ -79,10 +79,10 @@ global $user;
 				<li><?php wp_loginout($_SERVER['REQUEST_URI']); ?></li>
 			<?php endif; ?>
 			<li><a href='/login/' class=" active visible-xs">Sign in</a></li>
-	        <li><a href="/contact/" class="<?php 		if( is_page( 'contact') ) echo " active"; ?>"    >Contact</a></li>
+	        <li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
 	        <li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
 	        <li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
-	        <li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
+	        <li><a href="/articles/" class="<?php 			if( is_page( 'articles') ) echo " active"; ?>">Articles</a></li>
 
      </ul>
     </div><!-- /.navbar-collapse -->

@@ -6,13 +6,15 @@
 	            <a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a>
 	            <h5>ISSN: 2373-6003</h5>
 	            </div>
-	            <div class="col-sm-3">
+	            <div class="col-sm-3" style="font-size: 12pt">
 	                <!--Phone: 555-555-5555-->
 	                101 Arch Street, Suite 1950
 	                <br>
 	                Boston, MA 02110
 	                <br>
 	                Email: <a href="mailto:contact@jomi.com">contact@jomi.com</a>
+	                <br>
+	                <a href="/contact/">Contact Us</a>
 	            </div>
 		    	<div class="col-sm-2">
 	                <ul class="social-icons">

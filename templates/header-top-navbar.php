@@ -48,7 +48,7 @@ global $user;
 								<form name="loginform" id="loginform" action="">
 									<p class="error" id="error"></p>
 									<p class="login-username">
-										<label for="user_login">Username</label>
+										<label for="user_login">Username/Email</label>
 										<input type="text" name="log" id="user_login" class="input" value="" size="20">
 									</p>
 									<p class="login-password">

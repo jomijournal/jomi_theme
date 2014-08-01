@@ -73,6 +73,7 @@
    margin-right: 0px;
    padding-right: 0px;
    padding-left: 0px;
+   padding-top: 0px;
    background: rgba(0, 0, 0, 0.0) !important;
    h1{
       color: #fff;
@@ -126,10 +127,10 @@
    }
 }
 
-.single .wrap, .page:not(.home) .wrap,.archive .wrap, .search .wrap{
+.single .wrap, .archive .wrap, .search .wrap, .subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap{
    background: #fff;
    color: #111;
-   padding: 50px 50px;
+   padding: 50px 10px;
    margin: 0 auto;
    margin-bottom:30px;
 }
@@ -157,10 +158,6 @@ a.pdf{
    background-repeat: no-repeat;
    padding-left: 18px;  /* width of the image plus a little extra padding */
    display: block;  /* may not need this, but I've found I do */
-}
-
-.single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap {
-padding: 50px 10px;
 }
 
 // ------------------
@@ -301,13 +298,6 @@ article.has-post-thumbnail {
    }
 }
 
-.article-container{
-   /*margin-left: -34px;
-   margin-right: -34px;
-   margin-top: -48px;
-   margin-bottom: -50px;*/
-}
-
 .kcite{
    font-variant: small-caps;
    a span, a:hover{
@@ -355,8 +345,9 @@ background: rgba(255,255,255,0.1);
    .articles .wrap, .category .wrap {
       margin-right: auto;
       margin-left: auto;
-     padding-right: auto;
-     padding-left: auto;
+      padding-right: auto;
+      padding-left: auto;
+      padding-top: 50px;
    }  
 }
 /* Medium devices (desktops, 992px and up) */

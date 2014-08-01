@@ -163,6 +163,11 @@ global $user;
 		$('.dropdown input, .dropdown label').click(function(e) {
 			e.stopPropagation();
 		});
+
+		//search
+		<?php if(is_search()) {?>
+		$('#search-field').attr('value','<?php echo get_search_query(); ?>');
+		<?php } ?>
 		$('#search-field').keydown(function(event){
 			if(event.which == 13)
 			{

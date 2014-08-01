@@ -228,6 +228,7 @@ add_filter( 'display_post_states', 'display_archive_state' );
 =================================
 REWRITE RULES 
 BLACK MAGIC BEGINS HERE
+SERIOUSLY DONT TOUCH OR ELSE ARTICLE PERMALINKS BREAK
 =================================
 */
 
@@ -262,8 +263,10 @@ add_action( 'init', 'register_publication_id' );
 function map_publication_id( $wp_query ) {
   if ( $meta_value = $wp_query->get( 'publication_id' ) ) {
 
-    if((int)$meta_value > 8 or (int)$meta_value <= 0) {
-      wp_redirect('/');
+    global $article_count;
+
+    if((int)$meta_value > $article_count or (int)$meta_value <= 0) {
+      wp_redirect('/404.php');
       exit();
     }
 
@@ -327,6 +330,22 @@ add_filter('post_type_link', 'article_permalink', 10, 3);
 BLACK MAGIC ENDS HERE
 =================================
 */
+
+// get the total number of articles available
+// used so we can check when the user enters an invalid query when searching for an article
+function count_articles(){
+  // only count articles that are published or in preprint
+  $post_args = array(
+    'posts_per_page' => -1,
+    'post_type' => 'article',
+    'post_status' => array('publish', 'preprint')
+  );
+  $posts = get_posts($post_args);
+
+  global $article_count;
+  $article_count = count($posts);
+}
+add_action('init', 'count_articles');
 
 /*
 =================================
@@ -402,6 +421,7 @@ function login_rewrite($wp_rewrite) {
 }
 add_filter('init', 'login_rewrite');
 
+// hides wp-login.php from the url bar
 if (!function_exists('possibly_redirect'))
 {
   function possibly_redirect()
@@ -437,7 +457,7 @@ if (!function_exists('possibly_redirect'))
 add_filter('show_admin_bar', '__return_false');
 
 /* =============================================
- * db switch widget
+ * DATABASE MANAGEMENT
  * =============================================
  */
 

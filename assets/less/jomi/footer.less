@@ -1,9 +1,22 @@
 //* FOOTER
 
-.content-info { }
+.content-info { 
+   a{
+      color: #fff;
+      &:hover{
+         color: #808080;
+      }
+
+}
 
 // standard footer
 footer .footer{
+   a{
+      color: #fff;
+      &:hover{
+         color: #808080;
+      }
+   }
    border-top:solid 1px #424242; 
    padding: 10px 20px;
    ul.social-icons li {
@@ -86,8 +99,15 @@ footer.front-footer{
 .social_youtube {background: url(../img/icons/youtube.png) no-repeat;}
 .social_vk {background: url(../img/icons/vk.png) no-repeat;}
 
-//* MOBILE
+   a{
+      color: #fff !important;
+      &:hover{
+         color: #808080 !important;
+      }
+   }
 
+//* MOBILE
+}
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
    footer{
@@ -113,4 +133,5 @@ footer.front-footer{
 }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
+   
 }

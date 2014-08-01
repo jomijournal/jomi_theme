@@ -56,6 +56,11 @@
         $('#chapters').show();
       });
     </script>
+    <script>
+    $('.nav-tabs li a').click(function (e) {
+    history.pushState( null, null, $(this).attr('href') );
+    });
+    </script>
     <footer>
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>
     </footer>

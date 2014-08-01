@@ -262,6 +262,11 @@ add_action( 'init', 'register_publication_id' );
 function map_publication_id( $wp_query ) {
   if ( $meta_value = $wp_query->get( 'publication_id' ) ) {
 
+    if((int)$meta_value > 8 or (int)$meta_value <= 0) {
+      wp_redirect('/');
+      exit();
+    }
+
     $rd_args = array(
       'post_type' => 'article',
       'post_count' => 1,

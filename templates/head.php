@@ -56,6 +56,18 @@ if($user && isset($_GET["logout"]))
 	<title><?php wp_title('|', true, 'right'); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<?php if ( have_posts() and is_single()) : while ( have_posts() ) : the_post(); ?>
+	<!-- GOOGLE SCHOLAR META DATA / SEO -->
+	<meta name="citation_title" content="<?php echo the_title(); ?>">
+	<?php
+	$coauthors = get_coauthors();
+	foreach( $coauthors as $coauthor ) { ?>
+	<meta name="citation_author" content="<?php echo $coauthor->last_name; ?>, <?php echo $coauthor->first_name; ?>">
+	<?php } ?>
+	<meta name="citation_journal" content="Journal of Medical Insight">
+	<meta name="citation_publication_date" content="<?php echo the_date(); ?>">
+	<?php endwhile; ?>
+	<?php endif; ?>
 	<!-- TYPEKIT -->
 	<script type="text/javascript" src="//use.typekit.net/wjg6rds.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>

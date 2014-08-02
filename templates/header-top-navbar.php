@@ -11,7 +11,7 @@ global $user;
 
 <?php endif; ?>
 
-  <nav class="navbar navbar-default site-header" role="navigation" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0);">
+  <nav class="navbar navbar-default site-header" role="navigation">
   <div class="container-fluid container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">

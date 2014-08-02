@@ -1,11 +1,5 @@
 //* CONTENT
 
-.hentry header { }
-.hentry time { }
-.hentry .byline { }
-.hentry .entry-content { }
-.hentry footer { }
-
 .single, .page{
    font-size:16px;
 }
@@ -67,65 +61,7 @@
    width: 100%;
 }
 
-.articles .wrap, .category .wrap, .search .wrap{
-   margin-left: 0px;
-   margin-right: 0px;
-   padding-right: 0px;
-   padding-left: 0px;
-   padding-top: 0px;
-   margin-bottom: 0px;
-   background: rgba(0, 0, 0, 0.0) !important;
-   h1{
-      color: #fff;
-   }
-   .content .sidebar h3{
-      color: #fff;
-   }
-   .content .main article{
-      outline: rgba(0,0,0,0) solid 1px;
-   }
-   .content .main .page-header {
-      border: none;
-   }
-   .sidebar{
-      h3{
-         font-size: 18px;
-      }
-      ul li{
-         list-style-type: none;
-         //margin-bottom: 10px;
-         &.current-cat a{
-            color: rgba(255, 255, 255, 0.8);
-            border-color: rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.1);
-         }
-         &.coming-soon a{
-            color: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.03);
-            &:hover{
-               color: rgba(255, 255, 255, 0.5);
-               border-color: rgba(255, 255, 255, 0.5);
-               background: rgba(255, 255, 255, 0.05);
-            }
-         }
-         a{
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            display: block;
-            padding: 8px 10px;
-            border-radius: 25px;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            margin-bottom: 10px;
-            font-size: 18px;
-            &:hover{
-               border-color: rgba(255, 255, 255, 1.0);
-               color: rgba(255, 255, 255, 1.0);
-            }
-         }
-      }
-   }
-}
+
 
 .single .wrap, .archive .wrap, .search .wrap, .subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap{
    background: #fff;
@@ -136,26 +72,6 @@
    //margin-bottom:30px;
 }
 
-.preprint {
-   display: block;
-   margin: 0 auto;
-   text-align: center;
-   width: 100%;
-   padding: 10px;
-   /* border: 2px solid rgba(255, 255, 255, 0.5); */
-   background: #111;
-   border-radius: 15px 15px 0 0;
-   font-size: 22px;
-   margin-bottom: 10px;
-   border-bottom: 5px solid rgb(122, 0, 0);
-   padding-bottom: 2px;
-   strong{
-      letter-spacing: 11px;
-      color: #BBB;
-   }
-}
-
-
 .page .kcite-boilerplate {
 	display: none;
 }
@@ -165,105 +81,6 @@ a.pdf{
    background-repeat: no-repeat;
    padding-left: 18px;  /* width of the image plus a little extra padding */
    display: block;  /* may not need this, but I've found I do */
-}
-
-// ------------------
-// ARTICLE THUMBNAILS
-// ------------------
-article {
-   margin-bottom: 10px;
-
-   position: relative;
-   a img{
-      width: 100%;
-      height: 100%;
-   }
-   h1.entry-title{
-      margin-top: 0px;
-   }
-   h4{
-      font-weight: bold;
-   }
-   .article-overlay{
-
-      margin: 0 0px;
-      margin-bottom: -10px;
-      padding: 10px;
-      padding-left: 15px;
-      padding-right: 15px;
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      background: rgba(0, 0, 0, 0.8);
-      width: 100%;
-      //height: 130px;
-
-      h3.entry-title{
-         margin-top:0;
-         margin-bottom: 0px;
-         font-size: 12px;
-         text-shadow: 0px 0px 5px rgba(150, 150, 150, 1);
-         a {
-            color: #fff;
-            text-decoration: none;
-            opacity: 1;
-         }
-      }
-      p {
-         color: #ccc;
-         margin: 0px 0px;
-         font-size: 10px;
-         a{
-            color: #ccc;
-            font-weight: 700;
-            font-size: 10px;
-            text-decoration: none;
-         }
-      }
-      h4{
-         margin-top: 0px;
-         margin-bottom: 0px;
-         color: #999;
-         font-size: 10px;
-      }
-   }
-   .unavailable{
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      h3{
-         position: relative;
-         color: #fff;
-         display: block;
-         text-align: center;
-         font-size: 36px;
-      }
-   }
-   h5{
-      position: absolute;
-      z-index: 1;
-      color: #fff;
-      background: #8F0000;
-      padding: 5px;
-      top: 0;
-      right: 10px;
-      font-size: 14px;
-      font-weight: bold;
-      border-radius: 5px;
-   }
-   .tab-pane{
-      h5{
-         color: #000;
-         background: rgba(0,0,0,0);
-         position: relative;
-         padding: 0px;
-         right: 0px;
-         border-radius: 0px;
-      }
-   }
 }
 
 .sidebar{
@@ -348,7 +165,19 @@ background: rgba(255,255,255,0.1);
 #comment{
    width: 100% !important;
 }
-
+   .tab-pane{
+      h5{
+         color: #000;
+         background: rgba(0,0,0,0);
+         position: relative;
+         padding: 0px;
+         right: 0px;
+         border-radius: 0px;
+      }
+   }
+      h1.entry-title{
+      margin-top: 0px;
+   }
 //* MOBILE
 
 /* Small devices (tablets, 768px and up) */
@@ -360,44 +189,19 @@ background: rgba(255,255,255,0.1);
       width: 66.66666%;
    }
 
-   .single .wrap, .page:not(.home) .wrap, .archive .wrap, .search .wrap{
+   .single .wrap, .archive .wrap, .search .wrap{
       border-radius: 0;
       padding: 50px 50px;
    } 
 
-   .articles .wrap, .category .wrap {
-      margin-right: auto;
-      margin-left: auto;
-      padding-right: auto;
-      padding-left: auto;
-      padding-top: 50px;
-   }  
+
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
    .video-holder{
       width: auto;
    }
-   article {
-      .article-overlay{
-         h3.entry-title{
-            font-size: 20px;
-         }
-          p{
-            font-size: 14px;
-            a{
-               font-size: 14px;
-            }
-         }
-         h4{
-            font-size: 12px;
-         }
-      }
-      img{
-         width:100%;
-         height:100%;
-      }
-   }
+   
    .sidebar ul li a {
       padding: 10px 25px !important;
    }

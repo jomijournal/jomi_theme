@@ -20,7 +20,19 @@
     <ul>
 <!-- The Loop -->
 
-    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+<?php
+$args = array(
+  'post_type' => 'article',
+  'post_status' => array('publish', 'preprint', 'coming_soon', 'in_production'),
+  'posts_per_page' => -1,
+  'caller_get_posts'=> 1,
+  'author' => $curauth->ID
+);
+$my_query = new WP_Query($args);
+
+?>
+
+    <?php if ($my_query->have_posts()) : while ($my_query->have_posts()) : $my_query->the_post(); ?>
         <?php get_template_part('templates/content', get_post_format()); ?>
     <?php endwhile; else: ?>
         <p><?php _e('No posts by this author.'); ?></p>

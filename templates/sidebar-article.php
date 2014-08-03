@@ -6,7 +6,7 @@ $coauthors = get_coauthors();
 foreach( $coauthors as $coauthor )
 {
 	?>
-	<a class="author" href="/author/'.$coauthor->user_nicename.'">
+	<a class="author" href="/author/<?php echo $coauthor->user_nicename; ?>">
 	  	<div class="avatar"><?php echo get_wp_user_avatar($coauthor->ID, 64); ?></div>
 	  	<div class="bio">
 	    	<h4><?php echo $coauthor->display_name; ?></h4>

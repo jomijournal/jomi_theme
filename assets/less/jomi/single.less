@@ -31,7 +31,6 @@
 		   float: left;
 		   margin:0;
 		   padding:0;
-		   width: 100%;
 		}
 		#chapters{
 		   float: left;
@@ -183,6 +182,15 @@
 
 //* MOBILE
 
+@media (max-width: 768px) {
+	.single .video-area{
+		margin: 0;
+		.video-holder{
+			width:100%;
+		}
+	}
+}
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
 	.single{
@@ -201,14 +209,7 @@
 	}
 }
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
-	.single{
-		.video-area{
-			   .video-holder{
-			      width: auto;
-			   }
-		}
-	}   
+@media (min-width: 992px) {  
    .sidebar ul li a {
       padding: 10px 25px !important;
    }

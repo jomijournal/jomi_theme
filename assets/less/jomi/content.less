@@ -1,210 +1,22 @@
 //* CONTENT
 
-.single, .page{
-   font-size:16px;
-}
-
-.single .video-area{
-   .clearfix();
-   background: #000;
-}
-
-.single #chapters{
-   float: left;
-   padding: 10px 15px;
-   width: 100%;
-   h3{
-      color: #999;
-      text-align: center;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      font-size:14px;
-      font-weight:700;
-      margin-top:10px;
-   }
-   ul{
-      list-style: none;
-      padding: 0;
-      li{
-         margin: 2px 0;
-         a{
-            display:block;
-            background: #333;
-            padding:4px 10px;
-            text-decoration: none;
-            color:#999;
-            &:hover{
-               background:#555;
-            }
-         }
-         &.current{
-            a{
-               background:#555;
-
-            }
-            font-weight:700;
-         }
-         &.done:not(.current) a{
-            background:#111;
-            &:hover{
-               background:#555;
-            }
-         }
-      }
-   }
-}
-
-.single .video-holder{
-   float:left;
-   margin:0;
-   padding:0;
-   width: 100%;
-}
-
-
-
-.single .wrap, .archive .wrap, .search .wrap, .subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap{
+.subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap{
    background: #fff;
    color: #111;
    padding: 50px 25px;
    padding-top: 25px;
    margin: 0 auto;
-   //margin-bottom:30px;
 }
 
-.page .kcite-boilerplate {
-	display: none;
-}
-
-a.pdf{
-   background: url("/assets/img/icons/pdficon_small.png");
-   background-repeat: no-repeat;
-   padding-left: 18px;  /* width of the image plus a little extra padding */
-   display: block;  /* may not need this, but I've found I do */
-}
-
-.sidebar{
-   ul{
-      padding-left: 0px;
-   }
-   .author{
-      display:block;
-      margin-bottom:10px;
-      background: #f8f8f8;
-      border:3px solid #eee;
-      color:#111 !important;
-   }
-   .author:hover{
-      border:3px solid #428bca;
-   }
-   .author .avatar{
-      float: left;
-      margin-right:5px;
-      img{
-         width: 64px;
-      }
-   }
-   .author .bio{
-      width: 250px;
-      float: left;
-   }
-   .author h4{
-      font-size: 14px;
-      font-weight:700;
-      margin:5px 0;
-   }
-   .author h5{
-      font-size: 12px;
-      margin-top: 0;
-      margin-bottom: 0;
-   }  
-   .pub-info{
-      display:block;
-      margin-bottom:0px;
-      background: #f8f8f8;
-      padding:5px 15px;
-   }
-}
-
-.kcite{
-   font-variant: small-caps;
-   a span, a:hover{
-      text-decoration: none !important;
-   }
-}
-.kcite-boilerplate{
-   font-family: Consolas;
-   font-size: 14px;
-   color: #333;
-   padding: 15px 25px;
-   background: #f5f5f5;
-   margin: 14px 0 30px;
-}
-
-.page-header{
-   margin-top:0;
-   h1{
-      margin-top:0;
-   }
-}
-
-.csl-entry{
-   font-variant: small-caps;
-}
-
-.articles .wrap .sidebar ul li.current-cat a, .category .wrap .sidebar ul li.current-cat a, .search .wrap .sidebar ul li.current-cat a {
-color: rgba(255, 255, 255, 1);
-border-color: rgba(255, 255, 255, 1);
-background: rgba(255,255,255,0.1);
-}
-
-.video-holder{
-   width: 100%;
-}
-
-#comment{
-   width: 100% !important;
-}
-   .tab-pane{
-      h5{
-         color: #000;
-         background: rgba(0,0,0,0);
-         position: relative;
-         padding: 0px;
-         right: 0px;
-         border-radius: 0px;
-      }
-   }
-      h1.entry-title{
-      margin-top: 0px;
-   }
 //* MOBILE
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-   .single #chapters{
-      width: 33.33333%;
-   }
-   .single .video-holder{
-      width: 66.66666%;
-   }
-
-   .single .wrap, .archive .wrap, .search .wrap{
-      border-radius: 0;
-      padding: 50px 50px;
-   } 
-
 
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-   .video-holder{
-      width: auto;
-   }
-   
-   .sidebar ul li a {
-      padding: 10px 25px !important;
-   }
+
 }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 

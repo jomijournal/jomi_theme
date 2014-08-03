@@ -1,7 +1,15 @@
-.articles .wrap, .category .wrap, .search .wrap{
+/*
+ * ==========================================
+ * ARTICLE LISTING PAGES (categories, search, all articles, archives)
+ * ==========================================
+ */
+
+.articles .wrap, .category .wrap, .search .wrap, .archive .wrap{
+
    margin: 0 0px 0px 0px;
    padding: 0px 0px 0 0px;
    background: rgba(0, 0, 0, 0.0);
+
    h1{
       color: #fff;
    }
@@ -23,9 +31,9 @@
       ul li{
          list-style-type: none;
          &.current-cat a{
-            color: rgba(255, 255, 255, 0.8);
-            border-color: rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 1);
+            border-color: rgba(255, 255, 255, 1);
+            background: rgba(255,255,255,0.1);
          }
          &.coming-soon a{
             color: rgba(255, 255, 255, 0.3);
@@ -59,7 +67,7 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
-   .articles .wrap, .category .wrap, .search .wrap{
+   .articles .wrap, .category .wrap, .search .wrap, .archive .wrap{
       margin-right: auto;
       margin-left: auto;
       padding-right: auto;

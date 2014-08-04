@@ -508,20 +508,44 @@ add_filter('show_admin_bar', '__return_false');
  *
  * This function is hooked into the 'wp_dashboard_setup' action below.
  */
-function example_add_dashboard_widgets() {
-
+function list_db_add_dashboard_widgets() {
   wp_add_dashboard_widget(
-                 'example_dashboard_widget',         // Widget slug.
-                 'Switch DB',         // Title.
-                 'example_dashboard_widget_function' // Display function.
-        );  
+   'list_db_dashboard_widget',         // Widget slug.
+   'List DB',         // Title.
+   'list_db_dashboard_widget_function' // Display function.
+  );  
 }
-add_action( 'wp_dashboard_setup', 'example_add_dashboard_widgets' );
+add_action( 'wp_dashboard_setup', 'list_db_add_dashboard_widgets' );
+
+function switch_db_add_dashboard_widgets() {
+  wp_add_dashboard_widget(
+   'switch_db_dashboard_widget',         // Widget slug.
+   'Switch DB',         // Title.
+   'switch_db_dashboard_widget_function' // Display function.
+  );  
+}
+add_action( 'wp_dashboard_setup', 'switch_db_add_dashboard_widgets' );
 
 /**
  * Create the function to output the contents of our Dashboard Widget.
  */
-function example_dashboard_widget_function() {
+function list_db_dashboard_widget_function() {
+  global $wpdb;
+
+  echo '<b>Databases at: ' . DB_HOST . '</b>';
+
+  $results = $wpdb->get_results('SHOW DATABASES');
+  echo '<ul>';
+  foreach($results as $result) {
+    echo '<li>';
+    //print_r($result);
+    echo $result->Database;
+    echo '</li>';
+  }
+  echo '</ul>';
+}
+
+function switch_db_dashboard_widget_function() {
 
   global $wpdb;
   // display variables we got from post

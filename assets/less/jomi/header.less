@@ -1,6 +1,9 @@
 //* HEADER
 
 nav.site-header{
+   .navbar-header{
+      width: 100%;
+   }
 
    background: rgba(0, 0, 0, 0);
    border-color: rgba(0, 0, 0, 0);
@@ -14,6 +17,7 @@ nav.site-header{
    }
    input.search{
       position: relative;
+      width: 100%;
       left: 5px;
       margin-top: 23px;
    }
@@ -240,6 +244,9 @@ nav.site-header{
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
    nav.site-header{
+      .navbar-header{
+         width: initial;
+      }
       .collapse ul li {
          margin-left: 40px;
 

@@ -24,16 +24,15 @@ footer.content-info {
 // footer on frontpage
 footer.front-footer{
    width: 100%;
+   padding: 0 0px;
    div.row {
       width: 100%;
-      padding-left: 5px;
-      padding-right: 5px;
       margin: 0 auto;
       nav.nav-bottom{
          ul{
             div{
-               //&:first-child{ padding-left: 0px; }
-               //&:last-child{ padding-right: 0px; }
+               &:first-child{ padding-left: 15px; }
+               &:last-child{ padding-right: 15px; }
             }
          }
       }
@@ -103,10 +102,18 @@ footer.front-footer{
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
    footer{
-      //position: relative !important;
       margin-top: 45px;
-      li{
-         //margin-bottom: 15px !important;
+   }
+   footer.front-footer{
+      div.row {
+         nav.nav-bottom{
+            ul{
+               div{
+                  &:first-child{ padding-left: 0px; }
+                  &:last-child{ padding-right: 0px; }
+               }
+            }
+         }
       }
    }
 }

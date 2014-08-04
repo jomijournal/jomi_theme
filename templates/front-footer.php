@@ -17,6 +17,9 @@ $args = array(
   'order' => 'DESC',
   'hide_empty' => 0
 );
+
+$cat_count = 2;
+
 $categories = get_categories($args);
 foreach($categories as $category) { 
 	$cat_ID_text = "cat-item-" . $category->cat_ID; 
@@ -31,8 +34,6 @@ foreach($categories as $category) {
 
 	$coming_soon = (count($posts) == 0) ? true : false;
 	$notification_url = site_url() . "/notifications/?area=" . $category->cat_name;
-
-	$cat_count = 2;
 
 	if($cat_count == 1) { ?>
 <div class='row'>

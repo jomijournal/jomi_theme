@@ -325,6 +325,10 @@ function map_publication_id( $wp_query ) {
       while( $rd_query->have_posts() ) {
         $rd_query->the_post();
         $postID = get_the_ID();
+        if(in_array(get_post_status($postID), array('coming_soon', 'in_production'))) {
+          //wp_redirect('/404.php');
+          //exit();
+        }
       }
     }
     wp_reset_postdata();
@@ -380,7 +384,7 @@ function count_articles(){
   $post_args = array(
     'posts_per_page' => -1,
     'post_type' => 'article',
-    'post_status' => array('publish', 'preprint')
+    'post_status' => array('publish', 'preprint', 'coming_soon', 'in_production')
   );
   $posts = get_posts($post_args);
 

@@ -112,6 +112,43 @@ function custom_post_author_archive($query) {
 }
 add_action('pre_get_posts', 'custom_post_author_archive');
 
+
+add_action('init', 'register_type_institution');
+function register_type_institution() {
+register_post_type('institution', array(
+  'label' => 'Institutions',
+  'description' => 'this is a description',
+  'public' => true,
+  'show_ui' => true,
+  'show_in_menu' => true,
+  'capability_type' => 'post',
+  'map_meta_cap' => true,
+  'hierarchical' => false,
+  #'rewrite' => array('slug' => 'article', 'with_front' => true),
+  'rewrite' => false,
+  'query_var' => true,
+  'menu_icon' => '/wp-content/themes/jomi/assets/img/logo-notext-s.png',
+  'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes','post-formats'),
+  'taxonomies' => array('category','post_tag'),
+  'labels' => array (
+    'name' => 'Institutions',
+    'singular_name' => 'Institution',
+    'menu_name' => 'Institutions',
+    'add_new' => 'Add Institution',
+    'add_new_item' => 'Add New Institution',
+    'edit' => 'Edit',
+    'edit_item' => 'Edit Institution',
+    'new_item' => 'New Institution',
+    'view' => 'View Institution',
+    'view_item' => 'View Institution',
+    'search_items' => 'Search Institutions',
+    'not_found' => 'No Institution Found',
+    'not_found_in_trash' => 'No Institution Found in Trash',
+    'parent' => 'Parent Institution',
+  )
+) ); }
+
+
 /*
 =================================
 ADMIN DISPLAY

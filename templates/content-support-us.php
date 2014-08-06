@@ -19,7 +19,6 @@
           <div class="col-md-12 column">
               <div class="support-us-top">
                   <div class="panel-body">
-                      
             <div style="padding-top:10px;text-align:center;">
             <!-- Bitcoin Donation Button -->
                        <script>

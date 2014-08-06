@@ -675,6 +675,41 @@ function import_institutions(){
  * ARTICLE ACCESS MANAGEMENT
 */
 
+// embed the javascript file that makes the AJAX request
+wp_enqueue_script( 'my-ajax-request', plugin_dir_url( __FILE__ ) . 'js/ajax.js', array( 'jquery' ) );
+ 
+// declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
+wp_localize_script( 'my-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+
+add_action( 'wp_ajax_nopriv_myajax-submit', 'myajax_submit' );
+add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
+
+function myajax_submit() {
+  // get the submitted parameters
+  $cat_id = (isset($_POST['cat'])) ? $_POST['cat'] : '';
+
+  $args = array(
+    'post_type' => 'article',
+    'cat' => $cat_id
+  );
+
+  $query = new WP_Query($args);
+
+  if(!$query->have_posts()) {
+   // return nothing
+  }
+  while($query->have_posts()) {
+    $query->the_post();
+    echo the_title() . PHP_EOL;
+  }
+  wp_reset_query();
+
+  // IMPORTANT: don't forget to "exit"
+  exit;
+}
+
+
+
 // custom settings page
 // global rulebook
 add_action('admin_menu', 'global_rulebook_menu');
@@ -683,28 +718,67 @@ function global_rulebook_menu(){
 }
 function global_rulebook(){
   echo "hello";
+  ?>
 
-  $type = 'article';
-  $args=array(
-    'post_type' => $type,
-    'post_status' => array('publish', 'preprint', 'coming_soon', 'in_production'),
-    'posts_per_page' => -1,
-    'caller_get_posts'=> 1
+  <h4>Category</h4>
+  <select id="category">
+    <option val="all">All</option>
+  <?php
+  $args = array(
+    'type' => 'article',
+    'hide_empty' => 1
   );
-  $my_query = new WP_Query($args);
+  $categories = get_categories($args);
+  foreach($categories as $category) { ?>
+    <option value="<?php echo $category->cat_ID; ?>"><?php echo $category->name; ?></option>
+  <?php } ?>
+  </select>
 
-  if (!$my_query->have_posts()) : ?>
-    <div class="alert alert-warning">
-      <?php _e('Sorry, no results were found.', 'roots'); ?>
-    </div>
-  <?php endif; ?>
+  <form name="get_article_list" id="get_article_list" action="">
+    <p class="submit">
+      <input type="submit" name="args_submit" id="args_submit" class="button button-primary" value="Submit Filters">
+    </p>
+  </form>
 
-  <div class='article-container'>
-  <?php while ($my_query->have_posts()) : 
-    $my_query->the_post(); ?>
-    <?php echo the_title(); ?>
-    <br>
-  <?php endwhile;
+  <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>
+  $(function(){
+    $('#get_article_list').on('submit', function(e) {
+      e.preventDefault();
+
+      /*var dataString = 'cat=1';
+      $.ajax({
+        type: "POST",
+        url: "/wp-content/themes/jomi/article-getter.php",
+        data: dataString,
+        success: function(data) {
+          console.log(String(data));
+        }
+      });*/
+      $.post(
+        // see tip #1 for how we declare global javascript variables
+        MyAjax.ajaxurl,
+        {
+            // here we declare the parameters to send along with the request
+            // this means the following action hooks will be fired:
+            // wp_ajax_nopriv_myajax-submit and wp_ajax_myajax-submit
+            action : 'myajax-submit',
+
+            // other parameters can be added along with "action"
+            postID : MyAjax.postID,
+
+            cat : $('#category').val()
+        },
+        function( response ) {
+            alert( response );
+        }
+    );
+
+    });
+  });
+  </script>
+  <?php
 }
 
 /**

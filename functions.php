@@ -671,4 +671,169 @@ function import_institutions(){
 
 }
 
+/**
+ * ARTICLE ACCESS MANAGEMENT
+*/
+
+// custom settings page
+// global rulebook
+add_action('admin_menu', 'global_rulebook_menu');
+function global_rulebook_menu(){
+  add_options_page( "Global Access Rulebook", "Global Access Rulebook", "manage_options", "global_rulebook", "global_rulebook");
+}
+function global_rulebook(){
+  echo "hello";
+
+  $type = 'article';
+  $args=array(
+    'post_type' => $type,
+    'post_status' => array('publish', 'preprint', 'coming_soon', 'in_production'),
+    'posts_per_page' => -1,
+    'caller_get_posts'=> 1
+  );
+  $my_query = new WP_Query($args);
+
+  if (!$my_query->have_posts()) : ?>
+    <div class="alert alert-warning">
+      <?php _e('Sorry, no results were found.', 'roots'); ?>
+    </div>
+  <?php endif; ?>
+
+  <div class='article-container'>
+  <?php while ($my_query->have_posts()) : 
+    $my_query->the_post(); ?>
+    <?php echo the_title(); ?>
+    <br>
+  <?php endwhile;
+}
+
+/**
+ * Adds a box to the main column on the Post and Page edit screens.
+ */
+
+function block_filter_add_meta_box() {
+
+  $screens = array( 'article' );
+
+  foreach ( $screens as $screen ) {
+
+    add_meta_box(
+      'block_filter_sectionid',
+      'Block Filtering',
+      'block_filter_meta_box_callback',
+      $screen
+    );
+  }
+}
+add_action( 'add_meta_boxes', 'block_filter_add_meta_box' );
+
+/**
+ * Prints the box content.
+ * 
+ * @param WP_Post $post The object for the current post/page.
+ */
+function block_filter_meta_box_callback( $post ) {
+
+  // Add an nonce field so we can check for it later.
+  wp_nonce_field( 'block_filter_meta_box', 'block_filter_meta_box_nonce' );
+
+  /*
+   * Use get_post_meta() to retrieve an existing value
+   * from the database and use the value for the form.
+   */
+  $value = get_post_meta( $post->ID, '_my_meta_value_key', true );
+
+  /*echo '<label for="myplugin_new_field">';
+  _e( 'Description for this field', 'myplugin_textdomain' );
+  echo '</label> ';
+  echo '<input type="text" id="myplugin_new_field" name="myplugin_new_field" value="' . esc_attr( $value ) . '" size="25" />';*/
+
+?>
+
+<h3>
+
+<h4>Filter by Country. Uses <a href="http://en.wikipedia.org/wiki/ISO_3166-1" target="_blank">ISO alpha-2 country codes.</a> Separate by commas.</h4>
+<input type="radio" name="filter_country_list_type" value="whitelist"> Whitelist<br>
+<input type="radio" name="filter_country_list_type" value="blacklist"> Blacklist
+<br>
+<input type="text" id="filter_country" name="filter_country" placeholder="US,UK,FR,SE" size="25" />
+
+<h4>Filter by Continent</h4>
+<input type="checkbox" name="filter_continent_All" value="All" checked="true">All<br>
+<input type="checkbox" name="filter_continent_AF" value="AF">Africa<br>
+<input type="checkbox" name="filter_continent_AN" value="AN">Antarctica<br>
+<input type="checkbox" name="filter_continent_AS" value="AS">Asia<br>
+<input type="checkbox" name="filter_continent_EU" value="EU">Europe<br>
+<input type="checkbox" name="filter_continent_NA" value="NA">North America<br>
+<input type="checkbox" name="filter_continent_OC" value="OC">Oceania<br>
+<input type="checkbox" name="filter_continent_SA" value="SA">South America<br>
+
+<h4>Filter by IP</h4>
+<input type="radio" name="filter_ip" value="verify">Only Verified IPs<br>
+<input type="radio" name="filter_ip" value="no_verify" checked="true">Any IP<br>
+
+<h4>Filter by User</h4>
+<input type="radio" name="filter_user" value="verify">Only Logged-In Users<br>
+<input type="radio" name="filter_user" value="no_verify" checked="true">Anyone<br>
+
+
+<?php 
+}
+
+/**
+ * When the post is saved, saves our custom data.
+ *
+ * @param int $post_id The ID of the post being saved.
+ */
+function block_filter_save_meta_box_data( $post_id ) {
+
+  /*
+   * We need to verify this came from our screen and with proper authorization,
+   * because the save_post action can be triggered at other times.
+   */
+
+  // Check if our nonce is set.
+  if ( ! isset( $_POST['block_filter_meta_box_nonce'] ) ) {
+    return;
+  }
+
+  // Verify that the nonce is valid.
+  if ( ! wp_verify_nonce( $_POST['block_filter_meta_box_nonce'], 'block_filter_meta_box' ) ) {
+    return;
+  }
+
+  // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+
+  // Check the user's permissions.
+  if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+    if ( ! current_user_can( 'edit_page', $post_id ) ) {
+      return;
+    }
+
+  } else {
+
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+      return;
+    }
+  }
+
+  /* OK, it's safe for us to save the data now. */
+  
+  // Make sure that it is set.
+  //if ( ! isset( $_POST['myplugin_new_field'] ) ) {
+  //  return;
+  //}
+
+  // Sanitize user input.
+  //$my_data = sanitize_text_field( $_POST['myplugin_new_field'] );
+
+  // Update the meta field in the database.
+  //update_post_meta( $post_id, '_my_meta_value_key', $my_data );
+}
+add_action( 'save_post', 'block_filter_save_meta_box_data' );
+
 ?>

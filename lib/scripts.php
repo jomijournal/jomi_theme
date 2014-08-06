@@ -45,10 +45,12 @@ function roots_scripts() {
   wp_register_script('modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-2.7.0.min.js', array(), null, false);
   wp_register_script('userapp', '//app.userapp.io/js/userapp.client.js', array(), null, false);
   wp_register_script('cookies', get_template_directory_uri() . '/assets/js/vendor/cookies.min.js', array(), null, false);
+  wp_register_script('coin', get_template_directory_uri() . '/assets/js/vendor/coin.js', array(), null, false);
   
   wp_enqueue_script('modernizr');
   wp_enqueue_script('userapp');
   wp_enqueue_script('cookies');
+  wp_enqueue_script('coin');
   wp_enqueue_script('jquery');
   wp_enqueue_script('roots_scripts');
 }

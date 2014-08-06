@@ -14,9 +14,6 @@
 }
 </style>
 
-  <!-- javascript for crypto-currency -->
-  <script src="http://coindonationwidget.com/widget/coin.js"></script>
-
   <div class="support-us">
       <div class="row">
           <div class="col-md-12 column">

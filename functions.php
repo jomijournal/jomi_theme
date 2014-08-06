@@ -113,7 +113,7 @@ function custom_post_author_archive($query) {
 add_action('pre_get_posts', 'custom_post_author_archive');
 
 
-add_action('init', 'register_type_institution');
+/*add_action('init', 'register_type_institution');
 function register_type_institution() {
 register_post_type('institution', array(
   'label' => 'Institutions',
@@ -146,7 +146,7 @@ register_post_type('institution', array(
     'not_found_in_trash' => 'No Institution Found in Trash',
     'parent' => 'Parent Institution',
   )
-) ); }
+) ); }*/
 
 
 /*
@@ -667,6 +667,8 @@ function import_institutions(){
 
   // Clean up
   #mssql_free_result($version);
+  
+
 }
 
 ?>

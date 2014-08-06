@@ -98,6 +98,12 @@ excellence in medical instruction.</p>
 				<div class="link">Johnston Memorial Medical Center</div>
 			</div>
 		</a>
+	  	<a href="https://www.kalispellregional.org/nwhc/physicians/medical-library" >
+	  		<div class="org col-md-2">
+	  			<div class="logo"><img class="logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/krmc.png"></div>
+	  			<div class="link">KRMC Medical Library</div>
+	  		</div>
+	  	</a>
 		<a href = "http://www2.kent.edu/library/index.cfm">
 			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/kentstate.png"></div>
@@ -116,6 +122,14 @@ excellence in medical instruction.</p>
 				<div class="link">Northern Vermont Regional Hospital</div>
 			</div>
 		</a>
+		<a href = "http://bhson.org/health-sciences-library/">
+			<div class="org col-md-2">
+				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/signature.png"></div>
+				<div class="link">Signature Brockton Healthcare Hospital: Health Sciences Library</div>
+			</div>
+		</a>
+	</div>
+	<div class="row">
 		<a href = "http://ahsl.arizona.edu/">
 			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/arizona.png"></div>
@@ -128,20 +142,6 @@ excellence in medical instruction.</p>
 				<div class="link">Western Connecticut Health Network</div>
 			</div>
 		</a>
-	</div>
-	<div class="row">
-		<a href = "http://bhson.org/health-sciences-library/">
-			<div class="org col-md-2">
-				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/signature.png"></div>
-				<div class="link">Signature Brockton Healthcare Hospital: Health Sciences Library</div>
-			</div>
-		</a>
-	  	<a href="https://www.kalispellregional.org/nwhc/physicians/medical-library" >
-	  		<div class="org col-md-2">
-	  			<div class="logo"><img class="logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/krmc.png"></div>
-	  			<div class="link">KRMC Medical Library</div>
-	  		</div>
-	  	</a>
 	</div>
 </div>
 <br/>

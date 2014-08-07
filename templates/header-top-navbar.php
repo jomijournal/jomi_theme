@@ -11,7 +11,7 @@ global $user;
 
 <?php endif; ?>
 
-  <nav class="navbar navbar-default site-header" role="navigation" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0);">
+  <nav class="navbar navbar-default site-header" role="navigation">
   <div class="container-fluid container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -28,13 +28,11 @@ global $user;
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	 
 	 <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-
-        <form class="navbar-form navbar-left" role="search">
-	    <input placeholder="Search Articles" type="text" name="login" size="30" class="border search" id="search-field"/>
-	    <span class="glyphicon glyphicon-search search-icon"></span>
-	    </form>
-
+        <div class="form-group has-feedback has-feedback-left">
+        	<!--form class="navbar-form navbar-left" role="search"-->
+	    	<input placeholder="Search Articles" type="text" name="login" size="30" class="border search from-control" id="search-field"/>
+	    	<!--i class="form-control-feedback glyphicon glyphicon-search"></i>
+	    	<!--/form-->
 	    </div>
       </form>
 
@@ -89,6 +87,7 @@ global $user;
   </div><!-- /.container-fluid -->
 </nav>
 </div>
+
 
 
 

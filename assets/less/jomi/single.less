@@ -1,0 +1,224 @@
+/**
+ * =======================================
+ * ARTICLE PAGE
+ * =======================================
+ */
+.single {
+	.preprint-container{
+		padding: 0 0px;
+	}
+	.preprint {
+	   display: block;
+	   margin: 0 auto;
+	   text-align: center;
+	   width: 100%;
+	   padding: 10px;
+	   /* border: 2px solid rgba(255, 255, 255, 0.5); */
+	   background: #111;
+	   border-radius: 15px 15px 0 0;
+	   font-size: 22px;
+	   margin-bottom: 10px;
+	   border-bottom: 5px solid rgb(122, 0, 0);
+	   padding-bottom: 2px;
+	   strong{
+	      letter-spacing: 11px;
+	      color: #BBB;
+	   }
+	}
+	.video-area{
+
+	   .clearfix();
+	   background: #000;
+		
+		// container for the actual video
+	   .video-holder{
+		   float: left;
+		   margin:0;
+		   padding:0;
+		}
+		// generated chapters
+		#chapters{
+		   float: left;
+		   padding: 0px 0px;
+		   width: 100%;
+		   h3{
+		      color: #999;
+		      text-align: center;
+		      margin-bottom: 15px;
+		      text-transform: uppercase;
+		      font-size:14px;
+		      font-weight:700;
+		      margin-top:10px;
+		   }
+		   ul{
+		      list-style: none;
+		      padding: 0;
+		      li{
+		         margin: 2px 0;
+		         a{
+		            display:block;
+		            background: #333;
+		            padding:4px 10px;
+		            text-decoration: none;
+		            color:#999;
+		            &:hover{
+		               background:#555;
+		            }
+		         }
+		         &.current{
+		            a{
+		               background:#555;
+		            }
+		            font-weight:700;
+		         }
+		         &.done:not(.current) a{
+		            background:#111;
+		            &:hover{
+		               background:#555;
+		            }
+		         }
+		      }
+		   }
+		}
+	}
+	.wrap {
+
+		background: #fff;
+		color: #111;
+		padding: 50px 25px;
+		padding-top: 25px;
+		margin: 0 auto;
+		font-size: 16px;
+
+		h1.entry-title{
+			margin-top: 0px;
+		}
+		h3{
+			font-weight: 700;
+		}
+		h4{
+			font-size: 22px;
+			font-weight: 700;
+		}
+	    h5{
+			color: #000;
+			font-size: 18px;
+			font-weight: 600;
+		}
+		a {
+			.pdf{
+			   background: url("/assets/img/icons/pdficon_small.png");
+			   background-repeat: no-repeat;
+			   padding-left: 18px;  /* width of the image plus a little extra padding */
+			   display: block;  /* may not need this, but I've found I do */
+			}
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.sidebar{
+		   .author{
+		      display:block;
+		      margin-bottom:10px;
+		      background: #f8f8f8;
+		      border:3px solid #eee;
+		      color:#111 !important;
+		      text-decoration: none;
+		      &:hover {
+		      	border:3px solid #428bca;
+		      }
+		      h4{
+			      font-size: 14px;
+			      font-weight:700;
+			      margin:5px 0;
+			  }
+			  h5{
+			      font-size: 12px;
+			      font-weight: normal;
+			      margin-top: 0;
+			      margin-bottom: 0;
+			  }
+		      .avatar{
+			      float: left;
+			      margin-right:5px;
+			      img{
+			         width: 64px;
+			      }
+			  }
+			  .bio{
+			      width: 100%;
+				  display: block;
+				  padding-left: 5px;
+			  }
+		   }
+		   .pub-info{
+		      display:block;
+		      margin-bottom:0px;
+		      background: #f8f8f8;
+		      padding:5px 15px;
+		   }
+		}
+		.kcite-boilerplate {
+			display: none;
+		}
+		.kcite{
+		   font-variant: small-caps;
+		   a span, a:hover{
+		      text-decoration: none !important;
+		   }
+		}
+		.kcite-boilerplate{
+		   font-family: Consolas;
+		   font-size: 14px;
+		   color: #333;
+		   padding: 15px 25px;
+		   background: #f5f5f5;
+		   margin: 14px 0 30px;
+		}
+		#comment{
+		   width: 100% !important;
+		}
+	}
+}
+
+
+//* MOBILE
+
+@media (max-width: 768px) {
+	.single .video-area{
+		margin: 0;
+		.video-holder{
+			width:100%;
+		}
+	}
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+	.single{
+		.video-area {
+			#chapters{
+			  width: 33.33333%;
+			  padding-right: 2px;
+			}
+			.video-holder{
+			  width: 66.66666%;
+			}
+		}
+		.wrap{
+		  border-radius: 0;
+		  padding: 50px 50px;
+		} 
+	}
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {  
+   .sidebar ul li a {
+      padding: 10px 25px !important;
+   }
+}
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+}

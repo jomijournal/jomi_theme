@@ -1,0 +1,153 @@
+/**
+ * ===========================
+ * ARTICLE THUMBNAIL
+ * ===========================
+ */
+
+.article-thumbnail {
+   margin-bottom: 10px;
+   position: relative;
+
+   a img{
+      width: 100%;
+      height: 100%;
+   }
+   // preprint visual
+   .preprint {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      width: 100%;
+      padding: 10px;
+      background: #111;
+      border-radius: 15px 15px 0 0;
+      font-size: 22px;
+      margin-bottom: 10px;
+      border-bottom: 5px solid rgb(122, 0, 0);
+      padding-bottom: 2px;
+      strong{
+         letter-spacing: 11px;
+         color: #BBB;
+      }
+   }
+   // article overlay on the bottom of the thumbnail
+   .article-overlay{
+      margin: 0 0px;
+      margin-bottom: -10px;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      background: rgba(0, 0, 0, 0.8);
+      width: 100%;
+
+      // article title
+      h3.entry-title{
+         margin-top:0;
+         margin-bottom: 0px;
+         font-size: 12px;
+         text-shadow: 0px 0px 5px rgba(150, 150, 150, 1);
+         a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 1;
+         }
+      }
+      // author name(s)
+      p {
+         display: none;
+
+         color: #ccc;
+         margin: 0px 0px;
+         font-size: 10px;
+         a{
+            color: #ccc;
+            font-weight: 700;
+            font-size: 10px;
+            text-decoration: none;
+         }
+      }
+      // institution/affiliation name
+      h4{
+         display: none;
+
+         margin-top: 0px;
+         margin-bottom: 0px;
+         color: #999;
+         font-size: 10px;
+         font-weight: bold;
+      }
+   }
+   // for in-production or coming-soon
+   .unavailable{
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      h3{
+         position: relative;
+         color: #fff;
+         display: block;
+         text-align: center;
+         font-size: 36px;
+      }
+   }
+   h5{
+      position: absolute;
+      z-index: 1;
+      color: #fff;
+      background: #8F0000;
+      padding: 5px;
+      top: 0;
+      right: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+   }
+}
+
+//* MOBILE
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+   .article-thumbnail{
+      .article-overlay{
+         h4{
+            display: block;
+         }
+         p{
+            display: block;
+         }
+      }
+   }
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+   .article-thumbnail {
+      .article-overlay{
+         h3.entry-title{
+            font-size: 20px;
+         }
+          p{
+            font-size: 14px;
+            a{
+               font-size: 14px;
+            }
+         }
+         h4{
+            font-size: 12px;
+         }
+      }
+      img{
+         width:100%;
+         height:100%;
+      }
+   } 
+}
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+}

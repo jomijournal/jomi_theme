@@ -14,15 +14,11 @@
 }
 </style>
 
-  <!-- javascript for crypto-currency -->
-  <script src="http://coindonationwidget.com/widget/coin.js"></script>
-
   <div class="support-us">
       <div class="row">
           <div class="col-md-12 column">
               <div class="support-us-top">
                   <div class="panel-body">
-                      
             <div style="padding-top:10px;text-align:center;">
             <!-- Bitcoin Donation Button -->
                        <script>

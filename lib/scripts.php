@@ -12,19 +12,8 @@
  */
 function roots_scripts() {
 
-
-  $whitelist = array(
-      '127.0.0.1',
-      '::1'
-  );
-  // if localhost
-  if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
-    wp_enqueue_style('roots_main', 'http://localhost/wp-content/themes/jomi/assets/css/main.min.css', false, false);
-    wp_register_script('roots_scripts', 'http://localhost/wp-content/themes/jomi/assets/js/scripts.min.js', array(), null, false);
-  } else {
-    wp_enqueue_style('roots_main', 'http://squash.jomi.com/wp-content/themes/jomi/assets/css/main.min.css', false, false);
-    wp_register_script('roots_scripts', 'http://squash.jomi.com/wp-content/themes/jomi/assets/js/scripts.min.js', array(), null, false);
-  }
+    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, false);
+    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);
 
   #wp_enqueue_style('roots_main', get_theme_directory_uri() . '/assets/css/main.min.css', false, false);
   #wp_register_script('roots_scripts', get_theme_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);
@@ -45,10 +34,14 @@ function roots_scripts() {
   wp_register_script('modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-2.7.0.min.js', array(), null, false);
   wp_register_script('userapp', '//app.userapp.io/js/userapp.client.js', array(), null, false);
   wp_register_script('cookies', get_template_directory_uri() . '/assets/js/vendor/cookies.min.js', array(), null, false);
+  wp_register_script('coin-js', get_template_directory_uri() . '/assets/vendor/coindonationwidget.com/coin.js', array(), null, false);
+
+  wp_enqueue_style('coin-css', get_template_directory_uri() . '/assets/vendor/coindonationwidget.com/coin.css', false, false);
   
   wp_enqueue_script('modernizr');
   wp_enqueue_script('userapp');
   wp_enqueue_script('cookies');
+  wp_enqueue_script('coin-js');
   wp_enqueue_script('jquery');
   wp_enqueue_script('roots_scripts');
 }

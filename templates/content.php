@@ -1,4 +1,4 @@
-<article <?php post_class(); ?>>
+<div class="article-thumbnail">
 	<?php
 		if ( in_array(get_post_status(), array('preprint', 'in_production', 'coming_soon') ) ) {
 
@@ -46,4 +46,4 @@
 				<h4><?php $a = get_coauthors(); $b = $a[0]; print($b->description); ?></h4>
 			</div>
 		</a>
-</article>
+</div>

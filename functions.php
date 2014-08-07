@@ -240,6 +240,9 @@ function append_post_status_list(){
            $("select#post_status").append("<option value=\"in_production\" '.$complete.'>In Production</option>");
            $(".misc-pub-section label").append("'.$label.'");
       });
+      $(document).keypress(function (e) {
+        if(e.which == 13 && e.target.nodeName != "TEXTAREA") return false;
+      });
       </script>
       ';
   }

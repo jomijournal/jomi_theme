@@ -166,23 +166,17 @@ add_action( 'wp_ajax_nopriv_myajax-submit', 'myajax_submit' );
 add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
 
 function myajax_submit() {
-  // get the submitted parameters
-  $cat_id = (isset($_POST['cat'])) ? $_POST['cat'] : '';
-  $args = array(
-    'post_type' => 'article',
-    'cat' => $cat_id
-  );
-  $query = new WP_Query($args);
-
-  if(!$query->have_posts()) {
-   // return nothing
-  }
-  while($query->have_posts()) {
-    $query->the_post();
-    echo the_title() . '<br>';
-  }
-  wp_reset_query();
-
+	echo 'asdf';
+  ?>
+<table class="access_rules">
+	<tr>
+		<th>Priority</th>
+		<th>Selector</th>
+		<th>Check</th>
+		<th>Result</th>
+	</tr>
+</table>
+<?php
   exit;
 }
 
@@ -193,38 +187,43 @@ function global_rulebook_menu(){
   add_options_page( "Global Access Rulebook", "Global Access Rulebook", "manage_options", "global_rulebook", "global_rulebook");
 }
 function global_rulebook(){
-  echo "hello";
   ?>
 
   <h4>Category</h4>
-  <select id="category">
-    <option val="all">All</option>
-  <?php
-  $args = array(
-    'type' => 'article',
-    'hide_empty' => 1
-  );
-  $categories = get_categories($args);
-  foreach($categories as $category) { ?>
-    <option value="<?php echo $category->cat_ID; ?>"><?php echo $category->name; ?></option>
-  <?php } ?>
-  </select>
+  <div id="select_container">
+	  <select id="category">
+	    <option val="all">All</option>
+	    <option val="adf">asdf</option>
+	  </select>
+  </div>
 
   <div id="results">
   </div>
-  <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <table class="access_rules" id="new_rules">
+  	<tr>
+  		<td><input type="text" id="access_priority" placeholder="Priority"></td>
+  		<td><input type="text" id="access_selector" placeholder="Selector"></td>
+  		<td><input type="text" id="access_check" placeholder="Check"></td>
+  		<td><input type="text" id="access_result" placeholder="Result"></td>
+  	</tr>
+  	<tr>
+  		<td><a class="btn fat white" id="access_add_rule">Add Rule</a></td>
+  	</tr>
+  </table>
+
   <script>
   $(function(){
-    $('#category').change(function() {
+    $('#select_container select').change(function() {
 
+    console.log('asdf');
       $('#results')
         .empty()
         .html("<p>nope</p>");
 
       $.post( MyAjax.ajaxurl, {
             action : 'myajax-submit',
-            cat : $('#category').val()
+            //cat : $('#category').val()
         },
         function( response ) {
           $('#results').html(response);

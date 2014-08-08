@@ -3,4 +3,25 @@
 body.wp-admin {
 	background: #f1f1f1;
 	color: #000;
+
+	table.access_rules{
+		//border: 1px solid #000;
+		width: 90%;
+		tr{
+			&:nth-child(even){
+				background-color: #fff;
+			}
+			&:nth-child(odd){
+				background-color: #eee;
+			}
+			td, th{
+				padding: 5px;
+				outline: 1px solid #000;
+			}
+			th{
+				background: #888;
+				color: #fff;
+			}
+		}
+	}
 }

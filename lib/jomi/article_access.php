@@ -153,4 +153,87 @@ function insert_rule($args) {
 // DEBUG ONLY: insert an empty rule
 //insert_rule(array());
 
+/**
+ * ARTICLE ACCESS MANAGEMENT
+*/
+
+// embed the javascript file that makes the AJAX request
+wp_enqueue_script( 'my-ajax-request', plugin_dir_url( __FILE__ ) . 'js/ajax.js', array( 'jquery' ) );
+// declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
+wp_localize_script( 'my-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+
+add_action( 'wp_ajax_nopriv_myajax-submit', 'myajax_submit' );
+add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
+
+function myajax_submit() {
+  // get the submitted parameters
+  $cat_id = (isset($_POST['cat'])) ? $_POST['cat'] : '';
+  $args = array(
+    'post_type' => 'article',
+    'cat' => $cat_id
+  );
+  $query = new WP_Query($args);
+
+  if(!$query->have_posts()) {
+   // return nothing
+  }
+  while($query->have_posts()) {
+    $query->the_post();
+    echo the_title() . '<br>';
+  }
+  wp_reset_query();
+
+  exit;
+}
+
+// custom settings page
+// global rulebook
+add_action('admin_menu', 'global_rulebook_menu');
+function global_rulebook_menu(){
+  add_options_page( "Global Access Rulebook", "Global Access Rulebook", "manage_options", "global_rulebook", "global_rulebook");
+}
+function global_rulebook(){
+  echo "hello";
+  ?>
+
+  <h4>Category</h4>
+  <select id="category">
+    <option val="all">All</option>
+  <?php
+  $args = array(
+    'type' => 'article',
+    'hide_empty' => 1
+  );
+  $categories = get_categories($args);
+  foreach($categories as $category) { ?>
+    <option value="<?php echo $category->cat_ID; ?>"><?php echo $category->name; ?></option>
+  <?php } ?>
+  </select>
+
+  <div id="results">
+  </div>
+  <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>
+  $(function(){
+    $('#category').change(function() {
+
+      $('#results')
+        .empty()
+        .html("<p>nope</p>");
+
+      $.post( MyAjax.ajaxurl, {
+            action : 'myajax-submit',
+            cat : $('#category').val()
+        },
+        function( response ) {
+          $('#results').html(response);
+        }
+    );
+
+    });
+  });
+  </script>
+  <?php
+}
 ?>

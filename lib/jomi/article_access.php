@@ -166,7 +166,8 @@ add_action( 'wp_ajax_nopriv_myajax-submit', 'myajax_submit' );
 add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
 
 function myajax_submit() {
-	echo 'asdf';
+	global $wpdb;
+	$rules = $wpdb->get_results("SELECT * FROM wp_article_access");
   ?>
 <table class="access_rules">
 	<tr>
@@ -175,6 +176,28 @@ function myajax_submit() {
 		<th>Check</th>
 		<th>Result</th>
 	</tr>
+	<?php
+foreach($rules as $rule) {
+	?>
+	<tr>
+		<td>
+			<p><?php echo $rule->priority; ?></p>
+		</td>
+		<td>
+			<p><?php echo $rule->selector_type; ?></p>
+			<p><?php echo $rule->selector_value; ?></p>
+		</td>
+		<td>
+			<p><?php echo $rule->check_type; ?></p>
+			<p><?php echo $rule->check_value; ?></p>
+		</td>
+		<td>
+			<p><?php echo $rule->result_type; ?></p>
+		</td>
+	</tr>
+<?php
+}
+?>
 </table>
 <?php
   exit;
@@ -212,6 +235,8 @@ function global_rulebook(){
   	</tr>
   </table>
 
+  <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>
   $(function(){
     $('#select_container select').change(function() {

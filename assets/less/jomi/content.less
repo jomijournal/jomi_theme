@@ -1,6 +1,6 @@
 //* CONTENT
 
-.subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap, .pricing .wrap, .video .wrap{
+.subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap, .pricing .wrap, body.video .wrap{
    background: #fff;
    color: #111;
    padding: 50px 25px;
@@ -13,11 +13,20 @@
 
 // * SUPPORT US PAGE
 .support-us .wrap {
+   
 	color: #000;
 }
 // * SUBSCRIBERS PAGE
 .subscribers .wrap {
 	font-size: 16px;
+   a.btn, input.btn{
+      color: #888;
+      border-color: #888;
+      &:hover{
+         color: #aaa;
+         border-color: #999;
+      }
+   }
 }
 
 //* MOBILE

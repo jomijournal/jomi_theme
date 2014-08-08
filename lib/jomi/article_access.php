@@ -144,6 +144,7 @@ function insert_rule($args) {
 		) 
 	);
 
+	// print errors if any show up
 	if(!empty($wpdb->print_error())) {
 		return $wpdb->print_error();
 	}

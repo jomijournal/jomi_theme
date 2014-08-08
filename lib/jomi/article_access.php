@@ -23,10 +23,15 @@ function access_table_install() {
 
 	$sql = "CREATE TABLE $table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-		name tinytext NOT NULL,
-		text text NOT NULL,
-		url VARCHAR(55) DEFAULT '' NOT NULL,
+		result_time_start int(5) DEFAULT '-1' NOT NULL,
+		result_time_end int(5) DEFAULT '-1' NOT NULL,
+		result_time_elapsed int(5) DEFAULT '-1' NOT NULL,
+		result_msg text NOT NULL,
+		check_type VARCHAR(20) DEFAULT '' NOT NULL,
+		check_value text NOT NULL,
+		priority int(3) DEFAULT '0' NOT NULL,
+		selector_type VARCHAR(20) DEFAULT '' NOT NULL,
+		selector_value text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 

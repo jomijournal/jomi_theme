@@ -1,13 +1,17 @@
 <?php
 
+global $wpdb;
+
 global $access_db_version;
 $access_db_version = '1.01';
+
+global $access_table_name;
+$access_table_name = $wpdb->prefix . 'article_access';
 
 function access_table_install() {
 	global $wpdb;
 	global $access_db_version;
-
-	$table_name = $wpdb->prefix . 'article_access';
+	global $access_table_name;
 	
 	/*
 	 * We'll set the default character set and collation for this table.
@@ -24,7 +28,7 @@ function access_table_install() {
 	  $charset_collate .= " COLLATE {$wpdb->collate}";
 	}
 
-	$sql = "CREATE TABLE $table_name (
+	$sql = "CREATE TABLE $access_table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
 		result_type VARCHAR(20) NOT NULL,
 		result_time_start int(5) NOT NULL,
@@ -126,10 +130,10 @@ function insert_rule() {
 	$selector_type = (empty($_POST['selector_type'])) ? $default['selector_type'] : $_POST['selector_type'];
 	$selector_value = (empty($_POST['selector_value'])) ? $default['selector_value'] : $_POST['selector_value'];
 
-	$table_name = $wpdb->prefix . 'article_access';
+	global $access_table_name;
 	
 	$wpdb->insert( 
-		$table_name, 
+		$access_table_name, 
 		array( 
 			'result_type' => $result_type,
 			'result_time_start' => $result_time_start,
@@ -150,9 +154,7 @@ function insert_rule() {
 	}
 }
 
-/*
 
- */
 function delete_rule($id) {
 
 }
@@ -178,8 +180,9 @@ add_action( 'wp_ajax_insert-rule', 'insert_rule' );
 
 function myajax_submit() {
 	global $wpdb;
+	global $access_table_name;
 
-	$query = "SELECT * FROM wp_article_access";
+	$query = "SELECT * FROM $access_table_name";
 
 	$rules = $wpdb->get_results($query);
   ?>
@@ -213,7 +216,7 @@ foreach($rules as $rule) {
 			<p>Time Elapsed: <?php echo $rule->result_time_elapsed ?></p>
 		</td>
 		<td class="hidden">
-			<p>ID: <?php ?></p>
+			<p rule-id="<?php echo $rule->id; ?>">ID: <?php echo $rule->id; ?></p>
 		</td>
 		<td>
 			<a class="btn" id="access_rule_delete" rule="<?php echo $rule->id ?>">Delete Rule</a>

@@ -20,7 +20,7 @@ nav.site-header{
    }
 
 
-   .collapse {
+   .collapse, .collapsing {
       ul{
          .clearfix();      
          font-size:15px;      
@@ -102,12 +102,13 @@ nav.site-header{
    .has-feedback .form-control-feedback {
       position: relative;
       top: 1px;
-      display: inline-block;
+      display: block !important;
       line-height: 1px !important;
-      right: 290px;
-   }
+      right: -6px;
+      height: 0px;
+      top: -20px;   
 }
-
+}
 .navbar-collapse {
    margin-top: 15px !important;
    margin-right: 15px !important;
@@ -212,10 +213,8 @@ nav.site-header{
       line-height: 1px !important;
       right: 0px;
       height: 0px;
-      top: -27px;
    }
 }
-
 
 }
 /* Medium devices (desktops, 992px and up) */
@@ -287,3 +286,4 @@ nav.site-header{
       right: 20px;
    }
 }
+

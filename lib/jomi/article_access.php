@@ -216,6 +216,7 @@ function myajax_submit() {
   ?>
 <table class="access_rules">
 	<tr>
+		<th>ID</th>
 		<th>Priority</th>
 		<th>Selector</th>
 		<th>Check</th>
@@ -226,6 +227,9 @@ function myajax_submit() {
 foreach($rules as $rule) {
 	?>
 	<tr>
+		<td>
+			<p>ID: <?php echo $rule->id; ?></p>
+		</td>
 		<td>
 			<p><?php echo $rule->priority; ?></p>
 		</td>
@@ -242,9 +246,6 @@ foreach($rules as $rule) {
 			<p>Time Start: <?php echo $rule->result_time_start; ?></p>
 			<p>Time End: <?php echo $rule->result_time_end; ?></p>
 			<p>Time Elapsed: <?php echo $rule->result_time_elapsed ?></p>
-		</td>
-		<td class="hidden">
-			<p rule-id="<?php echo $rule->id; ?>">ID: <?php echo $rule->id; ?></p>
 		</td>
 		<td>
 			<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>">Delete Rule</a>

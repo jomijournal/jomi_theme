@@ -89,7 +89,7 @@ add_action('init', 'update_access_table');
  * 
  * @return [type]       [description]
  */
-function insert_rule($args) {
+function insert_rule() {
 
 	global $wpdb;
 
@@ -107,24 +107,24 @@ function insert_rule($args) {
 		'selector_type' => '',
 		'selector_value' => ''
 	);
-	$result_type = (empty($args['result_type'])) ? $default['result_type'] : $args['result_type'];
-	$result_time_start = (empty($args['result_time_start'])) ? $default['result_time_start'] : $args['result_time_start'];
-	$result_time_end = (empty($args['result_time_end'])) ? $default['result_time_end'] : $args['result_time_end'];
-	$result_time_elapsed = (empty($args['result_time_elapsed'])) ? $default['result_time_elapsed'] : $args['result_time_elapsed'];
-	if(empty($args['result_msg'])) {
+	$result_type = (empty($_POST['result_type'])) ? $default['result_type'] : $_POST['result_type'];
+	$result_time_start = (empty($_POST['result_time_start'])) ? $default['result_time_start'] : $_POST['result_time_start'];
+	$result_time_end = (empty($_POST['result_time_end'])) ? $default['result_time_end'] : $_POST['result_time_end'];
+	$result_time_elapsed = (empty($_POST['result_time_elapsed'])) ? $default['result_time_elapsed'] : $_POST['result_time_elapsed'];
+	if(empty($_POST['result_msg'])) {
 		switch ($result_type) {
 			case $default['result_type']:
 			default:
 				$result_msg = $default['result_msg'];
 		}
 	} else {
-		$result_msg = $args['result_msg'];
+		$result_msg = $_POST['result_msg'];
 	}
-	$check_type = (empty($args['check_type'])) ? $default['check_type'] : $args['check_type'];
-	$check_value = (empty($args['check_value'])) ? $default['check_value'] : $args['check_value'];
-	$priority = (empty($args['priority'])) ? $default['priority'] : $args['priority'];
-	$selector_type = (empty($args['selector_type'])) ? $default['selector_type'] : $args['selector_type'];
-	$selector_value = (empty($args['selector_value'])) ? $default['selector_value'] : $args['selector_value'];
+	$check_type = (empty($_POST['check_type'])) ? $default['check_type'] : $_POST['check_type'];
+	$check_value = (empty($_POST['check_value'])) ? $default['check_value'] : $_POST['check_value'];
+	$priority = (empty($_POST['priority'])) ? $default['priority'] : $_POST['priority'];
+	$selector_type = (empty($_POST['selector_type'])) ? $default['selector_type'] : $_POST['selector_type'];
+	$selector_value = (empty($_POST['selector_value'])) ? $default['selector_value'] : $_POST['selector_value'];
 
 	$table_name = $wpdb->prefix . 'article_access';
 	
@@ -150,6 +150,14 @@ function insert_rule($args) {
 	}
 }
 
+/*
+
+ */
+function delete_rule($id) {
+
+}
+
+
 // DEBUG ONLY: insert an empty rule
 //insert_rule(array());
 
@@ -165,9 +173,15 @@ wp_localize_script( 'my-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 
 add_action( 'wp_ajax_nopriv_myajax-submit', 'myajax_submit' );
 add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
 
+add_action( 'wp_ajax_nopriv_insert-rule', 'insert_rule' );
+add_action( 'wp_ajax_insert-rule', 'insert_rule' );
+
 function myajax_submit() {
 	global $wpdb;
-	$rules = $wpdb->get_results("SELECT * FROM wp_article_access");
+
+	$query = "SELECT * FROM wp_article_access";
+
+	$rules = $wpdb->get_results($query);
   ?>
 <table class="access_rules">
 	<tr>
@@ -175,6 +189,7 @@ function myajax_submit() {
 		<th>Selector</th>
 		<th>Check</th>
 		<th>Result</th>
+		<th>Actions</th>
 	</tr>
 	<?php
 foreach($rules as $rule) {
@@ -184,15 +199,24 @@ foreach($rules as $rule) {
 			<p><?php echo $rule->priority; ?></p>
 		</td>
 		<td>
-			<p><?php echo $rule->selector_type; ?></p>
-			<p><?php echo $rule->selector_value; ?></p>
+			<p>Type: <?php echo $rule->selector_type; ?></p>
+			<p>Value: <?php echo $rule->selector_value; ?></p>
 		</td>
 		<td>
-			<p><?php echo $rule->check_type; ?></p>
-			<p><?php echo $rule->check_value; ?></p>
+			<p>Type: <?php echo $rule->check_type; ?></p>
+			<p>Value: <?php echo $rule->check_value; ?></p>
 		</td>
 		<td>
-			<p><?php echo $rule->result_type; ?></p>
+			<p>Type: <?php echo $rule->result_type; ?></p>
+			<p>Time Start: <?php echo $rule->result_time_start; ?></p>
+			<p>Time End: <?php echo $rule->result_time_end; ?></p>
+			<p>Time Elapsed: <?php echo $rule->result_time_elapsed ?></p>
+		</td>
+		<td class="hidden">
+			<p>ID: <?php ?></p>
+		</td>
+		<td>
+			<a class="btn" id="access_rule_delete" rule="<?php echo $rule->id ?>">Delete Rule</a>
 		</td>
 	</tr>
 <?php
@@ -225,10 +249,17 @@ function global_rulebook(){
 
   <table class="access_rules" id="new_rules">
   	<tr>
-  		<td><input type="text" id="access_priority" placeholder="Priority"></td>
-  		<td><input type="text" id="access_selector" placeholder="Selector"></td>
-  		<td><input type="text" id="access_check" placeholder="Check"></td>
-  		<td><input type="text" id="access_result" placeholder="Result"></td>
+  		<td><input type="number" id="access_priority" placeholder="Priority"></td>
+  		<td><input type="text" id="access_selector_type" placeholder="Selector Type"></td>
+  		<td><input type="text" id="access_selector_value" placeholder="Selector Value"></td>
+  		<td><input type="text" id="access_check_type" placeholder="Check Type"></td>
+  		<td><input type="text" id="access_check_value" placeholder="Check Value"></td>
+  	</tr>
+  	<tr>
+  		<td><input type="text" id="access_result_type" placeholder="Result Type"></td>
+  		<td><input type="text" id="access_result_time_start" placeholder="Result Time Start"></td>
+  		<td><input type="text" id="access_result_time_end" placeholder="Result Time End"></td>
+  		<td><input type="text" id="access_result_time_elapsed" placeholder="Result Time Elapsed"></td>
   	</tr>
   	<tr>
   		<td><a class="btn fat white" id="access_add_rule">Add Rule</a></td>
@@ -239,9 +270,16 @@ function global_rulebook(){
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>
   $(function(){
+  	$('#access_add_rule').on('click', function() {
+  		$.post(MyAjax.ajaxurl, {
+  			action: 'insert-rule'
+  		},
+  		function(response) {
+  			console.log(response);
+  		});
+  	});
     $('#select_container select').change(function() {
 
-    console.log('asdf');
       $('#results')
         .empty()
         .html("<p>nope</p>");

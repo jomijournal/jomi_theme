@@ -14,8 +14,8 @@ function wpse_97347_force_article( $template )
   global $wp_query;
 
   if ( $wp_query->get( 'publication_id' ) ) {
-    Roots_Wrapping::wrap(@realpath(dirname(__FILE__)) . '/templates/content-single.php');
-    return @realpath(dirname(__FILE__)) . "/base.php";
+    Roots_Wrapping::wrap(ABSPATH . 'wp-content/themes/jomi/templates/content-single.php');
+    return ABSPATH . "wp-content/themes/jomi/base.php";
 
   }
   return $template;

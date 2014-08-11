@@ -133,7 +133,7 @@ $jomi_includes = array(
   '/lib/jomi/sidebars.php' // custom sidebars
 );
 
-$includes = array_merge($roots_includes, $jomi_includes);
+$includes = array_merge($jomi_includes, $roots_includes);
 
 foreach($includes as $file){
   if(!$filepath = locate_template($file)) {

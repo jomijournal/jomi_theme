@@ -13,7 +13,9 @@ assets/css/*.map
 *.sublime-workspace
 assets/js/*.min.js
 refresh.sh
-assets/vendor
+assets/vendor/*
+!assets/vendor/coindonationwidget.com
 assets/manifest.json
 assets/js/vendor/modernizr.min.js
 assets/video/*.*
+vendor/*

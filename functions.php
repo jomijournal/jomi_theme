@@ -166,7 +166,7 @@ function unread_post_status(){
   register_post_status( 'preprint', array(
     'label'                     => _x( 'Preprint', 'article' ),
     'public'                    => true,
-    'exclude_from_search'       => true,
+    'exclude_from_search'       => false,
     'show_in_admin_all_list'    => true,
     'show_in_admin_status_list' => true,
     'label_count'               => _n_noop( 'Preprint <span class="count">(%s)</span>', 'Preprint <span class="count">(%s)</span>' ),
@@ -184,7 +184,7 @@ function unread_post_status(){
   register_post_status( 'in_production', array(
     'label'                     => _x( 'In Production', 'article' ),
     'public'                    => true,
-    'exclude_from_search'       => true,
+    'exclude_from_search'       => false,
     'show_in_admin_all_list'    => true,
     'show_in_admin_status_list' => true,
     'label_count'               => _n_noop( 'In Production <span class="count">(%s)</span>', 'In Production <span class="count">(%s)</span>' ),
@@ -193,7 +193,7 @@ function unread_post_status(){
   register_post_status( 'coming_soon', array(
     'label'                     => _x( 'Coming Soon', 'article' ),
     'public'                    => true,
-    'exclude_from_search'       => true,
+    'exclude_from_search'       => false,
     'show_in_admin_all_list'    => true,
     'show_in_admin_status_list' => true,
     'label_count'               => _n_noop( 'Coming Soon <span class="count">(%s)</span>', 'Coming Soon <span class="count">(%s)</span>' ),
@@ -239,6 +239,9 @@ function append_post_status_list(){
            $("select#post_status").append("<option value=\"coming_soon\" '.$complete.'>Coming Soon</option>");
            $("select#post_status").append("<option value=\"in_production\" '.$complete.'>In Production</option>");
            $(".misc-pub-section label").append("'.$label.'");
+      });
+      jQuery(document).keypress(function (e) {
+        if(e.which == 13 && e.target.nodeName != "TEXTAREA") return false;
       });
       </script>
       ';

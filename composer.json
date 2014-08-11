@@ -1,6 +1,7 @@
 {
     "require": {
         "userapp/widget": "~0.6.0",
-        "segmentio/analytics-php": "1.0.0"
+        "segmentio/analytics-php": "1.0.0",
+        "geoip/geoip": "~1.14"
     }
 }

@@ -18,3 +18,4 @@ assets/vendor/*
 assets/manifest.json
 assets/js/vendor/modernizr.min.js
 assets/video/*.*
+vendor/*

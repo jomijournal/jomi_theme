@@ -312,9 +312,9 @@ function global_rulebook(){
   				<option val="checkpoint">CHECKPOINT</option>
   			</select>
   		</td>
-  		<td><input type="text" id="access_result_time_start" placeholder="Result Time Start"></td>
-  		<td><input type="text" id="access_result_time_end" placeholder="Result Time End"></td>
-  		<td><input type="text" id="access_result_time_elapsed" placeholder="Result Time Elapsed"></td>
+  		<td><input type="number" id="access_result_time_start" placeholder="Result Time Start"></td>
+  		<td><input type="number" id="access_result_time_end" placeholder="Result Time End"></td>
+  		<td><input type="number" id="access_result_time_elapsed" placeholder="Result Time Elapsed"></td>
   	</tr>
   	<tr>
   		<td><a class="btn fat white" id="access_add_rule">Add Rule</a></td>

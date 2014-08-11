@@ -302,7 +302,15 @@ function global_rulebook(){
   		<td><input type="text" id="access_check_value" placeholder="Check Value"></td>
   	</tr>
   	<tr>
-  		<td><input type="text" id="access_result_type" placeholder="Result Type"></td>
+  		<td>
+  			<select id="access_result_type">
+  				<option val="deny">DENY</option>
+  				<option val="none">NONE</option>
+  				<option val="default">DEFAULT</option>
+  				<option val="sign_up">SIGN UP</option>
+  				<option val="checkpoint">CHECKPOINT</option>
+  			</select>
+  		</td>
   		<td><input type="text" id="access_result_time_start" placeholder="Result Time Start"></td>
   		<td><input type="text" id="access_result_time_end" placeholder="Result Time End"></td>
   		<td><input type="text" id="access_result_time_elapsed" placeholder="Result Time Elapsed"></td>

@@ -154,9 +154,34 @@ function insert_rule() {
 	}
 }
 
+/*
+ * delete an article access rule
+ * returns true if successful
+ * returns false if unsucessful
+ */
+function delete_rule() {
+	global $wpdb;
+	global $access_table_name;
 
-function delete_rule($id) {
+	// no id passed in
+	if(!isset($_POST['id']) || empty($_POST['id'])) {
+		return false;
+	}
 
+	$id = $_POST['id'];
+	$wpdb->delete(
+		$access_table_name,
+		array(
+			'id' => $id
+		)
+	);
+
+	// print errors if any show up
+	if(!empty($wpdb->print_error())) {
+		return $wpdb->print_error();
+	}
+
+	return true;
 }
 
 
@@ -219,7 +244,7 @@ foreach($rules as $rule) {
 			<p rule-id="<?php echo $rule->id; ?>">ID: <?php echo $rule->id; ?></p>
 		</td>
 		<td>
-			<a class="btn" id="access_rule_delete" rule="<?php echo $rule->id ?>">Delete Rule</a>
+			<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>">Delete Rule</a>
 		</td>
 	</tr>
 <?php
@@ -272,32 +297,35 @@ function global_rulebook(){
   <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>
-  $(function(){
-  	$('#access_add_rule').on('click', function() {
-  		$.post(MyAjax.ajaxurl, {
-  			action: 'insert-rule'
-  		},
-  		function(response) {
-  			console.log(response);
-  		});
-  	});
-    $('#select_container select').change(function() {
+	$(function(){
+		$('#access_add_rule').on('click', function() {
+			$.post(MyAjax.ajaxurl, {
+				action: 'insert-rule'
+			},
+			function(response) {
+				console.log(response);
+			});
+		});
+		$('#results').on('click', 'a', function() {
+			console.log('asdf');
+		})
+		$('#select_container select').change(function() {
 
-      $('#results')
-        .empty()
-        .html("<p>nope</p>");
+			$('#results')
+				.empty()
+				.html("<p>nope</p>");
 
-      $.post( MyAjax.ajaxurl, {
-            action : 'myajax-submit',
-            //cat : $('#category').val()
-        },
-        function( response ) {
-          $('#results').html(response);
-        }
-    );
+			$.post( MyAjax.ajaxurl, {
+			    action : 'myajax-submit',
+			    //cat : $('#category').val()
+				},
+				function( response ) {
+				  $('#results').html(response);
+				}
+			);
 
-    });
-  });
+		});
+	});
   </script>
   <?php
 }

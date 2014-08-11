@@ -283,20 +283,20 @@ function global_rulebook(){
   		<td><input type="number" id="access_priority" placeholder="Priority"></td>
   		<td>
   			<select id="access_selector_type">
-  				<option val="category">Category</option>
-  				<option val="article_id">Article ID</option>
+  				<option val="category"   >Category</option>
+  				<option val="article_id" >Article ID</option>
   				<option val="institution">Institution</option>
   				<option val="post_status">Post Status</option>
-  				<option val="author">Author</option>
+  				<option val="author"     >Author</option>
   			</select>
   		</td>
   		<td><input type="text" id="access_selector_value" placeholder="Selector Value"></td>
   		<td>
   			<select id="access_check_type">
-  				<option val="is_ip">Is Verified IP(s)</option>
+  				<option val="is_ip"         >Is Verified IP(s)</option>
   				<option val="is_institution">Is Verified Institution(s)</option>
-  				<option val="is_region">Is Verified Region(s)</option>
-  				<option val="is_user">Is Verified User(s)</option>
+  				<option val="is_region"     >Is Verified Region(s)</option>
+  				<option val="is_user"       >Is Verified User(s)</option>
   			</select>
   		</td>
   		<td><input type="text" id="access_check_value" placeholder="Check Value"></td>
@@ -304,10 +304,10 @@ function global_rulebook(){
   	<tr>
   		<td>
   			<select id="access_result_type">
-  				<option val="deny">DENY</option>
-  				<option val="none">NONE</option>
-  				<option val="default">DEFAULT</option>
-  				<option val="sign_up">SIGN UP</option>
+  				<option val="deny"      >DENY</option>
+  				<option val="none"      >NONE</option>
+  				<option val="default"   >DEFAULT</option>
+  				<option val="sign_up"   >SIGN UP</option>
   				<option val="checkpoint">CHECKPOINT</option>
   			</select>
   		</td>
@@ -327,15 +327,15 @@ function global_rulebook(){
 		refresh();
 		$('#access_add_rule').on('click', function() {
 			$.post(MyAjax.ajaxurl, {
-				action: 'insert-rule',
-				priority: $('#access_priority').val(),
-				selector_type: $('#access_selector_type').val(),
-				selector_value: $('#access_selector_value').val(),
-				check_type: $('#access_check_type').val(),
-				check_value: $('#access_check_value').val(),
-				result_type: $('#access_result_type').val(),
-				result_time_start: $('access_result_time_start').val(),
-				result_time_end: $('access_result_time_end').val(),
+				action:              'insert-rule',
+				priority:            $('#access_priority').val(),
+				selector_type:       $('#access_selector_type').val(),
+				selector_value:      $('#access_selector_value').val(),
+				check_type:          $('#access_check_type').val(),
+				check_value:         $('#access_check_value').val(),
+				result_type:         $('#access_result_type').val(),
+				result_time_start:   $('access_result_time_start').val(),
+				result_time_end:     $('access_result_time_end').val(),
 				result_time_elapsed: $('access_result_time_elapsed').val()
 			},
 			function(response) {

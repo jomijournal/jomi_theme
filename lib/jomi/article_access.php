@@ -203,6 +203,9 @@ add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
 add_action( 'wp_ajax_nopriv_insert-rule', 'insert_rule' );
 add_action( 'wp_ajax_insert-rule', 'insert_rule' );
 
+add_action( 'wp_ajax_nopriv_delete-rule', 'delete_rule' );
+add_action( 'wp_ajax_delete-rule', 'delete_rule' );
+
 function myajax_submit() {
 	global $wpdb;
 	global $access_table_name;
@@ -307,7 +310,12 @@ function global_rulebook(){
 			});
 		});
 		$('#results').on('click', 'a', function() {
-			console.log('asdf');
+			//console.log('asdf');
+			//console.log($(this).attr('rule-id'));
+			$.post(MyAjax.ajaxurl, {
+				action: 'delete-rule',
+				id: $(this).attr('rule-id')
+			});
 		})
 		$('#select_container select').change(function() {
 

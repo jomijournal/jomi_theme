@@ -301,39 +301,42 @@ function global_rulebook(){
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>
 	$(function(){
+		refresh();
 		$('#access_add_rule').on('click', function() {
 			$.post(MyAjax.ajaxurl, {
 				action: 'insert-rule'
 			},
 			function(response) {
 				console.log(response);
+				refresh();
 			});
 		});
 		$('#results').on('click', 'a', function() {
-			//console.log('asdf');
-			//console.log($(this).attr('rule-id'));
 			$.post(MyAjax.ajaxurl, {
 				action: 'delete-rule',
 				id: $(this).attr('rule-id')
+			},
+			function(response){
+				console.log(response);
+				refresh();
 			});
 		})
-		$('#select_container select').change(function() {
-
-			$('#results')
-				.empty()
-				.html("<p>nope</p>");
-
-			$.post( MyAjax.ajaxurl, {
-			    action : 'myajax-submit',
-			    //cat : $('#category').val()
-				},
-				function( response ) {
-				  $('#results').html(response);
-				}
-			);
-
-		});
+		$('#select_container select').change(refresh);
 	});
+	function refresh() {
+		//$('#results')
+		//	.empty()
+		//	.html("<p>nope</p>");
+
+		$.post( MyAjax.ajaxurl, {
+		    action : 'myajax-submit',
+		    //cat : $('#category').val()
+			},
+			function( response ) {
+			  $('#results').html(response);
+			}
+		);
+	}
   </script>
   <?php
 }

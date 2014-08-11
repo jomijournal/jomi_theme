@@ -281,9 +281,24 @@ function global_rulebook(){
   <table class="access_rules" id="new_rules">
   	<tr>
   		<td><input type="number" id="access_priority" placeholder="Priority"></td>
-  		<td><input type="text" id="access_selector_type" placeholder="Selector Type"></td>
+  		<td>
+  			<select id="access_selector_type">
+  				<option val="category">Category</option>
+  				<option val="article_id">Article ID</option>
+  				<option val="institution">Institution</option>
+  				<option val="post_status">Post Status</option>
+  				<option val="author">Author</option>
+  			</select>
+  		</td>
   		<td><input type="text" id="access_selector_value" placeholder="Selector Value"></td>
-  		<td><input type="text" id="access_check_type" placeholder="Check Type"></td>
+  		<td>
+  			<select id="access_check_type">
+  				<option val="is_ip">Is Verified IP(s)</option>
+  				<option val="is_institution">Is Verified Institution(s)</option>
+  				<option val="is_region">Is Verified Region(s)</option>
+  				<option val="is_user">Is Verified User(s)</option>
+  			</select>
+  		</td>
   		<td><input type="text" id="access_check_value" placeholder="Check Value"></td>
   	</tr>
   	<tr>

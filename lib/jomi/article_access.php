@@ -283,6 +283,7 @@ function global_rulebook(){
   		<td><input type="number" id="access_priority" placeholder="Priority"></td>
   		<td>
   			<select id="access_selector_type">
+  				<option val=""           >None</option>
   				<option val="category"   >Category</option>
   				<option val="article_id" >Article ID</option>
   				<option val="institution">Institution</option>
@@ -293,6 +294,7 @@ function global_rulebook(){
   		<td><input type="text" id="access_selector_value" placeholder="Selector Value"></td>
   		<td>
   			<select id="access_check_type">
+  				<option val=""              >None</option>
   				<option val="is_ip"         >Is Verified IP(s)</option>
   				<option val="is_institution">Is Verified Institution(s)</option>
   				<option val="is_region"     >Is Verified Region(s)</option>
@@ -304,9 +306,8 @@ function global_rulebook(){
   	<tr>
   		<td>
   			<select id="access_result_type">
+  			  	<option val=""          >None</option>
   				<option val="deny"      >DENY</option>
-  				<option val="none"      >NONE</option>
-  				<option val="default"   >DEFAULT</option>
   				<option val="sign_up"   >SIGN UP</option>
   				<option val="checkpoint">CHECKPOINT</option>
   			</select>

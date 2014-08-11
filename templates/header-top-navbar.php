@@ -34,7 +34,6 @@ global $user;
 	    	<!--/form-->
 	    </div>
       </form>
-    </div>
 
       <ul class="nav navbar-nav navbar-right">
  

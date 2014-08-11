@@ -304,7 +304,16 @@ function global_rulebook(){
 		refresh();
 		$('#access_add_rule').on('click', function() {
 			$.post(MyAjax.ajaxurl, {
-				action: 'insert-rule'
+				action: 'insert-rule',
+				priority: $('#access_priority').val(),
+				selector_type: $('#access_selector_type').val(),
+				selector_value: $('#access_selector_value').val(),
+				check_type: $('#access_check_type').val(),
+				check_value: $('#access_check_value').val(),
+				result_type: $('#access_result_type').val(),
+				result_time_start: $('access_result_time_start').val(),
+				result_time_end: $('access_result_time_end').val(),
+				result_time_elapsed: $('access_result_time_elapsed').val()
 			},
 			function(response) {
 				console.log(response);

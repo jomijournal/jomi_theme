@@ -259,8 +259,11 @@ foreach($rules as $rule) {
   exit;
 }
 
-// custom settings page
-// global rulebook
+
+/**
+ * GLOBAL RULEBOOK SETTINGS PAGE
+ * GUI FOR MANAGING RULES
+ */
 add_action('admin_menu', 'global_rulebook_menu');
 function global_rulebook_menu(){
   add_options_page( "Global Access Rulebook", "Global Access Rulebook", "manage_options", "global_rulebook", "global_rulebook");
@@ -374,4 +377,43 @@ function global_rulebook(){
   </script>
   <?php
 }
+
+/**
+ * get useful article meta to help comb through article access rules
+ * @param  [int] $id article id
+ * @return [array] (category, id, status, author)
+ */
+function extract_selector_meta($id) {
+
+	// define your own defaults here if you so desire
+	$categories = get_the_category($id);
+	$cats_out = array();
+	foreach($categories as $category) {
+		//$category = ($category == '') ? '' : $category;
+		array_push($cats_out, $category->cat_ID);
+	}
+	$status = (get_post_status($id) == false) ? '' : get_post_status($id);
+	//$author = (get_the_author_meta('user_nicename', $id) == '') ? '' : get_the_author_meta('user_nicename', $id);
+	$coauthors = get_coauthors($id);
+	$coauth_out = array();
+	foreach($coauthors as $coauthor) {
+		array_push($coauth_out, $coauthor->ID);
+	}
+
+	$out = array(
+		'id' => $id,
+		'category' => $cats_out,
+		'status' => $status,
+		'author' => $coauth_out,
+	);
+	return $out;
+}
+function check_access() {
+
+}
+
+
+
+
+
 ?>

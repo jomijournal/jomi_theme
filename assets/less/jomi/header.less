@@ -1,9 +1,6 @@
 //* HEADER
 
 nav.site-header{
-   .navbar-header{
-      width: 100%;
-   }
 
    background: rgba(0, 0, 0, 0);
    border-color: rgba(0, 0, 0, 0);
@@ -15,15 +12,15 @@ nav.site-header{
       position: relative;
       left: 48px;
    }
+
    input.search{
       position: relative;
-      width: 100%;
       left: 5px;
       margin-top: 23px;
    }
 
 
-   .collapse {
+   .collapse, .collapsing {
       ul{
          .clearfix();      
          font-size:15px;      
@@ -98,16 +95,20 @@ nav.site-header{
    margin-top: 7px;
    margin-bottom: 0px;
    margin-right: -15px;
+   width:100% !important;
    -webkit-box-shadow: inset 0 0px 0 rgba(255,255,255,0.1),0 0px 0 rgba(255,255,255,0.1);
    box-shadow: inset 0 0px 0 rgba(255,255,255,0.1),0 0px 0 rgba(255,255,255,0.1);
    z-index: 5;
    .has-feedback .form-control-feedback {
-   right:0px;
-   bottom: 30px;
-   position: relative;
+      position: relative;
+      top: 1px;
+      display: block !important;
+      line-height: 1px !important;
+      right: -6px;
+      height: 0px;
+      top: -20px;   
 }
 }
-
 .navbar-collapse {
    margin-top: 15px !important;
    margin-right: 15px !important;
@@ -123,12 +124,16 @@ nav.site-header{
 .navbar-nav .open .dropdown-menu {
    float: none;
    width: auto;
-   margin-top: 0;
+   margin: 0;
    background-color: #ffffff !important;
    border: 0;
    box-shadow: none;
    z-index: 5;
    color: #000000;
+}
+
+.navbar-nav{
+   margin: 0px 0px !important;
 }
 
 .social-box{
@@ -189,9 +194,10 @@ nav.site-header{
             }
          }
       }
+
    input.search{
       position: relative;
-      left: 30px;
+      left: 0px;
       margin-top: 0px;
    }
    }
@@ -201,7 +207,14 @@ nav.site-header{
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
    border-color:#e7e7e7;
 }
-
+.navbar-form{
+   width: 30% !important;
+   .has-feedback .form-control-feedback {
+      line-height: 1px !important;
+      right: 0px;
+      height: 0px;
+   }
+}
 
 }
 /* Medium devices (desktops, 992px and up) */
@@ -230,7 +243,7 @@ nav.site-header{
       }
       input.search{
          position: relative;
-         left: 10px;
+         left: 0px !important;
          margin-top: 0px;
          width: 250px;
       }
@@ -242,8 +255,16 @@ nav.site-header{
       color: #000;
       text-decoration: none;
    }
+.navbar-form .has-feedback .form-control-feedback {
+      right: 16px;
+      width: 30% !important;
+   }
 
 }
+
+
+
+
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
    nav.site-header{
@@ -259,5 +280,10 @@ nav.site-header{
       margin-top: 0px;
       width: inherit;
    }
+
+   }
+   .navbar-form .has-feedback .form-control-feedback {
+      right: 20px;
    }
 }
+

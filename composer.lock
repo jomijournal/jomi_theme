@@ -4,49 +4,51 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd47f046a29fa1314d5fd093f0922b76",
+    "hash": "098c2df7501af2e1601203658eec92a5",
     "packages": [
         {
-            "name": "sabre/event",
-            "version": "1.0.0",
+            "name": "geoip/geoip",
+            "version": "v1.14",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fruux/sabre-event.git",
-                "reference": "14f284eede050859e72ac41064df0eac25327190"
+                "url": "https://github.com/maxmind/geoip-api-php.git",
+                "reference": "465fe4d7e581871e9c8594adf3fb52268b253312"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-event/zipball/14f284eede050859e72ac41064df0eac25327190",
-                "reference": "14f284eede050859e72ac41064df0eac25327190",
+                "url": "https://api.github.com/repos/maxmind/geoip-api-php/zipball/465fe4d7e581871e9c8594adf3fb52268b253312",
+                "reference": "465fe4d7e581871e9c8594adf3fb52268b253312",
                 "shasum": ""
             },
-            "require": {
-                "php": ">=5.4.1"
+            "conflict": {
+                "ext-geoip": "*"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Sabre\\Event": "lib/"
-                }
+                "files": [
+                    "src/geoip.inc",
+                    "src/geoipcity.inc"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "LGPL 2.1+"
             ],
             "authors": [
                 {
-                    "name": "Evert Pot",
-                    "email": "me@evertpot.com",
-                    "homepage": "http://evertpot.com/",
-                    "role": "Developer"
+                    "name": "MaxMind, Inc.",
+                    "email": "support@maxmind.com",
+                    "homepage": "http://www.maxmind.com/"
                 }
             ],
-            "description": "The sabre/event library provides utilities for lightweight event-based programming",
-            "homepage": "https://github.com/fruux/sabre-event",
+            "description": "MaxMind GeoIP PHP API",
+            "homepage": "http://dev.maxmind.com/geoip/legacy/downloadable",
             "keywords": [
-                "events"
+                "geoip",
+                "geolocation",
+                "maxmind"
             ],
-            "time": "2013-07-19 12:46:56"
+            "time": "2013-11-05 21:52:33"
         },
         {
             "name": "segmentio/analytics-php",
@@ -95,21 +97,20 @@
         },
         {
             "name": "userapp/userapp",
-            "version": "1.0.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/userapp-io/userapp-php.git",
-                "reference": "6a7a5cc0da40020fa48e9bed8fbb60b28905db99"
+                "reference": "a1562d7dc37fce59124a71dbf2d22f4f73c8e9d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/userapp-io/userapp-php/zipball/6a7a5cc0da40020fa48e9bed8fbb60b28905db99",
-                "reference": "6a7a5cc0da40020fa48e9bed8fbb60b28905db99",
+                "url": "https://api.github.com/repos/userapp-io/userapp-php/zipball/a1562d7dc37fce59124a71dbf2d22f4f73c8e9d4",
+                "reference": "a1562d7dc37fce59124a71dbf2d22f4f73c8e9d4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2",
-                "sabre/event": "1.0.0"
+                "php": ">=5.3.2"
             },
             "type": "library",
             "autoload": {
@@ -134,24 +135,24 @@
                 "User management",
                 "user authentication"
             ],
-            "time": "2014-07-09 16:07:12"
+            "time": "2014-08-06 17:03:20"
         },
         {
             "name": "userapp/widget",
-            "version": "0.6.1",
+            "version": "0.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/userapp-io/userapp-php-widget.git",
-                "reference": "6ae42534568bb8502cca028b8786e68e9ce771af"
+                "reference": "b0d114ede022cfcc00ea67b0ca637bdafa64410a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/userapp-io/userapp-php-widget/zipball/6ae42534568bb8502cca028b8786e68e9ce771af",
-                "reference": "6ae42534568bb8502cca028b8786e68e9ce771af",
+                "url": "https://api.github.com/repos/userapp-io/userapp-php-widget/zipball/b0d114ede022cfcc00ea67b0ca637bdafa64410a",
+                "reference": "b0d114ede022cfcc00ea67b0ca637bdafa64410a",
                 "shasum": ""
             },
             "require": {
-                "userapp/userapp": "~1.0.0"
+                "userapp/userapp": "1.*"
             },
             "type": "library",
             "autoload": {
@@ -177,13 +178,14 @@
                 "user authentication",
                 "user helper"
             ],
-            "time": "2014-07-09 16:06:34"
+            "time": "2014-08-07 04:15:15"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
+    "prefer-stable": false,
     "platform": [],
     "platform-dev": []
 }

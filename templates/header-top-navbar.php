@@ -26,12 +26,11 @@ global $user;
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	 
 	 <form class="navbar-form navbar-left" role="search">
         <div class="form-group has-feedback has-feedback-left">
         	<!--form class="navbar-form navbar-left" role="search"-->
-	    	<input placeholder="Search Articles" type="text" name="login" size="30" class="border search from-control" id="search-field"/>
-	    	<!--i class="form-control-feedback glyphicon glyphicon-search"></i>
+	    	<input placeholder="Search Articles" type="text" name="login" size="30" class="border search from-control" id="search-field"></input>
+	    	<i class="form-control-feedback glyphicon glyphicon-search"></i>
 	    	<!--/form-->
 	    </div>
       </form>
@@ -104,7 +103,7 @@ global $user;
 			$('#video-source-webm').attr('src', '');
 			$('#video').load();
 		} else if ($(window).width() >= 768 && $('#video-source').attr("src") == ''){
-			$('#video-source').attr('src', 'https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background.mp4');
+			$('#video-source').attr('src', 'https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4');
 			$('#video-source-webm').attr('src', 'https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background.webm');
 			$('#video').load();
 		}

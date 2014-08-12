@@ -410,7 +410,7 @@ function extract_selector_meta($id) {
 }
 /**
  * use the user IP to get institution meta
- * @return int institution ID (corresponds with row ID in the DB)
+ * @return [int] institution ID (corresponds with row ID in the DB)
  */
 function extract_institution_meta() {
 	$ip = $_SERVER['REMOTE_ADDR'];
@@ -421,6 +421,50 @@ function extract_institution_meta() {
 		'id' => 0
 	);
 	return $out;
+}
+/**
+ * collect, sort, and concatenate the rules applying to this article
+ * @param  [array] $selector_meta    selector meta object grabbed from extract_selector_meta
+ * @param  [array] $institution_meta institution meta object grabbed from extract_institution_meta
+ * @return [type]                   [description]
+ */
+function collect_rules($selector_meta, $institution_meta) {
+
+  global $wpdb;
+  global $access_table_name;
+  
+  print_r($selector_meta);
+
+  // init conditional
+  $where_conditional = "(selector_type, selector_value) IN (";
+  // categories
+  $cats = $selector_meta['category'];
+  foreach($cats as $cat) {
+  	$where_conditional .= "('Category', $cat),";
+  }
+  // article id
+  $id = $selector_meta['id'];
+  $where_conditional .= "('Article ID', $id),";
+  // status
+  $status = $selector_meta['status'];
+  $where_conditional .= "('Post Status', '$status'),";
+  // authors
+  $authors = $selector_meta['author'];
+  foreach($authors as $author) {
+  	$where_conditional .= "('Author', $author),";
+  }
+  // cap it off
+  $where_conditional .= "('-1','-1'))";
+  
+  $rules_query = "SELECT * 
+                  FROM $access_table_name 
+                  WHERE $where_conditional 
+                  GROUP BY selector_type
+                  ORDER BY priority DESC";
+
+  echo $rules_query;
+  $rules = $wpdb->get_results($rules_query);
+  print_r($rules);
 }
 function check_access() {
 

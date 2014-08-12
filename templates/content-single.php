@@ -18,7 +18,7 @@
   $all_rules_query = "SELECT * 
                       FROM $access_table_name";
   $all_rules = $wpdb->get_results($all_rules_query);
-  print_r($all_rules);
+  //print_r($all_rules);
 
   collect_rules($selector_meta, $institution_meta);
 

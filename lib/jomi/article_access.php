@@ -59,38 +59,6 @@ add_action('init', 'update_access_table');
 /**
  * insert a rule
  * @param  array $args [description]
- * 'result_type' => [string] 
- * 		- ('DENY', 'NONE', etc...). 
- * 		- the type of the result. used to standardize msg outputs
- * 		- default: 'DEFAULT'
- * 'result_time_start' => [int] 
- * 		- the time, in seconds, of when to allow users to start watching
- * 		- default: -1. allow users to start anywhere
- * 'result_time_end' => [int] 
- * 		- the time, in seconds, of when stop users from watching
- * 		- default: -1. allow user to watch until end
- * 'result_time_elapsed' => [int]
- * 		- the time, in seconds, of how much of the video the user is allowed to watch
- * 		- default: -1. allow user to watch any amount of video
- * 'result_msg' => [string]
- * 		- the message, in HTML, to display when blocked.
- * 		- default: ''. use the msg determined by the result_type
- * 'check_type' => [string]
- * 		- the type of check to perform. ex, 'region', 'ip', 'user', 'country'
- * 		- default: ''. perform no check
- * 'check_value' => [string]
- * 		- the values to check against, as a CSV. ex, 'US,AS,AF' or '193.345.34.32,325.34.23.43,23.4.43.43'
- * 		- default: ''. perform no check
- * 'priority' => [int]
- * 		- the order of when this rule is enforced. lower number means it will be enforced earlier. ex, -10 will be enforced earlier than 5
- * 		- default: '0'. medium priority.
- * 'selector_type' => [string]
- * 		- the type of selector to apply. selectors determine what articles this rule will apply to.
- * 		- default: 'NONE'. apply to nothing
- * 'selector_value' => [string]
- * 		- 'the value to check against, as a CSV.'
- * 		- default: ''. apply to nothing
- * 
  * @return [type]       [description]
  */
 function insert_rule() {
@@ -184,6 +152,97 @@ function delete_rule() {
 	return true;
 }
 
+/**
+ * update an article access rule in the db
+ * @return [type] [description]
+ */
+function update_rule() {
+	global $wpdb;
+	global $access_table_name;
+
+	// no id passed in
+	if(!isset($_POST['id']) || empty($_POST['id'])) {
+		return false;
+	}
+
+	$id = $_POST['id'];
+
+	// default values.
+	// edit this array to modify default behavior
+	$default = array(
+		'result_type' => 'DEFAULT',
+		'result_time_start' => -1,
+		'result_time_end' => -1,
+		'result_time_elapsed' => -1,
+		'result_msg' => '<p>DEFAULT</p>',
+		'check_type' => '',
+		'check_value' => '',
+		'priority' => 0,
+		'selector_type' => '',
+		'selector_value' => ''
+	);
+	$result_type = (empty($_POST['result_type'])) ? $default['result_type'] : $_POST['result_type'];
+	$result_time_start = (empty($_POST['result_time_start'])) ? $default['result_time_start'] : $_POST['result_time_start'];
+	$result_time_end = (empty($_POST['result_time_end'])) ? $default['result_time_end'] : $_POST['result_time_end'];
+	$result_time_elapsed = (empty($_POST['result_time_elapsed'])) ? $default['result_time_elapsed'] : $_POST['result_time_elapsed'];
+	if(empty($_POST['result_msg'])) {
+		switch ($result_type) {
+			case $default['result_type']:
+			default:
+				$result_msg = $default['result_msg'];
+		}
+	} else {
+		$result_msg = $_POST['result_msg'];
+	}
+	$check_type = (empty($_POST['check_type'])) ? $default['check_type'] : $_POST['check_type'];
+	$check_value = (empty($_POST['check_value'])) ? $default['check_value'] : $_POST['check_value'];
+	$priority = (empty($_POST['priority'])) ? $default['priority'] : $_POST['priority'];
+	$selector_type = (empty($_POST['selector_type'])) ? $default['selector_type'] : $_POST['selector_type'];
+	$selector_value = (empty($_POST['selector_value'])) ? $default['selector_value'] : $_POST['selector_value'];
+
+	global $access_table_name;
+	
+	$push_data = array(
+		'result_type' => $result_type,
+		'result_time_start' => $result_time_start,
+		'result_time_end' => $result_time_end,
+		'result_time_elapsed' => $result_time_elapsed,
+		'result_msg' => $result_msg,
+		'check_type' => $check_type,
+		'check_value' => $check_value,
+		'priority' => $priority,
+		'selector_type' => $selector_type,
+		'selector_value' => $selector_value
+	);
+	echo '<pre>';
+	print_r($push_data);
+	echo '</pre>';
+
+	$wpdb->update(
+		$access_table_name,
+		$push_data,
+		array('ID' => $id),
+		array(
+			'%s',
+			'%d',
+			'%d',
+			'%d',
+			'%s',
+			'%s',
+			'%s',
+			'%d',
+			'%s',
+			'%s'
+		),
+		array('%d')
+	);
+
+	// print errors if any show up
+	if(!empty($wpdb->print_error())) {
+		return $wpdb->print_error();
+	}
+
+}
 
 // DEBUG ONLY: insert an empty rule
 //insert_rule(array());
@@ -205,6 +264,9 @@ add_action( 'wp_ajax_insert-rule', 'insert_rule' );
 
 add_action( 'wp_ajax_nopriv_delete-rule', 'delete_rule' );
 add_action( 'wp_ajax_delete-rule', 'delete_rule' );
+
+add_action( 'wp_ajax_nopriv_update-rule', 'update_rule' );
+add_action( 'wp_ajax_update-rule', 'update_rule' );
 
 function myajax_submit() {
 	global $wpdb;
@@ -228,33 +290,42 @@ foreach($rules as $rule) {
 	?>
 	<tr>
 		<td>
-			<p>ID: <?php echo $rule->id; ?></p>
+			<input id="id" placeholder="<?php echo $rule->id; ?>" data="<?php echo $rule->id; ?>">
 		</td>
 		<td>
-			<p><?php echo $rule->priority; ?></p>
+			<input id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
 		</td>
 		<td>
-			<p>Type: <?php echo $rule->selector_type; ?></p>
-			<p>Value: <?php echo $rule->selector_value; ?></p>
+			<input id="selector_type" placeholder="Type: <?php echo $rule->selector_type; ?>" data="<?php echo $rule->selector_type; ?>">
+			<input id="selector_value" placeholder="Value: <?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value; ?>">
 		</td>
 		<td>
-			<p>Type: <?php echo $rule->check_type; ?></p>
-			<p>Value: <?php echo $rule->check_value; ?></p>
+			<input id="check_type" placeholder="Type: <?php echo $rule->check_type; ?>" data="<?php echo $rule->check_type; ?>">
+			<input id="check_value" placeholder="Value: <?php echo $rule->check_value; ?>" data="<?php echo $rule->check_value; ?>">
 		</td>
 		<td>
-			<p>Type: <?php echo $rule->result_type; ?></p>
-			<p>Time Start: <?php echo $rule->result_time_start; ?></p>
-			<p>Time End: <?php echo $rule->result_time_end; ?></p>
-			<p>Time Elapsed: <?php echo $rule->result_time_elapsed ?></p>
+			<input id="result_type" placeholder="Type: <?php echo $rule->result_type; ?>" data="<?php echo $rule->result_type; ?>">
+			<input id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
+			<input id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
+			<input id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
 		</td>
 		<td>
-			<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>">Delete Rule</a>
+			<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>" style="display:block;">Delete Rule</a>
+			<a class="btn" id="access_edit_rule" rule-id="<?php echo $rule->id ?>" style="display:block;">Edit Rule</a>
 		</td>
 	</tr>
 <?php
 }
 ?>
 </table>
+<script>
+$(function() {
+	$('input').each(function() {
+		//console.log($(this).attr('placeholder'));
+		//$(this).attr('readonly', '');
+	});
+});
+</script>
 <?php
   exit;
 }
@@ -348,7 +419,7 @@ function global_rulebook(){
 				refresh();
 			});
 		});
-		$('#results').on('click', 'a', function() {
+		$('#results').on('click', 'a#access_delete_rule', function() {
 			$.post(MyAjax.ajaxurl, {
 				action: 'delete-rule',
 				id: $(this).attr('rule-id')
@@ -358,6 +429,36 @@ function global_rulebook(){
 				refresh();
 			});
 		})
+		$('#results').on('click', 'a#access_edit_rule', function() {
+			$(this).parent().parent().find('input').removeAttr('readonly');
+			$(this).parent().parent().find('input').each(function() {
+				$(this).val($(this).attr('data'));
+			});
+			$(this).text('Update Rule');
+			$(this).attr('id', 'access_update_rule');
+		});
+		$('#results').on('click', 'a#access_update_rule', function() {
+			$(this).parent().parent().find('input').attr('readonly', '');
+			$(this).text('Edit Rule');
+			$(this).attr('id', 'access_edit_rule');
+			$.post(MyAjax.ajaxurl, {
+				action: 'update-rule',
+				id: $(this).parent().parent().find('#id').val(),
+				priority: $(this).parent().parent().find('#priority').val(),
+				selector_type: $(this).parent().parent().find('#selector_type').val(),
+				selector_value: $(this).parent().parent().find('#selector_value').val(),
+				check_type:  $(this).parent().parent().find('#check_type').val(),
+				check_value: $(this).parent().parent().find('#check_value').val(),
+				result_type:  $(this).parent().parent().find('#result_type').val(),
+				result_time_start: $(this).parent().parent().find('#result_time_start').val(),
+				result_time_end:  $(this).parent().parent().find('#result_time_end').val(),
+				result_time_elapsed: $(this).parent().parent().find('#result_time_elapsed').val()
+			},
+			function(response) {
+				console.log(response);
+				refresh();
+			});
+		});
 		$('#select_container select').change(refresh);
 	});
 	function refresh() {
@@ -371,6 +472,7 @@ function global_rulebook(){
 			},
 			function( response ) {
 			  $('#results').html(response);
+			  $('#results').find('input').attr('readonly', '');
 			}
 		);
 	}
@@ -433,7 +535,7 @@ function collect_rules($selector_meta, $institution_meta) {
   global $wpdb;
   global $access_table_name;
   
-  print_r($selector_meta);
+  //print_r($selector_meta);
 
   // init conditional
   $where_conditional = "(selector_type, selector_value) IN (";
@@ -462,7 +564,7 @@ function collect_rules($selector_meta, $institution_meta) {
                   GROUP BY selector_type
                   ORDER BY priority DESC";
 
-  echo $rules_query;
+  //echo $rules_query;
   $rules = $wpdb->get_results($rules_query);
   print_r($rules);
 }

@@ -408,6 +408,20 @@ function extract_selector_meta($id) {
 	);
 	return $out;
 }
+/**
+ * use the user IP to get institution meta
+ * @return int institution ID (corresponds with row ID in the DB)
+ */
+function extract_institution_meta() {
+	$ip = $_SERVER['REMOTE_ADDR'];
+
+	// query institution table and get the institution rules
+	
+	$out = array(
+		'id' => 0
+	);
+	return $out;
+}
 function check_access() {
 
 }

@@ -12,8 +12,18 @@
  */
 function roots_scripts() {
 
-    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, false);
-    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);
+    $contents = file_get_contents(ABSPATH . '/wp-content/themes/jomi/assets/manifest.json');
+
+    $contents = str_replace('assets/css/main.min.css', 'csspath', $contents);
+    $contents = str_replace('assets/js/scripts.min.js', 'jspath', $contents);
+    
+
+    $css_hash = json_decode($contents)->csspath->hash;
+    $js_hash = json_decode($contents)->jspath->hash;
+
+
+    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css?v=' . $css_hash, false, false);
+    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js?v=' . $js_hash, array(), null, false);
 
   #wp_enqueue_style('roots_main', get_theme_directory_uri() . '/assets/css/main.min.css', false, false);
   #wp_register_script('roots_scripts', get_theme_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);

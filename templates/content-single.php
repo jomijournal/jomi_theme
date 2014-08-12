@@ -1,4 +1,30 @@
 <?php while (have_posts()) : the_post(); ?>
+  <?php
+  /**
+   * ARTICLE ACCESS CHECK HERE
+   */
+  
+  global $wpdb;
+  global $access_table_name;
+
+  $selector_meta = extract_selector_meta(get_the_ID());
+  echo '<pre>';
+  //print_r($selector_meta);
+  //echo $selector_meta['status'];
+  $institution_meta = extract_institution_meta();
+  //print_r($institution_meta);
+  //$institution_id = $institution_meta['id'];
+
+  $all_rules_query = "SELECT * 
+                      FROM $access_table_name";
+  $all_rules = $wpdb->get_results($all_rules_query);
+  print_r($all_rules);
+
+  collect_rules($selector_meta, $institution_meta);
+
+  echo '</pre>';
+
+  ?>
   <article <?php post_class(); ?>>
     <?php $wistia = get_field('wistia_id'); ?>
     <script>

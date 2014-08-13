@@ -8,7 +8,20 @@ $access_db_version = '1.01';
 global $access_table_name;
 $access_table_name = $wpdb->prefix . 'article_access';
 
-
+// default values.
+// edit this array to modify default behavior
+$default = array(
+	'result_type' => 'DEFAULT',
+	'result_time_start' => -1,
+	'result_time_end' => -1,
+	'result_time_elapsed' => -1,
+	'result_msg' => '<p>DEFAULT</p>',
+	'check_type' => '',
+	'check_value' => '',
+	'priority' => 0,
+	'selector_type' => '',
+	'selector_value' => ''
+);
 
 function access_table_install() {
 	global $wpdb;
@@ -58,29 +71,8 @@ function update_access_table() {
 }
 add_action('init', 'update_access_table');
 
-/**
- * insert a rule
- * @param  array $args [description]
- * @return [type]       [description]
- */
-function insert_rule() {
+function process_access_post_data() {
 
-	global $wpdb;
-
-	// default values.
-	// edit this array to modify default behavior
-	$default = array(
-		'result_type' => 'DEFAULT',
-		'result_time_start' => -1,
-		'result_time_end' => -1,
-		'result_time_elapsed' => -1,
-		'result_msg' => '<p>DEFAULT</p>',
-		'check_type' => '',
-		'check_value' => '',
-		'priority' => 0,
-		'selector_type' => '',
-		'selector_value' => ''
-	);
 	$result_type = (empty($_POST['result_type'])) ? $default['result_type'] : $_POST['result_type'];
 	$result_time_start = (empty($_POST['result_time_start'])) ? $default['result_time_start'] : $_POST['result_time_start'];
 	$result_time_end = (empty($_POST['result_time_end'])) ? $default['result_time_end'] : $_POST['result_time_end'];
@@ -100,22 +92,38 @@ function insert_rule() {
 	$selector_type = (empty($_POST['selector_type'])) ? $default['selector_type'] : $_POST['selector_type'];
 	$selector_value = (empty($_POST['selector_value'])) ? $default['selector_value'] : $_POST['selector_value'];
 
+	$out = array(
+		'result_type' => $result_type,
+		'result_time_start' => $result_time_start,
+		'result_time_end' => $result_time_end,
+		'result_time_elapsed' => $result_time_elapsed,
+		'result_msg' => $result_msg,
+		'check_type' => $check_type,
+		'check_value' => $check_value,
+		'priority' => $priority,
+		'selector_type' => $selector_type,
+		'selector_value' => $selector_value
+	);
+
+	return $out;
+}
+
+
+/**
+ * insert a rule
+ * @param  array $args [description]
+ * @return [type]       [description]
+ */
+function insert_rule() {
+
+	global $wpdb;
 	global $access_table_name;
+
+	$push_data = process_access_post_data();
 	
 	$wpdb->insert( 
 		$access_table_name, 
-		array( 
-			'result_type' => $result_type,
-			'result_time_start' => $result_time_start,
-			'result_time_end' => $result_time_end,
-			'result_time_elapsed' => $result_time_elapsed,
-			'result_msg' => $result_msg,
-			'check_type' => $check_type,
-			'check_value' => $check_value,
-			'priority' => $priority,
-			'selector_type' => $selector_type,
-			'selector_value' => $selector_value
-		) 
+		$push_data
 	);
 
 	// print errors if any show up
@@ -168,54 +176,9 @@ function update_rule() {
 	}
 
 	$id = $_POST['id'];
-
-	// default values.
-	// edit this array to modify default behavior
-	$default = array(
-		'result_type' => 'DEFAULT',
-		'result_time_start' => -1,
-		'result_time_end' => -1,
-		'result_time_elapsed' => -1,
-		'result_msg' => '<p>DEFAULT</p>',
-		'check_type' => '',
-		'check_value' => '',
-		'priority' => 0,
-		'selector_type' => '',
-		'selector_value' => ''
-	);
-	$result_type = (empty($_POST['result_type'])) ? $default['result_type'] : $_POST['result_type'];
-	$result_time_start = (empty($_POST['result_time_start'])) ? $default['result_time_start'] : $_POST['result_time_start'];
-	$result_time_end = (empty($_POST['result_time_end'])) ? $default['result_time_end'] : $_POST['result_time_end'];
-	$result_time_elapsed = (empty($_POST['result_time_elapsed'])) ? $default['result_time_elapsed'] : $_POST['result_time_elapsed'];
-	if(empty($_POST['result_msg'])) {
-		switch ($result_type) {
-			case $default['result_type']:
-			default:
-				$result_msg = $default['result_msg'];
-		}
-	} else {
-		$result_msg = $_POST['result_msg'];
-	}
-	$check_type = (empty($_POST['check_type'])) ? $default['check_type'] : $_POST['check_type'];
-	$check_value = (empty($_POST['check_value'])) ? $default['check_value'] : $_POST['check_value'];
-	$priority = (empty($_POST['priority'])) ? $default['priority'] : $_POST['priority'];
-	$selector_type = (empty($_POST['selector_type'])) ? $default['selector_type'] : $_POST['selector_type'];
-	$selector_value = (empty($_POST['selector_value'])) ? $default['selector_value'] : $_POST['selector_value'];
-
-	global $access_table_name;
 	
-	$push_data = array(
-		'result_type' => $result_type,
-		'result_time_start' => $result_time_start,
-		'result_time_end' => $result_time_end,
-		'result_time_elapsed' => $result_time_elapsed,
-		'result_msg' => $result_msg,
-		'check_type' => $check_type,
-		'check_value' => $check_value,
-		'priority' => $priority,
-		'selector_type' => $selector_type,
-		'selector_value' => $selector_value
-	);
+	$push_data = process_access_post_data();
+
 	echo '<pre>';
 	print_r($push_data);
 	echo '</pre>';

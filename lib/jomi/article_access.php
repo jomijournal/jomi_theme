@@ -193,25 +193,12 @@ function update_rule() {
 	
 	$push_data = process_access_post_data();
 
-	echo '<pre>';
-	print_r($push_data);
-	echo '</pre>';
-
 	$wpdb->update(
 		$access_table_name,
 		$push_data,
 		array('ID' => $id),
 		array(
-			'%s',
-			'%d',
-			'%d',
-			'%d',
-			'%s',
-			'%s',
-			'%s',
-			'%d',
-			'%s',
-			'%s'
+			'%s', '%d', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%s'
 		),
 		array('%d')
 	);
@@ -419,35 +406,37 @@ function global_rulebook(){
 			});
 		})
 		$('#results').on('click', 'a#access_edit_rule', function() {
+			// enable editing
 			$(this).parent().parent().find('input').removeAttr('readonly');
 			$(this).parent().parent().find('select').removeAttr('disabled');
+
 			$(this).parent().parent().find('input').each(function() {
 				$(this).val($(this).attr('data'));
 			});
-			//$(this).parent().parent().find('select').each(function() {
-			//	$(this).find('option[val='+ $(this).val() +']').attr('selected', '');
-			//});
 			$(this).text('Update Rule');
 			$(this).attr('id', 'access_update_rule');
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
-			$(this).parent().parent().find('input').attr('readonly', '');
-			$(this).parent().parent().find('select').attr('disabled', '');
+
+			var table = $(this).parent().parent();
+
+			table.find('input').attr('readonly', '');
+			table.find('select').attr('disabled', '');
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
 
 			$.post(MyAjax.ajaxurl, {
-				action: 'update-rule',
-				id: $(this).parent().parent().find('#id').val(),
-				priority: $(this).parent().parent().find('#priority').val(),
-				selector_type: $(this).parent().parent().find('#selector_type option:selected').attr('val'),
-				selector_value: $(this).parent().parent().find('#selector_value').val(),
-				check_type:  $(this).parent().parent().find('#check_type option:selected').attr('val'),
-				check_value: $(this).parent().parent().find('#check_value').val(),
-				result_type:  $(this).parent().parent().find('#result_type option:selected').attr('val'),
-				result_time_start: $(this).parent().parent().find('#result_time_start').val(),
-				result_time_end:  $(this).parent().parent().find('#result_time_end').val(),
-				result_time_elapsed: $(this).parent().parent().find('#result_time_elapsed').val()
+				action:             'update-rule',
+				id:                  table.find('#id').val(),
+				priority:            table.find('#priority').val(),
+				selector_type:       table.find('#selector_type option:selected').attr('val'),
+				selector_value:      table.find('#selector_value').val(),
+				check_type:          table.find('#check_type option:selected').attr('val'),
+				check_value:         table.find('#check_value').val(),
+				result_type:         table.find('#result_type option:selected').attr('val'),
+				result_time_start:   table.find('#result_time_start').val(),
+				result_time_end:     table.find('#result_time_end').val(),
+				result_time_elapsed: table.find('#result_time_elapsed').val()
 			},
 			function(response) {
 				console.log(response);
@@ -457,9 +446,6 @@ function global_rulebook(){
 		$('#select_container select').change(refresh);
 	});
 	function refresh() {
-		//$('#results')
-		//	.empty()
-		//	.html("<p>nope</p>");
 
 		$.post( MyAjax.ajaxurl, {
 		    action : 'list-rules',
@@ -467,6 +453,7 @@ function global_rulebook(){
 			},
 			function( response ) {
 			  $('#results').html(response);
+			  // disable editing
 			  $('#results').find('input').attr('readonly', '');
 			  $('#results').find('select').attr('disabled', '');
 
@@ -520,9 +507,10 @@ function extract_selector_meta($id) {
 function extract_institution_meta() {
 	$ip = $_SERVER['REMOTE_ADDR'];
 
-	// query institution table and get the institution rules
+	// TODO: query institution table and get the institution rules
 	
 	$out = array(
+		// institution ID
 		'id' => 0
 	);
 	return $out;
@@ -558,6 +546,8 @@ function collect_rules($selector_meta, $institution_meta) {
   foreach($authors as $author) {
   	$where_conditional .= "('author', $author),";
   }
+  // TODO: add institution meta cond. here:
+
   // cap it off
   $where_conditional .= "('-1','-1'))";
   
@@ -574,9 +564,6 @@ function collect_rules($selector_meta, $institution_meta) {
 function check_access() {
 
 }
-
-
-
 
 
 ?>

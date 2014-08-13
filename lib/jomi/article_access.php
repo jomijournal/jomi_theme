@@ -8,6 +8,8 @@ $access_db_version = '1.01';
 global $access_table_name;
 $access_table_name = $wpdb->prefix . 'article_access';
 
+
+
 function access_table_install() {
 	global $wpdb;
 	global $access_db_version;
@@ -296,15 +298,33 @@ foreach($rules as $rule) {
 			<input id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
 		</td>
 		<td>
-			<input id="selector_type" placeholder="Type: <?php echo $rule->selector_type; ?>" data="<?php echo $rule->selector_type; ?>">
-			<input id="selector_value" placeholder="Value: <?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value; ?>">
+		  	<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
+  				<option val=""           >None</option>
+  				<option val="category"   >Category</option>
+  				<option val="article_id" >Article ID</option>
+  				<option val="institution">Institution</option>
+  				<option val="post_status">Post Status</option>
+  				<option val="author"     >Author</option>
+  			</select>
+			<input id="selector_value" placeholder="<?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value; ?>">
 		</td>
 		<td>
-			<input id="check_type" placeholder="Type: <?php echo $rule->check_type; ?>" data="<?php echo $rule->check_type; ?>">
+		  	<select id="check_type" data="<?php echo $rule->check_type; ?>">
+  				<option val=""              >None</option>
+  				<option val="is_ip"         >Is Verified IP(s)</option>
+  				<option val="is_institution">Is Verified Institution(s)</option>
+  				<option val="is_region"     >Is Verified Region(s)</option>
+  				<option val="is_user"       >Is Verified User(s)</option>
+  			</select>
 			<input id="check_value" placeholder="Value: <?php echo $rule->check_value; ?>" data="<?php echo $rule->check_value; ?>">
 		</td>
 		<td>
-			<input id="result_type" placeholder="Type: <?php echo $rule->result_type; ?>" data="<?php echo $rule->result_type; ?>">
+  			<select id="result_type" data="<?php echo $rule->result_type; ?>">
+  			  	<option val=""          >None</option>
+  				<option val="deny"      >DENY</option>
+  				<option val="sign_up"   >SIGN UP</option>
+  				<option val="checkpoint">CHECKPOINT</option>
+  			</select>
 			<input id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
 			<input id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
 			<input id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
@@ -318,14 +338,6 @@ foreach($rules as $rule) {
 }
 ?>
 </table>
-<script>
-$(function() {
-	$('input').each(function() {
-		//console.log($(this).attr('placeholder'));
-		//$(this).attr('readonly', '');
-	});
-});
-</script>
 <?php
   exit;
 }
@@ -353,17 +365,18 @@ function global_rulebook(){
   <div id="results">
   </div>
 
+  <!-- ADD RULE UI -->
   <table class="access_rules" id="new_rules">
   	<tr>
   		<td><input type="number" id="access_priority" placeholder="Priority"></td>
   		<td>
   			<select id="access_selector_type">
-  				<option val=""           >None</option>
-  				<option val="category"   >Category</option>
-  				<option val="article_id" >Article ID</option>
-  				<option val="institution">Institution</option>
-  				<option val="post_status">Post Status</option>
-  				<option val="author"     >Author</option>
+  				<option val=""           >none</option>
+  				<option val="category"   >category</option>
+  				<option val="article_id" >article_id</option>
+  				<option val="institution">institution</option>
+  				<option val="post_status">post_status</option>
+  				<option val="author"     >author</option>
   			</select>
   		</td>
   		<td><input type="text" id="access_selector_value" placeholder="Selector Value"></td>
@@ -405,14 +418,14 @@ function global_rulebook(){
 			$.post(MyAjax.ajaxurl, {
 				action:              'insert-rule',
 				priority:            $('#access_priority').val(),
-				selector_type:       $('#access_selector_type').val(),
+				selector_type:       $('#access_selector_type option:selected').attr('val'),
 				selector_value:      $('#access_selector_value').val(),
-				check_type:          $('#access_check_type').val(),
+				check_type:          $('#access_check_type option:selected').attr('val'),
 				check_value:         $('#access_check_value').val(),
-				result_type:         $('#access_result_type').val(),
-				result_time_start:   $('access_result_time_start').val(),
-				result_time_end:     $('access_result_time_end').val(),
-				result_time_elapsed: $('access_result_time_elapsed').val()
+				result_type:         $('#access_result_type option:selected').attr('val'),
+				result_time_start:   $('#access_result_time_start').val(),
+				result_time_end:     $('#access_result_time_end').val(),
+				result_time_elapsed: $('#access_result_time_elapsed').val()
 			},
 			function(response) {
 				console.log(response);
@@ -431,25 +444,31 @@ function global_rulebook(){
 		})
 		$('#results').on('click', 'a#access_edit_rule', function() {
 			$(this).parent().parent().find('input').removeAttr('readonly');
+			$(this).parent().parent().find('select').removeAttr('disabled');
 			$(this).parent().parent().find('input').each(function() {
 				$(this).val($(this).attr('data'));
 			});
+			//$(this).parent().parent().find('select').each(function() {
+			//	$(this).find('option[val='+ $(this).val() +']').attr('selected', '');
+			//});
 			$(this).text('Update Rule');
 			$(this).attr('id', 'access_update_rule');
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
 			$(this).parent().parent().find('input').attr('readonly', '');
+			$(this).parent().parent().find('select').attr('disabled', '');
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
+
 			$.post(MyAjax.ajaxurl, {
 				action: 'update-rule',
 				id: $(this).parent().parent().find('#id').val(),
 				priority: $(this).parent().parent().find('#priority').val(),
-				selector_type: $(this).parent().parent().find('#selector_type').val(),
+				selector_type: $(this).parent().parent().find('#selector_type option:selected').attr('val'),
 				selector_value: $(this).parent().parent().find('#selector_value').val(),
-				check_type:  $(this).parent().parent().find('#check_type').val(),
+				check_type:  $(this).parent().parent().find('#check_type option:selected').attr('val'),
 				check_value: $(this).parent().parent().find('#check_value').val(),
-				result_type:  $(this).parent().parent().find('#result_type').val(),
+				result_type:  $(this).parent().parent().find('#result_type option:selected').attr('val'),
 				result_time_start: $(this).parent().parent().find('#result_time_start').val(),
 				result_time_end:  $(this).parent().parent().find('#result_time_end').val(),
 				result_time_elapsed: $(this).parent().parent().find('#result_time_elapsed').val()
@@ -473,6 +492,13 @@ function global_rulebook(){
 			function( response ) {
 			  $('#results').html(response);
 			  $('#results').find('input').attr('readonly', '');
+			  $('#results').find('select').attr('disabled', '');
+
+			  // visual assertion
+			  $('#results').find('select').each(function() {
+			  	var dat = $(this).attr('data');
+				$(this).find('option[val="'+ dat +'"]').attr('selected', '');
+			  });
 			}
 		);
 	}
@@ -512,6 +538,7 @@ function extract_selector_meta($id) {
 }
 /**
  * use the user IP to get institution meta
+ * can probably cache the result of this in the future
  * @return [int] institution ID (corresponds with row ID in the DB)
  */
 function extract_institution_meta() {
@@ -542,18 +569,18 @@ function collect_rules($selector_meta, $institution_meta) {
   // categories
   $cats = $selector_meta['category'];
   foreach($cats as $cat) {
-  	$where_conditional .= "('Category', $cat),";
+  	$where_conditional .= "('category', $cat),";
   }
   // article id
   $id = $selector_meta['id'];
-  $where_conditional .= "('Article ID', $id),";
+  $where_conditional .= "('article_id', $id),";
   // status
   $status = $selector_meta['status'];
-  $where_conditional .= "('Post Status', '$status'),";
+  $where_conditional .= "('post_status', '$status'),";
   // authors
   $authors = $selector_meta['author'];
   foreach($authors as $author) {
-  	$where_conditional .= "('Author', $author),";
+  	$where_conditional .= "('author', $author),";
   }
   // cap it off
   $where_conditional .= "('-1','-1'))";

@@ -2,6 +2,8 @@
 
 global $wpdb;
 
+// change this when installing a new table version
+// otherwise, access_table_install will not run every time (this is a good thing)
 global $access_db_version;
 $access_db_version = '1.01';
 
@@ -23,6 +25,10 @@ $default = array(
 	'selector_value' => ''
 );
 
+/**
+ * create the table that houses access rules
+ * @return [type] [description]
+ */
 function access_table_install() {
 	global $wpdb;
 	global $access_db_version;
@@ -63,6 +69,10 @@ function access_table_install() {
 
 	add_option( 'access_db_version', $access_db_version );
 }
+/**
+ * runs the table install if the version numbers dont match
+ * @return [type] [description]
+ */
 function update_access_table() {
 	global $access_db_version;
 	if(get_option('access_db_version') != $access_db_version) {
@@ -71,6 +81,10 @@ function update_access_table() {
 }
 add_action('init', 'update_access_table');
 
+/**
+ * match $_POST inputs against defaults and returns
+ * @return [array] processed post data
+ */
 function process_access_post_data() {
 
 	$result_type = (empty($_POST['result_type'])) ? $default['result_type'] : $_POST['result_type'];
@@ -212,28 +226,27 @@ function update_rule() {
 // DEBUG ONLY: insert an empty rule
 //insert_rule(array());
 
-/**
- * ARTICLE ACCESS MANAGEMENT
-*/
-
 // embed the javascript file that makes the AJAX request
 wp_enqueue_script( 'my-ajax-request', plugin_dir_url( __FILE__ ) . 'js/ajax.js', array( 'jquery' ) );
 // declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
 wp_localize_script( 'my-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 
-add_action( 'wp_ajax_nopriv_myajax-submit', 'myajax_submit' );
-add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
-
+// register ajax stuff
+add_action( 'wp_ajax_nopriv_list-rules', 'list_rules' );
+add_action( 'wp_ajax_list-rules', 'list_rules' );
 add_action( 'wp_ajax_nopriv_insert-rule', 'insert_rule' );
 add_action( 'wp_ajax_insert-rule', 'insert_rule' );
-
 add_action( 'wp_ajax_nopriv_delete-rule', 'delete_rule' );
 add_action( 'wp_ajax_delete-rule', 'delete_rule' );
-
 add_action( 'wp_ajax_nopriv_update-rule', 'update_rule' );
 add_action( 'wp_ajax_update-rule', 'update_rule' );
 
-function myajax_submit() {
+/**
+ * list all rules
+ * TODO: functionality to display only some rules
+ * @return [type] [description]
+ */
+function list_rules() {
 	global $wpdb;
 	global $access_table_name;
 
@@ -449,7 +462,7 @@ function global_rulebook(){
 		//	.html("<p>nope</p>");
 
 		$.post( MyAjax.ajaxurl, {
-		    action : 'myajax-submit',
+		    action : 'list-rules',
 		    //cat : $('#category').val()
 			},
 			function( response ) {

@@ -590,7 +590,32 @@ function collect_rules($selector_meta, $institution_meta) {
 
 function load_check_info() {
 	global $reader;
-	// check verified user
+	
+	$current_user = wp_get_current_user();
+    
+    if ( !($current_user instanceof WP_User) ) {
+    	$logged_in = true;
+    	$user_login = $current_user->user_login;
+    	$user_email = $current_user->user_email;
+    	$user_display_name = $current_user->display_name;
+    	$user_id = $current_user->ID;
+    	//return;
+    } else {
+    	$logged_in = false;
+    	$user_login = 'none';
+    	$user_email = 'none';
+    	$user_display_name = 'none';
+    	$user_id = 'none';
+    }
+     
+    // DEBUG
+    echo 'Username: ' . $current_user->user_login . '<br />';
+    echo 'User email: ' . $current_user->user_email . '<br />';
+    echo 'User first name: ' . $current_user->user_firstname . '<br />';
+    echo 'User last name: ' . $current_user->user_lastname . '<br />';
+    echo 'User display name: ' . $current_user->display_name . '<br />';
+    echo 'User ID: ' . $current_user->ID . '<br />'; 
+	 
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
@@ -598,26 +623,37 @@ function load_check_info() {
 	$ip = "173.13.115.174";
 
 	echo $ip;
-	// check verified institution
+	
+	// check institutions
+
+
 	try {
 	    $record = $reader->city($ip);
+	    $country = $record->country->isoCode;
+		$region = $record->mostSpecificSubdivision->isoCode;
+		$city = $record->city->name;
 	} catch (Exception $e) {
-	    return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
+		// if can't find, default to Boston, MA, US
+		$country = 'US';
+		$region = 'MA';
+		$city = 'Boston';
+	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
 
+	// DEBUG
 	print("\n" . $record->country->isoCode . "\n"); // 'US'
 	print($record->country->name . "\n"); // 'United States'
-
 	print($record->mostSpecificSubdivision->name . "\n"); // 'Minnesota'
 	print($record->mostSpecificSubdivision->isoCode . "\n"); // 'MN'
-
 	print($record->city->name . "\n"); // 'Minneapolis'
 
-	$country = $record->country->isoCode;
-	$region = $record->mostSpecificSubdivision->isoCode;
-	$city = $record->city->name;
-
 	$out = array(
+		'logged_in' => $logged_in,
+		'user_login' => $user_login,
+		'user_email' => $user_email,
+		'user_display_name' => $user_display_name,
+		'user_id' => $user_id,
+		'ip' => $ip,
 		'country' => $country,
 		'region' => $region,
 		'city' => $city

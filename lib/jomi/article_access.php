@@ -265,6 +265,7 @@ foreach($rules as $rule) {
   				<option val=""           >None</option>
   				<option val="category"   >Category</option>
   				<option val="article_id" >Article ID</option>
+  				<option val="pub_id"     >Publication ID</option>
   				<option val="institution">Institution</option>
   				<option val="post_status">Post Status</option>
   				<option val="author"     >Author</option>
@@ -337,6 +338,7 @@ function global_rulebook(){
   				<option val=""           >None</option>
   				<option val="category"   >Category</option>
   				<option val="article_id" >Article ID</option>
+  				<option val="pub_id"     >Publication ID</option>
   				<option val="institution">Institution</option>
   				<option val="post_status">Post Status</option>
   				<option val="author"     >Author</option>
@@ -477,6 +479,9 @@ function global_rulebook(){
 function extract_selector_meta($id) {
 
 	// TODO: match up against defaults?
+	
+	$publication_id = get_field('publication_id');
+
 	$categories = get_the_category($id);
 	$cats_out = array();
 	foreach($categories as $category) {
@@ -492,6 +497,7 @@ function extract_selector_meta($id) {
 
 	$out = array(
 		'id' => $id,
+		'pub_id' => $publication_id,
 		'category' => $cats_out,
 		'status' => $status,
 		'author' => $coauth_out,
@@ -537,6 +543,9 @@ function collect_rules($selector_meta, $institution_meta) {
   // article id
   $id = $selector_meta['id'];
   $where_conditional .= "('article_id', $id),";
+  // publication id
+  $pub_id = $selector_meta['pub_id'];
+  $where_conditional .= "('pub_id', $pub_id),";
   // status
   $status = $selector_meta['status'];
   $where_conditional .= "('post_status', '$status'),";
@@ -580,6 +589,7 @@ function load_check_info() {
 	} catch (Exception $e) {
 	    return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
+
 }
 
 

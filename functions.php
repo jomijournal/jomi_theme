@@ -97,8 +97,13 @@
 //* ALL OF THIS IS EXECUTED AT RUNTIME 
 
 
-/* COMPOSER */
+/* COMPOSER INCLUDES */
 require_once('vendor/autoload.php');
+
+/* SET UP GEOIP */
+use GeoIp2\Database\Reader;
+global $reader;
+$reader = new Reader(ABSPATH . '/wp-content/themes/jomi/assets/data/geolite2/GeoLite2-City.mmdb');
 
 /**
  * Roots includes

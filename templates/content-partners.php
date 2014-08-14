@@ -8,6 +8,7 @@
 	<div class='col-xs-3'>
 		<div class="mc_embed_signup">
             <form style="padding-bottom:0px" action="http://jomi.us7.list-manage.com/subscribe/post?u=ff1ad1d783cea4c924eb266ca&amp;id=6faff1126d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate ng-pristine ng-valid" target="_blank" novalidate="">
+            	<!--input type="email" name="EMAIL" class="hidden" value=""-->
                 <div class="clear">
                     <input type="submit" value="Newsletter" name="subscribe" id="mc-embedded-subscribe" class="btn fat white">
                 </div>

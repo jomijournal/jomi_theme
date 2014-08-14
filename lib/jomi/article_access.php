@@ -276,10 +276,10 @@ foreach($rules as $rule) {
   				<option val=""              >None</option>
   				<option val="is_ip"         >Is Verified IP(s)</option>
   				<option val="is_institution">Is Verified Institution(s)</option>
-  				<option val="is_region"     >Is Verified Region(s)</option>
+  				<option val="is_country"     >Is Verified Country(s)</option>
   				<option val="is_user"       >Is Verified User(s)</option>
   			</select>
-			<input id="check_value" placeholder="Value: <?php echo $rule->check_value; ?>" data="<?php echo $rule->check_value; ?>">
+			<input id="check_value" placeholder="<?php echo $rule->check_value; ?>" data="<?php echo $rule->check_value; ?>">
 		</td>
 		<td>
   			<select id="result_type" data="<?php echo $rule->result_type; ?>">
@@ -334,12 +334,12 @@ function global_rulebook(){
   		<td><input type="number" id="access_priority" placeholder="Priority"></td>
   		<td>
   			<select id="access_selector_type">
-  				<option val=""           >none</option>
-  				<option val="category"   >category</option>
-  				<option val="article_id" >article_id</option>
-  				<option val="institution">institution</option>
-  				<option val="post_status">post_status</option>
-  				<option val="author"     >author</option>
+  				<option val=""           >None</option>
+  				<option val="category"   >Category</option>
+  				<option val="article_id" >Article ID</option>
+  				<option val="institution">Institution</option>
+  				<option val="post_status">Post Status</option>
+  				<option val="author"     >Author</option>
   			</select>
   		</td>
   		<td><input type="text" id="access_selector_value" placeholder="Selector Value"></td>
@@ -348,7 +348,7 @@ function global_rulebook(){
   				<option val=""              >None</option>
   				<option val="is_ip"         >Is Verified IP(s)</option>
   				<option val="is_institution">Is Verified Institution(s)</option>
-  				<option val="is_region"     >Is Verified Region(s)</option>
+  				<option val="is_country"     >Is Verified country(s)</option>
   				<option val="is_user"       >Is Verified User(s)</option>
   			</select>
   		</td>
@@ -476,7 +476,7 @@ function global_rulebook(){
  */
 function extract_selector_meta($id) {
 
-	// define your own defaults here if you so desire
+	// TODO: match up against defaults?
 	$categories = get_the_category($id);
 	$cats_out = array();
 	foreach($categories as $category) {
@@ -484,7 +484,6 @@ function extract_selector_meta($id) {
 		array_push($cats_out, $category->cat_ID);
 	}
 	$status = (get_post_status($id) == false) ? '' : get_post_status($id);
-	//$author = (get_the_author_meta('user_nicename', $id) == '') ? '' : get_the_author_meta('user_nicename', $id);
 	$coauthors = get_coauthors($id);
 	$coauth_out = array();
 	foreach($coauthors as $coauthor) {
@@ -559,10 +558,59 @@ function collect_rules($selector_meta, $institution_meta) {
 
   //echo $rules_query;
   $rules = $wpdb->get_results($rules_query);
-  print_r($rules);
-}
-function check_access() {
 
+  // print errors if any show up
+  if(!empty($wpdb->print_error())) {
+  	return $wpdb->print_error();
+  }
+
+  print_r($rules);
+  return $rules;
+}
+
+function load_check_info() {
+	global $reader;
+	// check verified user
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+	echo $ip;
+	// check verified institution
+	try {
+	    $record = $reader->city($ip);
+	} catch (Exception $e) {
+	    return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
+	}
+}
+
+
+/**
+ * use rules to check access to article
+ * @param  [type] $rules [description]
+ * @return [type]        [description]
+ */
+function check_access($rules) {
+
+	if(empty($rules)) {
+		echo "empty rules";
+		return;
+	}
+	foreach($rules as $rule) {
+
+		// check for invalid/empty result first and return if so
+		switch($rule->result_type) {
+			case '':
+			case 'None':
+			case 'NONE':
+			case 'Default':
+			case 'DEFAULT':
+				return;
+				break;
+		}
+
+		// TODO: check for invalid time results
+		
+
+	}
 }
 
 

@@ -20,7 +20,11 @@
   $all_rules = $wpdb->get_results($all_rules_query);
   //print_r($all_rules);
 
-  collect_rules($selector_meta, $institution_meta);
+  $rules = collect_rules($selector_meta, $institution_meta);
+
+  load_check_info();
+
+  check_access($rules);
 
   echo '</pre>';
 

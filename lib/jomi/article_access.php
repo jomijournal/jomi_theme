@@ -93,9 +93,19 @@ function process_access_post_data() {
 	$result_time_elapsed = (empty($_POST['result_time_elapsed'])) ? $default['result_time_elapsed'] : $_POST['result_time_elapsed'];
 	if(empty($_POST['result_msg'])) {
 		switch ($result_type) {
+			case 'DENY':
+			case 'deny':
+				$result_msg = "<strong>DENIED</strong>";
+				break;
+			case 'sign_up':
+				$result_msg = "<strong>SIGN UP</strong>";
+				break;
+			case 'none':
+			case '':
 			case $default['result_type']:
 			default:
 				$result_msg = $default['result_msg'];
+				break;
 		}
 	} else {
 		$result_msg = $_POST['result_msg'];
@@ -583,6 +593,10 @@ function load_check_info() {
 	// check verified user
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+
+	// TEST ONLY
+	$ip = "173.13.115.174";
+
 	echo $ip;
 	// check verified institution
 	try {
@@ -591,20 +605,24 @@ function load_check_info() {
 	    return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
 
-	print($record->country->isoCode . "\n"); // 'US'
+	print("\n" . $record->country->isoCode . "\n"); // 'US'
 	print($record->country->name . "\n"); // 'United States'
-	print($record->country->names['zh-CN'] . "\n"); // '美国'
 
 	print($record->mostSpecificSubdivision->name . "\n"); // 'Minnesota'
 	print($record->mostSpecificSubdivision->isoCode . "\n"); // 'MN'
 
 	print($record->city->name . "\n"); // 'Minneapolis'
 
-	print($record->postal->code . "\n"); // '55455'
+	$country = $record->country->isoCode;
+	$region = $record->mostSpecificSubdivision->isoCode;
+	$city = $record->city->name;
 
-	print($record->location->latitude . "\n"); // 44.9733
-	print($record->location->longitude . "\n"); // -93.2323
-
+	$out = array(
+		'country' => $country,
+		'region' => $region,
+		'city' => $city
+	);
+	return $out;
 }
 
 
@@ -628,7 +646,7 @@ function check_access($rules) {
 			case 'NONE':
 			case 'Default':
 			case 'DEFAULT':
-				return;
+				//return;
 				break;
 		}
 

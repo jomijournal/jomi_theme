@@ -16,14 +16,15 @@ nav.site-header{
    input.search{
       position: relative;
       left: 5px;
-      margin-top: 23px;
+      margin-top: 5px;
    }
 
 
    .collapse, .collapsing {
       ul{
          .clearfix();      
-         font-size:15px;      
+         font-size:15px; 
+         padding-bottom: 15px;     
          li{
             margin-left: 10px;
             a{
@@ -85,14 +86,11 @@ nav.site-header{
    margin-right:60px;
    margin-top: 15px;
 }
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
-   border-color:rgba(0,0,0,0);
-}
 
 .navbar-form {
    border-top: 0px solid transparent;
    border-bottom: 0px solid transparent;
-   margin-top: 7px;
+   margin-top: 10px;
    margin-bottom: 0px;
    margin-right: -15px;
    width:100% !important;
@@ -104,7 +102,7 @@ nav.site-header{
       top: 1px;
       display: block !important;
       line-height: 1px !important;
-      right: -6px;
+      right: -8px;
       height: 0px;
       top: -20px;   
 }
@@ -113,6 +111,8 @@ nav.site-header{
    margin-top: 15px !important;
    margin-right: 15px !important;
    margin-left: 15px !important;
+   border-bottom: 1px solid rgba(1,1,1,1);
+   border-color: rgba(255, 255, 255, 0.19) !important ;
 }
 
 .dropdown-menu{
@@ -164,7 +164,7 @@ nav.site-header{
          ul{
             .clearfix();            
             list-style:none;
-            font-size:15px;     
+            font-size:16px;     
             padding-left: 0px;       
             li{
                float:right;
@@ -187,7 +187,7 @@ nav.site-header{
                }
                &.open a.border{
                   border-radius: 20px 20px 0 0;
-                  background: rgba(0,0,0,0);
+                  border-bottom: 0px solid rgba(0,0,0,0) !important;
                   //color: #000 !important;
                   text-decoration: none;
                }
@@ -198,7 +198,6 @@ nav.site-header{
    input.search{
       position: relative;
       left: 0px;
-      margin-top: 0px;
    }
    }
 .navbar-toggle{
@@ -209,11 +208,15 @@ nav.site-header{
 }
 .navbar-form{
    width: 30% !important;
+   margin-top: 0px;
    .has-feedback .form-control-feedback {
       line-height: 1px !important;
-      right: 0px;
+      right: -3px;
       height: 0px;
    }
+}
+.navbar-collapse{
+   border-bottom: 0px rgba(255, 255, 255, 0.5) solid;
 }
 
 }
@@ -244,7 +247,7 @@ nav.site-header{
       input.search{
          position: relative;
          left: 0px !important;
-         margin-top: 0px;
+         margin-top: 5px;
          width: 250px;
       }
 
@@ -277,7 +280,6 @@ nav.site-header{
       }
    input.search{
       position: relative;
-      margin-top: 0px;
       width: inherit;
    }
 

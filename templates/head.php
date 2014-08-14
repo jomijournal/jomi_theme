@@ -2,6 +2,7 @@
 global $user;
 
 /* USERAPP */
+/*
 use \UserApp\Widget\User;
 
 $auth = false;
@@ -35,9 +36,10 @@ if($auth)
 elseif(!is_front_page())
 {
 	//header("Location: /");
-}
+*/
 
 /* LOGOUT */
+/*
 if($user && isset($_GET["logout"]))
 {
 	$user->logout();
@@ -47,6 +49,7 @@ if($user && isset($_GET["logout"]))
 		setcookie('ua_session_token', '', time() - 3600, "/"); // empty value and old timestamp
 	}
 }
+*/
 ?>
 <!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?>>

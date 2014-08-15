@@ -52,7 +52,6 @@
         <div class="tab-pane" id="outline"><?php the_block('outline'); ?></div>
       </div>
     </div>
-
     <script>
       window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
 
@@ -61,10 +60,39 @@
         wistiaEmbed = Wistia.embed("<?php echo $wistia ?>", {
           videoFoam: true
         });
+
+        // tracker for elapsed time (in seconds)
+        var elapsed = 0;
+
         wistiaEmbed.bind("secondchange", function (s) {
           //if(s > 60*10 && !is_user_logged_in()) {
           //  $('.wistia_embed').empty().append('<h2 style="color:#fff">Please sign in to watch the rest of the video.</h2><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 100%;text-align: center;padding-top: 150px;padding-bottom: 150px;border: 3px solid #eee;');
           //}
+          
+          elapsed++;
+
+          <?php foreach($blocks as $block) { ?>
+
+            <?php if($block['time_elapsed'] > 0) {?>
+              if(elapsed == <?php echo $block['time_elapsed']; ?>) {
+                // block it
+                block("<?php echo $block['msg']; ?>");
+              }
+            <?php } elseif ($block['time_start'] > 0) { ?>
+              if(s >= <?php echo $block['time_start']; ?>) {
+                block("<?php echo $block['msg']; ?>");
+              }
+            <?php } elseif ($block['time_end'] > 0) { ?>
+              if(s <= <?php echo $block['time_end']; ?>) {
+                block("<?php echo $block['msg']; ?>");
+              }
+            // block immediately
+            <?php } else { ?>
+              block("<?php echo $block['msg']; ?>");
+            <?php } ?>
+
+          <?php } ?>
+          // chapter control
           $('.vtime-item').removeClass('done').removeClass('current');
           $('.vtime-item').each(function(index){
             if($(this).data('time') < s)
@@ -93,6 +121,12 @@
         $('.nav-tabs li a').click(function (e) {
           history.pushState( null, null, $(this).attr('href') );
         });
+
+        function block(msg) {
+         $('.wistia_embed')
+          .empty()
+          .html(msg);
+        }
 
       });
     </script>

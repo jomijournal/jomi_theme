@@ -677,7 +677,7 @@ function load_check_info() {
  * use rules to check access to article
  * @param  [type] $rules [description]
  * @param  [type] $check_data array of user/session data to check against
- * @return [type]        [description]
+ * @return [array] $blocks a list of block objects to apply
  */
 function check_access($rules, $check_data) {
 
@@ -788,7 +788,12 @@ function check_access($rules, $check_data) {
 				break;
 		}
 	}
+	//remove dupes
+	$blocks = array_unique($blocks);
+
 	print_r($blocks);
+
+	return $blocks;
 }
 
 ?>

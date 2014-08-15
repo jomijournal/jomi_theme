@@ -24,7 +24,7 @@
 
   $check_info = load_check_info();
 
-  check_access($rules, $check_info);
+  $blocks = check_access($rules, $check_info);
 
   echo '</pre>';
 
@@ -91,9 +91,6 @@
     history.pushState( null, null, $(this).attr('href') );
     });
     </script>
-    <footer>
-      <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>
-    </footer>
   </article>
   <?php comments_template(); ?>
 <?php endwhile; ?>

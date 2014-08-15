@@ -627,7 +627,8 @@ function load_check_info() {
 	// TEST ONLY
 	$ip = "173.13.115.174";
 
-	echo $ip;
+	//DEBUG
+	//echo $ip;
 	
 	// check institutions here
 	$institution = array(
@@ -653,11 +654,11 @@ function load_check_info() {
 	}
 
 	// DEBUG
-	print("\n" . $record->country->isoCode . "\n"); // 'US'
+	/*print("\n" . $record->country->isoCode . "\n"); // 'US'
 	print($record->country->name . "\n"); // 'United States'
 	print($record->mostSpecificSubdivision->name . "\n"); // 'Minnesota'
 	print($record->mostSpecificSubdivision->isoCode . "\n"); // 'MN'
-	print($record->city->name . "\n"); // 'Minneapolis'
+	print($record->city->name . "\n"); // 'Minneapolis'*/
 
 	$out = array(
 		'logged_in' => $logged_in,
@@ -681,11 +682,11 @@ function load_check_info() {
 function check_access($rules, $check_data) {
 
 	if(empty($rules)) {
-		echo "empty rules";
+		//echo "empty rules";
 		return;
 	}
 	if(empty($check_data)) {
-		echo "no check data";
+		//echo "no check data";
 		return;
 	}
 	foreach($rules as $rule) {

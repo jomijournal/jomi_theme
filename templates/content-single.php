@@ -22,9 +22,9 @@
 
   $rules = collect_rules($selector_meta, $institution_meta);
 
-  load_check_info();
+  $check_info = load_check_info();
 
-  check_access($rules);
+  check_access($rules, $check_info);
 
   echo '</pre>';
 

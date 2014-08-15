@@ -593,28 +593,33 @@ function load_check_info() {
 	
 	$current_user = wp_get_current_user();
     
-    if ( !($current_user instanceof WP_User) ) {
+    if ( ($current_user instanceof WP_User) ) {
     	$logged_in = true;
-    	$user_login = $current_user->user_login;
-    	$user_email = $current_user->user_email;
-    	$user_display_name = $current_user->display_name;
-    	$user_id = $current_user->ID;
+    	$user = array(
+    		'login' => $current_user->user_login,
+    		'email' => $current_user->user_email,
+    		'display_name' => $current_user->display_name,
+    		'id' => $current_user->ID
+    	);
     	//return;
     } else {
     	$logged_in = false;
-    	$user_login = 'none';
-    	$user_email = 'none';
-    	$user_display_name = 'none';
-    	$user_id = 'none';
+    	$user = array(
+    		'login' => 'none',
+    		'email' => 'none',
+    		'display_name' => 'none',
+    		'id' => 'none'
+    	);
     }
      
     // DEBUG
-    echo 'Username: ' . $current_user->user_login . '<br />';
+    /*echo 'Username: ' . $current_user->user_login . '<br />';
     echo 'User email: ' . $current_user->user_email . '<br />';
     echo 'User first name: ' . $current_user->user_firstname . '<br />';
     echo 'User last name: ' . $current_user->user_lastname . '<br />';
     echo 'User display name: ' . $current_user->display_name . '<br />';
-    echo 'User ID: ' . $current_user->ID . '<br />'; 
+    echo 'User ID: ' . $current_user->ID . '<br />'; */
+    print_r($user);
 	 
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
@@ -624,17 +629,24 @@ function load_check_info() {
 
 	echo $ip;
 	
-	// check institutions
-
+	// check institutions here
+	$institution = array(
+	);
 
 	try {
 	    $record = $reader->city($ip);
-	    $country = $record->country->isoCode;
+	    $country = array (
+	    	'iso' => $record->country->isoCode,
+	    	'name' => $record->country->name
+	    );
 		$region = $record->mostSpecificSubdivision->isoCode;
 		$city = $record->city->name;
 	} catch (Exception $e) {
 		// if can't find, default to Boston, MA, US
-		$country = 'US';
+		$country = array(
+			'iso' => 'US',
+			'name' => 'United States'
+		);
 		$region = 'MA';
 		$city = 'Boston';
 	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
@@ -649,10 +661,8 @@ function load_check_info() {
 
 	$out = array(
 		'logged_in' => $logged_in,
-		'user_login' => $user_login,
-		'user_email' => $user_email,
-		'user_display_name' => $user_display_name,
-		'user_id' => $user_id,
+		'user' => $user,
+		'institution' => $institution,
 		'ip' => $ip,
 		'country' => $country,
 		'region' => $region,
@@ -665,12 +675,17 @@ function load_check_info() {
 /**
  * use rules to check access to article
  * @param  [type] $rules [description]
+ * @param  [type] $check_data array of user/session data to check against
  * @return [type]        [description]
  */
-function check_access($rules) {
+function check_access($rules, $check_data) {
 
 	if(empty($rules)) {
 		echo "empty rules";
+		return;
+	}
+	if(empty($check_data)) {
+		echo "no check data";
 		return;
 	}
 	foreach($rules as $rule) {
@@ -683,11 +698,72 @@ function check_access($rules) {
 			case 'Default':
 			case 'DEFAULT':
 				//return;
+				continue;
 				break;
 		}
 
 		// TODO: check for invalid time results
 		
+		switch($rule->check_type) {
+			case 'is_ip':
+
+				$ip_check = $check_data['ip'];
+
+				$ips = explode(',', $rule->check_value);
+				foreach($ips as $ip) {
+					if($ip_check == $ip) {
+						// TODO place block
+						echo "ip matched";
+						//return;
+					}
+				}
+
+				break;
+			case 'is_institution':
+
+				$institution_check = $check_data['institution'];
+
+				$institutions = explode(',', $rule->check_value);
+				foreach($institutions as $institution) {
+					// TODO institution check
+				}
+
+				break;
+			case 'is_country':
+
+				$country_check = $check_data['country'];
+
+				// split up the CSV
+				$countries = explode(",", $rule->check_value);
+				foreach($countries as $country) {
+					if($country_check['iso'] == $country or $country_check['name'] == $country) {
+						// TODO: place block
+						echo "country matched";
+						//return;
+					}
+				}
+				break;
+			case 'is_user':
+
+				$user_check = $check_data['user'];
+
+				$users = explode(",", $rule->check_value);
+				foreach($users as $user) {
+					if($user_check['login'] == $user or
+					   $user_check['email'] == $user or
+					   $user_check['display_name'] == $user or
+					   $user_check['id'] == $user) {
+
+						//TODO: place block
+						echo "user matched";
+						//return;
+					}
+				}
+				break;
+			default:
+				echo "invalid check type";
+				break;
+		}
 
 	}
 }

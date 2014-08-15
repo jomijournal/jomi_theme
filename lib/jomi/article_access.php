@@ -619,7 +619,7 @@ function load_check_info() {
     echo 'User last name: ' . $current_user->user_lastname . '<br />';
     echo 'User display name: ' . $current_user->display_name . '<br />';
     echo 'User ID: ' . $current_user->ID . '<br />'; */
-    print_r($user);
+    //print_r($user);
 	 
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
@@ -689,8 +689,10 @@ function check_access($rules, $check_data) {
 		//echo "no check data";
 		return;
 	}
-	foreach($rules as $rule) {
 
+	$blocks = array();
+
+	foreach($rules as $rule) {
 		// check for invalid/empty result first and return if so
 		switch($rule->result_type) {
 			case '':
@@ -713,8 +715,15 @@ function check_access($rules, $check_data) {
 				$ips = explode(',', $rule->check_value);
 				foreach($ips as $ip) {
 					if($ip_check == $ip) {
-						// TODO place block
-						echo "ip matched";
+						
+						array_push($blocks, array(
+							'msg' => $rule->result_msg,
+							'time_start' => $rule->result_time_start,
+							'time_end' => $rule->result_time_end,
+							'time_elapsed' => $rule->result_time_elapsed
+						));
+
+						//echo "ip matched";
 						//return;
 					}
 				}
@@ -738,8 +747,15 @@ function check_access($rules, $check_data) {
 				$countries = explode(",", $rule->check_value);
 				foreach($countries as $country) {
 					if($country_check['iso'] == $country or $country_check['name'] == $country) {
-						// TODO: place block
-						echo "country matched";
+
+						array_push($blocks, array(
+							'msg' => $rule->result_msg,
+							'time_start' => $rule->result_time_start,
+							'time_end' => $rule->result_time_end,
+							'time_elapsed' => $rule->result_time_elapsed
+						));
+
+						//echo "country matched";
 						//return;
 					}
 				}
@@ -755,8 +771,14 @@ function check_access($rules, $check_data) {
 					   $user_check['display_name'] == $user or
 					   $user_check['id'] == $user) {
 
+						array_push($blocks, array(
+							'msg' => $rule->result_msg,
+							'time_start' => $rule->result_time_start,
+							'time_end' => $rule->result_time_end,
+							'time_elapsed' => $rule->result_time_elapsed
+						));
 						//TODO: place block
-						echo "user matched";
+						//echo "user matched";
 						//return;
 					}
 				}
@@ -765,9 +787,8 @@ function check_access($rules, $check_data) {
 				echo "invalid check type";
 				break;
 		}
-
 	}
+	print_r($blocks);
 }
-
 
 ?>

@@ -132,6 +132,89 @@ function process_access_post_data() {
 	return $out;
 }
 
+/**
+ * list all rules
+ * TODO: functionality to display only some rules
+ * @return [type] [description]
+ */
+function list_rules() {
+	global $wpdb;
+	global $access_table_name;
+
+	$query = "SELECT * FROM $access_table_name";
+
+	$rules = $wpdb->get_results($query);
+  ?>
+<table class="access_rules">
+	<tr>
+		<th>ID</th>
+		<th>Priority</th>
+		<th>Selector</th>
+		<th>Check</th>
+		<th>Result</th>
+		<th>Actions</th>
+	</tr>
+	<?php
+foreach($rules as $rule) {
+	?>
+	<tr>
+		<td>
+			<input id="id" placeholder="<?php echo $rule->id; ?>" data="<?php echo $rule->id; ?>">
+		</td>
+		<td>
+			<input id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
+		</td>
+		<td>
+		  	<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
+  				<option val=""           >None</option>
+  				<option val="category"   >Category</option>
+  				<option val="article_id" >Article ID</option>
+  				<option val="pub_id"     >Publication ID</option>
+  				<option val="institution">Institution</option>
+  				<option val="post_status">Post Status</option>
+  				<option val="author"     >Author</option>
+  			</select>
+			<input id="selector_value" placeholder="<?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value; ?>">
+		</td>
+		<td>
+		  	<select id="check_type" data="<?php echo $rule->check_type; ?>">
+  				<option val=""              >None</option>
+  				<option val="is_ip"         >Is Verified IP(s)</option>
+  				<option val="is_institution">Is Verified Institution(s)</option>
+  				<option val="is_country"     >Is Verified Country(s)</option>
+  				<option val="is_user"       >Is Verified User(s)</option>
+  			</select>
+			<input id="check_value" placeholder="<?php echo $rule->check_value; ?>" data="<?php echo $rule->check_value; ?>">
+		</td>
+		<td>
+  			<select id="result_type" data="<?php echo $rule->result_type; ?>">
+  			  	<option val=""          >None</option>
+  				<option val="deny"      >DENY</option>
+  				<option val="sign_up"   >SIGN UP</option>
+  				<option val="checkpoint">CHECKPOINT</option>
+  			</select>
+			<input id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
+			<input id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
+			<input id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
+		</td>
+		<td class="row">
+			<div class="col-xs-6">
+				<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>">Delete Rule</a>
+				<a class="btn" id="access_edit_rule" rule-id="<?php echo $rule->id ?>">Edit Rule</a>
+			</div>
+			<div class="col-xs-6">
+				<a class="btn" id="access_add_selector" rule-id="<?php echo $rule->id ?>">Add Selector</a>
+				<a class="btn" id="access_add_check" rule-id="<?php echo $rule->id ?>">Add Check</a>
+			</div>
+		</td>
+	</tr>
+<?php
+}
+?>
+</table>
+<?php
+  exit;
+}
 
 /**
  * insert a rule
@@ -220,6 +303,13 @@ function update_rule() {
 
 }
 
+function add_selector() {
+
+}
+function add_check() {
+
+}
+
 // DEBUG ONLY: insert an empty rule
 //insert_rule(array());
 
@@ -237,90 +327,10 @@ add_action( 'wp_ajax_nopriv_delete-rule', 'delete_rule' );
 add_action( 'wp_ajax_delete-rule', 'delete_rule' );
 add_action( 'wp_ajax_nopriv_update-rule', 'update_rule' );
 add_action( 'wp_ajax_update-rule', 'update_rule' );
-
-/**
- * list all rules
- * TODO: functionality to display only some rules
- * @return [type] [description]
- */
-function list_rules() {
-	global $wpdb;
-	global $access_table_name;
-
-	$query = "SELECT * FROM $access_table_name";
-
-	$rules = $wpdb->get_results($query);
-  ?>
-<table class="access_rules">
-	<tr>
-		<th>ID</th>
-		<th>Priority</th>
-		<th>Selector</th>
-		<th>Check</th>
-		<th>Result</th>
-		<th>Actions</th>
-	</tr>
-	<?php
-foreach($rules as $rule) {
-	?>
-	<tr>
-		<td>
-			<input id="id" placeholder="<?php echo $rule->id; ?>" data="<?php echo $rule->id; ?>">
-		</td>
-		<td>
-			<input id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
-		</td>
-		<td>
-		  	<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
-  				<option val=""           >None</option>
-  				<option val="category"   >Category</option>
-  				<option val="article_id" >Article ID</option>
-  				<option val="pub_id"     >Publication ID</option>
-  				<option val="institution">Institution</option>
-  				<option val="post_status">Post Status</option>
-  				<option val="author"     >Author</option>
-  			</select>
-			<input id="selector_value" placeholder="<?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value; ?>">
-		</td>
-		<td>
-		  	<select id="check_type" data="<?php echo $rule->check_type; ?>">
-  				<option val=""              >None</option>
-  				<option val="is_ip"         >Is Verified IP(s)</option>
-  				<option val="is_institution">Is Verified Institution(s)</option>
-  				<option val="is_country"     >Is Verified Country(s)</option>
-  				<option val="is_user"       >Is Verified User(s)</option>
-  			</select>
-			<input id="check_value" placeholder="<?php echo $rule->check_value; ?>" data="<?php echo $rule->check_value; ?>">
-		</td>
-		<td>
-  			<select id="result_type" data="<?php echo $rule->result_type; ?>">
-  			  	<option val=""          >None</option>
-  				<option val="deny"      >DENY</option>
-  				<option val="sign_up"   >SIGN UP</option>
-  				<option val="checkpoint">CHECKPOINT</option>
-  			</select>
-			<input id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
-			<input id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
-			<input id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
-		</td>
-		<td class="row">
-			<div class="col-xs-6">
-				<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>">Delete Rule</a>
-				<a class="btn" id="access_edit_rule" rule-id="<?php echo $rule->id ?>">Edit Rule</a>
-			</div>
-			<div class="col-xs-6">
-				<a class="btn" id="access_add_selector" rule-id="<?php echo $rule->id ?>">Add Selector</a>
-				<a class="btn" id="access_add_check" rule-id="<?php echo $rule->id ?>">Add Check</a>
-			</div>
-		</td>
-	</tr>
-<?php
-}
-?>
-</table>
-<?php
-  exit;
-}
+add_action( 'wp_ajax_nopriv_add-selector', 'add_selector' );
+add_action( 'wp_ajax_add-selector', 'add_selector' );
+add_action( 'wp_ajax_nopriv_add-check', 'add_check' );
+add_action( 'wp_ajax_add-check', 'add_check' );
 
 
 /**
@@ -460,6 +470,22 @@ function global_rulebook(){
 			function(response) {
 				console.log(response);
 				refresh();
+			});
+		});
+		$('#results').on('click', 'a#access_add_selector', function() {
+			$.post(MyAjax.ajaxurl, {
+				action: 'add-selector'
+			},
+			function(response) {
+
+			});
+		});
+		$('#results').on('click', 'a#access_add_check', function() {
+			$.post(MyAjax.ajaxurl, {
+				action: 'add-check'
+			},
+			function(response) {
+
 			});
 		});
 		$('#select_container select').change(refresh);

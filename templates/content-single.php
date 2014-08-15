@@ -32,27 +32,7 @@
   <article <?php post_class(); ?>>
     <?php $wistia = get_field('wistia_id'); ?>
     <script>
-      $("#wistia").attr('id', 'wistia_<?php echo $wistia ?>').show();
-      wistiaEmbed = Wistia.embed("<?php echo $wistia ?>", {
-        videoFoam: true
-      });
-      wistiaEmbed.bind("secondchange", function (s) {
-        //if(s > 60*10 && !is_user_logged_in()) {
-        //  $('.wistia_embed').empty().append('<h2 style="color:#fff">Please sign in to watch the rest of the video.</h2><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 100%;text-align: center;padding-top: 150px;padding-bottom: 150px;border: 3px solid #eee;');
-        //}
-        $('.vtime-item').removeClass('done').removeClass('current');
-        $('.vtime-item').each(function(index){
-          if($(this).data('time') < s)
-          {
-            $(this).addClass('done');
-          }
-          else
-          {
-            $('.vtime-item:nth-child('+index+')').addClass('current');
-            return false;
-          }
-        });
-      });
+
     </script>
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
@@ -75,21 +55,46 @@
 
     <script>
       window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
-      $('.nav-tabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-      });
+
       $(document).ready(function(){
+        $("#wistia").attr('id', 'wistia_<?php echo $wistia ?>').show();
+        wistiaEmbed = Wistia.embed("<?php echo $wistia ?>", {
+          videoFoam: true
+        });
+        wistiaEmbed.bind("secondchange", function (s) {
+          //if(s > 60*10 && !is_user_logged_in()) {
+          //  $('.wistia_embed').empty().append('<h2 style="color:#fff">Please sign in to watch the rest of the video.</h2><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 100%;text-align: center;padding-top: 150px;padding-bottom: 150px;border: 3px solid #eee;');
+          //}
+          $('.vtime-item').removeClass('done').removeClass('current');
+          $('.vtime-item').each(function(index){
+            if($(this).data('time') < s)
+            {
+              $(this).addClass('done');
+            }
+            else
+            {
+              $('.vtime-item:nth-child('+index+')').addClass('current');
+              return false;
+            }
+          });
+        });
+
+        $('.nav-tabs a').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
+        });
+
         $('#meta-chapters section').each(function(){
           $('#chapters ul').append('<li class="vtime-item" data-time="'+$(this).data('time')+'"><a href="#video" onclick="wistiaEmbed.time('+$(this).data('time')+').play();">'+$(this).data('title')+'</a></li>');
         });
+
         $('#chapters').show();
+
+        $('.nav-tabs li a').click(function (e) {
+          history.pushState( null, null, $(this).attr('href') );
+        });
+
       });
-    </script>
-    <script>
-    $('.nav-tabs li a').click(function (e) {
-    history.pushState( null, null, $(this).attr('href') );
-    });
     </script>
   </article>
   <?php comments_template(); ?>

@@ -303,9 +303,15 @@ foreach($rules as $rule) {
 			<input id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
 			<input id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
 		</td>
-		<td>
-			<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>" style="display:block;">Delete Rule</a>
-			<a class="btn" id="access_edit_rule" rule-id="<?php echo $rule->id ?>" style="display:block;">Edit Rule</a>
+		<td class="row">
+			<div class="col-xs-6">
+				<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>">Delete Rule</a>
+				<a class="btn" id="access_edit_rule" rule-id="<?php echo $rule->id ?>">Edit Rule</a>
+			</div>
+			<div class="col-xs-6">
+				<a class="btn" id="access_add_selector" rule-id="<?php echo $rule->id ?>">Add Selector</a>
+				<a class="btn" id="access_add_check" rule-id="<?php echo $rule->id ?>">Add Check</a>
+			</div>
 		</td>
 	</tr>
 <?php

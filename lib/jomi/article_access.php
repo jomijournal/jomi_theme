@@ -189,14 +189,26 @@ foreach($rules as $rule) {
 			<?php } ?>
 		</td>
 		<td id="checks">
-		  	<select id="check_type" data="<?php echo $rule->check_type; ?>">
+			<?php 
+			$check_types = explode(',', $rule->check_type);
+			$check_vals = explode(',', $rule->check_value); 
+			$checks = array();
+			foreach($check_types as $key=>$value) {
+				array_push($checks, array(
+					'type' => $check_types[$key],
+					'value' => $check_vals[$key]
+				));
+			}
+			foreach($checks as $check) { ?>
+		  	<select id="check_type" data="<?php echo $check['type']; ?>">
   				<option val=""              >None</option>
-  				<option val="is_ip"         >Is Verified IP(s)</option>
-  				<option val="is_institution">Is Verified Institution(s)</option>
-  				<option val="is_country"     >Is Verified Country(s)</option>
-  				<option val="is_user"       >Is Verified User(s)</option>
+  				<option val="is_ip"         >Is IP(s)</option>
+  				<option val="is_institution">Is Institution(s)</option>
+  				<option val="is_country"     >Is Country(s)</option>
+  				<option val="is_user"       >Is User(s)</option>
   			</select>
-			<input id="check_value" placeholder="<?php echo $rule->check_value; ?>" data="<?php echo $rule->check_value; ?>">
+			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
+			<?php } ?>
 		</td>
 		<td>
   			<select id="result_type" data="<?php echo $rule->result_type; ?>">
@@ -530,10 +542,25 @@ function global_rulebook(){
 
 			var table = $(this).parent().parent().parent();
 
+			// disable editing again
 			table.find('input').attr('readonly', '');
 			table.find('select').attr('disabled', '');
+			// switch to 'edit' button
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
+
+			// collect check types
+			var check_types = "";
+			table.find('#check_type option:selected').each(function() {
+				check_types += ($(this).attr('val') + ',');
+			});
+			check_types = check_types.substring(0, check_types.length - 1);
+
+			var check_vals = "";
+			table.find('#check_value').each(function() {
+				check_vals += ($(this).val() + ',');
+			});
+			check_vals = check_vals.substring(0, check_vals.length - 1);
 
 			$.post(MyAjax.ajaxurl, {
 				action:             'update-rule',
@@ -541,8 +568,8 @@ function global_rulebook(){
 				priority:            table.find('#priority').val(),
 				selector_type:       table.find('#selector_type option:selected').attr('val'),
 				selector_value:      table.find('#selector_value').val(),
-				check_type:          table.find('#check_type option:selected').attr('val'),
-				check_value:         table.find('#check_value').val(),
+				check_type:          check_types,
+				check_value:         check_vals,
 				result_type:         table.find('#result_type option:selected').attr('val'),
 				result_time_start:   table.find('#result_time_start').val(),
 				result_time_end:     table.find('#result_time_end').val(),

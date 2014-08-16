@@ -164,8 +164,19 @@ foreach($rules as $rule) {
 		<td>
 			<input id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
 		</td>
-		<td>
-		  	<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
+		<td id="selectors">
+			<?php 
+			$selector_types = explode(',', $rule->selector_type);
+			$selector_vals = explode(',', $rule->selector_value); 
+			$selectors = array();
+			foreach($selector_types as $key=>$value) {
+				array_push($selectors, array(
+					'type' => $selector_types[$key],
+					'value' => $selector_vals[$key]
+				));
+			}
+			foreach($selectors as $selector) { ?>
+		  	<select id="selector_type" data="<?php echo $selector['type']; ?>">
   				<option val=""           >None</option>
   				<option val="category"   >Category</option>
   				<option val="article_id" >Article ID</option>
@@ -174,9 +185,10 @@ foreach($rules as $rule) {
   				<option val="post_status">Post Status</option>
   				<option val="author"     >Author</option>
   			</select>
-			<input id="selector_value" placeholder="<?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value; ?>">
+			<input id="selector_value" placeholder="<?php echo $selector['value']; ?>" data="<?php echo $selector['value']; ?>">
+			<?php } ?>
 		</td>
-		<td>
+		<td id="checks">
 		  	<select id="check_type" data="<?php echo $rule->check_type; ?>">
   				<option val=""              >None</option>
   				<option val="is_ip"         >Is Verified IP(s)</option>
@@ -304,7 +316,48 @@ function update_rule() {
 }
 
 function add_selector() {
+	global $wpdb;
+	global $access_table_name;
 
+	// no id passed in
+	if(!isset($_POST['id']) || empty($_POST['id'])) {
+		return false;
+	}
+
+	$id = $_POST['id'];
+
+	$query = "SELECT * FROM $access_table_name WHERE id = $id";
+	$rules = $wpdb->get_results($query);
+	$rule = $rules[0];
+
+	print_r($rule);
+
+	$selector_type = $rule->selector_type;
+	$selector_value = $rule->selector_value;
+
+	echo $rule->selector_type , "\n";
+	echo $rule->selector_value, "\n";
+	//append empty selector
+	$selector_type = $selector_type . ",none";
+	$selector_value = $selector_value . ",none";
+
+	echo $selector_type , "\n";
+	echo $selector_value, "\n";
+
+	$wpdb->update(
+		$access_table_name,
+		array(
+			'selector_type'=>$selector_type, 
+			'selector_value'=>$selector_value
+		),
+		array('ID' => $id),
+		array('%s', '%s'),
+		array('%d')
+	);
+	// print errors if any show up
+	if(!empty($wpdb->print_error())) {
+		return $wpdb->print_error();
+	}
 }
 function add_check() {
 
@@ -435,11 +488,14 @@ function global_rulebook(){
 			});
 		})
 		$('#results').on('click', 'a#access_edit_rule', function() {
-			// enable editing
-			$(this).parent().parent().find('input').removeAttr('readonly');
-			$(this).parent().parent().find('select').removeAttr('disabled');
 
-			$(this).parent().parent().find('input').each(function() {
+			var table = $(this).parent().parent().parent();
+
+			// enable editing
+			table.find('input').removeAttr('readonly');
+			table.find('select').removeAttr('disabled');
+
+			table.find('input').each(function() {
 				$(this).val($(this).attr('data'));
 			});
 			$(this).text('Update Rule');
@@ -447,7 +503,7 @@ function global_rulebook(){
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
 
-			var table = $(this).parent().parent();
+			var table = $(this).parent().parent().parent();
 
 			table.find('input').attr('readonly', '');
 			table.find('select').attr('disabled', '');
@@ -456,7 +512,7 @@ function global_rulebook(){
 
 			$.post(MyAjax.ajaxurl, {
 				action:             'update-rule',
-				id:                  table.find('#id').val(),
+				id:                  $(this).attr('rule-id'),
 				priority:            table.find('#priority').val(),
 				selector_type:       table.find('#selector_type option:selected').attr('val'),
 				selector_value:      table.find('#selector_value').val(),
@@ -473,19 +529,29 @@ function global_rulebook(){
 			});
 		});
 		$('#results').on('click', 'a#access_add_selector', function() {
+
+			var table = $(this).parent().parent().parent();
+
 			$.post(MyAjax.ajaxurl, {
-				action: 'add-selector'
+				action: 'add-selector',
+				id: $(this).attr('rule-id')
 			},
 			function(response) {
-
+				console.log(response);
+				refresh();
 			});
 		});
 		$('#results').on('click', 'a#access_add_check', function() {
+
+			var table = $(this).parent().parent().parent();
+
 			$.post(MyAjax.ajaxurl, {
-				action: 'add-check'
+				action: 'add-check',
+				id: $(this).attr('rule-id')
 			},
 			function(response) {
-
+				console.log(response);
+				refresh();
 			});
 		});
 		$('#select_container select').change(refresh);

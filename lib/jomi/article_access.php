@@ -330,19 +330,11 @@ function add_selector() {
 	$rules = $wpdb->get_results($query);
 	$rule = $rules[0];
 
-	print_r($rule);
-
 	$selector_type = $rule->selector_type;
 	$selector_value = $rule->selector_value;
-
-	echo $rule->selector_type , "\n";
-	echo $rule->selector_value, "\n";
 	//append empty selector
-	$selector_type = $selector_type . ",none";
-	$selector_value = $selector_value . ",none";
-
-	echo $selector_type , "\n";
-	echo $selector_value, "\n";
+	$selector_type .= ",none";
+	$selector_value .= ",none";
 
 	$wpdb->update(
 		$access_table_name,
@@ -360,7 +352,40 @@ function add_selector() {
 	}
 }
 function add_check() {
+	global $wpdb;
+	global $access_table_name;
 
+	// no id passed in
+	if(!isset($_POST['id']) || empty($_POST['id'])) {
+		return false;
+	}
+
+	$id = $_POST['id'];
+
+	$query = "SELECT * FROM $access_table_name WHERE id = $id";
+	$rules = $wpdb->get_results($query);
+	$rule = $rules[0];
+
+	$check_type = $rule->check_type;
+	$check_value = $rule->check_value;
+	//append empty selector
+	$check_type .= ",none";
+	$check_value .= ",none";
+
+	$wpdb->update(
+		$access_table_name,
+		array(
+			'check_type'=>$check_type, 
+			'check_value'=>$check_value
+		),
+		array('ID' => $id),
+		array('%s', '%s'),
+		array('%d')
+	);
+	// print errors if any show up
+	if(!empty($wpdb->print_error())) {
+		return $wpdb->print_error();
+	}
 }
 
 // DEBUG ONLY: insert an empty rule

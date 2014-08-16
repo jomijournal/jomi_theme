@@ -142,6 +142,12 @@ excellence in medical instruction.</p>
 				<div class="link">Western Connecticut Health Network</div>
 			</div>
 		</a>
+		<a href = "http://medlib.fiu.edu/">
+			<div class="org col-md-2">
+				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/fiu.png"></div>
+				<div class="link">Florida International University: Herbert Wertheim College of Medicine Library</div>
+			</div>
+		</a>
 	</div>
 </div>
 <br/>

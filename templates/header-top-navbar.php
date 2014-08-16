@@ -1,8 +1,11 @@
+<!--div class="jsgate" style="background-color: #111; color: #fff; position:fixed; width:100%; height:100%; top:0px; left:0px; z-index:1000; text-align: center; padding-top: 50px; font-size: 24px;">
+Your browser is too old to run javascript. If you continue, you may experience trouble.<br><br><br><br><a href="#hidejsgate">continue</a></div-->
+
 <?php
 global $user;
 ?>
 <?php if(is_front_page()) : ?>
-	<video id="video" autoplay="" loop="" class='background hidden-xs' poster="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/background_img.jpg">
+	<video id="video" autoplay="" loop="" class='background hidden-xs' poster="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/vid_poster.jpg">
 		<source id="video-source" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4" type="video/mp4">
 		<source id="video-source-webm" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background.webm" type="video/webm">
 	</video>
@@ -92,6 +95,8 @@ global $user;
 
 
 <script>
+
+
 	if ($(window).width() < 768) {
 		$('#video-source').attr("src", "");
 		$('#video-source-webm').attr("src", "");
@@ -173,6 +178,8 @@ global $user;
 				window.location.href = "/?s="+$(this).val();
 			}
 		});
+
+		//$('.jsgate').hide();}
 	});
 
 </script>

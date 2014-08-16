@@ -2,12 +2,12 @@
 $w = new WistiaApi('181632d7604b54b358a5db48a85cec7d7665be6f');
 $ID = get_field('wistia_id');
 //echo $w->mediaShow($ID); 
-echo '<pre>';
+//echo '<pre>';
 //print_r($w);
 //print_r($w->mediaShow($ID));
 //echo $ID;
 //print_r($w->projectList());
-echo '</pre>';
+//echo '</pre>';
 ?>
 
 <div class="article-thumbnail">

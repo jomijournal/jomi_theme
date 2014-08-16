@@ -175,7 +175,8 @@ foreach($rules as $rule) {
 					'value' => $selector_vals[$key]
 				));
 			}
-			foreach($selectors as $selector) { ?>
+			$index = 0;
+			foreach($selectors as $selector) { $index++;?>
 		  	<select id="selector_type" data="<?php echo $selector['type']; ?>">
   				<option val=""           >None</option>
   				<option val="category"   >Category</option>
@@ -186,6 +187,9 @@ foreach($rules as $rule) {
   				<option val="author"     >Author</option>
   			</select>
 			<input id="selector_value" placeholder="<?php echo $selector['value']; ?>" data="<?php echo $selector['value']; ?>">
+				<?php if($index > 1) { ?>
+					<a id="delete_selector" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
+				<?php } ?>
 			<?php } ?>
 		</td>
 		<td id="checks">
@@ -199,7 +203,8 @@ foreach($rules as $rule) {
 					'value' => $check_vals[$key]
 				));
 			}
-			foreach($checks as $check) { ?>
+			$index = 0;
+			foreach($checks as $check) { $index++;?>
 		  	<select id="check_type" data="<?php echo $check['type']; ?>">
   				<option val=""              >None</option>
   				<option val="is_ip"         >Is IP(s)</option>
@@ -208,6 +213,9 @@ foreach($rules as $rule) {
   				<option val="is_user"       >Is User(s)</option>
   			</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
+				<?php if($index > 1) { ?>
+					<a id="delete_check" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
+				<?php } ?>
 			<?php } ?>
 		</td>
 		<td>

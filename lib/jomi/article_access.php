@@ -549,7 +549,20 @@ function global_rulebook(){
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
 
-			// collect check types
+			// collect selector types and values
+			var selector_types = "";
+			table.find('#selector_type option:selected').each(function() {
+				selector_types += ($(this).attr('val') + ',');
+			});
+			selector_types = selector_types.substring(0, selector_types.length - 1);
+
+			var selector_vals = "";
+			table.find('#selector_value').each(function() {
+				selector_vals += ($(this).val() + ',');
+			});
+			selector_vals = selector_vals.substring(0, selector_vals.length - 1);
+
+			// collect check types and values
 			var check_types = "";
 			table.find('#check_type option:selected').each(function() {
 				check_types += ($(this).attr('val') + ',');
@@ -562,12 +575,13 @@ function global_rulebook(){
 			});
 			check_vals = check_vals.substring(0, check_vals.length - 1);
 
+
 			$.post(MyAjax.ajaxurl, {
 				action:             'update-rule',
 				id:                  $(this).attr('rule-id'),
 				priority:            table.find('#priority').val(),
-				selector_type:       table.find('#selector_type option:selected').attr('val'),
-				selector_value:      table.find('#selector_value').val(),
+				selector_type:       selector_types,
+				selector_value:      selector_vals,
 				check_type:          check_types,
 				check_value:         check_vals,
 				result_type:         table.find('#result_type option:selected').attr('val'),

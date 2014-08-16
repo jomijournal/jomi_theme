@@ -61,7 +61,8 @@ function roots_display_sidebar() {
       array('is_page', 'support-us'),
       array('is_page', 'subscribers'),
       array('is_page', 'login'),
-      array('is_page', 'notifications')
+      array('is_page', 'notifications'),
+      array('is_page', 'planned')
       #array('is_page', 'articles')
     ),
     /**

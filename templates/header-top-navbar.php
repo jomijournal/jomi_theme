@@ -9,7 +9,7 @@ global $user;
 		<source id="video-source" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4" type="video/mp4">
 		<source id="video-source-webm" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background.webm" type="video/webm">
 	</video>
-	<img src='https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/background_mobile.png' class='background visible-xs'/>
+	<img src='https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/background_mobile.jpg' class='background visible-xs'/>
 	<div class='blackbox background'></div>
 
 <?php endif; ?>

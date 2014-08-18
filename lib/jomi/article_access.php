@@ -82,6 +82,9 @@ function update_access_table() {
 add_action('init', 'update_access_table');
 
 /**
+ * HELPER FUNCTIONS
+ */
+/**
  * match $_POST inputs against defaults and returns
  * @return [array] processed post data
  */
@@ -128,8 +131,21 @@ function process_access_post_data() {
 		'selector_type' => $selector_type,
 		'selector_value' => $selector_value
 	);
-
 	return $out;
+}
+
+/**
+ * check if the _POST id var isset or is empty
+ * @return [type] [description]
+ */
+function check_post_id() {
+	// no id passed in
+	if(!isset($_POST['id']) || empty($_POST['id'])) {
+		return false;
+	} else {
+		$id = $_POST['id'];
+		return $id;
+	}
 }
 
 /**
@@ -280,12 +296,8 @@ function delete_rule() {
 	global $wpdb;
 	global $access_table_name;
 
-	// no id passed in
-	if(!isset($_POST['id']) || empty($_POST['id'])) {
-		return false;
-	}
+	$id = check_post_id();
 
-	$id = $_POST['id'];
 	$wpdb->delete(
 		$access_table_name,
 		array(
@@ -309,12 +321,7 @@ function update_rule() {
 	global $wpdb;
 	global $access_table_name;
 
-	// no id passed in
-	if(!isset($_POST['id']) || empty($_POST['id'])) {
-		return false;
-	}
-
-	$id = $_POST['id'];
+	$id = check_post_id();
 	
 	$push_data = process_access_post_data();
 
@@ -339,12 +346,7 @@ function add_selector() {
 	global $wpdb;
 	global $access_table_name;
 
-	// no id passed in
-	if(!isset($_POST['id']) || empty($_POST['id'])) {
-		return false;
-	}
-
-	$id = $_POST['id'];
+	$id = check_post_id();
 
 	$query = "SELECT * FROM $access_table_name WHERE id = $id";
 	$rules = $wpdb->get_results($query);
@@ -375,12 +377,7 @@ function add_check() {
 	global $wpdb;
 	global $access_table_name;
 
-	// no id passed in
-	if(!isset($_POST['id']) || empty($_POST['id'])) {
-		return false;
-	}
-
-	$id = $_POST['id'];
+	$id = check_post_id();
 
 	$query = "SELECT * FROM $access_table_name WHERE id = $id";
 	$rules = $wpdb->get_results($query);
@@ -411,12 +408,7 @@ function remove_selector() {
 	global $wpdb;
 	global $access_table_name;
 
-	// no id passed in
-	if(!isset($_POST['id']) || empty($_POST['id'])) {
-		return false;
-	}
-
-	$id = $_POST['id'];
+	$id = check_post_id();
 	$rule_id = $_POST['rule_id'];
 
 	$query = "SELECT * FROM $access_table_name WHERE id = $id";
@@ -456,12 +448,7 @@ function remove_check() {
 	global $wpdb;
 	global $access_table_name;
 
-	// no id passed in
-	if(!isset($_POST['id']) || empty($_POST['id'])) {
-		return false;
-	}
-
-	$id = $_POST['id'];
+	$id = check_post_id();
 	$rule_id = $_POST['rule_id'];
 
 	$query = "SELECT * FROM $access_table_name WHERE id = $id";

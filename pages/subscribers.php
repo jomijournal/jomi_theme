@@ -1,3 +1,9 @@
+<?php
+/*
+Template Name: Subscribers
+*/
+?>
+
 <div class='row'>
 	<div class='col-xs-6'>
 		<h2>Subscribing Institutions</h2>

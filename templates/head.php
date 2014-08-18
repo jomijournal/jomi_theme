@@ -63,9 +63,12 @@ if($user && isset($_GET["logout"]))
 	$coauthors = get_coauthors();
 	foreach( $coauthors as $coauthor ) { ?>
 	<meta name="citation_author" content="<?php echo $coauthor->last_name; ?>, <?php echo $coauthor->first_name; ?>">
+	<?php } 
+	if(is_home){ ?>
+	<meta property="og:image" content= "/wp-content/themes/jomi/assets/img/fbshare.gif"/>
+	<meta property="og:image:secure_url" content= "/wp-content/themes/jomi/assets/img/fbshare.gif" />
 	<?php } ?>
-	<meta property="og:image" content="/wp-content/themes/jomi/assets/fbshare.gif"/>
-	<meta property="og:image:secure_url" content="/wp-content/themes/jomi/assets/fbshare.gif" />
+
 
 	<meta name="citation_journal_title" content="Journal of Medical Insight">
 	<meta name="citation_publication_date" content="<?php echo the_date(); ?>">

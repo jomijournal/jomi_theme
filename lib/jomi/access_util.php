@@ -93,9 +93,9 @@ function check_post_id() {
  */
 function check_db_errors() {
 	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
+	//if(!empty($wpdb->print_error())) {
+	//	return $wpdb->print_error();
+	//}
 }
 
 ?>

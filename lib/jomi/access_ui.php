@@ -38,7 +38,7 @@ foreach($rules as $rule) {
 			<input id="id" placeholder="<?php echo $rule->id; ?>" data="<?php echo $rule->id; ?>">
 		</td>
 		<td>
-			<input id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
+			<input type="number" id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
 		</td>
 		<td id="selectors">
 			<?php 
@@ -101,9 +101,9 @@ foreach($rules as $rule) {
   				<option val="sign_up"   >SIGN UP</option>
   				<option val="checkpoint">CHECKPOINT</option>
   			</select>
-			<input id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
-			<input id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
-			<input id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
+			<input type="number" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
+			<input type="number" id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
+			<input type="number" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
 		</td>
 		<td class="row">
 			<div class="col-xs-6">
@@ -196,88 +196,104 @@ function global_rulebook(){
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
 
-			var table = $(this).parent().parent().parent();
+			var row = $(this).parent().parent().parent();
 
 			// disable editing again
-			table.find('input').attr('readonly', '');
-			table.find('select').attr('disabled', '');
+			row.find('input').attr('readonly', '');
+			row.find('select').attr('disabled', '');
 			// switch to 'edit' button
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
 
-			// collect selector types and values
-			var selector_types = "";
-			table.find('#selector_type option:selected').each(function() {
-				selector_types += ($(this).attr('val') + ',');
-			});
-			selector_types = selector_types.substring(0, selector_types.length - 1);
+			update(row, {});
 
-			var selector_vals = "";
-			table.find('#selector_value').each(function() {
-				selector_vals += ($(this).val() + ',');
-			});
-			selector_vals = selector_vals.substring(0, selector_vals.length - 1);
-
-			// collect check types and values
-			var check_types = "";
-			table.find('#check_type option:selected').each(function() {
-				check_types += ($(this).attr('val') + ',');
-			});
-			check_types = check_types.substring(0, check_types.length - 1);
-
-			var check_vals = "";
-			table.find('#check_value').each(function() {
-				check_vals += ($(this).val() + ',');
-			});
-			check_vals = check_vals.substring(0, check_vals.length - 1);
-
-
-			$.post(MyAjax.ajaxurl, {
-				action:             'update-rule',
-				id:                  $(this).attr('rule-id'),
-				priority:            table.find('#priority').val(),
-				selector_type:       selector_types,
-				selector_value:      selector_vals,
-				check_type:          check_types,
-				check_value:         check_vals,
-				result_type:         table.find('#result_type option:selected').attr('val'),
-				result_time_start:   table.find('#result_time_start').val(),
-				result_time_end:     table.find('#result_time_end').val(),
-				result_time_elapsed: table.find('#result_time_elapsed').val()
-			},
-			function(response) {
-				console.log(response);
-				refresh();
-			});
 		});
 		$('#results').on('click', 'a#access_add_selector', function() {
 
-			var table = $(this).parent().parent().parent();
+			var row = $(this).parent().parent().parent();
 
-			$.post(MyAjax.ajaxurl, {
-				action: 'add-selector',
-				id: $(this).attr('rule-id')
-			},
-			function(response) {
-				console.log(response);
-				refresh();
+			var selector_types = "";
+			row.find('#selector_type option:selected').each(function() {
+				selector_types += ($(this).attr('val') + ',');
+			});
+			var selector_vals = "";
+			row.find('#selector_value').each(function() {
+				selector_vals += ($(this).val() + ',');
+			});
+
+			update(row, {
+				selector_type: selector_types + 'none',
+				selector_value: selector_vals + 'none'
 			});
 		});
 		$('#results').on('click', 'a#access_add_check', function() {
 
-			var table = $(this).parent().parent().parent();
+			var row = $(this).parent().parent().parent();
 
-			$.post(MyAjax.ajaxurl, {
-				action: 'add-check',
-				id: $(this).attr('rule-id')
-			},
-			function(response) {
-				console.log(response);
-				refresh();
+			var check_types = "";
+			row.find('#check_type option:selected').each(function() {
+				check_types += ($(this).attr('val') + ',');
+			});
+			var check_vals = "";
+			row.find('#check_value').each(function() {
+				check_vals += ($(this).val() + ',');
+			});
+
+			update(row, {
+				check_type: check_types + 'none',
+				check_value: check_vals + 'none'
 			});
 		});
 		$('#select_container select').change(refresh);
 	});
+	function update(row, params) {
+
+		//params = (typeof prop !== "object") ? {} : params;
+		params.action = params.action || 'update-rule';
+		params.id = params.id || row.find('input#id').attr('data');
+		params.priority = params.priority || row.find('#priority').val();
+		if(!params.selector_type) {
+			console.log('update');
+			var selector_types = "";
+			row.find('#selector_type option:selected').each(function() {
+				selector_types += ($(this).attr('val') + ',');
+			});
+			params.selector_type = selector_types.substring(0, selector_types.length - 1);
+		}
+		if(!params.selector_value) {
+			var selector_vals = "";
+			row.find('#selector_value').each(function() {
+				selector_vals += ($(this).val() + ',');
+			});
+			params.selector_value = selector_vals.substring(0, selector_vals.length - 1);
+		}
+		if(!params.check_type) {
+			var check_types = "";
+			row.find('#check_type option:selected').each(function() {
+				check_types += ($(this).attr('val') + ',');
+			});
+			params.check_type = check_types.substring(0, check_types.length - 1);
+		}
+		if(!params.check_value) {
+			var check_vals = "";
+			row.find('#check_value').each(function() {
+				check_vals += ($(this).val() + ',');
+			});
+			params.check_value = check_vals.substring(0, check_vals.length - 1);
+		}
+		params.result_type = params.result_type || row.find('#result_type option:selected').attr('val');
+		params.result_time_start = params.result_time_start || row.find('#result_time_start').val();
+		params.result_time_end = params.result_time_end || row.find('#result_time_end').val();
+		params.result_time_elapsed = row.find('#result_time_elapsed').val();
+
+		console.log(params);
+
+		$.post(MyAjax.ajaxurl, params,
+		function(response) {
+			console.log(response);
+			refresh();
+		});
+	}
 	function refresh() {
 
 		$.post( MyAjax.ajaxurl, {

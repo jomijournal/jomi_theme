@@ -135,13 +135,5 @@ add_action( 'wp_ajax_nopriv_delete-rule', 'delete_rule' );
 add_action( 'wp_ajax_delete-rule', 'delete_rule' );
 add_action( 'wp_ajax_nopriv_update-rule', 'update_rule' );
 add_action( 'wp_ajax_update-rule', 'update_rule' );
-add_action( 'wp_ajax_nopriv_add-selector', 'add_selector' );
-add_action( 'wp_ajax_add-selector', 'add_selector' );
-add_action( 'wp_ajax_nopriv_add-check', 'add_check' );
-add_action( 'wp_ajax_add-check', 'add_check' );
-add_action( 'wp_ajax_nopriv_remove-selector', 'remove_selector' );
-add_action( 'wp_ajax_remove-selector', 'remove_selector' );
-add_action( 'wp_ajax_nopriv_remove-check', 'remove_check' );
-add_action( 'wp_ajax_remove-check', 'remove_check' );
 
 ?>

@@ -214,7 +214,7 @@ foreach($rules as $rule) {
   			</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
 				<?php if($index > 1) { ?>
-					<a id="delete_check" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
+					<a id="delete_check" rule-index="<?php echo $index; ?>" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
 				<?php } ?>
 			<?php } ?>
 		</td>
@@ -407,6 +407,54 @@ function add_check() {
 		return $wpdb->print_error();
 	}
 }
+function remove_selector() {
+	global $wpdb;
+	global $access_table_name;
+
+	// no id passed in
+	if(!isset($_POST['id']) || empty($_POST['id'])) {
+		return false;
+	}
+
+	$id = $_POST['id'];
+	$rule_id = $_POST['rule_id'];
+
+	$query = "SELECT * FROM $access_table_name WHERE id = $id";
+	$rules = $wpdb->get_results($query);
+	$rule = $rules[0];
+
+	$selector_type = explode(',', $rule->selector_type);
+	$selector_value = explode(',', $rule->selector_value);
+
+	if(!isset($_POST['rule_id']) || empty($_POST['rule_id'])) {
+		array_pop($selector_type);
+		array_pop($selector_value);
+	} else {
+		array_splice($selector_type, $rule_id - 1, 1);
+		array_splice($selector_value, $rule_id - 1, 1);
+	}
+
+	$selector_type = implode(',', $selector_type);
+	$selector_value = implode(',', $selector_value);
+
+	$wpdb->update(
+		$access_table_name,
+		array(
+			'selector_type'=>$selector_type, 
+			'selector_value'=>$selector_value
+		),
+		array('ID' => $id),
+		array('%s', '%s'),
+		array('%d')
+	);
+	// print errors if any show up
+	if(!empty($wpdb->print_error())) {
+		return $wpdb->print_error();
+	}
+}
+function remove_check() {
+
+}
 
 // DEBUG ONLY: insert an empty rule
 //insert_rule(array());
@@ -429,6 +477,10 @@ add_action( 'wp_ajax_nopriv_add-selector', 'add_selector' );
 add_action( 'wp_ajax_add-selector', 'add_selector' );
 add_action( 'wp_ajax_nopriv_add-check', 'add_check' );
 add_action( 'wp_ajax_add-check', 'add_check' );
+add_action( 'wp_ajax_nopriv_remove-selector', 'remove_selector' );
+add_action( 'wp_ajax_remove-selector', 'remove_selector' );
+add_action( 'wp_ajax_nopriv_remove-check', 'remove_check' );
+add_action( 'wp_ajax_remove-check', 'remove_check' );
 
 
 /**

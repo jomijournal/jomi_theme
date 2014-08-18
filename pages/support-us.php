@@ -1,3 +1,9 @@
+<?php
+/*
+Template Name: Support Us
+*/
+?>
+
 <?php while (have_posts()) : the_post(); ?>
 
 <div class="container wrap" role="document" style="padding:0; border: none;">

@@ -38,22 +38,14 @@ function access_table_install() {
 	global $wpdb;
 	global $access_db_version;
 	global $access_table_name;
-	
-	/*
-	 * We'll set the default character set and collation for this table.
-	 * If we don't do this, some characters could end up being converted 
-	 * to just ?'s when saved in our table.
-	 */
-	$charset_collate = '';
 
+	$charset_collate = '';
 	if ( ! empty( $wpdb->charset ) ) {
 	  $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
 	}
-
 	if ( ! empty( $wpdb->collate ) ) {
 	  $charset_collate .= " COLLATE {$wpdb->collate}";
 	}
-
 	$sql = "CREATE TABLE $access_table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
 		result_type VARCHAR(20) NOT NULL,
@@ -68,10 +60,8 @@ function access_table_install() {
 		selector_value text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
-
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
-
 	add_option( 'access_db_version', $access_db_version );
 }
 /**
@@ -150,6 +140,17 @@ function check_post_id() {
 	} else {
 		$id = $_POST['id'];
 		return $id;
+	}
+}
+
+/**
+ * [check_db_errors description]
+ * @return [type] [description]
+ */
+function check_db_errors() {
+	// print errors if any show up
+	if(!empty($wpdb->print_error())) {
+		return $wpdb->print_error();
 	}
 }
 
@@ -289,17 +290,12 @@ function insert_rule() {
 		$access_table_name, 
 		$push_data
 	);
-
-	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
+	check_db_errors();
 }
 
-/*
- * delete an article access rule
- * returns true if successful
- * returns false if unsucessful
+/**
+ * [delete_rule description]
+ * @return [type] [description]
  */
 function delete_rule() {
 	global $wpdb;
@@ -309,17 +305,9 @@ function delete_rule() {
 
 	$wpdb->delete(
 		$access_table_name,
-		array(
-			'id' => $id
-		)
+		array('id' => $id)
 	);
-
-	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
-
-	return true;
+	check_db_errors();
 }
 
 /**
@@ -338,17 +326,10 @@ function update_rule() {
 		$access_table_name,
 		$push_data,
 		array('ID' => $id),
-		array(
-			'%s', '%d', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%s'
-		),
+		array('%s', '%d', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%s'),
 		array('%d')
 	);
-
-	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
-
+	check_db_errors();
 }
 
 function add_selector() {
@@ -377,10 +358,7 @@ function add_selector() {
 		array('%s', '%s'),
 		array('%d')
 	);
-	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
+	check_db_errors();
 }
 function add_check() {
 	global $wpdb;
@@ -408,10 +386,7 @@ function add_check() {
 		array('%s', '%s'),
 		array('%d')
 	);
-	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
+	check_db_errors();
 }
 function remove_selector() {
 	global $wpdb;
@@ -448,10 +423,7 @@ function remove_selector() {
 		array('%s', '%s'),
 		array('%d')
 	);
-	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
+	check_db_errors();
 }
 function remove_check() {
 	global $wpdb;
@@ -488,10 +460,7 @@ function remove_check() {
 		array('%s', '%s'),
 		array('%d')
 	);
-	// print errors if any show up
-	if(!empty($wpdb->print_error())) {
-		return $wpdb->print_error();
-	}
+	check_db_errors();
 }
 
 // DEBUG ONLY: insert an empty rule

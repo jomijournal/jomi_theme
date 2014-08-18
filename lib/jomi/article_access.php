@@ -453,7 +453,49 @@ function remove_selector() {
 	}
 }
 function remove_check() {
+	global $wpdb;
+	global $access_table_name;
 
+	// no id passed in
+	if(!isset($_POST['id']) || empty($_POST['id'])) {
+		return false;
+	}
+
+	$id = $_POST['id'];
+	$rule_id = $_POST['rule_id'];
+
+	$query = "SELECT * FROM $access_table_name WHERE id = $id";
+	$rules = $wpdb->get_results($query);
+	$rule = $rules[0];
+
+	$check_type = explode(',', $rule->check_type);
+	$check_value = explode(',', $rule->check_value);
+
+	if(!isset($_POST['rule_id']) || empty($_POST['rule_id'])) {
+		array_pop($check_type);
+		array_pop($check_value);
+	} else {
+		array_splice($check_type, $rule_id - 1, 1);
+		array_splice($check_value, $rule_id - 1, 1);
+	}
+
+	$check_type = implode(',', $check_type);
+	$check_value = implode(',', $check_value);
+
+	$wpdb->update(
+		$access_table_name,
+		array(
+			'check_type'=>$check_type, 
+			'check_value'=>$check_value
+		),
+		array('ID' => $id),
+		array('%s', '%s'),
+		array('%d')
+	);
+	// print errors if any show up
+	if(!empty($wpdb->print_error())) {
+		return $wpdb->print_error();
+	}
 }
 
 // DEBUG ONLY: insert an empty rule
@@ -504,51 +546,6 @@ function global_rulebook(){
 
   <div id="results">
   </div>
-
-  <!-- ADD RULE UI -->
-  <table class="access_rules" id="new_rules">
-  	<tr>
-  		<td><input type="number" id="access_priority" placeholder="Priority"></td>
-  		<td>
-  			<select id="access_selector_type">
-  				<option val=""           >None</option>
-  				<option val="category"   >Category</option>
-  				<option val="article_id" >Article ID</option>
-  				<option val="pub_id"     >Publication ID</option>
-  				<option val="institution">Institution</option>
-  				<option val="post_status">Post Status</option>
-  				<option val="author"     >Author</option>
-  			</select>
-  		</td>
-  		<td><input type="text" id="access_selector_value" placeholder="Selector Value"></td>
-  		<td>
-  			<select id="access_check_type">
-  				<option val=""              >None</option>
-  				<option val="is_ip"         >Is Verified IP(s)</option>
-  				<option val="is_institution">Is Verified Institution(s)</option>
-  				<option val="is_country"     >Is Verified country(s)</option>
-  				<option val="is_user"       >Is Verified User(s)</option>
-  			</select>
-  		</td>
-  		<td><input type="text" id="access_check_value" placeholder="Check Value"></td>
-  	</tr>
-  	<tr>
-  		<td>
-  			<select id="access_result_type">
-  			  	<option val=""          >None</option>
-  				<option val="deny"      >DENY</option>
-  				<option val="sign_up"   >SIGN UP</option>
-  				<option val="checkpoint">CHECKPOINT</option>
-  			</select>
-  		</td>
-  		<td><input type="number" id="access_result_time_start" placeholder="Result Time Start"></td>
-  		<td><input type="number" id="access_result_time_end" placeholder="Result Time End"></td>
-  		<td><input type="number" id="access_result_time_elapsed" placeholder="Result Time Elapsed"></td>
-  	</tr>
-  	<tr>
-  		<td><a class="btn fat white" id="access_add_rule">Add Rule</a></td>
-  	</tr>
-  </table>
 
   <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

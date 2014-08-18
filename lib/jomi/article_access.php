@@ -1,5 +1,10 @@
 <?php
 
+
+/**
+ * DB MANAGEMENT
+ */
+
 global $wpdb;
 
 // change this when installing a new table version
@@ -147,6 +152,10 @@ function check_post_id() {
 		return $id;
 	}
 }
+
+/**
+ * ACCESS UI
+ */
 
 /**
  * list all rules
@@ -689,6 +698,10 @@ function global_rulebook(){
   </script>
   <?php
 }
+
+/**
+ * ACCESS LOGIC
+ */
 
 /**
  * get useful article meta to help comb through article access rules

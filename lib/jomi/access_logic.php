@@ -80,13 +80,13 @@ function collect_rules($selector_meta, $institution_meta) {
   $where_conditional = "(selector_type, selector_value) IN (";
   // categories
   $cat_ids = $selector_meta['cat_ids'];
-  $cat_slugs = $selector_meta['cat_slugs'];
-  $cat_names = $selector_meta['cat_names'];
+  //$cat_slugs = $selector_meta['cat_slugs'];
+  //$cat_names = $selector_meta['cat_names'];
   foreach($cat_ids as $index => $cat_id) {
   	$where_conditional .= "('category', $cat_id),";
-  	$cat_slug = $cat_slugs[$index];
+  	//$cat_slug = $cat_slugs[$index];
   	//$where_conditional .= "('category', $cat_slug),";
-  	$cat_name = $cat_names[$index];
+  	//$cat_name = $cat_names[$index];
   	//$where_conditional .= "('category', $cat_name),";
   }
   // article id
@@ -107,20 +107,16 @@ function collect_rules($selector_meta, $institution_meta) {
 
   // cap it off
   $where_conditional .= "('-1','-1'))";
-  
+
   $rules_query = "SELECT * 
                   FROM $access_table_name 
                   WHERE $where_conditional 
-                  GROUP BY selector_type
                   ORDER BY priority DESC";
 
   //echo $rules_query;
   $rules = $wpdb->get_results($rules_query);
 
-  // print errors if any show up
-  if(!empty($wpdb->print_error())) {
-  	return $wpdb->print_error();
-  }
+  //check_db_errors();
 
   print_r($rules);
   return $rules;

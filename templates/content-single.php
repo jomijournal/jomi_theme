@@ -24,7 +24,8 @@
 
   $check_info = load_check_info();
 
-  $blocks = check_access($rules, $check_info);
+  //$blocks = check_access($rules, $check_info);
+  $blocks = array();
 
   echo '</pre>';
 

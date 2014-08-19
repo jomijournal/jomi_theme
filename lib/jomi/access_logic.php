@@ -20,10 +20,14 @@ function extract_selector_meta($id) {
 	$publication_id = get_field('publication_id');
 
 	$categories = get_the_category($id);
-	$cats_out = array();
+	$cat_ids = array();
+	$cat_slugs = array();
+	$cat_names = array();
 	foreach($categories as $category) {
 		//$category = ($category == '') ? '' : $category;
-		array_push($cats_out, $category->cat_ID);
+		array_push($cat_ids, $category->cat_ID);
+		array_push($cat_slugs, $category->slug);
+		array_push($cat_names, $category->name);
 	}
 	$status = (get_post_status($id) == false) ? '' : get_post_status($id);
 	$coauthors = get_coauthors($id);
@@ -32,14 +36,16 @@ function extract_selector_meta($id) {
 		array_push($coauth_out, $coauthor->ID);
 	}
 
-	$out = array(
+	$selector_meta = array(
 		'id' => $id,
 		'pub_id' => $publication_id,
-		'category' => $cats_out,
+		'cat_ids' => $cat_ids,
+		'cat_slugs' => $cat_slugs,
+		'cat_names' => $cat_names,
 		'status' => $status,
 		'author' => $coauth_out,
 	);
-	return $out;
+	return $selector_meta;
 }
 /**
  * use the user IP to get institution meta
@@ -73,9 +79,15 @@ function collect_rules($selector_meta, $institution_meta) {
   // init conditional
   $where_conditional = "(selector_type, selector_value) IN (";
   // categories
-  $cats = $selector_meta['category'];
-  foreach($cats as $cat) {
-  	$where_conditional .= "('category', $cat),";
+  $cat_ids = $selector_meta['cat_ids'];
+  $cat_slugs = $selector_meta['cat_slugs'];
+  $cat_names = $selector_meta['cat_names'];
+  foreach($cat_ids as $index => $cat_id) {
+  	$where_conditional .= "('category', $cat_id),";
+  	$cat_slug = $cat_slugs[$index];
+  	//$where_conditional .= "('category', $cat_slug),";
+  	$cat_name = $cat_names[$index];
+  	//$where_conditional .= "('category', $cat_name),";
   }
   // article id
   $id = $selector_meta['id'];
@@ -232,6 +244,8 @@ function check_access($rules, $check_data) {
 		}
 
 		// TODO: check for invalid time results
+		
+		// SPLIT UP CHECK TYPES
 		
 		switch($rule->check_type) {
 			case 'is_ip':

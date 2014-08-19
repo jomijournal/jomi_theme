@@ -58,20 +58,20 @@ foreach($rules as $rule_index=>$rule) {
 		<td>
 			<input type="number" id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
 		</td>
-		<td id="selectors">
+		<td>
 			<?php 
-			$selector_types = explode(',', $rule->selector_type);
-			$selector_vals = explode(',', $rule->selector_value); 
-			$selectors = array();
-			foreach($selector_types as $key=>$value) {
-				array_push($selectors, array(
-					'type' => $selector_types[$key],
-					'value' => $selector_vals[$key]
-				));
-			}
-			$index = 0;
-			foreach($selectors as $selector) { $index++;?>
-		  	<select id="selector_type" data="<?php echo $selector['type']; ?>">
+			#$selector_types = explode(',', $rule->selector_type);
+			#$selector_vals = explode(',', $rule->selector_value); 
+			#$selectors = array();
+			#foreach($selector_types as $key=>$value) {
+			#	array_push($selectors, array(
+			#		'type' => $selector_types[$key],
+			#		'value' => $selector_vals[$key]
+			#	));
+			#}
+			#$index = 0;
+			#foreach($selectors as $selector) { $index++;?>
+		  	<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
   				<option val=""           >None</option>
   				<option val="category"   >Category</option>
   				<option val="article_id" >Article ID</option>
@@ -80,11 +80,11 @@ foreach($rules as $rule_index=>$rule) {
   				<option val="post_status">Post Status</option>
   				<option val="author"     >Author</option>
   			</select>
-			<input id="selector_value" placeholder="<?php echo $selector['value']; ?>" data="<?php echo $selector['value']; ?>">
-				<?php if($index > 1) { ?>
-					<a id="delete_selector" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
-				<?php } ?>
-			<?php } ?>
+			<input id="selector_value" placeholder="<?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value ?>">
+				<?php #if($index > 1) { ?>
+					<!--a id="delete_selector" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">-</a-->
+				<?php #} ?>
+			<?php #} ?>
 		</td>
 		<td id="checks">
 			<?php 
@@ -108,7 +108,7 @@ foreach($rules as $rule_index=>$rule) {
   			</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
 				<?php if($index > 1) { ?>
-					<a id="delete_check" rule-index="<?php echo $index; ?>" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
+					<a id="delete_check" href="#" rule-index="<?php echo $index; ?>" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
 				<?php } ?>
 			<?php } ?>
 		</td>
@@ -130,7 +130,7 @@ foreach($rules as $rule_index=>$rule) {
 				<a class="btn" id="access_edit_rule" rule-id="<?php echo $rule->id ?>">Edit Rule</a>
 			</div>
 			<div class="col-xs-6">
-				<a class="btn" id="access_add_selector" rule-id="<?php echo $rule->id ?>">Add Selector</a>
+				<!--a class="btn" id="access_add_selector" rule-id="<?php echo $rule->id ?>">Add Selector</a-->
 				<a class="btn" id="access_add_check" rule-id="<?php echo $rule->id ?>">Add Check</a>
 			</div>
 		</td>
@@ -207,7 +207,7 @@ function global_rulebook(){
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
 			var row = $(this).parent().parent().parent();
-			//console.log(row.find('#check_value').val());
+			console.log(row.find('input#selector_value').val());
 			// disable editing again
 			row.find('input').attr('readonly', '');
 			row.find('select').attr('disabled', '');
@@ -216,7 +216,7 @@ function global_rulebook(){
 			$(this).attr('id', 'access_edit_rule');
 			update(row, {});
 		});
-		$('#results').on('click', 'a#access_add_selector', function() {
+		/*$('#results').on('click', 'a#access_add_selector', function() {
 			var row = $(this).parent().parent().parent();
 
 			var selector_types = get_selector_types(row);
@@ -225,7 +225,7 @@ function global_rulebook(){
 				selector_type: selector_types + ',none',
 				selector_value: selector_vals + ',none'
 			});
-		});
+		});*/
 		$('#results').on('click', 'a#access_add_check', function() {
 			var row = $(this).parent().parent().parent();
 
@@ -236,7 +236,7 @@ function global_rulebook(){
 				check_value: check_vals + ',none'
 			});
 		});
-		$('#results').on('click', 'a#delete_selector', function() {
+		/*$('#results').on('click', 'a#delete_selector', function() {
 			var row = $(this).parent().parent();
 			var rule_index = $(this).attr('rule-index') - 1;
 
@@ -254,7 +254,7 @@ function global_rulebook(){
 				selector_type: selector_types,
 				selector_value: selector_vals
 			});
-		});
+		});*/
 		$('#results').on('click', 'a#delete_check', function() {
 			var row = $(this).parent().parent();
 			var rule_index = $(this).attr('rule-index') - 1;
@@ -277,26 +277,30 @@ function global_rulebook(){
 		$('#select_container select').change(refresh);
 	});
 	function update(row, params) {
+
+		//console.log(row.find('input#result_time_start').val());
 		//params = (typeof prop !== "object") ? {} : params;
-		params.action = params.action || 'update-rule';
-		params.id = params.id || row.find('input#id').attr('data');
-		params.priority = params.priority || row.find('#priority').val();
-		if(!params.selector_type) {
+		params.action = params.hasOwnProperty("action") ? params.action : 'update-rule';
+		params.id = params.hasOwnProperty("id") ? params.id : row.find('input#id').attr('data');
+		params.priority = params.hasOwnProperty("priority") ? params.priority : row.find('#priority').val();
+		/*if(!params.selector_type) {
 			params.selector_type = get_selector_types(row);
 		}
 		if(!params.selector_value) {
 			params.selector_value = get_selector_vals(row);
-		}
+		}*/
+		params.selector_type = params.hasOwnProperty("selector_type") ? params.selector_type : row.find('select#selector_type option:selected').attr('val');
+		params.selector_value = params.hasOwnProperty("selector_value") ? params.selector_value : row.find('input#selector_value').val();
 		if(!params.check_type) {
 			params.check_type = get_check_types(row);
 		}
 		if(!params.check_value) {
 			params.check_value = get_check_vals(row);
 		}
-		params.result_type = params.result_type || row.find('#result_type option:selected').attr('val');
-		params.result_time_start = params.result_time_start || row.find('#result_time_start').val();
-		params.result_time_end = params.result_time_end || row.find('#result_time_end').val();
-		params.result_time_elapsed = row.find('#result_time_elapsed').val();
+		params.result_type = params.hasOwnProperty("result_type") ? params.result_type : row.find('#result_type option:selected').attr('val');
+		params.result_time_start = params.hasOwnProperty("result_time_start") ? params.result_time_start : row.find('input#result_time_start').val();
+		params.result_time_end = params.hasOwnProperty("result_time_end") ? params.result_time_end : row.find('input#result_time_end').val();
+		params.result_time_elapsed = params.hasOwnProperty("result_time_elapsed") ? params.result_time_elapsed : row.find('input#result_time_elapsed').val();
 
 		console.log(params);
 
@@ -321,12 +325,13 @@ function global_rulebook(){
 			  // visual assertion
 			  $('#results').find('select').each(function() {
 			  	var dat = $(this).attr('data');
+			  	console.log(dat);
 				$(this).find('option[val="'+ dat +'"]').attr('selected', '');
 			  });
 			}
 		);
 	}
-	function get_selector_types(row) {
+	/*function get_selector_types(row) {
 		var selector_types = "";
 		row.find('#selector_type option:selected').each(function() {
 			if($(this).attr('val') === '')
@@ -348,7 +353,7 @@ function global_rulebook(){
 		});
 		selector_vals = selector_vals.substring(0, selector_vals.length - 1);
 		return selector_vals;
-	}
+	}*/
 	function get_check_types(row) {
 		var check_types = "";
 		row.find('#check_type option:selected').each(function() {

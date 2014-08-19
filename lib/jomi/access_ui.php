@@ -20,6 +20,25 @@ function list_rules() {
 	$query = "SELECT * FROM $access_table_name";
 
 	$rules = $wpdb->get_results($query);
+	$rules = array_reverse($rules);
+
+	// add an extra rule that will represent the 'add rule' row
+	$add_rule = (object)array(
+		'id'=>-1,
+		'result_type' => 'DEFAULT',
+		'result_time_start' => -1,
+		'result_time_end' => -1,
+		'result_time_elapsed' => -1,
+		'result_msg' => '<p>DEFAULT</p>',
+		'check_type' => '',
+		'check_value' => '',
+		'priority' => 0,
+		'selector_type' => '',
+		'selector_value' => ''
+	);
+
+	array_unshift($rules, $add_rule);
+
   ?>
 <table class="access_rules">
 	<tr>
@@ -31,7 +50,7 @@ function list_rules() {
 		<th>Actions</th>
 	</tr>
 	<?php
-foreach($rules as $rule) {
+foreach($rules as $rule_index=>$rule) {
 	?>
 	<tr>
 		<td>
@@ -105,6 +124,7 @@ foreach($rules as $rule) {
 			<input type="number" id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
 			<input type="number" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
 		</td>
+		<?php if($rule_index > 0) { ?>
 		<td class="row">
 			<div class="col-xs-6">
 				<a class="btn" id="access_delete_rule" rule-id="<?php echo $rule->id ?>">Delete Rule</a>
@@ -115,6 +135,13 @@ foreach($rules as $rule) {
 				<a class="btn" id="access_add_check" rule-id="<?php echo $rule->id ?>">Add Check</a>
 			</div>
 		</td>
+		<?php } else { ?>
+		<td class="row">
+			<div class="col-xs-12">
+				<a class="btn" id="access_add_rule" rule-id="<?php echo $rule->id ?>">Add Rule</a>
+			</div>
+		</td>
+		<?php } ?>
 	</tr>
 <?php
 }
@@ -151,8 +178,16 @@ function global_rulebook(){
   <script>
 	$(function(){
 		refresh();
-		$('#access_add_rule').on('click', function() {
-			$.post(MyAjax.ajaxurl, {
+		$('#results').on('click', 'a#access_add_rule', function() {
+
+			var row = $(this).parent().parent().parent();
+
+			update(row, {
+				action: 'insert-rule',
+				id: ''
+			});
+
+			/*$.post(MyAjax.ajaxurl, {
 				action:              'insert-rule',
 				priority:            $('#access_priority').val(),
 				selector_type:       $('#access_selector_type option:selected').attr('val'),
@@ -168,7 +203,7 @@ function global_rulebook(){
 				console.log(response);
 				$('#access_rules input, #access_rules select').val('');
 				refresh();
-			});
+			});*/
 		});
 		$('#results').on('click', 'a#access_delete_rule', function() {
 			$.post(MyAjax.ajaxurl, {

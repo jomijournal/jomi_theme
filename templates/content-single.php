@@ -25,7 +25,9 @@
   $check_info = load_check_info();
 
   $blocks = check_access($rules, $check_info);
-  $blocks = array();
+
+  // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
+  //$blocks = array();
 
   echo '</pre>';
 

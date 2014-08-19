@@ -256,12 +256,12 @@ function check_access($rules, $check_data) {
 
 					foreach($ips as $ip) {
 						if($ip_check == $ip) {
-							array_push($blocks, array(
+							/*array_push($blocks, array(
 								'msg' => $rule->result_msg,
 								'time_start' => $rule->result_time_start,
 								'time_end' => $rule->result_time_end,
 								'time_elapsed' => $rule->result_time_elapsed
-							));
+							));*/
 							//echo "ip matched\n";
 							$check_count++;
 							//continue 2;
@@ -284,12 +284,12 @@ function check_access($rules, $check_data) {
 
 					foreach($countries as $country) {
 						if($country_check['iso'] == $country or $country_check['name'] == $country) {
-							array_push($blocks, array(
+							/*array_push($blocks, array(
 								'msg' => $rule->result_msg,
 								'time_start' => $rule->result_time_start,
 								'time_end' => $rule->result_time_end,
 								'time_elapsed' => $rule->result_time_elapsed
-							));
+							));*/
 							//echo "country matched\n";
 							$check_count++;
 							//continue 2;
@@ -308,12 +308,12 @@ function check_access($rules, $check_data) {
 						   $user_check['display_name'] == $user or
 						   $user_check['id'] == $user) {
 
-							array_push($blocks, array(
+							/*array_push($blocks, array(
 								'msg' => $rule->result_msg,
 								'time_start' => $rule->result_time_start,
 								'time_end' => $rule->result_time_end,
 								'time_elapsed' => $rule->result_time_elapsed
-							));
+							));*/
 							//echo "user matched\n";
 							$check_count++;
 							//continue 2;
@@ -330,10 +330,17 @@ function check_access($rules, $check_data) {
 		//END FOREACH
 		}
 		echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
-		// enough right?
+		if($check_count == $checks) {
+			array_push($blocks, array(
+				'msg' => $rule->result_msg,
+				'time_start' => $rule->result_time_start,
+				'time_end' => $rule->result_time_end,
+				'time_elapsed' => $rule->result_time_elapsed
+			));
+		}
 	}
 	//remove dupes
-	$blocks = array_unique($blocks);
+	//$blocks = array_unique($blocks);
 
 	print_r($blocks);
 

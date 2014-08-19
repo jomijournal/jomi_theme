@@ -2,10 +2,10 @@
 	<div class='col-xs-6'>
 		<h2>Subscribing Institutions</h2>
 	</div>
-	<div class='col-xs-3'>
+	<div class='col-sm-3'>
   		<a href="/pricing" class="btn fat white">Subscription &amp; Pricing</a>
 	</div>
-	<div class='col-xs-3'>
+	<div class='col-sm-3'>
 		<div class="mc_embed_signup">
             <form style="padding-bottom:0px" action="http://jomi.us7.list-manage.com/subscribe/post?u=ff1ad1d783cea4c924eb266ca&amp;id=6faff1126d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate ng-pristine ng-valid" target="_blank" novalidate="">
                 <div class="clear">

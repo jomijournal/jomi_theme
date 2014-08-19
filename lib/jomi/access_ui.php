@@ -30,13 +30,12 @@ function list_rules() {
 		'result_time_end' => -1,
 		'result_time_elapsed' => -1,
 		'result_msg' => '<p>DEFAULT</p>',
-		'check_type' => '',
-		'check_value' => '',
+		'check_type' => 'none',
+		'check_value' => 'none',
 		'priority' => 0,
-		'selector_type' => '',
-		'selector_value' => ''
+		'selector_type' => 'none',
+		'selector_value' => 'none'
 	);
-
 	array_unshift($rules, $add_rule);
 
   ?>
@@ -109,7 +108,7 @@ foreach($rules as $rule_index=>$rule) {
   			</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
 				<?php if($index > 1) { ?>
-					<a id="delete_check" rule-index="<?php echo $index; ?>" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
+					<a id="delete_check" rule-index="<?php echo $index; ?>" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
 				<?php } ?>
 			<?php } ?>
 		</td>
@@ -179,31 +178,11 @@ function global_rulebook(){
 	$(function(){
 		refresh();
 		$('#results').on('click', 'a#access_add_rule', function() {
-
 			var row = $(this).parent().parent().parent();
-
 			update(row, {
 				action: 'insert-rule',
 				id: ''
 			});
-
-			/*$.post(MyAjax.ajaxurl, {
-				action:              'insert-rule',
-				priority:            $('#access_priority').val(),
-				selector_type:       $('#access_selector_type option:selected').attr('val'),
-				selector_value:      $('#access_selector_value').val(),
-				check_type:          $('#access_check_type option:selected').attr('val'),
-				check_value:         $('#access_check_value').val(),
-				result_type:         $('#access_result_type option:selected').attr('val'),
-				result_time_start:   $('#access_result_time_start').val(),
-				result_time_end:     $('#access_result_time_end').val(),
-				result_time_elapsed: $('#access_result_time_elapsed').val()
-			},
-			function(response) {
-				console.log(response);
-				$('#access_rules input, #access_rules select').val('');
-				refresh();
-			});*/
 		});
 		$('#results').on('click', 'a#access_delete_rule', function() {
 			$.post(MyAjax.ajaxurl, {
@@ -216,105 +195,103 @@ function global_rulebook(){
 			});
 		})
 		$('#results').on('click', 'a#access_edit_rule', function() {
-
-			var table = $(this).parent().parent().parent();
-
+			var row = $(this).parent().parent().parent();
 			// enable editing
-			table.find('input').removeAttr('readonly');
-			table.find('select').removeAttr('disabled');
-
-			table.find('input').each(function() {
+			row.find('input').removeAttr('readonly');
+			row.find('select').removeAttr('disabled');
+			row.find('input').each(function() {
 				$(this).val($(this).attr('data'));
 			});
 			$(this).text('Update Rule');
 			$(this).attr('id', 'access_update_rule');
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
-
 			var row = $(this).parent().parent().parent();
-
+			//console.log(row.find('#check_value').val());
 			// disable editing again
 			row.find('input').attr('readonly', '');
 			row.find('select').attr('disabled', '');
 			// switch to 'edit' button
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
-
 			update(row, {});
-
 		});
 		$('#results').on('click', 'a#access_add_selector', function() {
-
 			var row = $(this).parent().parent().parent();
 
-			var selector_types = "";
-			row.find('#selector_type option:selected').each(function() {
-				selector_types += ($(this).attr('val') + ',');
-			});
-			var selector_vals = "";
-			row.find('#selector_value').each(function() {
-				selector_vals += ($(this).val() + ',');
-			});
-
+			var selector_types = get_selector_types(row);
+			var selector_vals = get_selector_vals(row);
 			update(row, {
-				selector_type: selector_types + 'none',
-				selector_value: selector_vals + 'none'
+				selector_type: selector_types + ',none',
+				selector_value: selector_vals + ',none'
 			});
 		});
 		$('#results').on('click', 'a#access_add_check', function() {
-
 			var row = $(this).parent().parent().parent();
 
-			var check_types = "";
-			row.find('#check_type option:selected').each(function() {
-				check_types += ($(this).attr('val') + ',');
+			var check_types = get_check_types(row);
+			var check_vals = get_check_vals(row);
+			update(row, {
+				check_type: check_types + ',none',
+				check_value: check_vals + ',none'
 			});
-			var check_vals = "";
-			row.find('#check_value').each(function() {
-				check_vals += ($(this).val() + ',');
-			});
+		});
+		$('#results').on('click', 'a#delete_selector', function() {
+			var row = $(this).parent().parent();
+			var rule_index = $(this).attr('rule-index') - 1;
+
+			var selector_types = get_selector_types(row);
+			selector_types = selector_types.split(',');
+			selector_types.splice(rule_index, 1);
+			selector_types = selector_types.join(',');
+
+			var selector_vals = get_selector_vals(row);
+			selector_vals = selector_vals.split(',');
+			selector_vals.splice(rule_index, 1);
+			selector_vals = selector_vals.join(',');
 
 			update(row, {
-				check_type: check_types + 'none',
-				check_value: check_vals + 'none'
+				selector_type: selector_types,
+				selector_value: selector_vals
+			});
+		});
+		$('#results').on('click', 'a#delete_check', function() {
+			var row = $(this).parent().parent();
+			var rule_index = $(this).attr('rule-index') - 1;
+
+			var check_types = get_check_types(row);
+			check_types = check_types.split(',');
+			check_types.splice(rule_index, 1);
+			check_types = check_types.join(',');
+
+			var check_vals = get_check_vals(row);
+			check_vals = check_vals.split(',');
+			check_vals.splice(rule_index, 1);
+			check_vals = check_vals.join(',');
+
+			update(row, {
+				check_type: check_types,
+				check_value: check_vals
 			});
 		});
 		$('#select_container select').change(refresh);
 	});
 	function update(row, params) {
-
 		//params = (typeof prop !== "object") ? {} : params;
 		params.action = params.action || 'update-rule';
 		params.id = params.id || row.find('input#id').attr('data');
 		params.priority = params.priority || row.find('#priority').val();
 		if(!params.selector_type) {
-			console.log('update');
-			var selector_types = "";
-			row.find('#selector_type option:selected').each(function() {
-				selector_types += ($(this).attr('val') + ',');
-			});
-			params.selector_type = selector_types.substring(0, selector_types.length - 1);
+			params.selector_type = get_selector_types(row);
 		}
 		if(!params.selector_value) {
-			var selector_vals = "";
-			row.find('#selector_value').each(function() {
-				selector_vals += ($(this).val() + ',');
-			});
-			params.selector_value = selector_vals.substring(0, selector_vals.length - 1);
+			params.selector_value = get_selector_vals(row);
 		}
 		if(!params.check_type) {
-			var check_types = "";
-			row.find('#check_type option:selected').each(function() {
-				check_types += ($(this).attr('val') + ',');
-			});
-			params.check_type = check_types.substring(0, check_types.length - 1);
+			params.check_type = get_check_types(row);
 		}
 		if(!params.check_value) {
-			var check_vals = "";
-			row.find('#check_value').each(function() {
-				check_vals += ($(this).val() + ',');
-			});
-			params.check_value = check_vals.substring(0, check_vals.length - 1);
+			params.check_value = get_check_vals(row);
 		}
 		params.result_type = params.result_type || row.find('#result_type option:selected').attr('val');
 		params.result_time_start = params.result_time_start || row.find('#result_time_start').val();
@@ -348,6 +325,54 @@ function global_rulebook(){
 			  });
 			}
 		);
+	}
+	function get_selector_types(row) {
+		var selector_types = "";
+		row.find('#selector_type option:selected').each(function() {
+			if($(this).attr('val') === '')
+				selector_types += 'none,';
+			else
+				selector_types += ($(this).attr('val') + ',');
+		});
+		selector_types = selector_types.substring(0, selector_types.length - 1);
+		return selector_types;
+	}
+	function get_selector_vals(row) {
+		var selector_vals = "";
+		row.find('input#selector_value').each(function() {
+			if($(this).val() === '')
+				selector_vals += 'none,';
+			else {
+				selector_vals += ($(this).val() + ',');
+			}
+		});
+		selector_vals = selector_vals.substring(0, selector_vals.length - 1);
+		return selector_vals;
+	}
+	function get_check_types(row) {
+		var check_types = "";
+		row.find('#check_type option:selected').each(function() {
+			if($(this).attr('val') === '')
+				check_types += 'none,';
+			else
+				check_types += ($(this).attr('val') + ',');
+		});
+		check_types = check_types.substring(0, check_types.length - 1);
+		return check_types;
+	}
+	function get_check_vals(row) {
+		var check_vals = "";
+		row.find('input#check_value').each(function() {
+			if($(this).val() === '')
+				check_vals += 'none,';
+			else
+				check_vals += ($(this).val() + ',');
+		});
+		check_vals = check_vals.substring(0, check_vals.length - 1);
+		return check_vals;
+	}
+	function isBlank(str) {
+	    return (!str || /^\s*$/.test(str));
 	}
   </script>
   <?php

@@ -88,6 +88,8 @@ foreach($rules as $rule_index=>$rule) {
 		</td>
 		<td id="checks">
 			<?php 
+			//echo '<pre>';
+			//echo $rule->check_type;
 			$check_types = explode(',', $rule->check_type);
 			$check_vals = explode(',', $rule->check_value); 
 			$checks = array();
@@ -97,6 +99,9 @@ foreach($rules as $rule_index=>$rule) {
 					'value' => $check_vals[$key]
 				));
 			}
+			
+			//print_r($checks);
+			//echo '</pre>';
 			$index = 0;
 			foreach($checks as $check) { $index++;?>
 		  	<select id="check_type" data="<?php echo $check['type']; ?>">
@@ -199,6 +204,9 @@ function global_rulebook(){
 			// enable editing
 			row.find('input').removeAttr('readonly');
 			row.find('select').removeAttr('disabled');
+			row.find('#access_add_check').show();
+			row.find('#delete_check').show();
+
 			row.find('input').each(function() {
 				$(this).val($(this).attr('data'));
 			});
@@ -207,10 +215,12 @@ function global_rulebook(){
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
 			var row = $(this).parent().parent().parent();
-			console.log(row.find('input#selector_value').val());
+			//console.log(row.find('input#selector_value').val());
 			// disable editing again
 			row.find('input').attr('readonly', '');
 			row.find('select').attr('disabled', '');
+			row.find('#access_add_check').hide();
+			row.find('#delete_check').hide();
 			// switch to 'edit' button
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
@@ -279,7 +289,7 @@ function global_rulebook(){
 	function update(row, params) {
 
 		//console.log(row.find('input#result_time_start').val());
-		//params = (typeof prop !== "object") ? {} : params;
+		params = (typeof params !== "object") ? {} : params;
 		params.action = params.hasOwnProperty("action") ? params.action : 'update-rule';
 		params.id = params.hasOwnProperty("id") ? params.id : row.find('input#id').attr('data');
 		params.priority = params.hasOwnProperty("priority") ? params.priority : row.find('#priority').val();
@@ -291,12 +301,10 @@ function global_rulebook(){
 		}*/
 		params.selector_type = params.hasOwnProperty("selector_type") ? params.selector_type : row.find('select#selector_type option:selected').attr('val');
 		params.selector_value = params.hasOwnProperty("selector_value") ? params.selector_value : row.find('input#selector_value').val();
-		if(!params.check_type) {
+		if(!params.hasOwnProperty("check_type")) 
 			params.check_type = get_check_types(row);
-		}
-		if(!params.check_value) {
+		if(!params.hasOwnProperty("check_value")) 
 			params.check_value = get_check_vals(row);
-		}
 		params.result_type = params.hasOwnProperty("result_type") ? params.result_type : row.find('#result_type option:selected').attr('val');
 		params.result_time_start = params.hasOwnProperty("result_time_start") ? params.result_time_start : row.find('input#result_time_start').val();
 		params.result_time_end = params.hasOwnProperty("result_time_end") ? params.result_time_end : row.find('input#result_time_end').val();
@@ -321,11 +329,14 @@ function global_rulebook(){
 			  // disable editing
 			  $('#results').find('input').attr('readonly', '');
 			  $('#results').find('select').attr('disabled', '');
+			  $('#results').find('#access_add_check').hide();
+			  $('#results').find('#delete_check').hide();
+
 
 			  // visual assertion
 			  $('#results').find('select').each(function() {
 			  	var dat = $(this).attr('data');
-			  	console.log(dat);
+			  	//console.log(dat);
 				$(this).find('option[val="'+ dat +'"]').attr('selected', '');
 			  });
 			}
@@ -357,8 +368,9 @@ function global_rulebook(){
 	function get_check_types(row) {
 		var check_types = "";
 		row.find('#check_type option:selected').each(function() {
-			if($(this).attr('val') === '')
+			if(isBlank($(this).attr('val'))) {
 				check_types += 'none,';
+			}
 			else
 				check_types += ($(this).attr('val') + ',');
 		});
@@ -368,8 +380,9 @@ function global_rulebook(){
 	function get_check_vals(row) {
 		var check_vals = "";
 		row.find('input#check_value').each(function() {
-			if($(this).val() === '')
+			if(isBlank($(this).val())) {
 				check_vals += 'none,';
+			}
 			else
 				check_vals += ($(this).val() + ',');
 		});

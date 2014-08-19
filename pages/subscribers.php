@@ -8,19 +8,12 @@ Template Name: Subscribers
 	<div class='col-xs-6'>
 		<h2>Subscribing Institutions</h2>
 	</div>
-	<div class='col-xs-3'>
+	<div class='col-sm-3'>
   		<a href="/pricing" class="btn fat white">Subscription &amp; Pricing</a>
 	</div>
-	<div class='col-xs-3'>
-		<div class="mc_embed_signup">
-            <form style="padding-bottom:0px" action="http://jomi.us7.list-manage.com/subscribe/post?u=ff1ad1d783cea4c924eb266ca&amp;id=6faff1126d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate ng-pristine ng-valid" target="_blank" novalidate="">
-            	<!--input type="email" name="EMAIL" class="hidden" value=""-->
-                <div class="clear">
-                    <input type="submit" value="Newsletter" name="subscribe" id="mc-embedded-subscribe" class="btn fat white">
-                </div>
-            </form>
-	    </div>
-	</div>
+	<div class='col-sm-3'>
+		<a href="http://eepurl.com/GL-7L" class="btn fat white news">Newsletter</a>
+   </div>
 </div>
 <hr>
 <p>JoMI's goal is to contribute to improvement in quality of care and medical education through publishing
@@ -147,6 +140,12 @@ excellence in medical instruction.</p>
 			<div class="org col-md-2">
 				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/conneticut.png"></div>
 				<div class="link">Western Connecticut Health Network</div>
+			</div>
+		</a>
+		<a href = "http://medlib.fiu.edu/">
+			<div class="org col-md-2">
+				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/fiu.png"></div>
+				<div class="link">Florida International University: Herbert Wertheim College of Medicine Library</div>
 			</div>
 		</a>
 	</div>

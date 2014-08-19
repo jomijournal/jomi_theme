@@ -1,3 +1,15 @@
+<?php require_once('wistiaapi.php');
+$w = new WistiaApi('181632d7604b54b358a5db48a85cec7d7665be6f');
+$ID = get_field('wistia_id');
+//echo $w->mediaShow($ID); 
+//echo '<pre>';
+//print_r($w);
+//print_r($w->mediaShow($ID));
+//echo $ID;
+//print_r($w->projectList());
+//echo '</pre>';
+?>
+
 <div class="article-thumbnail">
 	<?php
 		if ( in_array(get_post_status(), array('preprint', 'in_production', 'coming_soon') ) ) {
@@ -34,6 +46,7 @@
 		<?php } ?>
 			<div class='article-overlay'>
 				<h3 class="entry-title"><a href="<?php echo $link; ?>"><?php the_title(); ?></a></h3>
+				<h3 class="video-duration"><?php $w->mediaShow($ID)->duration; ?></h3>
 				<p class="byline vcard">
 				<?php
 					if ( function_exists( 'coauthors_posts_links' ) ) {

@@ -42,6 +42,9 @@ function process_access_post_data() {
 			case 'sign_up':
 				$result_msg = "<strong>SIGN UP</strong>";
 				break;
+			case 'checkpoint':
+				$result_msg = "CHECKPOINT";
+				break;
 			case 'none':
 			case '':
 			case $default['result_type']:

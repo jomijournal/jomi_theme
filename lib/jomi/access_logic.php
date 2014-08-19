@@ -242,87 +242,95 @@ function check_access($rules, $check_data) {
 		// TODO: check for invalid time results
 		
 		// SPLIT UP CHECK TYPES
-		
-		switch($rule->check_type) {
-			case 'is_ip':
+		$check_types = explode(',', $rule->check_type);
+		$check_values = explode(',', $rule->check_value);
 
-				$ip_check = $check_data['ip'];
+		$checks = count($check_types);
+		$check_count = 0;
 
-				$ips = explode(',', $rule->check_value);
-				foreach($ips as $ip) {
-					if($ip_check == $ip) {
-						
-						array_push($blocks, array(
-							'msg' => $rule->result_msg,
-							'time_start' => $rule->result_time_start,
-							'time_end' => $rule->result_time_end,
-							'time_elapsed' => $rule->result_time_elapsed
-						));
+		foreach($check_types as $index => $check_type) {
+			switch($check_type) {
+				case 'is_ip':
+					$ip_check = $check_data['ip'];
+					$ips = explode(',', $check_values[$index]);
 
-						//echo "ip matched";
-						//return;
+					foreach($ips as $ip) {
+						if($ip_check == $ip) {
+							array_push($blocks, array(
+								'msg' => $rule->result_msg,
+								'time_start' => $rule->result_time_start,
+								'time_end' => $rule->result_time_end,
+								'time_elapsed' => $rule->result_time_elapsed
+							));
+							//echo "ip matched\n";
+							$check_count++;
+							//continue 2;
+						}
 					}
-				}
+					break;
 
-				break;
-			case 'is_institution':
+				case 'is_institution':
+					$institution_check = $check_data['institution'];
+					$institutions = explode(',', $check_values[$index]);
 
-				$institution_check = $check_data['institution'];
-
-				$institutions = explode(',', $rule->check_value);
-				foreach($institutions as $institution) {
-					// TODO institution check
-				}
-
-				break;
-			case 'is_country':
-
-				$country_check = $check_data['country'];
-
-				// split up the CSV
-				$countries = explode(",", $rule->check_value);
-				foreach($countries as $country) {
-					if($country_check['iso'] == $country or $country_check['name'] == $country) {
-
-						array_push($blocks, array(
-							'msg' => $rule->result_msg,
-							'time_start' => $rule->result_time_start,
-							'time_end' => $rule->result_time_end,
-							'time_elapsed' => $rule->result_time_elapsed
-						));
-
-						//echo "country matched";
-						//return;
+					foreach($institutions as $institution) {
+						// TODO institution check
 					}
-				}
-				break;
-			case 'is_user':
+					break;
 
-				$user_check = $check_data['user'];
+				case 'is_country':
+					$country_check = $check_data['country'];
+					$countries = explode(",", $check_values[$index]);
 
-				$users = explode(",", $rule->check_value);
-				foreach($users as $user) {
-					if($user_check['login'] == $user or
-					   $user_check['email'] == $user or
-					   $user_check['display_name'] == $user or
-					   $user_check['id'] == $user) {
-
-						array_push($blocks, array(
-							'msg' => $rule->result_msg,
-							'time_start' => $rule->result_time_start,
-							'time_end' => $rule->result_time_end,
-							'time_elapsed' => $rule->result_time_elapsed
-						));
-						//TODO: place block
-						//echo "user matched";
-						//return;
+					foreach($countries as $country) {
+						if($country_check['iso'] == $country or $country_check['name'] == $country) {
+							array_push($blocks, array(
+								'msg' => $rule->result_msg,
+								'time_start' => $rule->result_time_start,
+								'time_end' => $rule->result_time_end,
+								'time_elapsed' => $rule->result_time_elapsed
+							));
+							//echo "country matched\n";
+							$check_count++;
+							//continue 2;
+						}
 					}
-				}
-				break;
-			default:
-				echo "invalid check type";
-				break;
+					break;
+
+				case 'is_user':
+
+					$user_check = $check_data['user'];
+
+					$users = explode(",", $check_values[$index]);
+					foreach($users as $user) {
+						if($user_check['login'] == $user or
+						   $user_check['email'] == $user or
+						   $user_check['display_name'] == $user or
+						   $user_check['id'] == $user) {
+
+							array_push($blocks, array(
+								'msg' => $rule->result_msg,
+								'time_start' => $rule->result_time_start,
+								'time_end' => $rule->result_time_end,
+								'time_elapsed' => $rule->result_time_elapsed
+							));
+							//echo "user matched\n";
+							$check_count++;
+							//continue 2;
+							//return;
+						}
+					}
+					break;
+				default:
+					echo "invalid check type";
+					break;
+
+			//END SWITCH
+			}
+		//END FOREACH
 		}
+		echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
+		// enough right?
 	}
 	//remove dupes
 	$blocks = array_unique($blocks);

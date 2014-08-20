@@ -31,11 +31,12 @@ Base is the entry point for most pages.
 
   <div class="container">
     <div class="video-area row">
+      <div id="access_block" class="access-block"></div>
       <div id="chapters" class="col-sm-4">
         <ul></ul>
       </div>
       <div class="video-holder col-sm-8" id="video">
-        <div id="wistia" class="wistia_embed" style="width:720px;height:405px;display:none;">&nbsp;</div>
+        <div id="wistia" class="wistia_embed">&nbsp;</div>
         <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
       </div>
     </div>

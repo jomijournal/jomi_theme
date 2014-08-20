@@ -321,7 +321,7 @@ function get_blocks($rules, $user_info) {
 			}
 		//END FOREACH
 		}
-		echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
+		//echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
 		if($check_count == $checks) {
 			array_push($blocks, array(
 				'msg' => $rule->result_msg,
@@ -365,8 +365,10 @@ function check_access() {
   global $access_table_name;
   global $access_blocks;
 
+  $debug = false;
+
   $selector_meta = extract_selector_meta(get_the_ID());
-  echo '<pre>';
+  if($debug) echo '<pre>';
   //print_r($selector_meta);
   //echo $selector_meta['status'];
   $institution_meta = extract_institution_meta();
@@ -379,18 +381,18 @@ function check_access() {
   //print_r($all_rules);
 
   $rules = collect_rules($selector_meta, $institution_meta);
-  print_r($rules);
+  if($debug) print_r($rules);
 
   $user_info = load_user_info();
 
   $access_blocks = array();
   $access_blocks = get_blocks($rules, $user_info);
-  print_r($access_blocks);
+  if($debug) print_r($access_blocks);
 
   // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
   //$blocks = array();
 
-  echo '</pre>';
+  if($debug) echo '</pre>';
 
   //return $blocks;
 }

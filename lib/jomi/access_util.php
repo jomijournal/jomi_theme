@@ -40,7 +40,7 @@ function process_access_post_data() {
 				$result_msg = "<strong>DENIED</strong>";
 				break;
 			case 'sign_up':
-				$result_msg = "<strong>SIGN UP</strong>";
+				$result_msg = "sign up bitches";
 				break;
 			case 'checkpoint':
 				$result_msg = "CHECKPOINT";

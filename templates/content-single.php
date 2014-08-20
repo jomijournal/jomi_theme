@@ -49,6 +49,7 @@
           
           elapsed++;
 
+          // GENERATED JAVASCRIPT
           <?php if(is_array($access_blocks)) { foreach($access_blocks as $block) { ?>
 
             <?php if($block['time_elapsed'] > 0) {?>
@@ -70,6 +71,7 @@
             <?php } ?>
 
           <?php } }?>
+          // END GENERATED JAVASCRIPT
           // chapter control
           $('.vtime-item').removeClass('done').removeClass('current');
           $('.vtime-item').each(function(index){

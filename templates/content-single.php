@@ -103,9 +103,12 @@
         });
 
         function block(msg) {
-         $('.wistia_embed')
-          .empty()
-          .html(msg);
+         //$('.wistia_embed')
+         // .empty()
+         // .html(msg);
+         $('.access-block').show();
+         $('.access-block').find('#content').empty().html(msg);
+         wistiaEmbed.pause();
         }
 
       });

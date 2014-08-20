@@ -365,7 +365,7 @@ function check_access() {
   global $access_table_name;
   global $access_blocks;
 
-  $debug = false;
+  $debug = true;
 
   $selector_meta = extract_selector_meta(get_the_ID());
   if($debug) echo '<pre>';

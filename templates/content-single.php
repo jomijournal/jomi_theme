@@ -5,7 +5,7 @@
    */
   global $access_blocks;
   check_access();
-
+  //block_deny();
   ?>
   <article <?php post_class(); ?>>
     <?php $wistia = get_field('wistia_id'); ?>
@@ -103,12 +103,21 @@
         });
 
         function block(msg) {
-         //$('.wistia_embed')
-         // .empty()
-         // .html(msg);
+          var function_name = msg;
+
          $('.access-block').show();
-         $('.access-block').find('#content').empty().html(msg);
          wistiaEmbed.pause();
+
+         console.log(function_name);
+
+         $.post(MyAjax.ajaxurl, {
+          action: function_name,
+          id: <?php echo get_the_ID(); ?>
+         }, 
+         function(response) {
+          console.log(response);
+          $('.access-block').find('#content').empty().html(response);
+         });
         }
 
       });

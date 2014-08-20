@@ -37,13 +37,13 @@ function process_access_post_data() {
 		switch ($result_type) {
 			case 'DENY':
 			case 'deny':
-				$result_msg = "<strong>DENIED</strong>";
+				$result_msg = 'block-deny';
 				break;
 			case 'sign_up':
-				$result_msg = "sign up bitches";
+				$result_msg = "block-deny";
 				break;
 			case 'checkpoint':
-				$result_msg = "CHECKPOINT";
+				$result_msg = "block-deny";
 				break;
 			case 'none':
 			case '':

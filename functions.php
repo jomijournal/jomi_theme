@@ -131,6 +131,7 @@ $jomi_includes = array(
   '/lib/jomi/access_db.php', // access db management
   '/lib/jomi/access_util.php', // access helper functions
   '/lib/jomi/access_ui.php', // access ui + javascript
+  '/lib/jomi/access_blocks.php', // access block templates
   '/lib/jomi/article_count.php',  // count # of articles published/preprinted
   '/lib/jomi/db_switch.php', // db switch utility on dashboard
   '/lib/jomi/institution_import.php', // import institutions from CRM (WIP)

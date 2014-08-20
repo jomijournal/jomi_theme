@@ -205,8 +205,8 @@ function global_rulebook(){
 			// enable editing
 			row.find('input').removeAttr('readonly');
 			row.find('select').removeAttr('disabled');
-			row.find('#access_add_check').show();
-			row.find('#delete_check').show();
+			  row.find('#access_add_check').each(function() {	$(this).show(); });
+			  row.find('#delete_check').each(function() { $(this).show(); });
 
 			row.find('input').each(function() {
 				$(this).val($(this).attr('data'));
@@ -220,8 +220,8 @@ function global_rulebook(){
 			// disable editing again
 			row.find('input').attr('readonly', '');
 			row.find('select').attr('disabled', '');
-			row.find('#access_add_check').hide();
-			row.find('#delete_check').hide();
+			  row.find('#access_add_check').each(function() {	$(this).hide(); });
+			  row.find('#delete_check').each(function() { $(this).hide(); });
 			// switch to 'edit' button
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
@@ -330,8 +330,8 @@ function global_rulebook(){
 			  // disable editing
 			  $('#results').find('input').attr('readonly', '');
 			  $('#results').find('select').attr('disabled', '');
-			  $('#results').find('#access_add_check').hide();
-			  $('#results').find('#delete_check').hide();
+			  $('#results').find('a#access_add_check').each(function() {	$(this).hide(); });
+			  $('#results').find('a#delete_check').each(function() { $(this).hide(); });
 
 
 			  // visual assertion

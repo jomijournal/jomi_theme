@@ -333,6 +333,23 @@ function get_blocks($rules, $user_info) {
 	}
 	//remove dupes
 	//$blocks = array_unique($blocks);
+	$no_more_duplicates = false;
+	while(!$no_more_duplicates) {
+		foreach($blocks as $block) {
+			foreach($blocks as $index_check => $block_check) {
+				// dont check yerself
+				if($block_check == $block) continue;
+				if($block_check['time_start'] == $block['time_start'] &&
+				   $block_check['time_end'] == $block['time_end'] &&
+				   $block_check['time_elapsed'] == $block['time_elapsed']) {
+
+					array_splice($blocks, $index_check, 1);
+					break 2;
+				}
+			}
+		}
+		$no_more_duplicates = true;
+	}
 
 	//print_r($blocks);
 

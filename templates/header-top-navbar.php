@@ -179,7 +179,7 @@ global $user;
 			}
 		});
 
-		$('.jsgate').hide();}
+		$('.jsgate').hide();
 	});
 
 </script>

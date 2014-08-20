@@ -4,7 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "8b5db105ab17f1599e46f7a1c051abdd",
+=======
+    "hash": "44ec056cd5e34fd2896f90992e2854fa",
+>>>>>>> master
     "packages": [
         {
             "name": "geoip/geoip",
@@ -431,11 +435,21 @@
             "time": "2014-08-07 04:15:15"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": [
+
+    ],
     "prefer-stable": false,
-    "platform": [],
-    "platform-dev": []
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }

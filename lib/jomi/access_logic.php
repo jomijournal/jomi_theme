@@ -122,7 +122,7 @@ function collect_rules($selector_meta, $institution_meta) {
   return $rules;
 }
 
-function load_check_info() {
+function load_user_info() {
 	global $reader;
 	
 	$current_user = wp_get_current_user();
@@ -194,7 +194,7 @@ function load_check_info() {
 	print($record->mostSpecificSubdivision->isoCode . "\n"); // 'MN'
 	print($record->city->name . "\n"); // 'Minneapolis'*/
 
-	$check_data = array(
+	$user_info = array(
 		'logged_in' => $logged_in,
 		'user' => $user,
 		'institution' => $institution,
@@ -203,7 +203,7 @@ function load_check_info() {
 		'region' => $region,
 		'city' => $city
 	);
-	return $check_data;
+	return $user_info;
 }
 
 
@@ -213,7 +213,7 @@ function load_check_info() {
  * @param  [type] $check_data array of user/session data to check against
  * @return [array] $blocks a list of block objects to apply
  */
-function check_access($rules, $check_data) {
+function get_blocks($rules, $user_info) {
 
 	if(empty($rules)) {
 		//echo "empty rules";
@@ -334,9 +334,46 @@ function check_access($rules, $check_data) {
 	//remove dupes
 	//$blocks = array_unique($blocks);
 
-	print_r($blocks);
+	//print_r($blocks);
 
 	return $blocks;
 }
+
+/**
+ * super function that calls everything
+ * @return [type] [description]
+ */
+function check_access() {
+  global $wpdb;
+  global $access_table_name;
+  global $access_blocks;
+
+  $selector_meta = extract_selector_meta(get_the_ID());
+  echo '<pre>';
+  //print_r($selector_meta);
+  //echo $selector_meta['status'];
+  $institution_meta = extract_institution_meta();
+  //print_r($institution_meta);
+  //$institution_id = $institution_meta['id'];
+
+  $all_rules_query = "SELECT * 
+                      FROM $access_table_name";
+  $all_rules = $wpdb->get_results($all_rules_query);
+  //print_r($all_rules);
+
+  $rules = collect_rules($selector_meta, $institution_meta);
+
+  $user_info = load_user_info();
+
+  $access_blocks = get_blocks($rules, $user_info);
+
+  // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
+  //$blocks = array();
+
+  echo '</pre>';
+
+  //return $blocks;
+}
+
 
 ?>

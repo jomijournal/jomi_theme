@@ -3,33 +3,8 @@
   /**
    * ARTICLE ACCESS CHECK HERE
    */
-  
-  global $wpdb;
-  global $access_table_name;
-
-  $selector_meta = extract_selector_meta(get_the_ID());
-  echo '<pre>';
-  //print_r($selector_meta);
-  //echo $selector_meta['status'];
-  $institution_meta = extract_institution_meta();
-  //print_r($institution_meta);
-  //$institution_id = $institution_meta['id'];
-
-  $all_rules_query = "SELECT * 
-                      FROM $access_table_name";
-  $all_rules = $wpdb->get_results($all_rules_query);
-  //print_r($all_rules);
-
-  $rules = collect_rules($selector_meta, $institution_meta);
-
-  $check_info = load_check_info();
-
-  $blocks = check_access($rules, $check_info);
-
-  // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
-  //$blocks = array();
-
-  echo '</pre>';
+  global $access_blocks;
+  check_access();
 
   ?>
   <article <?php post_class(); ?>>
@@ -74,7 +49,7 @@
           
           elapsed++;
 
-          <?php foreach($blocks as $block) { ?>
+          <?php if(is_array($access_blocks)) { foreach($access_blocks as $block) { ?>
 
             <?php if($block['time_elapsed'] > 0) {?>
               if(elapsed == <?php echo $block['time_elapsed']; ?>) {
@@ -94,7 +69,7 @@
               block("<?php echo $block['msg']; ?>");
             <?php } ?>
 
-          <?php } ?>
+          <?php } }?>
           // chapter control
           $('.vtime-item').removeClass('done').removeClass('current');
           $('.vtime-item').each(function(index){

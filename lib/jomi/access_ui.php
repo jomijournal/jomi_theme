@@ -105,11 +105,12 @@ foreach($rules as $rule_index=>$rule) {
 			$index = 0;
 			foreach($checks as $check) { $index++;?>
 		  	<select id="check_type" data="<?php echo $check['type']; ?>">
-  				<option val=""              >None</option>
-  				<option val="is_ip"         >Is IP(s)</option>
-  				<option val="is_institution">Is Institution(s)</option>
+  				<option val=""               >None</option>
+  				<option val="is_ip"          >Is IP(s)</option>
+  				<option val="is_institution" >Is Institution(s)</option>
   				<option val="is_country"     >Is Country(s)</option>
-  				<option val="is_user"       >Is User(s)</option>
+  				<option val="is_user"        >Is User(s)</option>
+  				<option val="is_logged_in"   >Is Logged In (T/F)</option>
   			</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
 				<?php if($index > 1) { ?>

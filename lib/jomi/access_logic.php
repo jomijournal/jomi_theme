@@ -194,7 +194,7 @@ function load_check_info() {
 	print($record->mostSpecificSubdivision->isoCode . "\n"); // 'MN'
 	print($record->city->name . "\n"); // 'Minneapolis'*/
 
-	$out = array(
+	$check_data = array(
 		'logged_in' => $logged_in,
 		'user' => $user,
 		'institution' => $institution,
@@ -203,7 +203,7 @@ function load_check_info() {
 		'region' => $region,
 		'city' => $city
 	);
-	return $out;
+	return $check_data;
 }
 
 
@@ -256,12 +256,6 @@ function check_access($rules, $check_data) {
 
 					foreach($ips as $ip) {
 						if($ip_check == $ip) {
-							/*array_push($blocks, array(
-								'msg' => $rule->result_msg,
-								'time_start' => $rule->result_time_start,
-								'time_end' => $rule->result_time_end,
-								'time_elapsed' => $rule->result_time_elapsed
-							));*/
 							//echo "ip matched\n";
 							$check_count++;
 							//continue 2;
@@ -284,12 +278,6 @@ function check_access($rules, $check_data) {
 
 					foreach($countries as $country) {
 						if($country_check['iso'] == $country or $country_check['name'] == $country) {
-							/*array_push($blocks, array(
-								'msg' => $rule->result_msg,
-								'time_start' => $rule->result_time_start,
-								'time_end' => $rule->result_time_end,
-								'time_elapsed' => $rule->result_time_elapsed
-							));*/
 							//echo "country matched\n";
 							$check_count++;
 							//continue 2;
@@ -307,19 +295,21 @@ function check_access($rules, $check_data) {
 						   $user_check['email'] == $user or
 						   $user_check['display_name'] == $user or
 						   $user_check['id'] == $user) {
-
-							/*array_push($blocks, array(
-								'msg' => $rule->result_msg,
-								'time_start' => $rule->result_time_start,
-								'time_end' => $rule->result_time_end,
-								'time_elapsed' => $rule->result_time_elapsed
-							));*/
 							//echo "user matched\n";
 							$check_count++;
 							//continue 2;
 							//return;
 						}
 					}
+					break;
+				case 'is_logged_in':
+
+					$logged_in_check = $check_data['logged_in'];
+					$logged_ins = explode(',', $check_values[$index]);
+					foreach($logged_ins as $logged_in) {
+						
+					}
+
 					break;
 				default:
 					echo "invalid check type";

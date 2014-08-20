@@ -118,7 +118,6 @@ function collect_rules($selector_meta, $institution_meta) {
 
   //check_db_errors();
 
-  print_r($rules);
   return $rules;
 }
 
@@ -210,7 +209,7 @@ function load_user_info() {
 /**
  * use rules to check access to article
  * @param  [type] $rules [description]
- * @param  [type] $check_data array of user/session data to check against
+ * @param  [type] $user_info array of user/session data to check against
  * @return [array] $blocks a list of block objects to apply
  */
 function get_blocks($rules, $user_info) {
@@ -219,7 +218,7 @@ function get_blocks($rules, $user_info) {
 		//echo "empty rules";
 		return;
 	}
-	if(empty($check_data)) {
+	if(empty($user_info)) {
 		//echo "no check data";
 		return;
 	}
@@ -251,7 +250,7 @@ function get_blocks($rules, $user_info) {
 		foreach($check_types as $index => $check_type) {
 			switch($check_type) {
 				case 'is_ip':
-					$ip_check = $check_data['ip'];
+					$ip_check = $user_info['ip'];
 					$ips = explode(',', $check_values[$index]);
 
 					foreach($ips as $ip) {
@@ -264,7 +263,7 @@ function get_blocks($rules, $user_info) {
 					break;
 
 				case 'is_institution':
-					$institution_check = $check_data['institution'];
+					$institution_check = $user_info['institution'];
 					$institutions = explode(',', $check_values[$index]);
 
 					foreach($institutions as $institution) {
@@ -273,7 +272,7 @@ function get_blocks($rules, $user_info) {
 					break;
 
 				case 'is_country':
-					$country_check = $check_data['country'];
+					$country_check = $user_info['country'];
 					$countries = explode(",", $check_values[$index]);
 
 					foreach($countries as $country) {
@@ -287,7 +286,7 @@ function get_blocks($rules, $user_info) {
 
 				case 'is_user':
 
-					$user_check = $check_data['user'];
+					$user_check = $user_info['user'];
 
 					$users = explode(",", $check_values[$index]);
 					foreach($users as $user) {
@@ -304,10 +303,11 @@ function get_blocks($rules, $user_info) {
 					break;
 				case 'is_logged_in':
 
-					$logged_in_check = $check_data['logged_in'];
+					$logged_in_check = $user_info['logged_in'];
 					$logged_ins = explode(',', $check_values[$index]);
 					foreach($logged_ins as $logged_in) {
 						if(($logged_in == 'T' && $logged_in_check) || ($logged_in == 'F' && !$logged_in_check)) {
+							//echo "loggedin matched!\n";
 							$check_count++;
 						}
 					}
@@ -362,10 +362,13 @@ function check_access() {
   //print_r($all_rules);
 
   $rules = collect_rules($selector_meta, $institution_meta);
+  print_r($rules);
 
   $user_info = load_user_info();
 
+  $access_blocks = array();
   $access_blocks = get_blocks($rules, $user_info);
+  print_r($access_blocks);
 
   // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
   //$blocks = array();

@@ -307,7 +307,9 @@ function check_access($rules, $check_data) {
 					$logged_in_check = $check_data['logged_in'];
 					$logged_ins = explode(',', $check_values[$index]);
 					foreach($logged_ins as $logged_in) {
-						
+						if(($logged_in == 'T' && $logged_in_check) || ($logged_in == 'F' && !$logged_in_check)) {
+							$check_count++;
+						}
 					}
 
 					break;

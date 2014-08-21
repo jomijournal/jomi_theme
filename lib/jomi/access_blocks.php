@@ -16,7 +16,7 @@ function block_deny() {
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
 		<p style="text-align:center;">Please sign in or register to continue:</p>
 	</div>
-	<div class="row" style="text-align:center;">
+	<div class="row">
 		<div class="col-xs-6" style="border-right: 3px dashed #fff; padding: 0 30px;">
 			<h3>Log In</h3>
 			<div id="login-form" class="aligncenter" style="">

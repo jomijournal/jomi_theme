@@ -182,13 +182,13 @@ global $user;
 			}
 		});
 
-		$('.jsgate').hide();
+		//$('.jsgate').hide();
 
 		if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
 
 		}
 		else{
-			$('.iegate').hide();
+			//$('.iegate').hide();
    		}
 
 	});

@@ -190,7 +190,7 @@ global $user;
 		else{
 			$('.iegate').hide();
    		}
-		
+
 	});
 
 </script>

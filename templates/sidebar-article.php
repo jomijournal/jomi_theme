@@ -66,7 +66,7 @@ if( ! empty($location) ):
   <?php the_field('publication_id'); ?>
 </div>
 
-<h3>Share This Article</h3>
+<!--h3>Share This Article</h3-->
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-<div class="addthis_sharing_toolbox"></div>
+<!--div class="addthis_sharing_toolbox"></div-->

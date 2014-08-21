@@ -127,7 +127,6 @@ function load_user_info() {
 	$current_user = wp_get_current_user();
     
     if ( ($current_user instanceof WP_User) ) {
-    	$logged_in = true;
     	$user = array(
     		'login' => $current_user->user_login,
     		'email' => $current_user->user_email,
@@ -136,13 +135,17 @@ function load_user_info() {
     	);
     	//return;
     } else {
-    	$logged_in = false;
     	$user = array(
     		'login' => 'none',
     		'email' => 'none',
     		'display_name' => 'none',
     		'id' => 'none'
     	);
+    }
+    if(is_user_logged_in()){
+    	$logged_in = true;
+    } else {
+    	$logged_in = false;
     }
      
     // DEBUG
@@ -321,7 +324,7 @@ function get_blocks($rules, $user_info) {
 			}
 		//END FOREACH
 		}
-		//echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
+		echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
 		if($check_count == $checks) {
 			array_push($blocks, array(
 				'msg' => $rule->result_msg,
@@ -384,6 +387,8 @@ function check_access() {
   if($debug) print_r($rules);
 
   $user_info = load_user_info();
+  if($debug) print_r($user_info);
+
 
   $access_blocks = array();
   $access_blocks = get_blocks($rules, $user_info);

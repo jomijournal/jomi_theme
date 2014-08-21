@@ -59,16 +59,16 @@ if (!function_exists('possibly_redirect'))
       $action = $_GET["action"];
       if($action=="logout"){
          wp_logout();
-         header("Location: /login?loggedout=true");
+         header("Location: /wp-login.php?loggedout=true");
       }
       # hide wp-login
       if($_SERVER['REQUEST_URI'] == "/wp-login.php?action=".$action)
       {
-        wp_redirect('/login?action='.$action);
+        //wp_redirect('/login?action='.$action);
       }
       if($_SERVER['REQUEST_URI'] == "/wp-login.php?checkemail=registered")
       {
-        wp_redirect('/login?checkemail=registered');
+        //wp_redirect('/login?checkemail=registered');
       }
       /*else
       {

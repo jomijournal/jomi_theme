@@ -6,24 +6,28 @@
 function block_deny() {
 	//echo "hello";
 	$id = $_POST['id'];
+	$msg = $_POST['msg'];
 ?>
-<div class="container" style="position:relative; width: 94%; height: 100%; margin: auto; overflow: auto; background: rgba(0, 0, 0, 0.75);">
+<div class="container">
+	<div id="greyout" class="greyout">
+		<div id="signal" class="signal"></div>
+	</div>
 	<div class="row">
-		<strong><h1 style="text-align:center;">ACCESS DENIED</h1></strong>
+		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
 	</div>
 	<div class="row">
 		<div class="col-xs-6" style="border-right: 3px dashed #fff; padding: 0 30px;">
 			<h3>Log In</h3>
 			<div id="login-form" class="aligncenter" style="">
-				<form name="loginform" id="loginform" action="">
+				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
 					<p class="error" id="error"></p>
 					<p class="login-username">
-						<label for="user_login">Username/Email</label>
-						<input type="text" name="log" id="user_login" class="input" value="" size="20">
+						<label for="user_login">Username/Email<br>
+						<input type="text" name="log" id="user_login" class="input" value="" size="20"></label>
 					</p>
 					<p class="login-password">
-						<label for="user_pass">Password</label>
-						<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+						<label for="user_pass">Password<br>
+						<input type="password" name="pwd" id="user_pass" class="input" value="" size="20"></label>
 					</p>
 					<p class="login-remember"><label class="active"><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Remember Me</label></p>
 
@@ -31,10 +35,6 @@ function block_deny() {
 						<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
 						<input type="hidden" name="redirect_to" value="/">
 					</p>
-					<p>
-					<a href="/register" class="register">Register</a>
-					</p>
-					<br>
 					<!--p class="login-register" style="width:45%">
 						<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
 					</p-->
@@ -46,7 +46,43 @@ function block_deny() {
 		</div>
 		<div class="col-xs-6">
 			<h3>Register</h3>
-		</div>
+			<div id="login">
+				<form name="registerform" id="registerform" action="<?php echo site_url('wp-login.php?action=register', 'login_post'); ?>" method="post">
+					<div id="user_login-p" style="display: none;">
+						<label for="user_login" id="user_login-label">Username/Email<br>
+						<input type="text" name="user_login" id="user_login" class="input" value=""></label>
+					</div>
+					<div id="user_email-p">
+						<label for="user_email" id="user_email-label">Username/E-mail<br>
+						<input type="text" name="user_email" id="user_email" class="input" value=""></label>
+					</div>
+					<p id="pass1-p">
+						<label id="pass1-label" for="pass1">Password<br>
+						<input type="password" autocomplete="off" name="pass1" id="pass1"></label>
+					</p>
+					<p id="pass_strength_msg">Your password must be at least 6 characters long. To make your password stronger, use upper and lower case letters, numbers, and the following symbols !@#$%^&amp;*()</p>	
+					<p id="reg_passmail">A password will be e-mailed to you.</p>
+					<input type="hidden" name="redirect_to" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
+					<p class="submit">
+						<input type="submit" name="wp-submit" id="wp-submit" class="btn btn-default" value="Register">
+					</p>
+				</form>
+			</div>
+			<script type="text/javascript">
+			try{document.getElementById('user_login').focus();}catch(e){}
+			if(typeof wpOnload=='function')wpOnload();
+			</script>
+			<script type="text/javascript">
+					jQuery(document).ready(function() {
+						jQuery("#user_login").removeAttr("size");
+						jQuery("#user_login").parent().attr("id", "user_login-label");
+						jQuery("#user_login").parent().parent().attr("id", "user_login-p");
+						jQuery("#user_email").removeAttr("size");
+						jQuery("#user_email").parent().attr("id", "user_email-label");
+						jQuery("#user_email").parent().parent().attr("id", "user_email-p");
+					});
+			</script>
+        </div>
 	</div>
 </div>
 <script>
@@ -73,6 +109,9 @@ $(function() {
 
 		var dataString = 'log='+ login + '&pwd=' + pass;
 		//alert (dataString);return false;
+		
+		$('#greyout,#signal').show();
+
 		$.ajax({
 		  type: "POST",
 		  url: "/wp-login.php",
@@ -85,6 +124,7 @@ $(function() {
 		    	$('#error').text("ERROR: Username and password do not match.\nPlease try again.")
 		    } else {
 		    	console.log('success');
+		    	$('#greyout,#signal').hide();
 		    	window.location.reload();
 		    }
 		  }

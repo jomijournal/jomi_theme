@@ -41,6 +41,79 @@
 			//border: 10px rgba(255, 0, 0, 0.75);
 			//border-style: dashed;
 			background-image: url('./../img/diagonal_tile_red.png');
+			.container{
+				position:relative; 
+				width: 94%; 
+				height: 90%; 
+				margin: 2% auto; 
+				overflow: auto; 
+				background: rgba(0, 0, 0, 0.75); 
+				border-radius: 10px;
+				h3{
+					margin-top: 0px;
+				}
+				h1{
+					margin-bottom: 0px;
+				}
+				.btn.btn-default{
+					margin-top: 0px !important;
+				}
+				.greyout{
+					display: none;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0, 0, 0, 0.8);
+					z-index: 1;
+				}
+				// stolen from codepen
+				.signal {
+					display: none;
+				    border:3px solid #fff;
+				    border-radius:30px;
+				    height:30px;
+				    left:50%;
+				    margin:-15px 0 0 -15px;
+				    opacity:0;
+				    position:absolute;
+				    top:50%;
+				    width:30px;
+				    z-index: 10;
+				 
+				    animation: pulsate 1s ease-out;
+				    -webkit-animation: pulsate 1s ease-out;
+				    animation-iteration-count:infinite;
+				    -webkit-animation-iteration-count:infinite;
+				}
+				@-webkit-keyframes pulsate {
+				    0% {
+				      transform:scale(.1);
+				      opacity: 0.0;
+				    }
+				    50% {
+				      opacity:1;
+				    }
+				    100% {
+				      transform:scale(1.2);
+				      opacity:0;
+				    }
+				}
+				@keyframes pulsate {
+				    0% {
+				      transform:scale(.1);
+				      opacity: 0.0;
+				    }
+				    50% {
+				      opacity:1;
+				    }
+				    100% {
+				      transform:scale(1.2);
+				      opacity:0;
+				    }
+				}
+			}
 	   }
 		// container for the actual video
 	   .video-holder{

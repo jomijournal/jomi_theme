@@ -112,7 +112,8 @@
 
          $.post(MyAjax.ajaxurl, {
           action: function_name,
-          id: <?php echo get_the_ID(); ?>
+          id: <?php echo get_the_ID(); ?>,
+          msg: 'ACCESS RESTRICTED'
          }, 
          function(response) {
           console.log(response);

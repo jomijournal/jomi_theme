@@ -161,6 +161,7 @@ function load_user_info() {
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
 	// TEST ONLY
+	// US IP
 	$ip = "173.13.115.174";
 	// CHINA IP
 	$ip = "27.113.128.55";

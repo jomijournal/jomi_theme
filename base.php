@@ -7,9 +7,6 @@ Base is the entry point for most pages.
 <body <?php body_class(); ?>>
 
 
-
-
-
   <?php
     do_action('get_header');
     // Use Bootstrap's navbar if enabled in config.php

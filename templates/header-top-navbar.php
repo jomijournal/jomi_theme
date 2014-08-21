@@ -1,8 +1,5 @@
-  [if lt IE 8]
-    <div class="iegate">
-      <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'roots'); ?>
-    </div>
-  [endif]
+
+<div class="iegate">You seem to be using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience</div>
 
 <div class="jsgate">You seem to have Javascript disabled. Please enable Javascript to improve your experience</div>
 
@@ -187,7 +184,12 @@ global $user;
 
 		$('.jsgate').hide();
 
+		if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
 
+		}
+		else{
+			$('.iegate').hide();
+   		}
 
 	});
 

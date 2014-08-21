@@ -116,6 +116,7 @@
          }, 
          function(response) {
           console.log(response);
+          response = response.substring(0, response.length - 1);
           $('.access-block').find('#content').empty().html(response);
          });
         }

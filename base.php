@@ -32,7 +32,7 @@ Base is the entry point for most pages.
   <div class="container">
     <div class="video-area row">
       <div id="access_block" class="access-block">
-        <div id="content"></div>
+        <div id="content" style="width: 100%; height: 100%;"></div>
       </div>
       <div id="chapters" class="col-sm-4">
         <ul></ul>

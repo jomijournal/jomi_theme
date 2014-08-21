@@ -14,21 +14,22 @@ function block_deny() {
 	</div>
 	<div class="row">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
+		<p style="text-align:center;">Please sign in or register to continue:</p>
 	</div>
-	<div class="row">
+	<div class="row" style="text-align:center;">
 		<div class="col-xs-6" style="border-right: 3px dashed #fff; padding: 0 30px;">
 			<h3>Log In</h3>
 			<div id="login-form" class="aligncenter" style="">
 				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
 					<p class="error" id="error"></p>
-					<p class="login-username">
+					<div class="login-username">
 						<label for="user_login">Username/Email<br>
 						<input type="text" name="log" id="user_login" class="input" value="" size="20"></label>
-					</p>
-					<p class="login-password">
+					</div>
+					<div class="login-password">
 						<label for="user_pass">Password<br>
 						<input type="password" name="pwd" id="user_pass" class="input" value="" size="20"></label>
-					</p>
+					</div>
 					<p class="login-remember"><label class="active"><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Remember Me</label></p>
 
 					<p class="login-submit">
@@ -60,8 +61,7 @@ function block_deny() {
 						<label id="pass1-label" for="pass1">Password<br>
 						<input type="password" autocomplete="off" name="pass1" id="pass1"></label>
 					</p>
-					<p id="pass_strength_msg">Your password must be at least 6 characters long. To make your password stronger, use upper and lower case letters, numbers, and the following symbols !@#$%^&amp;*()</p>	
-					<p id="reg_passmail">A password will be e-mailed to you.</p>
+					<p id="pass_strength_msg">Your password must be at least 6 characters long.</p>
 					<input type="hidden" name="redirect_to" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
 					<p class="submit">
 						<input type="submit" name="wp-submit" id="wp-submit" class="btn btn-default" value="Register">

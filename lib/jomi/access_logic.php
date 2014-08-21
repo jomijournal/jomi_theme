@@ -162,6 +162,8 @@ function load_user_info() {
 
 	// TEST ONLY
 	$ip = "173.13.115.174";
+	// CHINA IP
+	$ip = "27.113.128.55";
 
 	//DEBUG
 	//echo $ip;
@@ -324,7 +326,7 @@ function get_blocks($rules, $user_info) {
 			}
 		//END FOREACH
 		}
-		echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
+		//echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
 		if($check_count == $checks) {
 			array_push($blocks, array(
 				'msg' => $rule->result_msg,

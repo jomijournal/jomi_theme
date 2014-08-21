@@ -82,7 +82,7 @@ if($user && isset($_GET["logout"]))
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 	<!-- ADDTHIS -->
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-538f69071761b8d2"></script>
+	<!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-538f69071761b8d2"></script-->
 
 	<?php wp_head(); ?>
 

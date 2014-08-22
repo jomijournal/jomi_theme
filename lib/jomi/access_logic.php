@@ -170,7 +170,7 @@ function load_user_info() {
 	$ip = "170.223.105.11";
 
 	$ip_long = sprintf("%u", ip2long($ip));
-	echo $ip_long . "\n";
+	//echo $ip_long . "\n";
 	//DEBUG
 	//echo $ip;
 	global $inst_ip_table_name;
@@ -187,10 +187,10 @@ function load_user_info() {
 
 	$inst_locations = array();
 	if(empty($inst_ips)) {
-		$is_subscribed = false;
+		//$is_subscribed = false;
 	} else { 
 		// get matching locations
-		$is_subscribed = true;
+		//$is_subscribed = true;
 		foreach($inst_ips as $inst_ip) {
 			$location_id = $inst_ip->location_id;
 			$location_query = 
@@ -214,6 +214,25 @@ function load_user_info() {
 			$inst_orders = array_merge($inst_orders, $wpdb->get_results($order_query));
 		}
 		print_r($inst_orders);
+	}
+	//echo date('o-m-d');
+	
+	if(empty($inst_orders)) {
+
+		$is_subscribed = false;
+	} else {
+
+		$cur_time = time();
+		$is_subscribed = false;
+		foreach($inst_orders as $inst_order) {
+			$fromtime = strtotime($inst_order->date_start);
+			$endtime = strtotime($inst_order->date_end);
+			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
+
+			    $is_subscribed = true;
+			    break;
+			} 
+		}
 	}
 
 

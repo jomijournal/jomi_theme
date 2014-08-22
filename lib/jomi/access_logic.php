@@ -167,7 +167,7 @@ function load_user_info() {
 	// CHINA IP
 	$ip = "27.113.128.55";
 	// MGH IP
-	$ip = "170.223.105.11";
+	//$ip = "170.223.105.11";
 
 	$ip_long = sprintf("%u", ip2long($ip));
 	echo $ip_long . "\n";
@@ -182,6 +182,8 @@ function load_user_info() {
 
 	if(empty($insts)) $is_subscribed = false;
 	else $is_subscribed = true;
+
+
 
 	// check institutions here
 	$institution = array(
@@ -215,6 +217,7 @@ function load_user_info() {
 
 	$user_info = array(
 		'logged_in' => $logged_in,
+		'subscribed' => $is_subscribed,
 		'user' => $user,
 		'institution' => $institution,
 		'ip' => $ip,
@@ -334,7 +337,11 @@ function get_blocks($rules, $user_info) {
 
 					break;
 				case 'is_subscribed':
-
+					$user_subscribed = $user_info['subscribed'];
+					$check_subscribed = $check_values[$index];
+					if(($check_subscribed == 'T' && $user_subscribed) || ($check_subscribed == 'F' && !$user_subscribed)) {
+						$check_count++;
+					}
 
 				break;
 				default:

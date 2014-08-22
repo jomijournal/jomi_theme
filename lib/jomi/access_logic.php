@@ -122,6 +122,7 @@ function collect_rules($selector_meta, $institution_meta) {
 }
 
 function load_user_info() {
+	global $wpdb;
 	global $reader;
 	
 	$current_user = wp_get_current_user();
@@ -165,10 +166,23 @@ function load_user_info() {
 	$ip = "173.13.115.174";
 	// CHINA IP
 	$ip = "27.113.128.55";
+	// MGH IP
+	$ip = "170.223.105.11";
 
+	$ip_long = sprintf("%u", ip2long($ip));
+	echo $ip_long . "\n";
 	//DEBUG
 	//echo $ip;
-	
+	global $inst_ip_table_name;
+
+	$inst_query = "SELECT * FROM $inst_ip_table_name 
+	WHERE $ip_long BETWEEN start AND end";
+	$insts = $wpdb->get_results($inst_query);
+	print_r($insts);
+
+	if(empty($insts)) $is_subscribed = false;
+	else $is_subscribed = true;
+
 	// check institutions here
 	$institution = array(
 	);
@@ -292,25 +306,7 @@ function get_blocks($rules, $user_info) {
 
 				case 'is_user':
 
-					//$user_check = $user_info['user'];
-					$current_user = wp_get_current_user();
-    
-				    if ($current_user instanceof WP_User) {
-				    	$user = array(
-				    		'login' => $current_user->user_login,
-				    		'email' => $current_user->user_email,
-				    		'display_name' => $current_user->display_name,
-				    		'id' => $current_user->ID
-				    	);
-				    	//return;
-				    } else {
-				    	$user = array(
-				    		'login' => 'none',
-				    		'email' => 'none',
-				    		'display_name' => 'none',
-				    		'id' => 'none'
-				    	);
-				    }
+					$user_check = $user_info['user'];
 
 					$users = explode(",", $check_values[$index]);
 					foreach($users as $user) {

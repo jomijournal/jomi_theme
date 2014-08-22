@@ -57,7 +57,7 @@ function roots_scripts() {
 }
 add_action('wp_enqueue_scripts', 'roots_scripts', 100);
 // add scripts to admin panels
-//add_action('admin_enqueue_scripts', 'roots_scripts');
+add_action('admin_enqueue_scripts', 'roots_scripts');
 
 // http://wordpress.stackexchange.com/a/12450
 function roots_jquery_local_fallback($src, $handle = null) {

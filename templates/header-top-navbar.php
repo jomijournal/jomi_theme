@@ -1,5 +1,8 @@
-<!--div class="jsgate" style="background-color: #111; color: #fff; position:fixed; width:100%; height:100%; top:0px; left:0px; z-index:1000; text-align: center; padding-top: 50px; font-size: 24px;">
-Your browser is too old to run javascript. If you continue, you may experience trouble.<br><br><br><br><a href="#hidejsgate">continue</a></div-->
+
+<div class="iegate">You seem to be using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience</div>
+
+<div class="jsgate">You seem to have Javascript disabled. Please enable Javascript to improve your experience</div>
+
 
 <?php
 global $user;
@@ -179,7 +182,15 @@ global $user;
 			}
 		});
 
-		$('.jsgate').hide();
+		//$('.jsgate').hide();
+
+		if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
+
+		}
+		else{
+			//$('.iegate').hide();
+   		}
+
 	});
 
 </script>

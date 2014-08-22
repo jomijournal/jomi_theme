@@ -41,10 +41,10 @@ function map_publication_id( $wp_query ) {
 
     global $article_count;
 
-    if((int)$meta_value > $article_count or (int)$meta_value <= 0) {
-      wp_redirect('/404.php');
-      exit();
-    }
+    //if((int)$meta_value > $article_count or (int)$meta_value <= 0) {
+    //  wp_redirect('/404.php');
+    //  exit();
+    //}
 
     $rd_args = array(
       'post_type' => 'article',

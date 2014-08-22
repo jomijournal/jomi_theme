@@ -8,7 +8,7 @@ global $wpdb;
 // change this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
-$inst_db_version = '1.06';
+$inst_db_version = '1.07';
 
 global $inst_table_name;
 $inst_table_name = $wpdb->prefix . 'institutions';
@@ -55,9 +55,11 @@ function inst_table_install() {
 		inst_id     int NOT NULL,
 		description VARCHAR(256) NOT NULL,
 		continent   VARCHAR(20) NOT NULL,
+		country     VARCHAR(20) NOT NULL,
 		region      VARCHAR(50) NOT NULL,
 		city        VARCHAR(50) NOT NULL,
 		zip         VARCHAR(10) NOT NULL,
+		address     VARCHAR(100) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_ip_sql = "CREATE TABLE $inst_ip_table_name (

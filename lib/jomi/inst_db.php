@@ -8,7 +8,7 @@ global $wpdb;
 // change this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
-$inst_db_version = '1.04';
+$inst_db_version = '1.06';
 
 global $inst_table_name;
 $inst_table_name = $wpdb->prefix . 'institutions';
@@ -22,6 +22,9 @@ $inst_ip_table_name = $wpdb->prefix . 'institution_ips';
 global $inst_order_table_name;
 $inst_order_table_name = $wpdb->prefix . 'institution_orders';
 
+global $inst_contact_table_name;
+$inst_contact_table_name = $wpdb->prefix . 'institution_contacts';
+
 /**
  * create the table that houses access rules
  * @return [type] [description]
@@ -33,6 +36,7 @@ function inst_table_install() {
 	global $inst_location_table_name;
 	global $inst_ip_table_name;
 	global $inst_order_table_name;
+	global $inst_contact_table_name;
 
 	$charset_collate = '';
 	if ( ! empty( $wpdb->charset ) ) {
@@ -71,12 +75,23 @@ function inst_table_install() {
 		date_end date NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
+	$inst_contact_sql = "CREATE TABLE $inst_contact_table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		inst_id int NOT NULL,
+		lead_id int NOT NULL,
+		first_name VARCHAR(20) NOT NULL,
+		last_name VARCHAR(20) NOT NULL,
+		email VARCHAR(50) NOT NULL,
+		comment text NOT NULL,
+		UNIQUE KEY id (id)
+	) $charset_collate;";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta($inst_sql);
 	dbDelta($inst_location_sql);
 	dbDelta($inst_ip_sql);
 	dbDelta($inst_order_sql);
+	//dbDelta($inst_contact_sql);
 
 	check_db_errors();
 

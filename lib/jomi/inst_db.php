@@ -8,7 +8,7 @@ global $wpdb;
 // change this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
-$inst_db_version = '1.03';
+$inst_db_version = '1.04';
 
 global $inst_table_name;
 $inst_table_name = $wpdb->prefix . 'institutions';
@@ -18,6 +18,9 @@ $inst_location_table_name = $wpdb->prefix . 'institution_locations';
 
 global $inst_ip_table_name;
 $inst_ip_table_name = $wpdb->prefix . 'institution_ips';
+
+global $inst_order_table_name;
+$inst_order_table_name = $wpdb->prefix . 'institution_orders';
 
 /**
  * create the table that houses access rules
@@ -29,6 +32,7 @@ function inst_table_install() {
 	global $inst_table_name;
 	global $inst_location_table_name;
 	global $inst_ip_table_name;
+	global $inst_order_table_name;
 
 	$charset_collate = '';
 	if ( ! empty( $wpdb->charset ) ) {
@@ -59,11 +63,20 @@ function inst_table_install() {
 		end int(11) UNSIGNED NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
+	$inst_order_sql = "CREATE TABLE $inst_order_table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		inst_id int NOT NULL,
+		location_id int NOT NULL,
+		date_start date NOT NULL,
+		date_end date NOT NULL,
+		UNIQUE KEY id (id)
+	) $charset_collate;";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta($inst_sql);
 	dbDelta($inst_location_sql);
 	dbDelta($inst_ip_sql);
+	dbDelta($inst_order_sql);
 
 	check_db_errors();
 

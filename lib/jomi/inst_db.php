@@ -46,43 +46,43 @@ function inst_table_install() {
 	  $charset_collate .= " COLLATE {$wpdb->collate}";
 	}
 	$inst_sql = "CREATE TABLE $inst_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		name VARCHAR(100) NOT NULL,
+		id          mediumint(9) NOT NULL AUTO_INCREMENT,
+		name        VARCHAR(100) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_location_sql = "CREATE TABLE $inst_location_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		inst_id int NOT NULL,
+		id          mediumint(9) NOT NULL AUTO_INCREMENT,
+		inst_id     int NOT NULL,
 		description VARCHAR(256) NOT NULL,
-		continent VARCHAR(20) NOT NULL,
-		region VARCHAR(50) NOT NULL,
-		city VARCHAR(50) NOT NULL,
-		zip VARCHAR(10) NOT NULL,
+		continent   VARCHAR(20) NOT NULL,
+		region      VARCHAR(50) NOT NULL,
+		city        VARCHAR(50) NOT NULL,
+		zip         VARCHAR(10) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_ip_sql = "CREATE TABLE $inst_ip_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		id          mediumint(9) NOT NULL AUTO_INCREMENT,
 		location_id int NOT NULL,
-		start int(11) UNSIGNED NOT NULL,
-		end int(11) UNSIGNED NOT NULL,
+		start       int(11) UNSIGNED NOT NULL,
+		end         int(11) UNSIGNED NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_order_sql = "CREATE TABLE $inst_order_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		inst_id int NOT NULL,
+		id m        ediumint(9) NOT NULL AUTO_INCREMENT,
+		inst_id     int NOT NULL,
 		location_id int NOT NULL,
-		date_start date NOT NULL,
-		date_end date NOT NULL,
+		date_start  date NOT NULL,
+		date_end    date NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_contact_sql = "CREATE TABLE $inst_contact_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		inst_id int NOT NULL,
-		lead_id int NOT NULL,
-		first_name VARCHAR(20) NOT NULL,
-		last_name VARCHAR(20) NOT NULL,
-		email VARCHAR(50) NOT NULL,
-		comment text NOT NULL,
+		id          mediumint(9) NOT NULL AUTO_INCREMENT,
+		inst_id     int NOT NULL,
+		lead_id     int NOT NULL,
+		first_name  VARCHAR(20) NOT NULL,
+		last_name   VARCHAR(20) NOT NULL,
+		email       VARCHAR(50) NOT NULL,
+		comment     text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 

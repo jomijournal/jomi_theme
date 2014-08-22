@@ -175,28 +175,45 @@ function load_user_info() {
 	//echo $ip;
 	global $inst_ip_table_name;
 	global $inst_location_table_name;
+	global $inst_order_table_name;
 	global $inst_table_name;
 
 	// get matching ips
 	$ip_query = "SELECT * FROM $inst_ip_table_name 
 	WHERE $ip_long BETWEEN start AND end";
 	$inst_ips = $wpdb->get_results($ip_query);
+
 	print_r($inst_ips);
 
-	$locations = array();
+	$inst_locations = array();
 	if(empty($inst_ips)) {
 		$is_subscribed = false;
 	} else { 
 		// get matching locations
 		$is_subscribed = true;
-		$location_query;
 		foreach($inst_ips as $inst_ip) {
 			$location_id = $inst_ip->location_id;
-			$location_query = "SELECT * FROM $inst_location_table_name
+			$location_query = 
+			"SELECT * FROM $inst_location_table_name
 			WHERE id=$location_id";
-			$locations = array_merge($locations, $wpdb->get_results($location_query));
+			$inst_locations = array_merge($inst_locations, $wpdb->get_results($location_query));
 		}
-		print_r($locations);
+		print_r($inst_locations);
+	}
+
+	$inst_orders = array();
+	if(empty($inst_locations)) {
+
+	} else {
+		// get matching orders
+		foreach($inst_locations as $inst_location) {
+			$location_id = $inst_location->id;
+			$order_query = 
+			"SELECT * FROM $inst_order_table_name
+			WHERE location_id=$location_id";
+			$inst_orders = array_merge($inst_orders, $wpdb->get_results($order_query));
+		}
+		print_r($inst_orders);
 	}
 
 

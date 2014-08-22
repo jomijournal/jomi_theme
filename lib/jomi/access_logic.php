@@ -167,21 +167,37 @@ function load_user_info() {
 	// CHINA IP
 	$ip = "27.113.128.55";
 	// MGH IP
-	//$ip = "170.223.105.11";
+	$ip = "170.223.105.11";
 
 	$ip_long = sprintf("%u", ip2long($ip));
 	echo $ip_long . "\n";
 	//DEBUG
 	//echo $ip;
 	global $inst_ip_table_name;
+	global $inst_location_table_name;
+	global $inst_table_name;
 
-	$inst_query = "SELECT * FROM $inst_ip_table_name 
+	// get matching ips
+	$ip_query = "SELECT * FROM $inst_ip_table_name 
 	WHERE $ip_long BETWEEN start AND end";
-	$insts = $wpdb->get_results($inst_query);
-	print_r($insts);
+	$inst_ips = $wpdb->get_results($ip_query);
+	print_r($inst_ips);
 
-	if(empty($insts)) $is_subscribed = false;
-	else $is_subscribed = true;
+	$locations = array();
+	if(empty($inst_ips)) {
+		$is_subscribed = false;
+	} else { 
+		// get matching locations
+		$is_subscribed = true;
+		$location_query;
+		foreach($inst_ips as $inst_ip) {
+			$location_id = $inst_ip->location_id;
+			$location_query = "SELECT * FROM $inst_location_table_name
+			WHERE id=$location_id";
+			$locations = array_merge($locations, $wpdb->get_results($location_query));
+		}
+		print_r($locations);
+	}
 
 
 

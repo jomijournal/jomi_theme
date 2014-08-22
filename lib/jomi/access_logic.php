@@ -122,6 +122,7 @@ function collect_rules($selector_meta, $institution_meta) {
 }
 
 function load_user_info() {
+	global $wpdb;
 	global $reader;
 	
 	$current_user = wp_get_current_user();
@@ -161,13 +162,81 @@ function load_user_info() {
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
 	// TEST ONLY
+	// US IP
 	$ip = "173.13.115.174";
 	// CHINA IP
 	$ip = "27.113.128.55";
+	// MGH IP
+	$ip = "170.223.105.11";
 
+	$ip_long = sprintf("%u", ip2long($ip));
+	//echo $ip_long . "\n";
 	//DEBUG
 	//echo $ip;
+	global $inst_ip_table_name;
+	global $inst_location_table_name;
+	global $inst_order_table_name;
+	global $inst_table_name;
+
+	// get matching ips
+	$ip_query = "SELECT * FROM $inst_ip_table_name 
+	WHERE $ip_long BETWEEN start AND end";
+	$inst_ips = $wpdb->get_results($ip_query);
+
+	print_r($inst_ips);
+
+	$inst_locations = array();
+	if(empty($inst_ips)) {
+		//$is_subscribed = false;
+	} else { 
+		// get matching locations
+		//$is_subscribed = true;
+		foreach($inst_ips as $inst_ip) {
+			$location_id = $inst_ip->location_id;
+			$location_query = 
+			"SELECT * FROM $inst_location_table_name
+			WHERE id=$location_id";
+			$inst_locations = array_merge($inst_locations, $wpdb->get_results($location_query));
+		}
+		print_r($inst_locations);
+	}
+
+	$inst_orders = array();
+	if(empty($inst_locations)) {
+
+	} else {
+		// get matching orders
+		foreach($inst_locations as $inst_location) {
+			$location_id = $inst_location->id;
+			$order_query = 
+			"SELECT * FROM $inst_order_table_name
+			WHERE location_id=$location_id";
+			$inst_orders = array_merge($inst_orders, $wpdb->get_results($order_query));
+		}
+		print_r($inst_orders);
+	}
+	//echo date('o-m-d');
 	
+	if(empty($inst_orders)) {
+
+		$is_subscribed = false;
+	} else {
+
+		$cur_time = time();
+		$is_subscribed = false;
+		foreach($inst_orders as $inst_order) {
+			$fromtime = strtotime($inst_order->date_start);
+			$endtime = strtotime($inst_order->date_end);
+			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
+
+			    $is_subscribed = true;
+			    break;
+			} 
+		}
+	}
+
+
+
 	// check institutions here
 	$institution = array(
 	);
@@ -200,6 +269,7 @@ function load_user_info() {
 
 	$user_info = array(
 		'logged_in' => $logged_in,
+		'subscribed' => $is_subscribed,
 		'user' => $user,
 		'institution' => $institution,
 		'ip' => $ip,
@@ -318,6 +388,14 @@ function get_blocks($rules, $user_info) {
 					}
 
 					break;
+				case 'is_subscribed':
+					$user_subscribed = $user_info['subscribed'];
+					$check_subscribed = $check_values[$index];
+					if(($check_subscribed == 'T' && $user_subscribed) || ($check_subscribed == 'F' && !$user_subscribed)) {
+						$check_count++;
+					}
+
+				break;
 				default:
 					echo "invalid check type";
 					break;

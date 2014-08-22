@@ -292,7 +292,25 @@ function get_blocks($rules, $user_info) {
 
 				case 'is_user':
 
-					$user_check = $user_info['user'];
+					//$user_check = $user_info['user'];
+					$current_user = wp_get_current_user();
+    
+				    if ($current_user instanceof WP_User) {
+				    	$user = array(
+				    		'login' => $current_user->user_login,
+				    		'email' => $current_user->user_email,
+				    		'display_name' => $current_user->display_name,
+				    		'id' => $current_user->ID
+				    	);
+				    	//return;
+				    } else {
+				    	$user = array(
+				    		'login' => 'none',
+				    		'email' => 'none',
+				    		'display_name' => 'none',
+				    		'id' => 'none'
+				    	);
+				    }
 
 					$users = explode(",", $check_values[$index]);
 					foreach($users as $user) {
@@ -319,6 +337,10 @@ function get_blocks($rules, $user_info) {
 					}
 
 					break;
+				case 'is_subscribed':
+
+
+				break;
 				default:
 					echo "invalid check type";
 					break;

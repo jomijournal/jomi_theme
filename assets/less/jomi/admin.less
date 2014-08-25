@@ -48,11 +48,32 @@ body.wp-admin {
 				color: #fff;
 			}
 			td {
-
+				transition: all 0.3s ease-in-out;
+				-webkit-transition: all 0.3s ease-in-out;
+				.glyphicon{
+					font-size: 20px;
+				}
+				input{
+					transition: all 0.5s ease-in-out;
+					-webkit-transition: all 0.5s ease-in-out;
+					width: 75%;
+				}
 			}
 			td.active{
 				background: #55f;
 				color: #fff;
+				input{
+					transition: all 0.5s ease-in-out;
+					-webkit-transition: all 0.5s ease-in-out;
+					width: 100%;
+				}
+				.glyphicon{
+					color: #eee;
+
+					&:hover{
+						color:#fff;
+					}
+				}
 			}
 		}
 	}

@@ -210,6 +210,7 @@ function global_rulebook(){
 				//console.log(response);
 			});
 		});
+		$('#debug_ip').val('<?php echo get_option("access_debug_ip"); ?>');
 		$('#debug_ip_submit').on('click', function() {
 			//console.log($('#debug_ip').val());
 			$.post(MyAjax.ajaxurl, {

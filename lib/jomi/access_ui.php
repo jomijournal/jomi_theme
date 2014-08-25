@@ -73,6 +73,7 @@ foreach($rules as $rule_index=>$rule) {
 			#foreach($selectors as $selector) { $index++;?>
 		  	<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
   				<option val=""           >None</option>
+  				<option val="all"        >All</option>
   				<option val="category"   >Category</option>
   				<option val="article_id" >Article ID</option>
   				<option val="pub_id"     >Publication ID</option>

@@ -109,6 +109,7 @@ foreach($rules as $rule_index=>$rule) {
   				<option val="is_ip"          >Is IP(s)</option>
   				<option val="is_institution" >Is Institution(s)</option>
   				<option val="is_country"     >Is Country(s)</option>
+  				<option val="is_region"      >Is Region(s)</option>
   				<option val="is_user"        >Is User(s)</option>
   				<option val="is_logged_in"   >Is Logged In (T/F)</option>
   				<option val="is_subscribed"  >Is Subscribed (T/F)</option>

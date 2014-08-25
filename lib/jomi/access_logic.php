@@ -247,7 +247,10 @@ function load_user_info() {
 	    	'iso' => $record->country->isoCode,
 	    	'name' => $record->country->name
 	    );
-		$region = $record->mostSpecificSubdivision->isoCode;
+		$region = array (
+			'iso' => $record->mostSpecificSubdivision->isoCode,
+			'name' => $record->mostSpecificSubdivision->name
+		);
 		$city = $record->city->name;
 	} catch (Exception $e) {
 		// if can't find, default to Boston, MA, US
@@ -255,7 +258,10 @@ function load_user_info() {
 			'iso' => 'US',
 			'name' => 'United States'
 		);
-		$region = 'MA';
+		$region = array(
+			'iso' => 'MA',
+			'name' => 'Massachusetts'
+		);
 		$city = 'Boston';
 	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
@@ -358,7 +364,17 @@ function get_blocks($rules, $user_info) {
 						}
 					}
 					break;
+				case 'is_region':
+					$region = $user_info['region'];
+					$region_checks = explode(',', $check_values[$index]);
 
+					foreach($region_checks as $region_check) {
+						if($region['iso'] == $region_check || $region['name'] == $region_check) {
+							$check_count++;
+						}
+					}
+
+					break;
 				case 'is_user':
 
 					$user_check = $user_info['user'];

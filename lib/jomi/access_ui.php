@@ -170,6 +170,16 @@ function global_rulebook(){
   ?>
 
   <h4>Category</h4>
+
+  <b>DEBUG</b>
+  <label class="switch">
+    <input id="debug_toggle" type="checkbox" class="switch-input" <?php echo (get_option('access_debug', 'false') == 'true') ? 'checked' : ''; ?>>
+    <span class="switch-label" data-on="On" data-off="Off"></span>
+    <span class="switch-handle"></span>
+  </label>
+
+  <br>
+
   <div id="select_container">
 	  <select id="category">
 	    <option val="all">All</option>
@@ -185,6 +195,16 @@ function global_rulebook(){
   <script>
 	$(function(){
 		refresh();
+		$('#debug_toggle').change(function() {
+			console.log($(this).is(':checked'));
+			$.post(MyAjax.ajaxurl, {
+				action: 'toggle-debug',
+				val: $(this).is(':checked')
+			},
+			function(response) {
+				console.log(response);
+			});
+		});
 		$('#results').on('click', 'a#access_add_rule', function() {
 			var row = $(this).parent().parent().parent();
 			update(row, {

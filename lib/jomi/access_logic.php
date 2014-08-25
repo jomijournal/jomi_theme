@@ -82,6 +82,9 @@ function collect_rules($selector_meta, $institution_meta) {
 
   // init conditional
   $where_conditional = "(selector_type, selector_value) IN (";
+
+  // all
+  $where_conditional .= "('all', ''),";
   // categories
   $cat_ids = $selector_meta['cat_ids'];
   //$cat_slugs = $selector_meta['cat_slugs'];
@@ -176,7 +179,7 @@ function load_user_info() {
 	if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
 
 	$ip_long = sprintf("%u", ip2long($ip));
-	//echo $ip_long . "\n";
+	if($access_debug) echo $ip_long . "\n";
 	//DEBUG
 	//echo $ip;
 	global $inst_ip_table_name;

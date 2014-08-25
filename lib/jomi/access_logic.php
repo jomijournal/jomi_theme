@@ -343,7 +343,7 @@ function get_blocks($rules, $user_info) {
 		
 		// SPLIT UP CHECK TYPES
 		$check_types = explode(',', $rule->check_type);
-		$check_values = explode(',', $rule->check_value);
+		$check_values = explode('|', $rule->check_value);
 
 		$checks = count($check_types);
 		$check_count = 0;

@@ -269,6 +269,10 @@ function load_user_info() {
 			'iso' => $record->mostSpecificSubdivision->isoCode,
 			'name' => $record->mostSpecificSubdivision->name
 		);
+		$continent = array (
+			'iso' => $record->continent->code,
+			'name' => $record->continent->name
+		);
 		$city = $record->city->name;
 	} catch (Exception $e) {
 		// if can't find, default to Boston, MA, US
@@ -279,6 +283,10 @@ function load_user_info() {
 		$region = array(
 			'iso' => 'MA',
 			'name' => 'Massachusetts'
+		);
+		$continent = array(
+			'iso' => 'NA',
+			'name' => 'North America'
 		);
 		$city = 'Boston';
 	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
@@ -299,6 +307,7 @@ function load_user_info() {
 		'ip' => $ip,
 		'country' => $country,
 		'region' => $region,
+		'continent' => $continent,
 		'city' => $city
 	);
 	return $user_info;
@@ -393,6 +402,18 @@ function get_blocks($rules, $user_info) {
 							if($access_debug) echo "region matched!\n";
 							$check_count++;
 						}
+					}
+
+					break;
+				case 'is_continent':
+					$continent = $user_info['continent'];
+					$continent_checks = explode(',', $check_values[$index]);
+
+					foreach($continent_checks as $continent_check) {
+						if($continent['iso'] == $continent_check || $continent['name'] == $continent_check) {
+							if($access_debug) echo "continent matched!\n";
+							$check_count++;
+						} 
 					}
 
 					break;

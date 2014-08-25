@@ -135,6 +135,7 @@ $jomi_includes = array(
   '/lib/jomi/article_count.php',  // count # of articles published/preprinted
   '/lib/jomi/db_switch.php', // db switch utility on dashboard
   '/lib/jomi/inst_db.php',
+  '/lib/jomi/inst_ui.php',
   '/lib/jomi/institution_import.php', // import institutions from CRM (WIP)
   '/lib/jomi/login.php', // login page utility and restyling
   '/lib/jomi/post_status.php', // register post statuses

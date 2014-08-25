@@ -92,7 +92,7 @@ foreach($rules as $rule_index=>$rule) {
 			//echo '<pre>';
 			//echo $rule->check_type;
 			$check_types = explode(',', $rule->check_type);
-			$check_vals = explode(',', $rule->check_value); 
+			$check_vals = explode('|', $rule->check_value); 
 			$checks = array();
 			foreach($check_types as $key=>$value) {
 				array_push($checks, array(
@@ -111,6 +111,7 @@ foreach($rules as $rule_index=>$rule) {
   				<option val="is_institution" >Is Institution(s)</option>
   				<option val="is_country"     >Is Country(s)</option>
   				<option val="is_region"      >Is Region(s)</option>
+  				<option val="is_continent"   >Is Continent(s)</option>
   				<option val="is_user"        >Is User(s)</option>
   				<option val="is_logged_in"   >Is Logged In (T/F)</option>
   				<option val="is_subscribed"  >Is Subscribed (T/F)</option>
@@ -351,11 +352,11 @@ function global_rulebook(){
 		params.result_time_end = params.hasOwnProperty("result_time_end") ? params.result_time_end : row.find('input#result_time_end').val();
 		params.result_time_elapsed = params.hasOwnProperty("result_time_elapsed") ? params.result_time_elapsed : row.find('input#result_time_elapsed').val();
 
-		//console.log(params);
+		console.log(params);
 
 		$.post(MyAjax.ajaxurl, params,
 		function(response) {
-			//console.log(response);
+			console.log(response);
 			refresh();
 		});
 	}
@@ -425,7 +426,7 @@ function global_rulebook(){
 				check_vals += 'none,';
 			}
 			else
-				check_vals += ($(this).val() + ',');
+				check_vals += ($(this).val() + '|');
 		});
 		check_vals = check_vals.substring(0, check_vals.length - 1);
 		return check_vals;

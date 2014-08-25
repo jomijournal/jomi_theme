@@ -116,8 +116,6 @@ function update_rule() {
 		array('%d')
 	);
 	check_db_errors();
-
-
 }
 
 // DEBUG ONLY: insert an empty rule

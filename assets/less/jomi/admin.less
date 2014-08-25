@@ -4,6 +4,10 @@ body.wp-admin {
 	background: #f1f1f1;
 	color: #000;
 
+	.greyout {
+		background: rgba(0, 0, 0, 0.3) !important;
+	}
+
 	table.access_rules{
 		//border: 1px solid #000;
 		width: 90%;
@@ -26,6 +30,54 @@ body.wp-admin {
 			th{
 				background: #888;
 				color: #fff;
+			}
+		}
+	}
+	table.inst-list, table.inst-location-list{
+		width: 100%;
+		//background: #aaa;
+		tr{
+			&:nth-child(even){
+				background-color: #fff;
+			}
+			&:nth-child(odd){
+				background-color: #eee;
+			}
+			td, th{
+				padding: 5px;
+				outline: 1px solid #000;
+			}
+			th{
+				background: #000;
+				color: #fff;
+			}
+			td {
+				transition: all 0.3s ease-in-out;
+				-webkit-transition: all 0.3s ease-in-out;
+				.glyphicon{
+					font-size: 20px;
+				}
+				input{
+					transition: all 0.5s ease-in-out;
+					-webkit-transition: all 0.5s ease-in-out;
+					width: 75%;
+				}
+			}
+			td.active{
+				background: #55f;
+				color: #fff;
+				input{
+					transition: all 0.5s ease-in-out;
+					-webkit-transition: all 0.5s ease-in-out;
+					width: 100%;
+				}
+				.glyphicon{
+					color: #eee;
+
+					&:hover{
+						color:#fff;
+					}
+				}
 			}
 		}
 	}

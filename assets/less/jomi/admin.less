@@ -29,4 +29,31 @@ body.wp-admin {
 			}
 		}
 	}
+	table.inst-list{
+		width: 100%;
+		//background: #aaa;
+		tr{
+			&:nth-child(even){
+				background-color: #fff;
+			}
+			&:nth-child(odd){
+				background-color: #eee;
+			}
+			td, th{
+				padding: 5px;
+				outline: 1px solid #000;
+			}
+			th{
+				background: #000;
+				color: #fff;
+			}
+			td {
+
+			}
+			td.active{
+				background: #55f;
+				color: #fff;
+			}
+		}
+	}
 }

@@ -179,7 +179,7 @@ function load_user_info() {
 	if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
 
 	$ip_long = sprintf("%u", ip2long($ip));
-	if($access_debug) echo $ip_long . "\n";
+	if($access_debug) echo 'Current IP:' . $ip_long . "\n";
 	//DEBUG
 	//echo $ip;
 	global $inst_ip_table_name;
@@ -192,7 +192,10 @@ function load_user_info() {
 	WHERE $ip_long BETWEEN start AND end";
 	$inst_ips = $wpdb->get_results($ip_query);
 
-	if($access_debug) print_r($inst_ips);
+	if($access_debug) {
+		echo "Institution IP data:\n";
+		print_r($inst_ips);
+	}
 
 	$inst_locations = array();
 	if(empty($inst_ips)) {
@@ -207,7 +210,10 @@ function load_user_info() {
 			WHERE id=$location_id";
 			$inst_locations = array_merge($inst_locations, $wpdb->get_results($location_query));
 		}
-		if($access_debug) print_r($inst_locations);
+		if($access_debug) {
+			echo "Institution Location Data:\n";
+			print_r($inst_locations);
+		}
 	}
 
 	$inst_orders = array();
@@ -222,7 +228,10 @@ function load_user_info() {
 			WHERE location_id=$location_id";
 			$inst_orders = array_merge($inst_orders, $wpdb->get_results($order_query));
 		}
-		if($access_debug) print_r($inst_orders);
+		if($access_debug) {
+			echo "Institution Order History:\n";
+			print_r($inst_orders);
+		}
 	}
 	//echo date('o-m-d');
 	
@@ -493,15 +502,24 @@ function check_access() {
   //print_r($all_rules);
 
   $rules = collect_rules($selector_meta, $institution_meta);
-  if($access_debug) print_r($rules);
+  if($access_debug) {
+  	echo "Rules that apply to this article:\n";
+  	print_r($rules);
+  }
 
   $user_info = load_user_info();
-  if($access_debug) print_r($user_info);
+  if($access_debug) {
+  	echo "User Meta:\n";
+  	print_r($user_info);
+  }
 
 
   $access_blocks = array();
   $access_blocks = get_blocks($rules, $user_info);
-  if($access_debug) print_r($access_blocks);
+  if($access_debug) {
+  	echo "Applied Blocks:\n";
+  	print_r($access_blocks);
+  }
 
   // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
   //$blocks = array();

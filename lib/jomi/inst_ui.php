@@ -24,6 +24,8 @@ function inst_menu(){
 		</table>
 	</div>
 	<div class="col-xs-9">
+		<table class="inst-location-list" id="inst-location-list">
+		</table>
 	</div>
 </div>
 
@@ -45,6 +47,7 @@ $(function() {
 		$(this).find('input#inst-name')
 			.removeAttr('readonly')
 			.val($(this).find('input#inst-name').attr('placeholder'));
+		refresh_location($(this).attr('inst-id'));
 	});
 
 	$('#inst-list').on('click', 'td a#update_inst', function() {
@@ -98,6 +101,20 @@ function refresh() {
 		$('#inst-list').html(response);
 		$('#inst-list').find('input#inst-name').attr('readonly', '');
 	});
+	refresh_location();
+
+}
+function refresh_location(id) {
+	$('#greyout,#signal').show();
+	$.post(MyAjax.ajaxurl, {
+		action: 'inst-location-update',
+		id: id
+	},
+	function(response) {
+		$('#greyout,#signal').hide();
+		console.log(response);
+		$('#inst-location-list').html(response);
+	});
 }
 </script>
 <?php
@@ -137,17 +154,56 @@ foreach($insts as $inst) {
 }
 ?>
 <tr>
-	<td id="insert">
-		<input id="insert-inst" type="text">
-	</td>
-	<td>
-		<a id="insert-inst-submit" href="#"><span class="glyphicon glyphicon-plus"></span></a>
-	</td>
+	<td id="insert"><input id="insert-inst" type="text"></td>
+	<td><a id="insert-inst-submit" href="#"><span class="glyphicon glyphicon-plus"></span></a></td>
 </tr>
 <?php
 }
 add_action( 'wp_ajax_nopriv_inst-list-update', 'inst_list_update');
 add_action( 'wp_ajax_inst-list-update', 'inst_list_update');
 
+function inst_location_update() {
+
+?>
+<tr>
+	<th>Name</th>
+	<th>Geolocation</th>
+	<th>Orders</th>
+	<th>IPs</th>
+</tr>
+<?php
+
+global $wpdb;
+global $inst_table_name;
+global $inst_location_table_name;
+global $inst_ip_table_name;
+global $inst_order_table_name;
+
+$id = (empty($_POST['id'])) ? 1 : $_POST['id'];
+
+$inst_location_query = "SELECT * FROM $inst_location_table_name WHERE inst_id = $id";
+$locations = $wpdb->get_results($inst_location_query); 
+//print_r($locations);
+foreach($locations as $location) {
+?>
+<tr>
+	<td>
+		<?php echo $location->description; ?>
+	</td>
+	<td>
+		<?php echo $location->address; ?>
+	</td>
+	<td>
+		<?php echo 'orders'; ?>
+	</td>
+	<td>
+		<?php echo 'ips'; ?>
+	</td>
+</tr>
+<?php
+}
+}
+add_action( 'wp_ajax_nopriv_inst-location-update', 'inst_location_update');
+add_action( 'wp_ajax_inst-location-update', 'inst_location_update');
 
 ?>

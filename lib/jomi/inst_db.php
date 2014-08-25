@@ -131,4 +131,23 @@ function insert_inst() {
 add_action( 'wp_ajax_nopriv_insert-inst', 'insert_inst');
 add_action( 'wp_ajax_insert-inst', 'insert_inst');
 
+/**
+ * delete institution
+ * @return [type] [description]
+ */
+function delete_inst() {
+	global $wpdb;
+	global $inst_table_name;
+
+	$id = $_POST['id'];
+
+	$wpdb->delete(
+		$inst_table_name,
+		array('id' => $id)
+	);
+	check_db_errors();
+}
+add_action( 'wp_ajax_nopriv_delete-inst', 'delete_inst');
+add_action( 'wp_ajax_delete-inst', 'delete_inst');
+
 ?>

@@ -111,5 +111,24 @@ function update_inst_table() {
 }
 add_action('init', 'update_inst_table');
 
+/**
+ * insert institution
+ */
+function insert_inst() {
+	global $wpdb;
+	global $inst_table_name;
+	
+	$push_data = array(
+		'name' => (empty($_POST['name'])) ? 'Institution' : $_POST['name']
+	);
+
+	$wpdb->insert(
+		$inst_table_name,
+		$push_data
+	);
+	check_db_errors();
+}
+add_action( 'wp_ajax_nopriv_insert-inst', 'insert_inst');
+add_action( 'wp_ajax_insert-inst', 'insert_inst');
 
 ?>

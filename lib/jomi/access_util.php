@@ -102,11 +102,11 @@ function check_db_errors() {
 	}
 }
 
-function toggle_debug() {
-	update_option('access_debug', $_POST['val']);
-	echo get_option('access_debug');
+function ajax_update_option() {
+	update_option($_POST['option_name'], $_POST['option_val']);
+	echo get_option($_POST['option_name']);
 }
-add_action( 'wp_ajax_nopriv_toggle-debug', 'toggle_debug');
-add_action( 'wp_ajax_toggle-debug', 'toggle_debug');
+add_action( 'wp_ajax_nopriv_ajax-update-option', 'ajax_update_option');
+add_action( 'wp_ajax_ajax-update-option', 'ajax_update_option');
 
 ?>

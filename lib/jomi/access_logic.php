@@ -168,11 +168,12 @@ function load_user_info() {
 
 	// TEST ONLY
 	// US IP
-	$ip = "173.13.115.174";
+	//$ip = "173.13.115.174";
 	// CHINA IP
-	$ip = "27.113.128.55";
+	//$ip = "27.113.128.55";
 	// MGH IP
-	$ip = "170.223.105.11";
+	//$ip = "170.223.105.11";
+	if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
 
 	$ip_long = sprintf("%u", ip2long($ip));
 	//echo $ip_long . "\n";

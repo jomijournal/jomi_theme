@@ -102,4 +102,11 @@ function check_db_errors() {
 	}
 }
 
+function toggle_debug() {
+	update_option('access_debug', $_POST['val']);
+	echo get_option('access_debug');
+}
+add_action( 'wp_ajax_nopriv_toggle-debug', 'toggle_debug');
+add_action( 'wp_ajax_toggle-debug', 'toggle_debug');
+
 ?>

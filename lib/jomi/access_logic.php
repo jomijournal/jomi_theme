@@ -4,6 +4,10 @@ global $wpdb;
 global $access_db_version;
 global $access_table_name;
 
+global $access_debug;
+$access_debug = get_option('access_debug');
+$access_debug = ($access_debug === "true") ? true : false;
+
 /**
  * ACCESS LOGIC
  */
@@ -123,6 +127,7 @@ function collect_rules($selector_meta, $institution_meta) {
 
 function load_user_info() {
 	global $wpdb;
+	global $access_debug;
 	global $reader;
 	
 	$current_user = wp_get_current_user();
@@ -183,7 +188,7 @@ function load_user_info() {
 	WHERE $ip_long BETWEEN start AND end";
 	$inst_ips = $wpdb->get_results($ip_query);
 
-	print_r($inst_ips);
+	if($access_debug) print_r($inst_ips);
 
 	$inst_locations = array();
 	if(empty($inst_ips)) {
@@ -198,7 +203,7 @@ function load_user_info() {
 			WHERE id=$location_id";
 			$inst_locations = array_merge($inst_locations, $wpdb->get_results($location_query));
 		}
-		print_r($inst_locations);
+		if($access_debug) print_r($inst_locations);
 	}
 
 	$inst_orders = array();
@@ -213,7 +218,7 @@ function load_user_info() {
 			WHERE location_id=$location_id";
 			$inst_orders = array_merge($inst_orders, $wpdb->get_results($order_query));
 		}
-		print_r($inst_orders);
+		if($access_debug) print_r($inst_orders);
 	}
 	//echo date('o-m-d');
 	
@@ -247,7 +252,10 @@ function load_user_info() {
 	    	'iso' => $record->country->isoCode,
 	    	'name' => $record->country->name
 	    );
-		$region = $record->mostSpecificSubdivision->isoCode;
+		$region = array (
+			'iso' => $record->mostSpecificSubdivision->isoCode,
+			'name' => $record->mostSpecificSubdivision->name
+		);
 		$city = $record->city->name;
 	} catch (Exception $e) {
 		// if can't find, default to Boston, MA, US
@@ -255,7 +263,10 @@ function load_user_info() {
 			'iso' => 'US',
 			'name' => 'United States'
 		);
-		$region = 'MA';
+		$region = array(
+			'iso' => 'MA',
+			'name' => 'Massachusetts'
+		);
 		$city = 'Boston';
 	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
@@ -288,6 +299,8 @@ function load_user_info() {
  * @return [array] $blocks a list of block objects to apply
  */
 function get_blocks($rules, $user_info) {
+
+	global $access_debug;
 
 	if(empty($rules)) {
 		//echo "empty rules";
@@ -330,7 +343,7 @@ function get_blocks($rules, $user_info) {
 
 					foreach($ips as $ip) {
 						if($ip_check == $ip) {
-							//echo "ip matched\n";
+							if($access_debug) echo "ip matched\n";
 							$check_count++;
 							//continue 2;
 						}
@@ -352,13 +365,24 @@ function get_blocks($rules, $user_info) {
 
 					foreach($countries as $country) {
 						if($country_check['iso'] == $country or $country_check['name'] == $country) {
-							//echo "country matched\n";
+							if($access_debug) echo "country matched\n";
 							$check_count++;
 							//continue 2;
 						}
 					}
 					break;
+				case 'is_region':
+					$region = $user_info['region'];
+					$region_checks = explode(',', $check_values[$index]);
 
+					foreach($region_checks as $region_check) {
+						if($region['iso'] == $region_check || $region['name'] == $region_check) {
+							if($access_debug) echo "region matched!\n";
+							$check_count++;
+						}
+					}
+
+					break;
 				case 'is_user':
 
 					$user_check = $user_info['user'];
@@ -369,7 +393,7 @@ function get_blocks($rules, $user_info) {
 						   $user_check['email'] == $user or
 						   $user_check['display_name'] == $user or
 						   $user_check['id'] == $user) {
-							//echo "user matched\n";
+							if($access_debug) echo "user matched\n";
 							$check_count++;
 							//continue 2;
 							//return;
@@ -382,7 +406,7 @@ function get_blocks($rules, $user_info) {
 					$logged_ins = explode(',', $check_values[$index]);
 					foreach($logged_ins as $logged_in) {
 						if(($logged_in == 'T' && $logged_in_check) || ($logged_in == 'F' && !$logged_in_check)) {
-							//echo "loggedin matched!\n";
+							if($access_debug) echo "loggedin matched!\n";
 							$check_count++;
 						}
 					}
@@ -392,6 +416,7 @@ function get_blocks($rules, $user_info) {
 					$user_subscribed = $user_info['subscribed'];
 					$check_subscribed = $check_values[$index];
 					if(($check_subscribed == 'T' && $user_subscribed) || ($check_subscribed == 'F' && !$user_subscribed)) {
+						if($access_debug) echo "subscribed matched!\n";
 						$check_count++;
 					}
 
@@ -404,7 +429,7 @@ function get_blocks($rules, $user_info) {
 			}
 		//END FOREACH
 		}
-		//echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
+		if($access_debug) echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
 		if($check_count == $checks) {
 			array_push($blocks, array(
 				'msg' => $rule->result_msg,
@@ -448,10 +473,10 @@ function check_access() {
   global $access_table_name;
   global $access_blocks;
 
-  $debug = true;
+  global $access_debug;
 
   $selector_meta = extract_selector_meta(get_the_ID());
-  if($debug) echo '<pre>';
+  if($access_debug) echo '<pre>';
   //print_r($selector_meta);
   //echo $selector_meta['status'];
   $institution_meta = extract_institution_meta();
@@ -464,20 +489,20 @@ function check_access() {
   //print_r($all_rules);
 
   $rules = collect_rules($selector_meta, $institution_meta);
-  if($debug) print_r($rules);
+  if($access_debug) print_r($rules);
 
   $user_info = load_user_info();
-  if($debug) print_r($user_info);
+  if($access_debug) print_r($user_info);
 
 
   $access_blocks = array();
   $access_blocks = get_blocks($rules, $user_info);
-  if($debug) print_r($access_blocks);
+  if($access_debug) print_r($access_blocks);
 
   // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
   //$blocks = array();
 
-  if($debug) echo '</pre>';
+  if($access_debug) echo '</pre>';
 
   //return $blocks;
 }

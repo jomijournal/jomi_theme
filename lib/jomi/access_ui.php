@@ -234,7 +234,7 @@ function global_rulebook(){
 				id: $(this).attr('rule-id')
 			},
 			function(response){
-				console.log(response);
+				//console.log(response);
 				refresh();
 			});
 		})
@@ -349,11 +349,11 @@ function global_rulebook(){
 		params.result_time_end = params.hasOwnProperty("result_time_end") ? params.result_time_end : row.find('input#result_time_end').val();
 		params.result_time_elapsed = params.hasOwnProperty("result_time_elapsed") ? params.result_time_elapsed : row.find('input#result_time_elapsed').val();
 
-		console.log(params);
+		//console.log(params);
 
 		$.post(MyAjax.ajaxurl, params,
 		function(response) {
-			console.log(response);
+			//console.log(response);
 			refresh();
 		});
 	}

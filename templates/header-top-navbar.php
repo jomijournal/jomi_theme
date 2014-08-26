@@ -1,7 +1,7 @@
 
-<div class="iegate">You seem to be using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience</div>
+<!--div class="iegate">You seem to be using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience</div>
 
-<div class="jsgate">You seem to have Javascript disabled. Please enable Javascript to improve your experience</div>
+<div class="jsgate">You seem to have Javascript disabled. Please enable Javascript to improve your experience</div-->
 
 
 <?php
@@ -184,12 +184,12 @@ global $user;
 
 		//$('.jsgate').hide();
 
-		if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
+		//if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
 
-		}
-		else{
+		//}
+		//else{
 			//$('.iegate').hide();
-   		}
+   		//}
 
 	});
 

@@ -42,7 +42,7 @@ function map_publication_id( $wp_query ) {
     global $article_count;
 
     if((int)$meta_value > 8 or (int)$meta_value <= 0) {
-      wp_redirect('/404.php');
+      wp_redirect('/404');
       exit();
     }
 

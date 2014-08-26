@@ -25,10 +25,10 @@ function jomi_login_footer(){
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>
   $(function(){
-    $("#loginform").attr("action", "' . site_url() . '/login/");
-    $("#registerform").attr("action", "' . site_url() . '/register/");
+    $("#loginform").attr("action", "' . site_url() . '/wp-login.php/");
+    $("#registerform").attr("action", "' . site_url() . '/wp-login.php?action=register/");
     $("#login a").first().attr("title","Journal of Medical Insight");
-    $("input[name=' . "'redirect_to'" . ']").attr("value","'.site_url().'");
+    //$("input[name=' . "'redirect_to'" . ']").attr("value","'.site_url().'");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=register'" . ']").attr("href", "'.site_url().'/register");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=lostpassword'" . ']").attr("href", "'.site_url().'/forgot");
     $("a[href=' . "'" . site_url() . "/wp-login.php'" . ']").attr("href", "'.site_url().'/login");
@@ -47,6 +47,33 @@ function login_rewrite($wp_rewrite) {
   //add_rewrite_rule('^register/','wp-login.php?action=register','top');
 }
 add_filter('init', 'login_rewrite');
+
+
+/**
+ * Redirect user after successful login.
+ *
+ * @param string $redirect_to URL to redirect to.
+ * @param string $request URL the user is coming from.
+ * @param object $user Logged user's data.
+ * @return string
+ */
+function my_login_redirect( $redirect_to, $request, $user ) {
+  //is there a user to check?
+  global $user;
+  if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+    //check for admins
+    if ( in_array( 'administrator', $user->roles ) ) {
+      // redirect them to the default place
+      return site_url('/wp-admin');
+    } else {
+      return home_url();
+    }
+  } else {
+    return $redirect_to;
+  }
+}
+
+add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
 // hides wp-login.php from the url bar
 if (!function_exists('possibly_redirect'))

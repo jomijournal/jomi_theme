@@ -169,6 +169,7 @@ function block_free_trial() {
 					<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1099-p226-o4">
 					<input type="hidden" name="_wpnonce" value="2bf1f332b1">
 				</div>
+				<div class="error" id="email-error"></div>
 				<p>
     				<span class="wpcf7-form-control-wrap your-email">
     					<input id="request-access-email" type="email" name="your-email" value="" placeholder="Email" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false">
@@ -190,10 +191,17 @@ $(function() {
 	$('#request-trial-submit').on('click', function(e) {
 		var email = $('#request-access-email').val();
 		if(isEmail(email)) {
-
+			$('#email-error').hide();
 		} else {
+			$('#email-error').text('Invalid Email Address!');
+			$("#email-error").css("-webkit-animation-play-state", "running");
+			$("#email-error").css("animation-play-state", "running");
+		     setTimeout(function() { 
+		       $("#email-error").css("-webkit-animation-play-state", "paused");
+		       $("#email-error").css("animation-play-state", "paused");
+		     }, 300);
+			$('#email-error').show();
 			e.preventDefault();
-			console.log('submit');
 		}
 	})
 })
@@ -206,4 +214,18 @@ function isEmail(email){
 }
 add_action( 'wp_ajax_block-free-trial', 'block_free_trial' );
 add_action( 'wp_ajax_nopriv_block-free-trial', 'block_free_trial' );
+
+function block_free_trial_thanks() {
+  $id = $_POST['id'];
+?>
+<div class="container free-trial">
+	<div id="greyout" class="greyout">
+		<div id="signal" class="signal"></div>
+	</div>
+</div>
+
+<?php
+}
+add_action( 'wp_ajax_block-free-trial-thanks', 'block_free_trial_thanks' );
+add_action( 'wp_ajax_nopriv_block-free-trial-thanks', 'block_free_trial_thanks' );
 ?>

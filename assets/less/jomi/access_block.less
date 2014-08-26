@@ -39,5 +39,34 @@
 			transition: all 0.15s ease-in-out;
     		-webkit-transition: all 0.15s ease-in-out;
 		}
+		div#email-error{
+			display: none;
+			width: 25%;
+			text-align: center;
+			position: relative;
+			margin-left: 37.5%;
+			padding: 10px 15px;
+			font-size: 16px;
+			font-weight: 700;
+			background: rgb(199, 58, 58);
+			margin-bottom: 10px;
+			border-radius: 10px;
+
+			animation: flash 0.3s infinite;
+			-webkit-animation: flash 0.3s infinite;
+			animation-play-state: paused;
+			-webkit-animation-play-state: paused;
+
+			transition: all 0.5s ease-in-out;
+			-webkit-transition: all 0.5 ease-in-out;
+		}
+		@-webkit-keyframes flash {
+			0% {	background: #FFC8C8;}
+			100% {	background: rgb(199, 58, 58);}
+		}
+		@keyframes flash {
+			0% {	background: #FFC8C8;}
+			100% {	background: rgb(199, 58, 58);}
+		}
 	}
 }

@@ -43,10 +43,7 @@
         var elapsed = 0;
 
         wistiaEmbed.bind("secondchange", function (s) {
-          //if(s > 60*10 && !is_user_logged_in()) {
-          //  $('.wistia_embed').empty().append('<h2 style="color:#fff">Please sign in to watch the rest of the video.</h2><a href="/" class="btn white fat" style="margin-top:25px">Back to front page</a>').attr('style', 'height: 100%;text-align: center;padding-top: 150px;padding-bottom: 150px;border: 3px solid #eee;');
-          //}
-          
+
           elapsed++;
 
           // GENERATED JAVASCRIPT

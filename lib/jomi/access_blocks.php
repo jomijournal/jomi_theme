@@ -147,10 +147,61 @@ function block_free_trial() {
 	<div class="row">
 		<strong><h1>ACCESS RESTRICTED</h1></strong>
 		<p>
-		Please recommend JoMI to your institution or librarian. Free trials are currently available to participating institutions.
+		Please recommend JoMI to your institution or librarian.
+		</p>
+		<p>
+		Free trials are currently available to institutions in your area.
+		</p>
+		<br>
+		<br>
+		<p>
+		If you are not associated with an institution, contact us:
+		</p>
+	</div>
+	<div class="row">
+		<div class="wpcf7" id="wpcf7-f1099-p226-o4" lang="en-US" dir="ltr">
+			<div class="screen-reader-response"></div>
+			<form name="" action="<?php echo get_permalink( $id ) . '#wpcf7-f1099-p226-o4'; ?>" method="post" class="wpcf7-form" novalidate="novalidate">
+				<div style="display: none;">
+					<input type="hidden" name="_wpcf7" value="1099">
+					<input type="hidden" name="_wpcf7_version" value="3.9.1">
+					<input type="hidden" name="_wpcf7_locale" value="en_US">
+					<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1099-p226-o4">
+					<input type="hidden" name="_wpnonce" value="2bf1f332b1">
+				</div>
+				<p>
+    				<span class="wpcf7-form-control-wrap your-email">
+    					<input id="request-access-email" type="email" name="your-email" value="" placeholder="Email" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false">
+    				</span>
+					<input id="request-trial-submit" type="submit" value="Request Access" class="wpcf7-form-control wpcf7-submit btn border">
+				</p>
+				<div class="wpcf7-response-output wpcf7-display-none"></div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<p>
+		And we will work with you personally to help you access our content.
 		</p>
 	</div>
 </div>
+<script>
+$(function() {
+	$('#request-trial-submit').on('click', function(e) {
+		var email = $('#request-access-email').val();
+		if(isEmail(email)) {
+
+		} else {
+			e.preventDefault();
+			console.log('submit');
+		}
+	})
+})
+//stolen from http://badsyntax.co/post/javascript-email-validation-rfc822
+function isEmail(email){
+    return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email );
+}
+</script>
 <?php
 }
 add_action( 'wp_ajax_block-free-trial', 'block_free_trial' );

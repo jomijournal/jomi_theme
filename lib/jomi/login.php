@@ -25,8 +25,8 @@ function jomi_login_footer(){
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>
   $(function(){
-    $("#loginform").attr("action", "' . site_url() . '/wp-login.php/");
-    $("#registerform").attr("action", "' . site_url() . '/wp-login.php?action=register/");
+    $("#loginform").attr("action", "' . site_url() . '/login/");
+    $("#registerform").attr("action", "' . site_url() . '/register/");
     $("#login a").first().attr("title","Journal of Medical Insight");
     //$("input[name=' . "'redirect_to'" . ']").attr("value","'.site_url().'");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=register'" . ']").attr("href", "'.site_url().'/register");

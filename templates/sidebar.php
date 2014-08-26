@@ -1,4 +1,7 @@
 <?php #dynamic_sidebar('sidebar-primary'); ?>
+
+<div class="row">
+<div class="col-xs-12">
 <?php $args = array(
   'type' => 'article',
   'exclude' => '1',
@@ -33,6 +36,15 @@ $notification_url = site_url() . "/notifications/?area=" . $category->cat_name;
 <?php } ?>
 </ul>
 
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-12" style="text-align:center;">
+		<hr>
+		<a href="/index" class="index"><h2>Article Index</h2></a>
+		<hr>
+	</div>
+</div>
 <script>
 $('li').each(function(index){
 	if($(this).hasClass('coming-soon')) {

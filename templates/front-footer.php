@@ -7,7 +7,7 @@
   		<div class='row'>
 	  		<ul>
 				<div class='col-md-4'>
-					<li><a href="/articles/" class="border">All</a></li>
+					<li><a href="/index/" class="border">Article Index</a></li>
 				</div>
 <?php 
 $args = array(

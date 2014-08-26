@@ -136,4 +136,23 @@ $(function() {
 }
 add_action( 'wp_ajax_block-deny', 'block_deny' );
 add_action( 'wp_ajax_nopriv_block-deny', 'block_deny' );
+
+function block_free_trial() {
+	$id = $_POST['id'];
+?>
+<div class="container free-trial">
+	<div id="greyout" class="greyout">
+		<div id="signal" class="signal"></div>
+	</div>
+	<div class="row">
+		<strong><h1>ACCESS RESTRICTED</h1></strong>
+		<p>
+		Please recommend JoMI to your institution or librarian. Free trials are currently available to participating institutions.
+		</p>
+	</div>
+</div>
+<?php
+}
+add_action( 'wp_ajax_block-free-trial', 'block_free_trial' );
+add_action( 'wp_ajax_nopriv_block-free-trial', 'block_free_trial' );
 ?>

@@ -16,6 +16,7 @@ $default = array(
 	'result_time_end' => -1,
 	'result_time_elapsed' => -1,
 	'result_msg' => '<p>DEFAULT</p>',
+	'result_closable' => 0,
 	'check_type' => 'none',
 	'check_value' => 'none',
 	'priority' => 0,
@@ -33,6 +34,7 @@ function process_access_post_data() {
 	$result_time_start =    (empty($_POST['result_time_start']))   ? $default['result_time_start']   : $_POST['result_time_start'];
 	$result_time_end =      (empty($_POST['result_time_end']))     ? $default['result_time_end']     : $_POST['result_time_end'];
 	$result_time_elapsed =  (empty($_POST['result_time_elapsed'])) ? $default['result_time_elapsed'] : $_POST['result_time_elapsed'];
+	$result_closable =      (empty($_POST['result_closable']))     ? $default['result_closable']     : $_POST['result_closable'];
 	if(empty($_POST['result_msg'])) {
 		switch ($result_type) {
 			case 'DENY':
@@ -70,6 +72,7 @@ function process_access_post_data() {
 		'result_time_end' => $result_time_end,
 		'result_time_elapsed' => $result_time_elapsed,
 		'result_msg' => $result_msg,
+		'result_closable' => $result_closable,
 		'check_type' => $check_type,
 		'check_value' => $check_value,
 		'priority' => $priority,

@@ -133,6 +133,8 @@ foreach($rules as $rule_index=>$rule) {
 			<input type="number" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
 			<input type="number" id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
 			<input type="number" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
+			<br>Closable
+			<input type="checkbox" id="result_closable" <?php echo ($rule->result_closable > 0) ? 'checked' : ''; ?>>
 		</td>
 		<?php if($rule_index > 0) { ?>
 		<td class="row">
@@ -246,6 +248,7 @@ function global_rulebook(){
 			var row = $(this).parent().parent().parent();
 			// enable editing
 			row.find('input').removeAttr('readonly');
+			row.find('input[type="checkbox"]').removeAttr('disabled');
 			row.find('select').removeAttr('disabled');
 			  row.find('#access_add_check').each(function() {	$(this).show(); });
 			  row.find('#delete_check').each(function() { $(this).show(); });
@@ -261,6 +264,7 @@ function global_rulebook(){
 			//console.log(row.find('input#selector_value').val());
 			// disable editing again
 			row.find('input').attr('readonly', '');
+			row.find('input[type="checkbox"]').attr('disabled', '');
 			row.find('select').attr('disabled', '');
 			  row.find('#access_add_check').each(function() {	$(this).hide(); });
 			  row.find('#delete_check').each(function() { $(this).hide(); });
@@ -352,6 +356,7 @@ function global_rulebook(){
 		params.result_time_start = params.hasOwnProperty("result_time_start") ? params.result_time_start : row.find('input#result_time_start').val();
 		params.result_time_end = params.hasOwnProperty("result_time_end") ? params.result_time_end : row.find('input#result_time_end').val();
 		params.result_time_elapsed = params.hasOwnProperty("result_time_elapsed") ? params.result_time_elapsed : row.find('input#result_time_elapsed').val();
+		params.result_closable = params.hasOwnProperty("result_closable") ? params.result_closable : ((row.find('input#result_closable').is(':checked')) ? 1 : 0);
 
 		console.log(params);
 
@@ -371,6 +376,7 @@ function global_rulebook(){
 			  $('#results').html(response);
 			  // disable editing
 			  $('#results').find('input').attr('readonly', '');
+			  $('#results').find('input[type="checkbox"]').attr('disabled', '');
 			  $('#results').find('select').attr('disabled', '');
 			  $('#results').find('a#access_add_check').each(function() {	$(this).hide(); });
 			  $('#results').find('a#delete_check').each(function() { $(this).hide(); });

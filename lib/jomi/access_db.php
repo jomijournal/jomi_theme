@@ -8,7 +8,7 @@ global $wpdb;
 // change this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $access_db_version;
-$access_db_version = '1.02';
+$access_db_version = '1.03';
 
 global $access_table_name;
 $access_table_name = $wpdb->prefix . 'article_access';
@@ -36,6 +36,7 @@ function access_table_install() {
 		result_time_end int(5) NOT NULL,
 		result_time_elapsed int(5) NOT NULL,
 		result_msg text NOT NULL,
+		result_closable tinyint(1) NOT NULL,
 		check_type VARCHAR(256) NOT NULL,
 		check_value text NOT NULL,
 		priority int(3) NOT NULL,
@@ -112,7 +113,7 @@ function update_rule() {
 		$access_table_name,
 		$push_data,
 		array('ID' => $id),
-		array('%s', '%d', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%s'),
+		array('%s', '%d', '%d', '%d', '%s', '%d', '%s', '%s', '%d', '%s', '%s'),
 		array('%d')
 	);
 	check_db_errors();

@@ -124,11 +124,12 @@ foreach($rules as $rule_index=>$rule) {
 		</td>
 		<td>
   			<select id="result_type" data="<?php echo $rule->result_type; ?>">
-  			  	<option val=""          >None</option>
-  				<option val="deny"      >DENY</option>
-  				<option val="sign_up"   >SIGN UP</option>
-  				<option val="checkpoint">CHECKPOINT</option>
-  				<option val="free_trial">FREE TRIAL</option>
+  			  	<option val=""                 >None</option>
+  				<option val="deny"             >DENY</option>
+  				<option val="sign_up"          >SIGN UP</option>
+  				<option val="checkpoint"       >CHECKPOINT</option>
+  				<option val="free_trial"       >FREE TRIAL</option>
+  				<option val="free_trial_thanks">FREE TRIAL THANKS</option>
   			</select>
 			<input type="number" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
 			<input type="number" id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">

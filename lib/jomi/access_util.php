@@ -50,6 +50,9 @@ function process_access_post_data() {
 			case 'free_trial':
 				$result_msg = "block-free-trial";
 				break;
+			case 'free_trial_thanks':
+				$result_msg = "block-free-trial-thanks";
+				break;
 			case 'none':
 			case '':
 			case $default['result_type']:

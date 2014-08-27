@@ -188,6 +188,9 @@ function block_free_trial() {
 </div>
 <script>
 $(function() {
+	$('#close-free-trial').on('click', function() {
+		$('#access_block').hide();
+	});
 	$('#request-trial-submit').on('click', function(e) {
 		var email = $('#request-access-email').val();
 		if(isEmail(email)) {
@@ -218,11 +221,26 @@ add_action( 'wp_ajax_nopriv_block-free-trial', 'block_free_trial' );
 function block_free_trial_thanks() {
   $id = $_POST['id'];
 ?>
-<div class="container free-trial">
+<div class="container free-trial free-trial-thanks">
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
+	<div class="row">
+		<h1>Thanks for using our free trial!</h1>
+		<h4>Please let your institution know about JoMI!</h4>
+	</div>
+	<div class="row link-close">
+		<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>
+	</div>
 </div>
+<script>
+$(function() {
+	$('#close-free-trial').on('click', function() {
+		$('#access_block').hide();
+		wistiaEmbed.play();
+	});
+});
+</script>
 
 <?php
 }

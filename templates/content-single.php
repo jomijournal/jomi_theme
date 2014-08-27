@@ -31,6 +31,8 @@
       </div>
     </div>
     <script>
+    var blocked = false;
+
       window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
 
       $(document).ready(function(){
@@ -52,19 +54,19 @@
             <?php if($block['time_elapsed'] > 0) {?>
               if(elapsed == <?php echo $block['time_elapsed']; ?>) {
                 // block it
-                block("<?php echo $block['msg']; ?>");
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? true : false;?>);
               }
             <?php } elseif ($block['time_start'] > 0) { ?>
               if(s >= <?php echo $block['time_start']; ?>) {
-                block("<?php echo $block['msg']; ?>");
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? true : false;?>);
               }
             <?php } elseif ($block['time_end'] > 0) { ?>
               if(s <= <?php echo $block['time_end']; ?>) {
-                block("<?php echo $block['msg']; ?>");
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? true : false;?>);
               }
             // block immediately
             <?php } else { ?>
-              block("<?php echo $block['msg']; ?>");
+              block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? true : false;?>);
             <?php } ?>
 
           <?php } }?>
@@ -99,7 +101,12 @@
           history.pushState( null, null, $(this).attr('href') );
         });
 
-        function block(msg) {
+        function block(msg, closable) {
+
+          if(blocked) return;
+
+          if(closable) blocked = true;
+
           var function_name = msg;
 
          $('.access-block').show();

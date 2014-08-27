@@ -469,7 +469,8 @@ function get_blocks($rules, $user_info) {
 				'msg' => $rule->result_msg,
 				'time_start' => $rule->result_time_start,
 				'time_end' => $rule->result_time_end,
-				'time_elapsed' => $rule->result_time_elapsed
+				'time_elapsed' => $rule->result_time_elapsed,
+				'closable' => $rule->result_closable
 			));
 		}
 	}

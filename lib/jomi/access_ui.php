@@ -173,7 +173,9 @@ function global_rulebook_menu(){
 }
 function global_rulebook(){
   ?>
-
+  <div id="greyout" class="greyout">
+	<div id="signal" class="signal"></div>
+  </div>
   <h4>Category</h4>
 
   <b>DEBUG</b>
@@ -368,11 +370,13 @@ function global_rulebook(){
 	}
 	function refresh() {
 
+		$('#greyout,#signal').show();
 		$.post( MyAjax.ajaxurl, {
 		    action : 'list-rules',
 		    //cat : $('#category').val()
 			},
 			function( response ) {
+		      $('#greyout,#signal').hide();
 			  $('#results').html(response);
 			  // disable editing
 			  $('#results').find('input').attr('readonly', '');

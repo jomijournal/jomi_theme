@@ -17,37 +17,34 @@ global $user;
 
 <?php endif; ?>
 
-  <nav class="navbar navbar-default site-header" role="navigation">
-  <div class="container-fluid container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
-    </div>
+<nav class="navbar navbar-default site-header" role="navigation">
+	<div class="container-fluid container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
+		</div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	 <form class="navbar-form navbar-left" role="search">
-        <div class="form-group has-feedback has-feedback-left">
-        	<!--form class="navbar-form navbar-left" role="search"-->
-	    	<input placeholder="Search Articles" type="text" name="login" size="30" class="border search from-control" id="search-field"></input>
-	    	<i class="form-control-feedback glyphicon glyphicon-search"></i>
-	    	<!--/form-->
-	    </div>
-      </form>
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<form class="navbar-form navbar-left" role="form">
+				<div class="form-group has-feedback has-feedback-left">
+			  		<input placeholder="Search Articles" type="text" name="login" size="30" class="form-control search-field" id="search-field"></input>
+					<i class="form-control-feedback glyphicon glyphicon-search"></i>
+				</div>
+			</form>
 
-      <ul class="nav navbar-nav navbar-right">
- 
-	      <?php if(!is_user_logged_in()): ?>
-		        <li class="dropdown hidden-xs">
+			<ul class="nav navbar-nav navbar-right">
+				<?php if(!is_user_logged_in()): ?>
+				<li class="dropdown hidden-xs">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
-						<div class="dropdown-menu pull-right" style="padding: 15px; z-index: 5;">
-							<div id="login-form">
+						<div class="dropdown-menu pull-right">
+							<div class="login-form" id="login-form">
 								<form name="loginform" id="loginform" action="">
 									<p class="error" id="error"></p>
 									<p class="login-username">
@@ -80,22 +77,16 @@ global $user;
 				</li>
 				<?php else: ?>
 				<li><?php wp_loginout($_SERVER['REQUEST_URI']); ?></li>
-			<?php endif; ?>
-			<li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li>
-	        <li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
-	        <li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
-	        <li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
-	        <li><a href="/articles/" class="<?php 			if( is_page( 'articles') ) echo " active"; ?>">Articles</a></li>
-
-     </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+				<?php endif; ?>
+				<li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li>
+				<li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
+				<li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
+				<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
+				<li><a href="/articles/" class="<?php 			if( is_page( 'articles') ) echo " active"; ?>">Articles</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
 </nav>
-</div>
-
-
-
-
 
 <script>
 

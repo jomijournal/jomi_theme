@@ -8,7 +8,10 @@
 global $user;
 ?>
 <?php if(is_front_page()) : ?>
-	<video id="video" autoplay loop class='background hidden-xs' poster="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/vid_poster.jpg">
+	<!-- ie8 fallback -->
+	<!--img src='https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/vid_poster.jpg' class='background'/-->
+
+	<video id="video" autoplay preload loop class='background hidden-xs video-js' poster="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/vid_poster.jpg" data-setup='{"controls":false}'>
 		<source id="video-source" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4" type="video/mp4">
 		<source id="video-source-webm" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background.webm" type="video/webm">
 	</video>

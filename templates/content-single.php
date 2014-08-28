@@ -30,6 +30,8 @@
         <div class="tab-pane" id="outline"><?php the_block('outline'); ?></div>
       </div>
     </div>
+
+    <!-- replace state is an html5 feature. if ie8 tries to do this, it will stop the video from loading -->
     <!--[if gt IE 8]>
     <script>
       window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');

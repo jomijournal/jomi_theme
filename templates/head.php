@@ -100,5 +100,9 @@ if($user && isset($_GET["logout"]))
 
 	<!--[if lt IE 9]>
 	  <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/respond.min.js"></script>
+	  <link href="//vjs.zencdn.net/4.7/video-js.css" rel="stylesheet">
+	  <script src="//vjs.zencdn.net/4.7/video.js"></script>
 	<![endif]-->
+
+	
 </head>

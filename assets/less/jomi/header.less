@@ -2,7 +2,8 @@
 
 nav.site-header{
 
-   background: rgba(0, 0, 0, 0);
+   //background: rgba(0, 0, 0, 0);
+   background: none;
    border-color: rgba(0, 0, 0, 0);
 
    .clearfix();
@@ -36,13 +37,19 @@ nav.site-header{
                   text-decoration:none;
                   color:#fff;
                }
+               &:hover.dropdown-toggle{
+                  color: #fff;
+               }
                &.dropdown-toggle{
-                  color: #000;
+                  color: #fff;
+               }
+               &.border[href="/login/"]{
+                  color: #fff;
                }
             }
             &.open {
                a{
-                  color:#fff !important;
+                  color:#fff;
                }
             }
          }
@@ -205,9 +212,15 @@ nav.site-header{
                      text-decoration:none;
                      color:#fff;
                   }
+                  &:hover.dropdown-toggle{
+                     color: #fff;
+                  }
                   &.active{ 
                      font-weight: bold;
                      border-bottom: 1px rgba(255, 255, 255, 0.5) solid;
+                  }
+                  &.border[href="#"]{
+                     color: #fff;
                   }
 
                }
@@ -262,6 +275,9 @@ nav.site-header{
             &:hover{
                background:rgba(255,255,255,0.2);
             }
+         }
+         a.border[href="#"]{
+            color: #fff;
          }
          &.open a.border{
             border-radius: 20px 20px 0 0;

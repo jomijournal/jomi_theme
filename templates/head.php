@@ -103,6 +103,11 @@ if($user && isset($_GET["logout"]))
 	  <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/placeholders.min.js"></script>
 	  <link href="//vjs.zencdn.net/4.7/video-js.css" rel="stylesheet">
 	  <script src="//vjs.zencdn.net/4.7/video.js"></script>
+	  <style>
+	  body{
+		font: 10pt/1.6 Arial !important;
+	  }
+	  </style>
 	<![endif]-->
 
 	

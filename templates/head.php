@@ -98,7 +98,7 @@ if($user && isset($_GET["logout"]))
 	 var user = '<?php echo $user->user_id; ?>';
 	</script>
 
-	<![if lt IE 9]>
+	<!--[if lt IE 9]>
 	  <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/respond.min.js"></script>
 	<![endif]-->
 </head>

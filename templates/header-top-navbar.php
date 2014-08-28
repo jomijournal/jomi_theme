@@ -58,15 +58,20 @@ global $user;
 										<label for="user_pass">Password</label>
 										<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
 									</p>
-									<p class="login-remember"><label class="active"><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Remember Me</label></p>
-
-									<p class="login-submit">
-										<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
-										<input type="hidden" name="redirect_to" value="/">
-									</p>
-									<p>
-									<a href="/register" class="register">Register</a>
-									</p>
+									<input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">
+									<div class="row">
+										<div class="col-sm-7">
+											<p class="login-submit">
+												<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
+												<input type="hidden" name="redirect_to" value="/">
+											</p>
+										</div>
+										<div class="col-sm-5">
+											<p>
+												<a href="/register" class="register">Register</a>
+											</p>
+										</div>
+									</div>
 									<br>
 									<!--p class="login-register" style="width:45%">
 										<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>

@@ -35,7 +35,7 @@ global $user;
 			<form class="navbar-form navbar-left" role="form">
 				<div class="form-group has-feedback has-feedback-left">
 			  		<input placeholder="Search Articles" type="text" name="login" size="30" class="form-control search-field" id="search-field"></input>
-					<i class="form-control-feedback glyphicon glyphicon-search"></i>
+					<i class="form-control-feedback glyphicon glyphicon-search search-icon"></i>
 				</div>
 			</form>
 

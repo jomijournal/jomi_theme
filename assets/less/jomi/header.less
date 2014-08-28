@@ -40,6 +40,24 @@ nav.site-header{
          -webkit-box-shadow: inset 0 0px 0 rgba(255,255,255,0.1),0 0px 0 rgba(255,255,255,0.1);
          box-shadow: inset 0 0px 0 rgba(255,255,255,0.1),0 0px 0 rgba(255,255,255,0.1);
          z-index: 5;
+         div.form-group.has-feedback{
+            input.form-control.search-field{
+               padding-left: 34px;
+               background: none;
+               border-radius: 25px;
+               color: #fff;
+               width: 100%;
+               &:focus{
+                  border-color: inherit;
+                  box-shadow: none;
+                  -webkit-box-shadow: none;
+               }
+            }
+            i.search-icon {
+               top: 0;
+               left: 0;
+            }
+         }
       }
 
       ul.navbar-nav{

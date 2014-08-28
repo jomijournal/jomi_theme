@@ -30,10 +30,15 @@
         <div class="tab-pane" id="outline"><?php the_block('outline'); ?></div>
       </div>
     </div>
+    <!--[if gt IE 8]>
+    <script>
+      window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
+    </script>
+    <![endif]-->
     <script>
     var blocked = false;
 
-      window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
+
 
       $(document).ready(function(){
         $("#wistia").attr('id', 'wistia_<?php echo $wistia ?>').show();

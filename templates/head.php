@@ -74,6 +74,7 @@ if($user && isset($_GET["logout"]))
 	<meta name="citation_issue" content="<?php #the_month(); ?>">
 	<?php endwhile; ?>
 	<?php endif; ?>
+
 	<!-- TYPEKIT -->
 	<script type="text/javascript" src="//use.typekit.net/wjg6rds.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -96,4 +97,8 @@ if($user && isset($_GET["logout"]))
 	<script>
 	 var user = '<?php echo $user->user_id; ?>';
 	</script>
+
+	<![if lt IE 9]>
+	  <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/respond.min.js"></script>
+	<![endif]-->
 </head>

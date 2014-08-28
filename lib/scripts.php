@@ -21,8 +21,10 @@ function roots_scripts() {
     $css_hash = json_decode($contents)->csspath->hash;
     $js_hash = json_decode($contents)->jspath->hash;
 
-
+    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/vendor/bootstrap/dist/css/bootstrap.min.css', false, false);
     wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css?v=' . $css_hash, false, false);
+    
+    
     wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js?v=' . $js_hash, array(), null, false);
 
   #wp_enqueue_style('roots_main', get_theme_directory_uri() . '/assets/css/main.min.css', false, false);
@@ -45,6 +47,7 @@ function roots_scripts() {
   wp_register_script('userapp', '//app.userapp.io/js/userapp.client.js', array(), null, false);
   wp_register_script('cookies', get_template_directory_uri() . '/assets/js/vendor/cookies.min.js', array(), null, false);
   wp_register_script('coin-js', get_template_directory_uri() . '/assets/vendor/coindonationwidget.com/coin.js', array(), null, false);
+
 
   wp_enqueue_style('coin-css', get_template_directory_uri() . '/assets/vendor/coindonationwidget.com/coin.css', false, false);
   

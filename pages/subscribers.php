@@ -5,7 +5,7 @@ Template Name: Subscribers
 ?>
 
 <div class='row'>
-	<div class='col-xs-6'>
+	<div class='col-sm-6'>
 		<h2>Subscribing Institutions</h2>
 	</div>
 	<div class='col-sm-3'>

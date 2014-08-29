@@ -28,7 +28,7 @@ foreach($categories as $category) {
 	$post_args = array(
 		'post_type' => 'article',
 		'category' => $category->cat_ID,
-		'post_status' => array('publish', 'preprint')
+		'post_status' => array('publish', 'preprint', 'in_production')
 	);
 	$posts = get_posts($post_args);
 

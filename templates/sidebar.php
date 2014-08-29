@@ -22,7 +22,9 @@ $current = (is_category($category->cat_ID)) ? true : false;
 $post_args = array(
 	'post_type' => 'article',
 	'category' => $category->cat_ID,
-	'post_status' => array('publish', 'preprint')
+	'post_status' => array('publish', 'preprint', 'in_production'),
+	'posts_per_page' => -1,
+    'caller_get_posts'=> 1
 );
 $posts = get_posts($post_args);
 

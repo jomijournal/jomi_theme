@@ -13,8 +13,50 @@
 /*
 * ARTICLE CATEGORIES SIDEBAR
 */
+.single .sidebar{
+  .author{
+    display:block;
+    margin-bottom:10px;
+    background: #f8f8f8;
+    border:3px solid #eee;
+    color:#111 !important;
+    text-decoration: none;
+    &:hover {
+      border:3px solid #428bca;
+    }
+    h4{
+      font-size: 14px;
+      font-weight:700;
+      margin:5px 0;
+  }
+  h5{
+      font-size: 12px;
+      font-weight: normal;
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+    .avatar{
+      float: left;
+      margin-right:5px;
+      img{
+         width: 64px;
+      }
+  }
+  .bio{
+      width: 100%;
+    display: block;
+    padding-left: 5px;
+  }
+ }
+ .pub-info{
+    display:block;
+    margin-bottom:0px;
+    background: #f8f8f8;
+    padding:5px 15px;
+ }
+}
 .articles div.container.wrap, .category div.container.wrap, .search div.container.wrap, .archive div.container.wrap .sidebar{
-
+  
   .index{
     text-decoration: none;
     color: #fff;
@@ -157,6 +199,9 @@
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
+  .single .sidebar ul li a {
+      padding: 10px 25px !important;
+   }
 }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 

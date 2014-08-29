@@ -57,14 +57,19 @@ if( ! empty($location) ):
 
 </div>
 
-<h3>Information</h3>
-<div class="pub-info">
-  <strong>Publication Date: </strong><?php echo get_the_date(); ?>
-</div>
-<div class="pub-info">
-  <strong>Article ID: </strong>
-  <?php the_field('publication_id'); ?>
-</div>
+<table class="info">
+	<tr>
+		<h3>Information</h3>
+	</tr>
+	<tr>
+		<td><strong>Publication Date</strong></td>
+		<td><?php echo get_the_date(); ?></td>
+	</tr>
+	<tr>
+		<td><strong>Article ID</strong></td>
+		<td><?php the_field('publication_id'); ?></td>
+	</tr>
+</table>
 
 <h3>Share This Article</h3>
 
@@ -82,11 +87,24 @@ if(!empty($user_inst)) {
 	$order = $user_inst['order'];
 	$is_sub = $user_inst['is_subscribed'];
 	?>
-<h3>Institution</h3>
-<strong>Name: </strong><?php echo $inst->name; ?><br>
-<strong>Location: </strong><?php echo $location->description; ?><br><?php echo ($location->address . ', ' . $location->city . ' ' . $location->region . ' ' . $location->zip)?><br>
-<strong>Status: </strong><?php echo ($is_sub > 0) ? '<span style="color:green;font-weight:bold;">SUBSCRIBED' : '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span><br>
-<?php echo $order->date_start . ' → ' . $order->date_end; ?>
+<table class="info">
+	<tr>
+		<h3>Institution</h3>
+	</tr>
+	<tr>
+		<td><strong>Name</strong></td>
+		<td><?php echo $inst->name; ?></td>
+	</tr>
+	<tr>
+		<td><strong>Location</strong></td>
+		<td><?php echo $location->description; ?><br><?php echo ($location->address . ', ' . $location->city . ' ' . $location->region . ' ' . $location->zip)?></td>
+	</tr>
+	<tr>
+		<td><strong>Status</strong></td>
+		<td><?php echo ($is_sub > 0) ? '<span style="color:green;font-weight:bold;">SUBSCRIBED' : '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span><br>
+		<?php echo $order->date_start . ' → ' . $order->date_end; ?></td>
+	</tr>
+</table>
 
 	<?php
 }

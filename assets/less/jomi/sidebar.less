@@ -28,32 +28,39 @@
       font-size: 14px;
       font-weight:700;
       margin:5px 0;
-  }
-  h5{
+    }
+    h5{
       font-size: 12px;
       font-weight: normal;
       margin-top: 0;
       margin-bottom: 0;
-  }
+    }
     .avatar{
       float: left;
       margin-right:5px;
       img{
          width: 64px;
       }
-  }
-  .bio{
+    }
+    .bio{
       width: 100%;
     display: block;
     padding-left: 5px;
+    }
   }
- }
- .pub-info{
-    display:block;
-    margin-bottom:0px;
-    background: #f8f8f8;
-    padding:5px 15px;
- }
+  table.info {
+    tr{
+      &:nth-child(odd){
+        background: #f8f8f8;
+      }
+      &:nth-child(even){
+        background: #eee;
+      }
+      td, th{
+        padding: 5px;
+      }
+    }
+  }
 }
 .articles div.container.wrap, .category div.container.wrap, .search div.container.wrap, .archive div.container.wrap .sidebar{
   

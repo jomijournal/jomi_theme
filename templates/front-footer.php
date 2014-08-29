@@ -9,6 +9,9 @@
 				<div class='col-md-4'>
 					<li><a href="/index/" class="border">Article Index</a></li>
 				</div>
+				<div class='col-md-4'>
+					<li><a href="/articles/" class="border">All Articles</a></li>
+				</div>
 <?php 
 $args = array(
   'type' => 'article',
@@ -18,7 +21,7 @@ $args = array(
   'hide_empty' => 0
 );
 
-$cat_count = 2;
+$cat_count = 3;
 
 $categories = get_categories($args);
 foreach($categories as $category) { 

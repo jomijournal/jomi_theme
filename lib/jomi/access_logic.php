@@ -191,10 +191,13 @@ function load_user_info() {
 	$ip_query = "SELECT * FROM $inst_ip_table_name 
 	WHERE $ip_long BETWEEN start AND end";
 	$inst_ips = $wpdb->get_results($ip_query);
+	// get first result
+	$inst_ip = $inst_ips[0];
 
 	if($access_debug) {
 		echo "Institution IP data:\n";
-		print_r($inst_ips);
+		//print_r($inst_ips);
+		print_r($inst_ip);
 	}
 
 	$inst_locations = array();
@@ -203,16 +206,18 @@ function load_user_info() {
 	} else { 
 		// get matching locations
 		//$is_subscribed = true;
-		foreach($inst_ips as $inst_ip) {
+		//foreach($inst_ips as $inst_ip) {
 			$location_id = $inst_ip->location_id;
 			$location_query = 
 			"SELECT * FROM $inst_location_table_name
 			WHERE id=$location_id";
 			$inst_locations = array_merge($inst_locations, $wpdb->get_results($location_query));
-		}
+			$inst_location = $inst_locations[0];
+		//}
 		if($access_debug) {
 			echo "Institution Location Data:\n";
-			print_r($inst_locations);
+			//print_r($inst_locations);
+			print_r($inst_location);
 		}
 	}
 
@@ -221,16 +226,18 @@ function load_user_info() {
 
 	} else {
 		// get matching orders
-		foreach($inst_locations as $inst_location) {
+		//foreach($inst_locations as $inst_location) {
 			$location_id = $inst_location->id;
 			$order_query = 
 			"SELECT * FROM $inst_order_table_name
 			WHERE location_id=$location_id";
 			$inst_orders = array_merge($inst_orders, $wpdb->get_results($order_query));
-		}
+			$inst_order = $inst_orders[0];
+		//}
 		if($access_debug) {
 			echo "Institution Order History:\n";
-			print_r($inst_orders);
+			//print_r($inst_orders);
+			print_r($inst_order);
 		}
 	}
 	//echo date('o-m-d');
@@ -242,17 +249,38 @@ function load_user_info() {
 
 		$cur_time = time();
 		$is_subscribed = false;
-		foreach($inst_orders as $inst_order) {
+		//foreach($inst_orders as $inst_order) {
+			// check if order falls within today's date
 			$fromtime = strtotime($inst_order->date_start);
 			$endtime = strtotime($inst_order->date_end);
 			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
 
 			    $is_subscribed = true;
-			    break;
+			    //break;
 			} 
-		}
+		//}
 	}
 
+	if(!empty($inst_ip) && !empty($inst_location) && !empty($inst_order)) {
+		$inst_id = $inst_location->inst_id;
+		$inst_query = "SELECT * FROM $inst_table_name WHERE id=$inst_id";
+		$insts = $wpdb->get_results($inst_query);
+		$inst = $insts[0];
+
+		if($access_debug) {
+			echo "Institution Name:\n";
+			print_r($inst);
+		}
+
+		global $user_inst;
+		$user_inst = array(
+			'inst' => $inst,
+			'ip' => $inst_ip,
+			'location' => $inst_location,
+			'order' => $inst_order,
+			'is_subscribed' => $is_subscribed
+		);
+	}
 
 
 	// check institutions here

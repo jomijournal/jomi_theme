@@ -70,3 +70,25 @@ if( ! empty($location) ):
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <div class="addthis_sharing_toolbox"></div>
+
+<?php 
+global $user_inst;
+//print_r($inst);
+
+if(!empty($user_inst)) {
+	$inst = $user_inst['inst'];
+	$ip = $user_inst['ip'];
+	$location = $user_inst['location'];
+	$order = $user_inst['order'];
+	$is_sub = $user_inst['is_subscribed'];
+	?>
+<h3>Institution</h3>
+<strong>Name: </strong><?php echo $inst->name; ?><br>
+<strong>Location: </strong><?php echo $location->description; ?><br><?php echo ($location->address . ', ' . $location->city . ' ' . $location->region . ' ' . $location->zip)?><br>
+<strong>Status: </strong><?php echo ($is_sub > 0) ? '<span style="color:green;font-weight:bold;">SUBSCRIBED' : '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span><br>
+<?php echo $order->date_start . ' → ' . $order->date_end; ?>
+
+	<?php
+}
+
+?>

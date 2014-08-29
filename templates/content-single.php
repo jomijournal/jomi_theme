@@ -31,6 +31,7 @@
       </div>
     </div>
 
+
     <!-- replace state is an html5 feature. if ie8 tries to do this, it will stop the video from loading -->
     <!--[if gt IE 8]>
     <script>
@@ -40,9 +41,7 @@
     <script>
     var blocked = false;
 
-
-
-      $(document).ready(function(){
+      $(function(){
         $("#wistia").attr('id', 'wistia_<?php echo $wistia ?>').show();
         wistiaEmbed = Wistia.embed("<?php echo $wistia ?>", {
           videoFoam: true
@@ -132,7 +131,16 @@
           $('.access-block').find('#content').empty().html(response);
          });
         }
-
+        $.scrollUp({
+          scrollName: 'scrollUp', // Element ID
+          topDistance: '300', // Distance from top before showing element (px)
+          topSpeed: 300, // Speed back to top (ms)
+          animation: 'fade', // Fade, slide, none
+          animationInSpeed: 200, // Animation in speed (ms)
+          animationOutSpeed: 200, // Animation out speed (ms)
+          //scrollText: 'Scroll to top', // Text for element
+          activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+        });
       });
     </script>
   </article>

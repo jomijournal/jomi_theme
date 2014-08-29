@@ -17,9 +17,9 @@ $args=array(
 $my_query = new WP_Query($args);
 
 $post_count = 0;
-//global $article_count;
-//$article_count = 0;
-//$count = 0;
+
+//global $num_articles;
+//echo $num_articles;
 
 if (!$my_query->have_posts()) : ?>
   <div class="alert alert-warning">
@@ -29,8 +29,7 @@ if (!$my_query->have_posts()) : ?>
 
 <div class='article-container'>
 <?php while ($my_query->have_posts()) : 
-  $my_query->the_post(); 
-  //$count++; ?>
+  $my_query->the_post(); ?>
   <?php if($post_count == 0): ?>
     <!--div class='row'>
     <div class='col-sm-6'-->
@@ -55,15 +54,4 @@ if (!$my_query->have_posts()) : ?>
   </nav>
 <?php endif; ?>
 
-<?php
-//if($count >= $article_count) {
-//  $article_count = $count;
-//}
-
-?>
-
 </div>
-
-<script>
-//console.log(<?php echo $article_count; ?>);
-</script>

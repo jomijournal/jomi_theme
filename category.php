@@ -6,10 +6,30 @@
   </div>
 <?php endif; ?>
 
-<?php while (have_posts()) : the_post(); ?>
-  <?php if(get_post_status() == 'internal_review') continue; ?>
-  <?php get_template_part('templates/content', get_post_format()); ?>
-<?php endwhile; ?>
+<?php 
+$exclude = array(
+  'internal_review'
+);
+$bottom = array(
+  'in_production',
+  'coming_soon'
+);
+
+while (have_posts()) : the_post(); 
+   if(in_array(get_post_status(), $exclude)) continue;
+   if(in_array(get_post_status(), $bottom)) continue;
+   get_template_part('templates/content', get_post_format()); 
+endwhile; 
+
+rewind_posts();
+
+while (have_posts()) : the_post(); 
+   if(in_array(get_post_status(), $exclude)) continue;
+   if(!in_array(get_post_status(), $bottom)) continue;
+   get_template_part('templates/content', get_post_format()); 
+endwhile; 
+
+?>
 
 <?php if ($wp_query->max_num_pages > 1) : ?>
   <nav class="post-nav">

@@ -25,7 +25,7 @@ function count_articles(){
 	$my_query = new WP_Query($args);
 	while ($my_query->have_posts()) : 
 	  $my_query->the_post();
-	  array_push($article_list, get_the_ID());
+	  array_push($article_list, get_field('publication_id'));
 	  //echo get_the_ID() . "\n";
 	endwhile; 
 	//print_r($article_list);

@@ -41,7 +41,7 @@ function map_publication_id( $wp_query ) {
 
     global $article_list;
 
-    if(in_array((int)$meta_value, $article_list)) {
+    if(!in_array((int)$meta_value, $article_list)) {
       wp_redirect('/404');
       exit();
     }

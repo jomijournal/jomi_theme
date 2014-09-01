@@ -168,6 +168,9 @@ function save_vid_length_meta( $post_id ) {
     if ( $type != $_POST['post_type'] ) {
         return;
     }
+    if (empty(get_field('wistia_id', $post_id))) {
+      return;
+    }
     $wistia_id = get_field('wistia_id', $post_id);
     // wistia API call
     $video_meta = file_get_contents("https://api.wistia.com/v1/medias/" . $wistia_id . ".json?api_password=" . '181632d7604b54b358a5db48a85cec7d7665be6f');

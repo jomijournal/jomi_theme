@@ -22,7 +22,12 @@ Base is the entry point for most pages.
   <div class="container preprint-container">
     <div class="preprint"><strong>PREPRINT</strong></div>
   </div>
-  <?php } ?>
+  <?php } 
+  $id = $cur_post->ID;
+  if(empty(get_field('wistia_id', $id))) {
+
+  } else {
+  ?>
 
   <div class="container">
     <div class="video-area row">
@@ -38,6 +43,7 @@ Base is the entry point for most pages.
       </div>
     </div>
   </div>
+<?php } ?>
 <?php } ?>
 
   <?php if(is_page('support-us')){ ?>

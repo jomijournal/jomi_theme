@@ -39,9 +39,9 @@ add_action( 'init', 'register_publication_id' );
 function map_publication_id( $wp_query ) {
   if ( $meta_value = $wp_query->get( 'publication_id' ) ) {
 
-    global $num_articles;
+    global $article_list;
 
-    if((int)$meta_value > $num_articles or (int)$meta_value <= 0) {
+    if(in_array((int)$meta_value, $article_list)) {
       wp_redirect('/404');
       exit();
     }

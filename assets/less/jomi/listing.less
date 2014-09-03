@@ -25,6 +25,26 @@
          }
       }
    }
+   .previous, .next{
+      a{
+         border-radius: 20px 0px 0px 20px;
+         color: #fff;
+         background: none;
+         &:hover{
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.05);
+         }
+         &:active {
+            color: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.2);
+         }
+      }
+   }
+   .next{
+      a{
+         border-radius: 0px 20px 20px 0px;
+      }
+   }
 }
 /*
  * Archive page specific less

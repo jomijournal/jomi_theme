@@ -29,10 +29,19 @@ function count_articles(){
 	  //echo get_the_ID() . "\n";
 	endwhile; 
 	//print_r($article_list);
+	
+	update_option('article_list', serialize($article_list));
 
 	//echo '</pre>';
+	//wp_reset_postdata();
+	//wp_reset_query();
 }
-add_action('init', 'count_articles', 10000);
+add_action('save_post', 'count_articles');
+function init_article_list() {
+	global $article_list;
+	$article_list = unserialize(get_option('article_list'));
+}
+add_action('init', 'init_article_list');
 
 // hide admin bar for now
 add_filter('show_admin_bar', '__return_false');

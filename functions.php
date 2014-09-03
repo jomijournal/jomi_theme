@@ -141,7 +141,8 @@ $jomi_includes = array(
   '/lib/jomi/post_status.php', // register post statuses
   '/lib/jomi/post_types.php', // register post types (article)
   '/lib/jomi/rewrite.php', // rewrite rules for article
-  '/lib/jomi/sidebars.php' // custom sidebars
+  '/lib/jomi/sidebars.php', // custom sidebars
+  '/lib/jomi/relevanssi.php'
 );
 
 $includes = array_merge($jomi_includes, $roots_includes);
@@ -209,61 +210,6 @@ function save_vid_length_meta( $post_id ) {
 }
 add_action( 'save_post', 'save_vid_length_meta', 9999, 1 );
 
-function add_relevanssi_statuses($statuses) {
-  return array(
-    'publish',
-    'preprint',
-    'in_production',
-    'coming_soon'
-  );
-}
-add_filter('relevanssi_valid_status', 'add_relevanssi_statuses', 10, 1);
-
-function add_relevanssi_post_statuses($query) {
-  //echo '<pre>';
-  //print_r($query);
-  //echo '</pre>';
-
-  return $query;
-}
-add_filter('relevanssi_query_filter', 'add_relevanssi_post_statuses', 10, 1);
-
-function debug_relevanssi_hits($in) {
-  $hits = $in[0];
-  $query = $in[1];
-
-  //echo '<pre>';
-  //print_r($hits);
-  //print_r($query);
-  //print_r($in);
-  //echo '</pre>';
-
-  return array($hits);
-}
-//relevanssi_hits_filter (array($hits, $query))
-add_filter('relevanssi_hits_filter', 'debug_relevanssi_hits', 10, 1);
-
-function debug_relevanssi_match($match, $idf) {
-  //echo '<pre>';
-  //print_r($match);
-  //print_r($idf);
-  //echo '</pre>';
-
-  return array($match, $idf);
-}
-//add_filter('relevanssi_match', 'debug_relevanssi_match', 10, 2);
-//relevanssi_match ($match, $idf)
-
-function debug_relevanssi_post_ok($post_ok, $post_ID) {
-  //echo '<pre>';
-  //print_r($post_ok);
-  //print_r($post_ID);
-  //echo '</pre>';
-
-  return true;
-}
-add_filter('relevanssi_post_ok', 'debug_relevanssi_post_ok', 10, 2);
-//relevanssi_post_ok ($post_ok, $post_ID)
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 
@@ -275,5 +221,6 @@ function roots_wrap_info() {
   printf($format, 'Main', $main);
   printf($format, 'Base', $template);
 }*/
+
 
 ?>

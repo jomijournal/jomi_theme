@@ -42,7 +42,7 @@ nav.site-header{
          z-index: 5;
          div.form-group.has-feedback{
             input.form-control.search-field{
-               padding-left: 34px;
+               padding-left: 34px !important;
                background: none;
                color: #fff;
                width: 100%;
@@ -57,7 +57,13 @@ nav.site-header{
                   -webkit-box-shadow: none;
                }
             }
-            i.search-icon {
+            a{
+               &:hover{
+                  background: rgba(255, 255, 255, 0.2);
+               }
+            }
+            .search-icon {
+               color: #fff;
                top: 0;
                left: 0;
             }
@@ -205,8 +211,26 @@ nav.site-header{
 
             div.form-group.has-feedback{
                input.form-control.search-field{
-                  border-radius: 25px;
+                  padding-left: 25px !important;
+                  border-radius: 25px 0px 0px 25px;
                   border: 2px solid #fff;
+               }
+               .search-icon{
+                  left: auto;
+                  right: -32px;
+                  border-radius: 0px 25px 25px 0px;
+                  border: 2px solid #fff;
+                  line-height: 31px;
+                  padding-right: 5px;
+                  padding-left: 3px;
+                  &:hover{
+                     color: rgba(255, 255, 255, 0.95);
+                     background: rgba(255, 255, 255, 0.05);
+                  }
+                  &:active {
+                     color: rgba(255, 255, 255, 0.75);
+                     background: rgba(255, 255, 255, 0.2);
+                  }
                }
             }
          }

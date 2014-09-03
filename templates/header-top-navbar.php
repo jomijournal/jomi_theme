@@ -36,10 +36,12 @@ global $user;
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<form class="navbar-form navbar-left" role="form">
-				<div class="form-group has-feedback has-feedback-left">
+				<div class="form-group has-feedback">
 			  		<input placeholder="Search Articles" type="text" name="login" size="30" class="form-control search-field" id="search-field"></input>
-					<i class="form-control-feedback glyphicon glyphicon-search search-icon"></i>
+					<!--i class="form-control-feedback glyphicon glyphicon-search search-icon"></i-->
+					<a id="search-submit"><span class="form-control-feedback glyphicon glyphicon-search search-icon"></span></a>
 				</div>
+				
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
@@ -179,6 +181,9 @@ global $user;
 				event.preventDefault();
 				window.location.href = "/?s="+$(this).val();
 			}
+		});
+		$('#search-submit').on('click', function() {
+			window.location.href = "/?s="+$('#search-field').val();
 		});
 
 		//$('.jsgate').hide();

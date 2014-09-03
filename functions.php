@@ -213,7 +213,8 @@ function add_relevanssi_statuses($statuses) {
   return array(
     'publish',
     'preprint',
-    /*'in_production'*/
+    'in_production',
+    'coming_soon'
   );
 }
 add_filter('relevanssi_valid_status', 'add_relevanssi_statuses', 10, 1);

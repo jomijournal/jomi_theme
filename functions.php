@@ -209,6 +209,15 @@ function save_vid_length_meta( $post_id ) {
 }
 add_action( 'save_post', 'save_vid_length_meta', 9999, 1 );
 
+function add_relevanssi_statuses($statuses) {
+  return array(
+    'publish',
+    'preprint',
+    'in_production'
+  );
+}
+add_filter('relevanssi_valid_status', 'add_relevanssi_statuses', 10, 1);
+
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 

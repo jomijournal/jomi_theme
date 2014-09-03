@@ -27,11 +27,25 @@ function debug_relevanssi_hits($in) {
   $hits = $in[0];
   $query = $in[1];
 
-  //echo '<pre>';
-  //print_r($hits);
-  //print_r($query);
-  //print_r($in);
-  //echo '</pre>';
+  if(empty($query)) {
+  	$args=array(
+	  'post_type' => 'article',
+	  'post_status' => array('publish', 'preprint'),
+	  'posts_per_page' => -1,
+	  'caller_get_posts'=> 1
+	);
+	//$hits = array();
+	//array_merge($hits, get_posts($args));
+	$hits = get_posts($args);
+	$args=array(
+	  'post_type' => 'article',
+	  'post_status' => array('coming_soon', 'in_production'),
+	  'posts_per_page' => -1,
+	  'caller_get_posts'=> 1
+	);
+	$hits = array_merge($hits, get_posts($args));
+	//print_r($hits);
+  }
 
   return array($hits);
 }
@@ -59,5 +73,13 @@ function debug_relevanssi_post_ok($post_ok, $post_ID) {
 }
 add_filter('relevanssi_post_ok', 'debug_relevanssi_post_ok', 10, 2);
 //relevanssi_post_ok ($post_ok, $post_ID)
+
+add_filter('relevanssi_search_ok', 'search_trigger');
+function search_trigger($search_ok) {
+	global $wp_query;
+
+	return $search_ok;
+	//return true;
+}
 
 ?>

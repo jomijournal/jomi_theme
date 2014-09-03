@@ -44,13 +44,14 @@ nav.site-header{
             input.form-control.search-field{
                padding-left: 34px !important;
                background: none;
-               color: #fff;
+               color: #aaa;
                width: 100%;
                border-radius: 0px;
                border-left: none;
                border-right: none;
                border-width: 1px;
                border-color: #aaa;
+               z-index: 10;
                &:focus{
                   border-color: inherit;
                   box-shadow: none;
@@ -63,7 +64,7 @@ nav.site-header{
                }
             }
             .search-icon {
-               color: #fff;
+               color: #aaa;
                top: 0;
                left: 0;
             }
@@ -213,22 +214,28 @@ nav.site-header{
                input.form-control.search-field{
                   padding-left: 25px !important;
                   border-radius: 25px 0px 0px 25px;
-                  border: 2px solid #fff;
+                  border: 2px solid #aaa;
                }
                .search-icon{
                   left: auto;
-                  right: -32px;
+                  right: -34px;
                   border-radius: 0px 25px 25px 0px;
-                  border: 2px solid #fff;
+                  border: 2px solid #aaa;
+                  border-left: none;
                   line-height: 31px;
                   padding-right: 5px;
                   padding-left: 3px;
                   &:hover{
+                     color: #eee;
                      color: rgba(255, 255, 255, 0.95);
-                     background: rgba(255, 255, 255, 0.05);
+                     background: #111;
+                     background: rgba(255, 255, 255, 0.1);
+                     border-color: #fff;
                   }
                   &:active {
+                     color: #bbb;
                      color: rgba(255, 255, 255, 0.75);
+                     color: #222;
                      background: rgba(255, 255, 255, 0.2);
                   }
                }

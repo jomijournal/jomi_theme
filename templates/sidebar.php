@@ -15,9 +15,9 @@
 	<a href="/index/">Article Index</a>
 </li>
 <hr>
-<li class="cat-item cat-item-all <?php if(is_page('articles')) echo 'current-cat';?>">
+<!--li class="cat-item cat-item-all <?php if(is_page('articles')) echo 'current-cat';?>">
   <a href="<?php echo site_url();?>/articles/">All Articles</a>
-</li>
+</li-->
 <?php foreach($categories as $category) { ?>
 <?php 
 $cat_ID_text = "cat-item-" . $category->cat_ID; 

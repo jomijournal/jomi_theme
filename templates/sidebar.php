@@ -11,6 +11,10 @@
 ); ?>
 <?php $categories = get_categories($args); ?>
 <ul>
+<li class="article-index">
+	<a href="/index/">Article Index</a>
+</li>
+<hr>
 <li class="cat-item cat-item-all <?php if(is_page('articles')) echo 'current-cat';?>">
   <a href="<?php echo site_url();?>/articles/">All Articles</a>
 </li>
@@ -40,13 +44,7 @@ $notification_url = site_url() . "/notifications/?area=" . $category->cat_name;
 
 </div>
 </div>
-<div class="row">
-	<div class="col-xs-12" style="text-align:center;">
-		<hr>
-		<a href="/index" class="index"><h2>Article Index</h2></a>
-		<hr>
-	</div>
-</div>
+
 <script>
 $('li').each(function(index){
 	if($(this).hasClass('coming-soon')) {

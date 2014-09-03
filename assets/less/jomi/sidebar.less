@@ -74,6 +74,7 @@
 
     transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
+    margin-right: 0px;
 
     &:hover{
       color: #ddd;
@@ -91,12 +92,7 @@
       -webkit-transition: all 0.15s ease-in-out;
     }
   }
-
-  hr{
-    margin: 5px 10px;
-  }
-
-  margin-right: 0px;
+  
   h3{
      font-size: 18px;
      color: #fff;
@@ -136,6 +132,17 @@
               border-color: rgba(255, 255, 255, 0.5);
               background: rgba(255, 255, 255, 0.05);
            }
+        }
+        &.article-index {
+          a{
+            font-weight: bold;
+            background: #0a0a0a;
+            background: rgba(255, 255, 255, 0.1);
+            &:hover{
+              background: #111;
+              background: rgba(255, 255, 255, 0.15);
+            }
+          }
         }
         a{
            //ie8 fallback

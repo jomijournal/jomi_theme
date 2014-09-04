@@ -10,7 +10,7 @@
         <ul>
             <li>Institution: <?php echo $curauth->user_description; ?></li>
         </ul>
-        <h4>Posts by <?php echo $curauth->nickname; ?>:</h4>
+        <h4>Articles by <?php echo $curauth->nickname; ?>:</h4>
     </div>
     <ul>
     <?php

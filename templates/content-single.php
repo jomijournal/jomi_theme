@@ -9,7 +9,7 @@
   ?>
   <article <?php post_class(); ?>>
     <?php $wistia = get_field('wistia_id'); ?>
-    <?php the_block('meta'); ?>
+
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
       <?php get_template_part('templates/entry-meta'); ?>
@@ -21,11 +21,12 @@
     <div class="entry-content">
       <div class="tab-content">
         <div class="tab-pane active" id="main">
+          <?php echo get_field('meta'); ?>
           <?php the_content(); ?>
           <h3>Citations</h3>
-          <?php the_block('citations'); ?>
+          <?php echo get_field('citations'); ?>
         </div>
-        <div class="tab-pane" id="outline"><?php the_block('outline'); ?></div>
+        <div class="tab-pane" id="outline"><?php echo get_field('outline'); ?></div>
       </div>
     </div>
 

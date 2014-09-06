@@ -145,6 +145,9 @@ function delete_inst() {
 		$inst_table_name,
 		array('id' => $id)
 	);
+
+	// need to delete all corresponding orders, ips, locations
+
 	check_db_errors();
 }
 add_action( 'wp_ajax_nopriv_delete-inst', 'delete_inst');

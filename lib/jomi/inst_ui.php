@@ -206,4 +206,28 @@ foreach($locations as $location) {
 add_action( 'wp_ajax_nopriv_inst-location-update', 'inst_location_update');
 add_action( 'wp_ajax_inst-location-update', 'inst_location_update');
 
+function inst_ip_update() {
+
+$location_id = (empty($_POST['location_id'])) ? 1 : $_POST['location_id'];
+
+?>
+<table class="inst-ip-list">
+	<tr>
+		<th>IP Start</th>
+		<th>IP End</th>
+	</tr>
+<?php 
+
+global $wpdb;
+global $inst_ip_table_name;
+
+
+
+?>
+</table>
+<?php
+}
+add_action( 'wp_ajax_nopriv_inst-ip-update', 'inst_ip_update');
+add_action( 'wp_ajax_inst-ip-update', 'inst_ip_update');
+
 ?>

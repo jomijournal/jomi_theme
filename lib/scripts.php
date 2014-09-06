@@ -21,7 +21,6 @@ function roots_scripts() {
     $css_hash = json_decode($contents)->csspath->hash;
     $js_hash = json_decode($contents)->jspath->hash;
 
-    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/vendor/bootstrap/dist/css/bootstrap.min.css', false, false);
     wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css?v=' . $css_hash, false, false);
     wp_enqueue_style('coin-css', get_template_directory_uri() . '/assets/vendor/coindonationwidget.com/coin.css', false, false);
     wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', false, false);
@@ -44,25 +43,13 @@ function roots_scripts() {
     wp_enqueue_script('comment-reply');
   }
 
-  wp_register_script('modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-2.7.0.min.js', array(), null, false);
-  wp_register_script('userapp', '//app.userapp.io/js/userapp.client.js', array(), null, false);
-  wp_register_script('cookies', get_template_directory_uri() . '/assets/js/vendor/cookies.min.js', array(), null, false);
-  wp_register_script('coin-js', get_template_directory_uri() . '/assets/vendor/coindonationwidget.com/coin.js', array(), null, false);
+  //wp_register_script('userapp', '//app.userapp.io/js/userapp.client.js', array(), null, false);
   wp_register_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-538f69071761b8d2', array(), null, false);
   wp_register_script('typekit', '//use.typekit.net/wjg6rds.js', array(), null, false);
-  wp_register_script('browserBlast', get_template_directory_uri() . '/assets/js/vendor/browserBlast.min.js', array(), null, false);
-  wp_register_script('jQueryEasing', get_template_directory_uri() . '/assets/js/vendor/jquery.easing.js', array(), null, false);
-  wp_register_script('jQueryScrollUp', get_template_directory_uri() . '/assets/js/vendor/jquery.scrollUp.min.js', array(), null, false);
 
-  wp_enqueue_script('modernizr');
-  wp_enqueue_script('userapp');
-  wp_enqueue_script('cookies');
-  wp_enqueue_script('coin-js');
+  //wp_enqueue_script('userapp');
   wp_enqueue_script('addthis');
   wp_enqueue_script('typekit');
-  wp_enqueue_script('browserBlast');
-  wp_enqueue_script('jQueryEasing');
-  wp_enqueue_script('jQueryScrollUp');
 
   wp_enqueue_script('jquery');
   wp_enqueue_script('roots_scripts');
@@ -76,7 +63,7 @@ function roots_jquery_local_fallback($src, $handle = null) {
   static $add_jquery_fallback = false;
 
   if ($add_jquery_fallback) {
-    echo '<script>window.jQuery || document.write(\'<script src="' . get_template_directory_uri() . '/assets/js/vendor/jquery-1.11.0.min.js"><\/script>\')</script>' . "\n";
+    echo '<script>window.jQuery || document.write(\'<script src="' . get_template_directory_uri() . '/assets/vendor/jquery/dist/jquery.min.js"><\/script>\')</script>' . "\n";
     $add_jquery_fallback = false;
   }
 

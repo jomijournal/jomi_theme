@@ -19,7 +19,10 @@ module.exports = function(grunt) {
     'assets/vendor/bootstrap/js/tab.js',
     'assets/vendor/bootstrap/js/affix.js',
     'assets/js/plugins/*.js',
-    'assets/js/_*.js'
+    'assets/js/_*.js',
+    'assets/js/vendor/*.js',
+    //'assets/vendor/jquery/dist/'
+    'assets/vendor/coindonationwidget.com/coin.js'
   ];
 
   grunt.initConfig({

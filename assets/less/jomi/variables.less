@@ -1,4 +1,22 @@
 //* VARIABLES
 
 @jomi-light: #fff;
+@jomi-light-grey: #eee;
+@jomi-grey: #888;
 @jomi-dark: #000;
+@jomi-red-warning: #e00;
+
+@jomi-light-unselected: fadeout(@jomi-light, 20%);
+@jomi-light-unselected-IE8: lighten(@jomi-light, 37.5%);
+@jomi-light-selected: @jomi-light;
+@jomi-light-selected-IE8: @jomi-light;
+
+@jomi-grey-transparent: fadeout(@jomi-light, 50%);
+
+@jomi-dark-unselected: fadeout(@jomi-light, 100%);
+@jomi-dark-unselected-IE8: darken(@jomi-light, 100%);
+@jomi-dark-selected: fadeout(@jomi-light, 80%);
+@jomi-dark-selected-IE8: darken(@jomi-light, 80%);
+
+@jomi-light-glow: fadeout(@jomi-light, 90%);
+@jomi-dark-glow: fadeout(@jomi-dark, 90%);

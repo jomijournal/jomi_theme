@@ -26,7 +26,7 @@ global $user;
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left" role="form">
+			<form class="navbar-form navbar-left box-shadow-light" role="form">
 				<div class="form-group has-feedback">
 			  		<input placeholder="Search Articles" type="text" name="login" size="30" class="form-control search-field" id="search-field"></input>
 					<!--i class="form-control-feedback glyphicon glyphicon-search search-icon"></i-->

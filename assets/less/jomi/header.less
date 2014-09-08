@@ -2,9 +2,7 @@
 
 nav.site-header{
 
-   //background: rgba(0, 0, 0, 0);
    background: none;
-   //border-color: rgba(0, 0, 0, 0);
    border: none;
    margin-bottom: 0px;
 
@@ -12,7 +10,6 @@ nav.site-header{
 
    .navbar-header{
       button.navbar-toggle{
-         //margin-right:60px;
          right: 40px;
          margin-top: 15px;
       }
@@ -31,26 +28,27 @@ nav.site-header{
       box-shadow: none;
 
       form.navbar-form {
+
          border-top: 0px solid transparent;
          border-bottom: 0px solid transparent;
          margin: 0px 25px;
          margin-top: 10px;
-         //margin-right: -15px;
          padding: 0px 0px 10px 0px;
-         -webkit-box-shadow: inset 0 0px 0 rgba(255,255,255,0.1), 0 0px 0 rgba(255,255,255,0.1);
-         box-shadow: inset 0 0px 0 rgba(255,255,255,0.1),0 0px 0 rgba(255,255,255,0.1);
          z-index: 5;
+
          div.form-group.has-feedback{
             input.form-control.search-field{
                padding-left: 34px !important;
                background: none;
-               color: #aaa;
+               color: @jomi-light-unselected-IE8;
+               color: @jomi-light-unselected;
                width: 100%;
                border-radius: 0px;
                border-left: none;
                border-right: none;
                border-width: 1px;
-               border-color: #aaa;
+               border-color: @jomi-light-unselected-IE8;
+               border-color: @jomi-light-unselected;
                z-index: 10;
                &:focus{
                   border-color: inherit;
@@ -60,11 +58,13 @@ nav.site-header{
             }
             a{
                &:hover{
-                  background: rgba(255, 255, 255, 0.2);
+                  background: @jomi-dark-selected-IE8;
+                  background: @jomi-dark-selected;
                }
             }
             .search-icon {
-               color: #aaa;
+               color: @jomi-light-unselected-IE8;
+               color: @jomi-light-unselected;
                top: 0;
                left: 0;
             }
@@ -79,48 +79,51 @@ nav.site-header{
          li{
             margin-left: 10px;
             a{
-               color: #fff;
-               opacity:0.8;
+               color: @jomi-light-unselected-IE8;
+               color: @jomi-light-unselected;
                &:hover{
-                  opacity:1;
                   text-decoration:none;
-                  color:#fff;
+                  color: @jomi-light-selected-IE8;
+                  color: @jomi-light-selected;
                }
                &:hover.dropdown-toggle{
-                  color: #fff;
+                  color: @jomi-light-selected-IE8;
+                  color: @jomi-light-selected;
                }
                &.dropdown-toggle{
-                  color: #fff;
+                  color: @jomi-light-selected-IE8;
+                  color: @jomi-light-selected;
                }
                &.border[href="/login/"]{
-                  color: #fff;
+                  color: @jomi-light-selected-IE8;
+                  color: @jomi-light-selected;
                }
             }
             .dropdown-menu{
                border: 0px solid;
-               background-color: #ffffff;
-               box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+               background-color: @jomi-light;
+               box-shadow: 0 6px 12px @jomi-dark-glow;
                padding: 15px; 
                z-index: 5;
                .login-form{
                   z-index: 5 !important;
-                  color: #000;
+                  color: @jomi-dark;
                   input{
                      border-radius: 25px;
-                     color: #000;
+                     color: @jomi-dark;
                   }
                   form{
                      p {
                         a.register{
-                           color: #000 !important;
+                           color: @jomi-dark !important;
                            font-size: 16px;
                            line-height: 2.5;
                         }
                         &.error{
                            display: block;
-                           background: #eee;
+                           background: @jomi-light-grey;
                            padding: 10px;
-                           border-left: 5px solid #E00;
+                           border-left: 5px solid @jomi-red-warning;
                            border-radius: 5px;
                         }
                         &.login-submit{
@@ -141,30 +144,32 @@ nav.site-header{
             }
             &.open {
                a.dropdown-toggle{
-                  color:#fff;
+                  color: @jomi-light;
                   .dropdown-menu {
                      float: none;
                      width: auto;
                      margin: 0;
-                     background-color: #ffffff !important;
+                     background-color: @jomi-light !important;
                      border: 0;
                      box-shadow: none;
                      z-index: 5;
-                     color: #000000;
-                  }
+                     color: @jomi-dark;                  }
                }  
             }
          }
       }
-   }
+   }  
+
    .btn {
-      border: 1px solid #bbb;
+      border: 1px solid;
+      border-color: @jomi-light-unselected-IE8;
+      border-color: @jomi-light-unselected;
       font-weight: 500;
-      color: #000;
+      color: @jomi-dark;
    }
 }
 
-.iegate,.jsgate{
+/*.iegate,.jsgate{
    background-color: #111;
    color: #fff; 
    position:relative; 
@@ -179,7 +184,7 @@ nav.site-header{
    border-bottom: 5px solid #7a0000; 
    font-size: 24px;
    display: none;
-}
+}*/
 
 //* MOBILE
 
@@ -206,7 +211,8 @@ nav.site-header{
          margin-right: 15px;
          margin-left: 15px;
          form.navbar-form{
-            border-color:#e7e7e7;
+            border-color: @jomi-light-unselected-IE8;
+            border-color: @jomi-light-unselected;
             width: 30% !important;
             margin-right: -15px;
 
@@ -214,29 +220,31 @@ nav.site-header{
                input.form-control.search-field{
                   padding-left: 25px !important;
                   border-radius: 25px 0px 0px 25px;
-                  border: 2px solid #aaa;
+                  border: 2px solid @jomi-light-unselected-IE8;
+                  border-color: @jomi-light-unselected;
                }
                .search-icon{
                   left: auto;
                   right: -34px;
                   border-radius: 0px 25px 25px 0px;
-                  border: 2px solid #aaa;
+                  border: 2px solid @jomi-light-unselected-IE8;
+                  border-color: @jomi-light-unselected;
                   border-left: none;
                   line-height: 31px;
                   padding-right: 5px;
                   padding-left: 3px;
                   &:hover{
-                     color: #eee;
-                     color: rgba(255, 255, 255, 0.95);
-                     background: #111;
-                     background: rgba(255, 255, 255, 0.1);
-                     border-color: #fff;
+                     color: @jomi-light-grey;
+                     color: fadeout(@jomi-light, 5%);
+                     background: lighten(@jomi-dark, 10%);
+                     background: fadeout(@jomi-light, 90%);
+                     border-color: @jomi-light;
                   }
                   &:active {
-                     color: #bbb;
-                     color: rgba(255, 255, 255, 0.75);
-                     background: #222;
-                     background: rgba(255, 255, 255, 0.2);
+                     color: darken(@jomi-light-grey, 30%);
+                     color: fadeout(@jomi-light, 35%);
+                     background: lighten(@jomi-dark, 20%);
+                     background: fadeout(@jomi-light, 80%);
                   }
                }
             }
@@ -251,19 +259,18 @@ nav.site-header{
                margin-left:15px;
                a{
                   top:6px;
-                  color: #fff !important;
+                  color: @jomi-light !important;
                   padding: 8px 0;
                   &.active{ 
                      font-weight: bold;
                      //ie8 fallback
-                     border-bottom: 1px #888 solid;
-
-                     border-bottom: 1px rgba(255, 255, 255, 0.5) solid;
+                     border-bottom: 1px @jomi-grey solid;
+                     border-bottom: 1px @jomi-grey-transparent solid;
                   }
                }
                &.open a.border{
                   border-radius: 20px 20px 0 0;
-                  border-bottom: 0px solid #000 !important;
+                  border-bottom: 0px solid @jomi-dark !important;
                   text-decoration: none;
                }
             }
@@ -283,26 +290,25 @@ nav.site-header{
                }
                a.border{
                   border-radius: 25px;
-                  border: 2px solid #fff;
+                  border: 2px solid @jomi-light;
                   padding: 8px 45px;
                   top: 5px;
                   &:hover{
                      //ie8 fallback
-                     background: #333;
+                     background: lighten(@jomi-dark, 20%);
 
-                     background:rgba(255,255,255,0.2);
+                     background: fadeout(@jomi-light, 80%);
                   }
                }
                a.border[href="#"]{
-                  color: #fff;
+                  color: @jomi-light;
                }
                &.open a.border{
                   border-radius: 20px 20px 0 0;
                   //ie8 fallback
-                  background: #000;
-
-                  background: rgba(0,0,0,0);
-                  color: #000;
+                  background: @jomi-dark;
+                  background: none;
+                  color: @jomi-dark;
                   text-decoration: none;
                }
             }

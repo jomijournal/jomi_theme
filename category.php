@@ -10,24 +10,21 @@
 $exclude = array(
   'internal_review'
 );
-$bottom = array(
-  'in_production',
+$status_order = array(
+  'publish', 
+  'preprint', 
+  'in_production', 
   'coming_soon'
 );
 
-while (have_posts()) : the_post(); 
-   if(in_array(get_post_status(), $exclude)) continue;
-   if(in_array(get_post_status(), $bottom)) continue;
-   get_template_part('templates/content', get_post_format()); 
-endwhile; 
-
-rewind_posts();
-
-while (have_posts()) : the_post(); 
-   if(in_array(get_post_status(), $exclude)) continue;
-   if(!in_array(get_post_status(), $bottom)) continue;
-   get_template_part('templates/content', get_post_format()); 
-endwhile; 
+foreach($status_order as $status) {
+  while (have_posts()) : the_post(); 
+     if(in_array(get_post_status(), $exclude)) continue;
+     if($status != get_post_status()) continue;
+     get_template_part('templates/content', get_post_format()); 
+  endwhile; 
+  rewind_posts();
+}
 
 ?>
 

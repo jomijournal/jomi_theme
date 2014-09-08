@@ -53,6 +53,12 @@ function roots_scripts() {
 
   wp_enqueue_script('jquery');
   wp_enqueue_script('roots_scripts');
+
+  // embed the javascript file that makes the AJAX request
+  wp_enqueue_script( 'my-ajax-request', site_url() . '/wp-content/themes/jomi/assets/js/vendor/ajax-blank.js', /*array( 'jquery', 'roots_scripts' )*/  array() );
+  // declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
+  wp_localize_script( 'my-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+
 }
 add_action('wp_enqueue_scripts', 'roots_scripts', 100);
 // add scripts to admin panels

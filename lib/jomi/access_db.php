@@ -122,11 +122,6 @@ function update_rule() {
 // DEBUG ONLY: insert an empty rule
 //insert_rule(array());
 
-// embed the javascript file that makes the AJAX request
-wp_enqueue_script( 'my-ajax-request', ABSPATH . 'wp-content/themes/jomi/assets/vendor/jquery/src/ajax.js', array( 'jquery' ) );
-// declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
-wp_localize_script( 'my-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
-
 // register ajax stuff
 add_action( 'wp_ajax_nopriv_list-rules', 'list_rules' );
 add_action( 'wp_ajax_list-rules', 'list_rules' );

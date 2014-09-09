@@ -12,13 +12,10 @@
 	height: 100%;
 	z-index: 1000;
 	//ie8 fallback
-	background: #222;
+	background: @jomi-darker-grey;
+	background: @jomi-darker-grey-transparent;
 
-	background: rgba(0, 0, 0, 0.9);
-	//border: 10px rgba(255, 0, 0, 0.75);
-	//border-style: dashed;
 	background-image: url('./../img/diagonal_tile_red.png');
-
 	.free-trial{
 		h1{
 			text-align: center;
@@ -34,7 +31,7 @@
 
 			margin-top: 0px !important;
 			padding: 5px 10px !important;
-			color: #fff;
+			color: @jomi-light;
 			&:hover{
 				color: #444;
 			}
@@ -51,7 +48,7 @@
 			padding: 10px 15px;
 			font-size: 16px;
 			font-weight: 700;
-			background: rgb(199, 58, 58);
+			background: @jomi-red-warning;
 			margin-bottom: 10px;
 			border-radius: 10px;
 
@@ -64,12 +61,12 @@
 			-webkit-transition: all 0.5 ease-in-out;
 		}
 		@-webkit-keyframes flash {
-			0% {	background: #FFC8C8;}
-			100% {	background: rgb(199, 58, 58);}
+			0% {	background: @jomi-light-grey;}
+			100% {	background: @jomi-red-warning;}
 		}
 		@keyframes flash {
-			0% {	background: #FFC8C8;}
-			100% {	background: rgb(199, 58, 58);}
+			0% {	background: @jomi-light-grey;}
+			100% {	background: @jomi-red-warning;}
 		}
 	}
 	.free-trial-thanks{

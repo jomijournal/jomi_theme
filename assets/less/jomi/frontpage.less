@@ -14,11 +14,8 @@
    }
    .blackbox {
       position: fixed;
-      //background-color: @jomi-dark;
-      //opacity: 0.6;
       //ie8 fallback
       background: none;
-
       background: rgba(0, 0, 0, 0.6);
       z-index: -90;
       height: 10000px;
@@ -27,7 +24,7 @@
    .taglines{
       max-width:750px;
       margin: 0 35px;
-      text-shadow: 0px 0px 5px #969696;
+      text-shadow: 0px 0px 5px @jomi-grey;
       h1{
          font-size:36px;
          margin-top: 15px;
@@ -44,11 +41,10 @@
       }
       .mini-link{
          font-size: 14px;
-         color: #fff;
-         opacity: 0.5;
+         color: @jomi-grey;
+         color: @jomi-grey-transparent;
          &:hover{
-            color: #fff;
-            opacity: 1;
+            color: @jomi-light;
          }
       }
       .partners{

@@ -9,12 +9,11 @@
    margin: 0 0px 0px 0px;
    padding: 0px 0px 0 0px;
    //ie8 fallback
-   background: #000;
-
-   background: rgba(0, 0, 0, 0.0);
+   background: @jomi-dark;
+   background: none;
 
    h1{
-      color: #fff;
+      color: @jomi-light;
    }
    .content.row{
       margin: 0 0px;
@@ -28,15 +27,17 @@
    .previous, .next{
       a{
          border-radius: 20px 0px 0px 20px;
-         color: #fff;
+         color: @jomi-light-grey;
+         color: @jomi-light-grey-transparent;
          background: none;
          &:hover{
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.05);
+            color: @jomi-lighter-grey;
+            color: @jomi-lighter-grey-transparent;
+            background: fadeout(@jomi-darker-grey-transparent, 90%);
          }
          &:active {
-            color: rgba(255, 255, 255, 0.75);
-            background: rgba(255, 255, 255, 0.2);
+            color: @jomi-light;
+            background: @jomi-darker-grey-transparent;
          }
       }
    }
@@ -73,8 +74,8 @@
 .search .wrap {
    .alert.alert-warning {
       background: none;
-      border: 2px solid #a00;
-      color: #fff;
+      border: 2px solid @jomi-red-warning;
+      color: @jomi-light;
       font-size: 16px;
       font-weight: bold;
    }

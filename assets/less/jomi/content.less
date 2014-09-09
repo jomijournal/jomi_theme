@@ -3,8 +3,8 @@
 
 //.subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap, .pricing .wrap, body.video .wrap, .planned .wrap, .index .wrap{
 .page div.container.wrap{
-   background: #fff;
-   color: #111;
+   background: @jomi-light;
+   color: @jomi-dark;
    padding: 50px 25px;
    padding-top: 5px;
    margin: 0 auto;
@@ -15,20 +15,19 @@
 }
 .home.page div.container.wrap{
    padding: 0px;
-   //background: #000 !important;
    background: none !important;
-   color: #fff;
+   color: @jomi-light;
 }
 
 // * SUBSCRIBERS PAGE
 .subscribers .wrap {
 	font-size: 16px;
    a.btn, input.btn{
-      color: #888;
-      border-color: #888;
+      color: @jomi-grey;
+      border-color: @jomi-grey;
       &:hover{
-         color: #aaa;
-         border-color: #999;
+         color: @jomi-light-grey;
+         border-color: darken(@jomi-grey, 25%);
       }
    }
 }

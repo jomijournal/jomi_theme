@@ -6,10 +6,10 @@ footer.content-info {
 
    .footer{
       a{
-         color: #bbb;
+         color: @jomi-light-grey;
          text-decoration: none;
          &:hover{
-            color: #808080;
+            color: @jomi-grey;
          }
          &.contact-us{
             text-align: center;
@@ -61,10 +61,8 @@ footer.front-footer{
          display: inline-block;
          width: 95%;
          a{
-            color: #fff;
+            color: @jomi-lighter-grey-transparent;
             padding: 8px 0;
-            opacity:0.9;
-            //width: 100%;
             display:block;
             &:hover{
                opacity:1;
@@ -73,7 +71,7 @@ footer.front-footer{
          }
          a.border{
             border-radius: 25px;
-            border: 2px solid #fff;
+            border: 2px solid @jomi-light;
             padding: 8px 4px;
 
             transition: all 0.15s ease-in-out;
@@ -81,16 +79,16 @@ footer.front-footer{
 
             &:hover{
                //ie8 fallback
-               background: #333;
+               background: @jomi-darker-grey;
 
-               background:rgba(255,255,255,0.2);
+               background: @jomi-darker-grey-transparent;
             }
          }
          
       }
       .coming-soon{
          &:hover{
-            opacity: 0.6 !important;
+            opacity: @jomi-grey-transparent !important;
          }
       }
    }

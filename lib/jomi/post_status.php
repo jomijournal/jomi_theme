@@ -50,38 +50,43 @@ add_action( 'init', 'unread_post_status' );
 add_action('admin_footer-post.php', 'append_post_status_list');
 function append_post_status_list(){
   global $post;
-  $complete = '';
-  $label = '';
+  $complete = array(
+    'preprint' => '',
+    'internal_review' => '',
+    'coming_soon' => '',
+    'in_production' => ''
+  );
+  $label = "";
   if($post->post_type == 'article')
   {
       if($post->post_status == 'preprint')
       {
-           $complete = ' selected=\"selected\"';
+           $complete['preprint'] = ' selected=\"selected\"';
            $label = '<span id=\"post-status-display\"> Preprint</span>';
       }
       if($post->post_status == 'internal_review')
       {
-           $complete = ' selected=\"selected\"';
+           $complete['internal_review'] = ' selected=\"selected\"';
            $label = '<span id=\"post-status-display\"> Internal Review</span>';
       }
       if($post->post_status == 'coming_soon')
       {
-           $complete = ' selected=\"selected\"';
+           $complete['coming_soon'] = ' selected=\"selected\"';
            $label = '<span id=\"post-status-display\"> Coming Soon</span>';
       }
       if($post->post_status == 'in_production')
       {
-           $complete = ' selected=\"selected\"';
+           $complete['in_production'] = ' selected=\"selected\"';
            $label = '<span id=\"post-status-display\"> In Production</span>';
       }
 
       echo '
       <script>
       jQuery(document).ready(function($){
-           $("select#post_status").append("<option value=\"preprint\" '.$complete.'>Preprint</option>");
-           $("select#post_status").append("<option value=\"internal_review\" '.$complete.'>Internal Review</option>");
-           $("select#post_status").append("<option value=\"coming_soon\" '.$complete.'>Coming Soon</option>");
-           $("select#post_status").append("<option value=\"in_production\" '.$complete.'>In Production</option>");
+           $("select#post_status").append("<option value=\"preprint\" ' . $complete['preprint'] . '>Preprint</option>");
+           $("select#post_status").append("<option value=\"internal_review\" ' . $complete['internal_review'] . '>Internal Review</option>");
+           $("select#post_status").append("<option value=\"coming_soon\" ' . $complete['coming_soon'] . '>Coming Soon</option>");
+           $("select#post_status").append("<option value=\"in_production\" ' . $complete['in_production'] . '>In Production</option>");
            $(".misc-pub-section label").append("'.$label.'");
       });
       </script>
@@ -92,7 +97,7 @@ function append_post_status_list(){
 function display_archive_state( $states ) {
      global $post;
      $arg = get_query_var( 'post_status' );
-     if($arg != 'preprint'){
+     //if($arg != 'preprint'){
           if($post->post_status == 'preprint'){
                return array('Preprint');
           }
@@ -105,7 +110,7 @@ function display_archive_state( $states ) {
           if($post->post_status == 'coming_soon'){
                return array('Coming Soon');
           }
-     }
+     //}
     return $states;
 }
 add_filter( 'display_post_states', 'display_archive_state' );

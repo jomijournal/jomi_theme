@@ -23,10 +23,10 @@ Base is the entry point for most pages.
     <div class="preprint"><strong>PREPRINT</strong></div>
   </div>
   <?php } 
-  $id = $cur_post->ID;
-  if(empty(get_field('wistia_id', $id))) {
-
-  } else {
+  //$id = $cur_post->ID;
+  //if(empty(get_field('wistia_id', $id))) {
+  //
+  //} else {
   ?>
 
   <div class="container">
@@ -43,7 +43,7 @@ Base is the entry point for most pages.
       </div>
     </div>
   </div>
-<?php } ?>
+<?php //} ?>
 <?php } ?>
 
   <?php if(is_page('support-us')){ ?>

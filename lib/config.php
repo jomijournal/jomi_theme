@@ -63,7 +63,8 @@ function roots_display_sidebar() {
       array('is_page', 'login'),
       array('is_page', 'notifications'),
       array('is_page', 'planned'),
-      array('is_page', 'index')
+      array('is_page', 'index'),
+      array('is_page_template', 'template-full-page.php')
       #array('is_page', 'articles')
     ),
     /**

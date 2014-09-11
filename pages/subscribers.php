@@ -148,6 +148,12 @@ excellence in medical instruction.</p>
 				<div class="link">Florida International University: Herbert Wertheim College of Medicine Library</div>
 			</div>
 		</a>
+		<a href = "http://www.pullmanregional.org/">
+			<div class="org col-md-2">
+				<div class="logo"><img class = "logopic" src="/wp-content/themes/jomi/assets/img/clients/standardized/pullman.png"></div>
+				<div class="link">Pullman Regional Hospital</div>
+			</div>
+		</a>
 	</div>
 </div>
 <br/>

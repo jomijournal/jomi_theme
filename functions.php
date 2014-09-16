@@ -174,7 +174,10 @@ function save_vid_length_meta( $post_id ) {
     }
     $wistia_id = get_field('wistia_id', $post_id);
     // wistia API call
-    $video_meta = file_get_contents("https://api.wistia.com/v1/medias/" . $wistia_id . ".json?api_password=" . '181632d7604b54b358a5db48a85cec7d7665be6f');
+    $api_keys = file_get_contents(ABSPATH . 'wp-content/themes/jomi/api_keys.json');
+    $api_keys = json_decode($api_keys);
+
+    $video_meta = file_get_contents("https://api.wistia.com/v1/medias/" . $wistia_id . ".json?api_password=" . $api_keys->wistia);
     $video_meta = json_decode($video_meta);
 
     //print_r($video_meta);

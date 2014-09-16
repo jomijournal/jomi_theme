@@ -22,3 +22,5 @@ vendor/*
 assets/img/background_img.jpg
 assets/img/background_mobile.jpg
 assets/img/vid_poster.jpg
+
+api_keys.json

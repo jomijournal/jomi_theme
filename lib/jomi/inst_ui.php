@@ -8,9 +8,17 @@
  * GUI FOR MANAGING INSTITUTION
  */
 add_action('admin_menu', 'inst_register_menu');
+/**
+ * show this page on the settings menu
+ * @return [type] [description]
+ */
 function inst_register_menu(){
   add_options_page( "Institution Management", "Institution Management", "manage_options", "inst_menu", "inst_menu");
 }
+/**
+ * render the list of institutions
+ * @return [type] [description]
+ */
 function inst_menu(){
 
 ?>
@@ -168,9 +176,14 @@ foreach($insts as $inst) {
 add_action( 'wp_ajax_nopriv_inst-list-update', 'inst_list_update');
 add_action( 'wp_ajax_inst-list-update', 'inst_list_update');
 
+/**
+ * render the institution location list
+ * @return [type] [description]
+ */
 function inst_location_update() {
 
 ?>
+<!-- headers -->
 <tr>
 	<th>Info</th>
 	<th>Orders</th>
@@ -192,6 +205,7 @@ $locations = $wpdb->get_results($inst_location_query);
 //print_r($locations);
 foreach($locations as $location) {
 ?>
+<!-- data -->
 <tr>
 	<td>
 		<input id="inst-location-description" type="text" value="<?php echo $location->description; ?>">
@@ -212,10 +226,23 @@ foreach($locations as $location) {
 	</td>
 	<td>
 		<a id="inst-location-update" href="#">update</a>
+		<br>
+		<a id="inst-location-delete" href="#">delete</a>
 	</td>
 </tr>
 <?php
 }
+?>
+<!-- add location ui -->
+<tr>
+	<td>
+		<input id="inst-add-location-description" type="text" value="">
+	</td>
+	<td>
+		<a id="inst-location-add" href="#">add</a>
+	</td>
+</tr>
+<?php
 }
 add_action( 'wp_ajax_nopriv_inst-location-update', 'inst_location_update');
 add_action( 'wp_ajax_inst-location-update', 'inst_location_update');

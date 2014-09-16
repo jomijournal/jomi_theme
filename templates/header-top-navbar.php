@@ -42,6 +42,9 @@ global $user;
 						<div class="dropdown-menu pull-right">
 							<div class="login-form" id="login-form">
 								<form name="loginform" id="loginform" action="">
+									<div id="greyout" class="greyout">
+										<div id="signal" class="signal"></div>
+									</div>
 									<p class="error" id="error"></p>
 									<p class="login-username">
 										<label for="user_login">Username/Email</label>
@@ -115,6 +118,8 @@ global $user;
 		$('#loginform').on('submit', function(e) {
 			e.preventDefault();
 
+			$('#greyout,#signal').show();
+
 			var login = $('#login-form input[name="log"]').val();
 			if(login === '') {
 				//console.log('no username specified');
@@ -141,12 +146,15 @@ global $user;
 			  success: function(data) {
 			  	console.log(String(data));
 			    if(String(data).indexOf("login_error") > 0) {
+			    	$('#greyout,#signal').hide();
 			    	// login error occured
 			    	//console.log('whoops');
 			    	$('#error').text("ERROR: Username and password do not match.\nPlease try again.")
 			    } else {
+			    	
 			    	console.log('success');
 			    	window.location.reload();
+			    	$('#greyout,#signal').hide();
 			    }
 			  }
 			});

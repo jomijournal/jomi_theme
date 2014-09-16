@@ -197,7 +197,7 @@ foreach($locations as $location) {
 		<?php echo 'orders'; ?>
 	</td>
 	<td>
-		<?php echo 'ips'; ?>
+		<?php inst_ip_update($location->id); ?>
 	</td>
 </tr>
 <?php
@@ -206,28 +206,35 @@ foreach($locations as $location) {
 add_action( 'wp_ajax_nopriv_inst-location-update', 'inst_location_update');
 add_action( 'wp_ajax_inst-location-update', 'inst_location_update');
 
-function inst_ip_update() {
-
-$location_id = (empty($_POST['location_id'])) ? 1 : $_POST['location_id'];
+function inst_ip_update($location_id) {
 
 ?>
 <table class="inst-ip-list">
 	<tr>
 		<th>IP Start</th>
 		<th>IP End</th>
+		<th>Actions</th>
 	</tr>
 <?php 
 
 global $wpdb;
 global $inst_ip_table_name;
 
+$inst_ip_query = "SELECT * FROM $inst_ip_table_name WHERE location_id = $location_id";
+$ips = $wpdb->get_results($inst_ip_query);
 
-
+foreach($ips as $ip) {
+?>
+<tr>
+	<td><?php echo long2ip($ip->start); ?></td>
+	<td><?php echo long2ip($ip->end); ?></td>
+	<td><a>delete</a></td>
+</tr>
+<?php 
+}
 ?>
 </table>
 <?php
 }
-add_action( 'wp_ajax_nopriv_inst-ip-update', 'inst_ip_update');
-add_action( 'wp_ajax_inst-ip-update', 'inst_ip_update');
 
 ?>

@@ -89,6 +89,12 @@ $(function() {
 			refresh();
 		});
 	});
+
+	$('#inst-location-list').on('click', '#inst-ip-add-submit', function() {
+
+	});
+
+
 })
 function refresh() {
 	$('#greyout,#signal').show();
@@ -166,10 +172,10 @@ function inst_location_update() {
 
 ?>
 <tr>
-	<th>Name</th>
-	<th>Geolocation</th>
+	<th>Info</th>
 	<th>Orders</th>
 	<th>IPs</th>
+	<th>Actions</th>
 </tr>
 <?php
 
@@ -188,16 +194,24 @@ foreach($locations as $location) {
 ?>
 <tr>
 	<td>
-		<?php echo $location->description; ?>
-	</td>
-	<td>
-		<?php echo $location->address; ?>
+		<input id="inst-location-description" type="text" value="<?php echo $location->description; ?>">
+		<br>
+		<input id="inst-location-address" type="text" value="<?php echo $location->address; ?>">
+		<br>
+		<input id="inst-location-city" type="text" value="<?php echo $location->city; ?>">
+		<br>
+		<input id="inst-location-region" type="text" value="<?php echo $location->region; ?>">
+		<br>
+		<input id="inst-location-country" type="text" value="<?php echo $location->country; ?>">
 	</td>
 	<td>
 		<?php echo 'orders'; ?>
 	</td>
 	<td>
 		<?php inst_ip_update($location->id); ?>
+	</td>
+	<td>
+		<a id="inst-location-update" href="#">update</a>
 	</td>
 </tr>
 <?php
@@ -215,6 +229,11 @@ function inst_ip_update($location_id) {
 		<th>IP End</th>
 		<th>Actions</th>
 	</tr>
+	<tr>
+		<td><input id="inst-ip-add-start" type="text" value="" placeholder="Start IP Range"></td>
+		<td><input id="inst-ip-add-end" type="text" value="" placeholder="End IP Range"></td>
+		<td><a id="inst-ip-add-submit" href="#">add</a></td>
+	</tr>
 <?php 
 
 global $wpdb;
@@ -226,9 +245,13 @@ $ips = $wpdb->get_results($inst_ip_query);
 foreach($ips as $ip) {
 ?>
 <tr>
-	<td><?php echo long2ip($ip->start); ?></td>
-	<td><?php echo long2ip($ip->end); ?></td>
-	<td><a>delete</a></td>
+	<td><input type="text" value="<?php echo long2ip($ip->start); ?>"></td>
+	<td><input type="text" value="<?php echo long2ip($ip->end); ?>"></td>
+	<td>
+		<a id="inst-ip-update" href="#">update</a>
+		<br>
+		<a id="inst-ip-delete" href="#">delete</a>
+	</td>
 </tr>
 <?php 
 }
@@ -236,5 +259,7 @@ foreach($ips as $ip) {
 </table>
 <?php
 }
+add_action( 'wp_ajax_nopriv_inst-ip-update', 'inst_ip_update');
+add_action( 'wp_ajax_inst-ip-update', 'inst_ip_update');
 
 ?>

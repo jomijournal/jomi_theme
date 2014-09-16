@@ -220,7 +220,11 @@ add_action( 'wp_ajax_nopriv_block-free-trial', 'block_free_trial' );
 function send_free_trial(){
 	$email = $_POST['email'];
 
+	// let us know about it
 	wp_mail('contact@jomi.com', 'Free Trial Request', $email . ' would like to request a free trial');
+
+	// let them know about it
+	wp_mail($email, 'Free Trial Request', 'Thanks for requesting a free trial! We will get back to you as soon as possible, and work with you personally so we can get you access to our video articles.');
 }
 add_action( 'wp_ajax_send-free-trial', 'send_free_trial' );
 add_action( 'wp_ajax_nopriv_send-free-trial', 'send_free_trial' );

@@ -159,26 +159,13 @@ function block_free_trial() {
 		</p>
 	</div>
 	<div class="row">
-		<div class="wpcf7" id="wpcf7-f1099-p226-o4" lang="en-US" dir="ltr">
-			<div class="screen-reader-response"></div>
-			<form name="" action="<?php echo get_permalink( $id ) . '#wpcf7-f1099-p226-o4'; ?>" method="post" class="wpcf7-form" novalidate="novalidate">
-				<div style="display: none;">
-					<input type="hidden" name="_wpcf7" value="1099">
-					<input type="hidden" name="_wpcf7_version" value="3.9.1">
-					<input type="hidden" name="_wpcf7_locale" value="en_US">
-					<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1099-p226-o4">
-					<input type="hidden" name="_wpnonce" value="2bf1f332b1">
-				</div>
-				<div class="error" id="email-error"></div>
-				<p>
-    				<span class="wpcf7-form-control-wrap your-email">
-    					<input id="request-access-email" type="email" name="your-email" value="" placeholder="Email" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false">
-    				</span>
-					<input id="request-trial-submit" type="submit" value="Request Access" class="wpcf7-form-control wpcf7-submit btn border">
-				</p>
-				<div class="wpcf7-response-output wpcf7-display-none"></div>
-			</form>
-		</div>
+		<form name="" action="" method="">
+			<div class="error" id="email-error"></div>
+			<p>
+    			<input id="request-access-email" type="email" name="your-email" value="" placeholder="Email" class="" aria-required="true" aria-invalid="false">
+				<input id="request-trial-submit" type="submit" value="Request Access" class="btn border">
+			</p>
+		</form>
 	</div>
 	<div class="row">
 		<p>
@@ -194,7 +181,19 @@ $(function() {
 	$('#request-trial-submit').on('click', function(e) {
 		var email = $('#request-access-email').val();
 		if(isEmail(email)) {
+			e.preventDefault();
 			$('#email-error').hide();
+			$.post(MyAjax.ajaxurl, {
+				action: 'send-free-trial',
+				email: email
+			}, function(response) {
+				console.log(response);
+				$('#email-error').show();
+				$('#email-error').text('Request Sent!');
+				$('#email-error').css("background", "rgb(71, 155, 71)");
+				$("#email-error").css("-webkit-animation", "none");
+				$("#email-error").css("animation", "none");
+			});
 		} else {
 			$('#email-error').text('Invalid Email Address!');
 			$("#email-error").css("-webkit-animation-play-state", "running");
@@ -217,6 +216,14 @@ function isEmail(email){
 }
 add_action( 'wp_ajax_block-free-trial', 'block_free_trial' );
 add_action( 'wp_ajax_nopriv_block-free-trial', 'block_free_trial' );
+
+function send_free_trial(){
+	$email = $_POST['email'];
+
+	wp_mail('albert@jomi.com', 'Free Trial Request', $email . ' would like to request a free trial');
+}
+add_action( 'wp_ajax_send-free-trial', 'send_free_trial' );
+add_action( 'wp_ajax_nopriv_send-free-trial', 'send_free_trial' );
 
 function block_free_trial_thanks() {
   $id = $_POST['id'];

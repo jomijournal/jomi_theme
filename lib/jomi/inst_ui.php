@@ -115,6 +115,35 @@ $(function() {
 			refresh_location(inst_id);
 		})
 	});
+
+	$('#inst-location-list').on('click', '#inst-location-update', function() {
+		var row = $(this).parent().parent();
+
+		var id = row.find('#inst-location-id').val();
+		var inst_id = row.find('#inst-location-inst-id').val();
+		var description = row.find('#inst-location-description').val();
+		var address = row.find('#inst-location-address').val();
+		var city = row.find('#inst-location-city').val();
+		var region = row.find('#inst-location-region').val();
+		var country = row.find('#inst-location-country').val();
+		var zip = row.find('#inst-location-zip').val();
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'update-inst-location',
+			id: id,
+			inst_id: inst_id,
+			description: description,
+			address: address,
+			city: city,
+			region: region,
+			country: country,
+			zip: zip
+		}, function(response) {
+			console.log(response);
+			refresh_location(inst_id);
+		});
+	});
+
 	$('#inst-location-list').on('click', '#inst-ip-add-submit', function() {
 
 	});
@@ -202,7 +231,7 @@ function inst_location_update() {
 ?>
 <!-- headers -->
 <tr>
-	<th>Info</th>
+	<th>Location Info</th>
 	<th>Orders</th>
 	<th>IPs</th>
 	<th>Actions</th>
@@ -225,15 +254,19 @@ foreach($locations as $location) {
 <!-- data -->
 <tr>
 	<td>
-		<input id="inst-location-description" type="text" value="<?php echo $location->description; ?>">
+		<input id="inst-location-description" type="text" placeholder="description" value="<?php echo $location->description; ?>">
 		<br>
-		<input id="inst-location-address" type="text" value="<?php echo $location->address; ?>">
+		<input id="inst-location-address" type="text" placeholder="address" value="<?php echo $location->address; ?>">
 		<br>
-		<input id="inst-location-city" type="text" value="<?php echo $location->city; ?>">
+		<input id="inst-location-city" type="text" placeholder="city" value="<?php echo $location->city; ?>">
 		<br>
-		<input id="inst-location-region" type="text" value="<?php echo $location->region; ?>">
+		<input id="inst-location-region" type="text" placeholder="region" value="<?php echo $location->region; ?>">
 		<br>
-		<input id="inst-location-country" type="text" value="<?php echo $location->country; ?>">
+		<input id="inst-location-country" type="text" placeholder="country" value="<?php echo $location->country; ?>">
+		<br>
+		<input id="inst-location-zip" type="text" placeholder="zip code" value="<?php echo $location->zip; ?>">
+		<input id="inst-location-id" type="hidden" value="<?php echo $location->id; ?>">
+		<input id="inst-location-inst-id" type="hidden" value="<?php echo $id; ?>">
 	</td>
 	<td>
 		<?php echo 'orders'; ?>

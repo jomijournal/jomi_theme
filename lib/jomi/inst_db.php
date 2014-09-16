@@ -207,10 +207,46 @@ function insert_inst_location() {
 add_action( 'wp_ajax_nopriv_insert-inst-location', 'insert_inst_location');
 add_action( 'wp_ajax_insert-inst-location', 'insert_inst_location');
 
+function update_inst_location() {
+	global $wpdb;
+	global $inst_location_table_name;
+
+	$id = $_POST['id'];
+	$inst_id = $_POST['inst_id'];
+	$description = $_POST['description'];
+	$continent = $_POST['continent'];
+	$region = $_POST['region'];
+	$city = $_POST['city'];
+	$zip = $_POST['zip'];
+	$country = $_POST['country'];
+	$address = $_POST['address'];
+
+	$push_data = array(
+		'inst_id' => $inst_id,
+		'description' => $description,
+		'continent' => $continent,
+		'region' => $region,
+		'city' => $city,
+		'zip' => $zip,
+		'country' => $country,
+		'address' => $address
+	);
+
+	$wpdb->update(
+		$inst_location_table_name, 
+		$push_data,
+		array('ID' => $id),
+		array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s'),
+		array('%d')
+	);
+	check_db_errors();
+
+}
+add_action( 'wp_ajax_nopriv_update-inst-location', 'update_inst_location');
+add_action( 'wp_ajax_update-inst-location', 'update_inst_location');
+
 function delete_inst_location() {
 
 }
-function update_inst_location() {
 
-}
 ?>

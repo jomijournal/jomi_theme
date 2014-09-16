@@ -59,19 +59,19 @@
             <?php if($block['time_elapsed'] > 0) {?>
               if(elapsed == <?php echo $block['time_elapsed']; ?>) {
                 // block it
-                block("<?php echo $block['msg']; ?>"/*, <?php echo ($block['closable'] > 0) ? true : false;?>*/);
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
               }
             <?php } elseif ($block['time_start'] > 0) { ?>
               if(s >= <?php echo $block['time_start']; ?>) {
-                block("<?php echo $block['msg']; ?>"/*, <?php echo ($block['closable'] > 0) ? true : false;?>*/);
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
               }
             <?php } elseif ($block['time_end'] > 0) { ?>
               if(s <= <?php echo $block['time_end']; ?>) {
-                block("<?php echo $block['msg']; ?>"/*, <?php echo ($block['closable'] > 0) ? true : false;?>*/);
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
               }
             // block immediately
             <?php } else { ?>
-              block("<?php echo $block['msg']; ?>"/*, <?php echo ($block['closable'] > 0) ? true : false;?>*/);
+              block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
             <?php } ?>
 
           <?php } }?>

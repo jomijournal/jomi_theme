@@ -179,4 +179,38 @@ function update_inst() {
 add_action( 'wp_ajax_nopriv_update-inst', 'update_inst');
 add_action( 'wp_ajax_update-inst', 'update_inst');
 
+/**
+ * insert institution location
+ * @return [type] [description]
+ */
+function insert_inst_location() {
+	global $wpdb;
+	global $inst_location_table_name;
+
+	$inst_id = $_POST['id'];
+	$description = $_POST['description'];
+
+	$push_data = array(
+		'inst_id' => $inst_id,
+		'description' => $description,
+		'continent' => '',
+		'region' => '',
+		'city' => '',
+		'zip' => 0,
+		'country' => '',
+		'address' => ''
+	);
+
+	$wpdb->insert($inst_location_table_name, $push_data);
+	check_db_errors();
+}
+add_action( 'wp_ajax_nopriv_insert-inst-location', 'insert_inst_location');
+add_action( 'wp_ajax_insert-inst-location', 'insert_inst_location');
+
+function delete_inst_location() {
+
+}
+function update_inst_location() {
+
+}
 ?>

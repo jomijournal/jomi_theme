@@ -98,6 +98,23 @@ $(function() {
 		});
 	});
 
+	$('#inst-location-list').on('click', '#inst-location-add', function() {
+		var row = $(this).parent().parent();
+		var inst_id = row.find('#inst-add-location-inst-id').val();
+		var description = row.find('#inst-add-location-description').val();
+
+		console.log(inst_id);
+		console.log(description);
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'insert-inst-location',
+			id: inst_id,
+			description: description 
+		}, function(response) {
+			console.log(response);
+			refresh_location(inst_id);
+		})
+	});
 	$('#inst-location-list').on('click', '#inst-ip-add-submit', function() {
 
 	});
@@ -237,6 +254,7 @@ foreach($locations as $location) {
 <tr>
 	<td>
 		<input id="inst-add-location-description" type="text" value="">
+		<input id="inst-add-location-inst-id" type="hidden" value="<?php echo $id; ?>">
 	</td>
 	<td>
 		<a id="inst-location-add" href="#">add</a>

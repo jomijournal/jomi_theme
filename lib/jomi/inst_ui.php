@@ -43,6 +43,7 @@ function inst_menu(){
 $(function() {
 	refresh();
 
+	// institution list jquery
 	$('#inst-list').on('click', 'td#input, td#insert', function() {
 		if($(this).attr('id') == 'insert') return;
 		// reset previous active element
@@ -67,22 +68,23 @@ $(function() {
 		},
 		function(response) {
 			$('#greyout,#signal').hide();
-			console.log(response);
 			refresh();
 		});
 	});
 
 	$('#inst-list').on('click', 'td a#delete_inst', function() {
-		$('#greyout,#signal').show();
-		$.post(MyAjax.ajaxurl, {
-			action: 'delete-inst',
-			id: $(this).parent().parent().find('td#input').attr('inst-id')
-		},
-		function(response) {
-			$('#greyout,#signal').hide();
-			console.log(response);
-			refresh();
-		});
+
+		if(confirm("are you sure?")) {
+			$('#greyout,#signal').show();
+			$.post(MyAjax.ajaxurl, {
+				action: 'delete-inst',
+				id: $(this).parent().parent().find('td#input').attr('inst-id')
+			},
+			function(response) {
+				$('#greyout,#signal').hide();
+				refresh();
+			});
+		}
 	});
 
 	$('#inst-list').on('click', 'td a#insert-inst-submit', function() {
@@ -93,25 +95,21 @@ $(function() {
 		},
 		function(response) {
 			$('#greyout,#signal').hide();
-			console.log(response);
 			refresh();
 		});
 	});
 
+	// location list jquery
 	$('#inst-location-list').on('click', '#inst-location-add', function() {
 		var row = $(this).parent().parent();
 		var inst_id = row.find('#inst-add-location-inst-id').val();
 		var description = row.find('#inst-add-location-description').val();
-
-		console.log(inst_id);
-		console.log(description);
 
 		$.post(MyAjax.ajaxurl, {
 			action: 'insert-inst-location',
 			id: inst_id,
 			description: description 
 		}, function(response) {
-			console.log(response);
 			refresh_location(inst_id);
 		})
 	});
@@ -139,7 +137,6 @@ $(function() {
 			country: country,
 			zip: zip
 		}, function(response) {
-			console.log(response);
 			refresh_location(inst_id);
 		});
 	});
@@ -155,16 +152,28 @@ $(function() {
 				action: 'delete-inst-location',
 				id: id
 			}, function(response) {
-				console.log(response);
 				refresh_location(inst_id);
 			});
 		}
 	});
 
+	// ip list jquery
 	$('#inst-location-list').on('click', '#inst-ip-add-submit', function() {
+		var row = $(this).parent().parent();
 
+		var location_id = row.find('#inst-ip-add-location-id').val();
+		var ip_start = row.find('#inst-ip-add-start').val();
+		var ip_end = row.find('#inst-ip-add-end').val();
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'insert-inst-ip',
+			location_id: location_id,
+			ip_start: ip_start,
+			ip_end: ip_end
+		}, function(response) {
+			refresh_ip_list(location_id);
+		});
 	});
-
 
 })
 function refresh() {
@@ -174,7 +183,6 @@ function refresh() {
 	},
 	function(response) {
 		$('#greyout,#signal').hide();
-		console.log(response);
 		$('#inst-list').html(response);
 		$('#inst-list').find('input#inst-name').attr('readonly', '');
 	});
@@ -189,8 +197,18 @@ function refresh_location(id) {
 	},
 	function(response) {
 		$('#greyout,#signal').hide();
-		console.log(response);
 		$('#inst-location-list').html(response);
+	});
+}
+function refresh_ip_list(location_id) {
+	$('#greyout,#signal').show();
+	$.post(MyAjax.ajaxurl, {
+		action: 'inst-ip-update',
+		location_id: location_id
+	},
+	function(response) {
+		$('#greyout,#signal').hide();
+		$('#inst-ip-list[location-id="' + location_id + '"]').html(response);
 	});
 }
 </script>
@@ -315,19 +333,30 @@ foreach($locations as $location) {
 add_action( 'wp_ajax_nopriv_inst-location-update', 'inst_location_update');
 add_action( 'wp_ajax_inst-location-update', 'inst_location_update');
 
+/**
+ * render ip lists
+ * @param  [type] $location_id [description]
+ * @return [type]              [description]
+ */
 function inst_ip_update($location_id) {
 
+// allow use via ajax if the post variable is set
+if(!empty($_POST['location_id'])) $location_id = $_POST['location_id'];
+
 ?>
-<table class="inst-ip-list">
+<table id="inst-ip-list" class="inst-ip-list" location-id="<?php echo $location_id; ?>">
 	<tr>
 		<th>IP Start</th>
 		<th>IP End</th>
 		<th>Actions</th>
 	</tr>
 	<tr>
-		<td><input id="inst-ip-add-start" type="text" value="" placeholder="Start IP Range"></td>
-		<td><input id="inst-ip-add-end" type="text" value="" placeholder="End IP Range"></td>
-		<td><a id="inst-ip-add-submit" href="#">add</a></td>
+		<td><input id="inst-ip-add-start" type="text" placeholder="Start IP Range"></td>
+		<td><input id="inst-ip-add-end" type="text" placeholder="End IP Range"></td>
+		<td>
+			<a id="inst-ip-add-submit" href="#">add</a>
+			<input id="inst-ip-add-location-id" type="hidden" value="<?php echo $location_id; ?>">
+		</td>
 	</tr>
 <?php 
 
@@ -340,12 +369,14 @@ $ips = $wpdb->get_results($inst_ip_query);
 foreach($ips as $ip) {
 ?>
 <tr>
-	<td><input type="text" value="<?php echo long2ip($ip->start); ?>"></td>
-	<td><input type="text" value="<?php echo long2ip($ip->end); ?>"></td>
+	<td><input id="inst-ip-start" type="text" value="<?php echo long2ip($ip->start); ?>"></td>
+	<td><input id="inst-ip-end" type="text" value="<?php echo long2ip($ip->end); ?>"></td>
 	<td>
 		<a id="inst-ip-update" href="#">update</a>
 		<br>
 		<a id="inst-ip-delete" href="#">delete</a>
+
+		<input id="inst-ip-location-id" type="hidden" value="<?php echo $location_id; ?>">
 	</td>
 </tr>
 <?php 

@@ -296,7 +296,33 @@ add_action( 'wp_ajax_nopriv_insert-inst-ip', 'insert_inst_ip');
 add_action( 'wp_ajax_insert-inst-ip', 'insert_inst_ip');
 
 function update_inst_ip() {
+	global $wpdb;
+	global $inst_ip_table_name;
 
+	$id = $_POST['id'];
+	$location_id = $_POST['location_id'];
+	$ip_start = $_POST['ip_start'];
+	$ip_end = $_POST['ip_end'];
+
+	//convert to storable long data type
+	$ip_start = ip2long($ip_start);
+	$ip_end = ip2long($ip_end);
+
+	$push_data = array(
+		'location_id' => $location_id,
+		'start' => $ip_start,
+		'end' => $ip_end
+	);
+
+	$wpdb->update(
+		$inst_ip_table_name,
+		$push_data,
+		array('ID' => $id),
+		array('%d', '%d', '%d'),
+		array('%d')
+	);
+
+	check_db_errors();
 }
 add_action( 'wp_ajax_nopriv_update-inst-ip', 'update_inst_ip');
 add_action( 'wp_ajax_update-inst-ip', 'update_inst_ip');

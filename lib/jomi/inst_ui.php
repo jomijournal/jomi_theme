@@ -175,6 +175,25 @@ $(function() {
 		});
 	});
 
+	$('#inst-location-list').on('click', '#inst-ip-update', function() {
+		var row = $(this).parent().parent();
+
+		var id = row.find('#inst-ip-id').val();
+		var location_id = row.find('#inst-ip-location-id').val();
+		var ip_start = row.find('#inst-ip-start').val();
+		var ip_end = row.find('#inst-ip-end').val();
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'update-inst-ip',
+			id: id,
+			location_id: location_id,
+			ip_start: ip_start,
+			ip_end: ip_end
+		}, function(response) {
+			refresh_ip_list(location_id);
+		})
+	});
+
 })
 function refresh() {
 	$('#greyout,#signal').show();
@@ -376,6 +395,7 @@ foreach($ips as $ip) {
 		<br>
 		<a id="inst-ip-delete" href="#">delete</a>
 
+		<input id="inst-ip-id" type="hidden" value="<?php echo $ip->id; ?>">
 		<input id="inst-ip-location-id" type="hidden" value="<?php echo $location_id; ?>">
 	</td>
 </tr>

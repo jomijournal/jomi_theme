@@ -27,11 +27,11 @@ function inst_menu(){
 	<div id="signal" class="signal"></div>
 </div>
 <div class="row">
-	<div class="col-xs-3">
+	<div class="col-md-3 inst-list-col">
 		<table class="inst-list" id="inst-list">
 		</table>
 	</div>
-	<div class="col-xs-9">
+	<div class="col-md-9 inst-location-list-col">
 		<table class="inst-location-list" id="inst-location-list">
 		</table>
 	</div>
@@ -332,7 +332,7 @@ foreach($locations as $location) {
 		<input id="inst-location-inst-id" type="hidden" value="<?php echo $id; ?>">
 	</td>
 	<td>
-		<?php echo 'orders'; ?>
+		<?php inst_order_update($location->id); ?>
 	</td>
 	<td>
 		<?php inst_ip_update($location->id); ?>
@@ -416,5 +416,58 @@ foreach($ips as $ip) {
 }
 add_action( 'wp_ajax_nopriv_inst-ip-update', 'inst_ip_update');
 add_action( 'wp_ajax_inst-ip-update', 'inst_ip_update');
+
+/**
+ * render the order table
+ * @param  [type] $location_id [description]
+ * @return [type]              [description]
+ */
+function inst_order_update($location_id) {
+	// use the POST variable if its set (if being used via AJAX)
+	if(!empty($_POST['location_id'])) $location_id = $_POST['location_id'];
+
+?>
+<table id="inst-order-list" class="inst-order-list" location-id="<?php echo $location_id; ?>">
+<?php
+
+global $wpdb;
+global $inst_order_table_name;
+
+$inst_order_query = "SELECT * FROM $inst_order_table_name WHERE location_id = $location_id";
+$orders = $wpdb->get_results($inst_order_query);
+
+foreach($orders as $order) {
+?>
+<tr>
+	<th>Date Start</th>
+	<td><input id="inst-order-date-start" value="<?php echo $order->date_start; ?>"></td>
+</tr>
+<tr>
+	<th>Date End</th>
+	<td><input id="inst-order-date-end" value="<?php echo $order->date_end; ?>"></td>
+</tr>
+<tr>
+	<th>Type</th>
+	<td><input id="inst-order-type" value="<?php echo $order->type; ?>"></td>
+</tr>
+<tr>
+	<th>Amount</th>
+	<td><input id="inst-order-amount" value="<?php echo $order->amount; ?>"></td>
+</tr>
+<tr>
+	<th>Actions</th>
+	<td>
+		<a id="inst-order-update">update</a> | 
+		<a id="inst-order-delete">delete</a>
+	</td>
+</tr>
+<?php 
+}
+?>
+</table>
+<?php
+}
+add_action( 'wp_ajax_nopriv_inst-order-update', 'inst_order_update');
+add_action( 'wp_ajax_inst-order-update', 'inst_order_update');
 
 ?>

@@ -8,7 +8,7 @@ global $wpdb;
 // change this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
-$inst_db_version = '1.10';
+$inst_db_version = '1.11';
 
 global $inst_table_name;
 $inst_table_name = $wpdb->prefix . 'institutions';
@@ -75,6 +75,8 @@ function inst_table_install() {
 		location_id int NOT NULL,
 		date_start  date NOT NULL,
 		date_end    date NOT NULL,
+		type        VARCHAR(20) NOT NULL,
+		amount      float NOT NULL
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_contact_sql = "CREATE TABLE $inst_contact_table_name (
@@ -268,6 +270,10 @@ function delete_inst_location() {
 add_action( 'wp_ajax_nopriv_delete-inst-location', 'delete_inst_location');
 add_action( 'wp_ajax_delete-inst-location', 'delete_inst_location');
 
+/**
+ * insert ip (mapped to location)
+ * @return [type] [description]
+ */
 function insert_inst_ip() {
 	global $wpdb;
 	global $inst_ip_table_name;
@@ -295,6 +301,10 @@ function insert_inst_ip() {
 add_action( 'wp_ajax_nopriv_insert-inst-ip', 'insert_inst_ip');
 add_action( 'wp_ajax_insert-inst-ip', 'insert_inst_ip');
 
+/**
+ * update IP (mapped to location)
+ * @return [type] [description]
+ */
 function update_inst_ip() {
 	global $wpdb;
 	global $inst_ip_table_name;
@@ -327,6 +337,10 @@ function update_inst_ip() {
 add_action( 'wp_ajax_nopriv_update-inst-ip', 'update_inst_ip');
 add_action( 'wp_ajax_update-inst-ip', 'update_inst_ip');
 
+/**
+ * delete IP (mapped to location)
+ * @return [type] [description]
+ */
 function delete_inst_ip() {
 	global $wpdb;
 	global $inst_ip_table_name;

@@ -269,8 +269,8 @@ foreach($insts as $inst) {
 		<input id="inst-name" type="text" placeholder="<?php echo $inst->name; ?>">
 	</td>
 	<td>
-		<a id="update_inst" href="#"><span class="glyphicon glyphicon-floppy-disk"></span></a>
-		<a id="delete_inst" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+		<a id="update_inst"><span class="glyphicon glyphicon-floppy-disk"></span></a>
+		<a id="delete_inst"><span class="glyphicon glyphicon-remove"></span></a>
 	</td>
 </tr>
 <?php
@@ -338,9 +338,9 @@ foreach($locations as $location) {
 		<?php inst_ip_update($location->id); ?>
 	</td>
 	<td>
-		<a id="inst-location-update" href="#">update</a>
+		<a id="inst-location-update">update</a>
 		<br>
-		<a id="inst-location-delete" href="#">delete</a>
+		<a id="inst-location-delete">delete</a>
 	</td>
 </tr>
 <?php
@@ -353,7 +353,7 @@ foreach($locations as $location) {
 		<input id="inst-add-location-inst-id" type="hidden" value="<?php echo $id; ?>">
 	</td>
 	<td>
-		<a id="inst-location-add" href="#">add</a>
+		<a id="inst-location-add">add</a>
 	</td>
 </tr>
 <?php
@@ -382,7 +382,7 @@ if(!empty($_POST['location_id'])) $location_id = $_POST['location_id'];
 		<td><input id="inst-ip-add-start" type="text" placeholder="Start IP Range"></td>
 		<td><input id="inst-ip-add-end" type="text" placeholder="End IP Range"></td>
 		<td>
-			<a id="inst-ip-add-submit" href="#">add</a>
+			<a id="inst-ip-add-submit">add</a>
 			<input id="inst-ip-add-location-id" type="hidden" value="<?php echo $location_id; ?>">
 		</td>
 	</tr>
@@ -400,9 +400,9 @@ foreach($ips as $ip) {
 	<td><input id="inst-ip-start" type="text" value="<?php echo long2ip($ip->start); ?>"></td>
 	<td><input id="inst-ip-end" type="text" value="<?php echo long2ip($ip->end); ?>"></td>
 	<td>
-		<a id="inst-ip-update" href="#">update</a>
+		<a id="inst-ip-update">update</a>
 		<br>
-		<a id="inst-ip-delete" href="#">delete</a>
+		<a id="inst-ip-delete">delete</a>
 
 		<input id="inst-ip-id" type="hidden" value="<?php echo $ip->id; ?>">
 		<input id="inst-ip-location-id" type="hidden" value="<?php echo $location_id; ?>">

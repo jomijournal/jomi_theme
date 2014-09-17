@@ -328,7 +328,17 @@ add_action( 'wp_ajax_nopriv_update-inst-ip', 'update_inst_ip');
 add_action( 'wp_ajax_update-inst-ip', 'update_inst_ip');
 
 function delete_inst_ip() {
+	global $wpdb;
+	global $inst_ip_table_name;
 
+	$id = $_POST['id'];
+
+	$wpdb->delete(
+		$inst_ip_table_name,
+		array('ID' => $id)
+	);
+
+	check_db_errors();
 }
 add_action( 'wp_ajax_nopriv_delete-inst-ip', 'delete_inst_ip');
 add_action( 'wp_ajax_delete-inst-ip', 'delete_inst_ip');

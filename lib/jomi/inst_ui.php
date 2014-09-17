@@ -58,7 +58,6 @@ $(function() {
 			.val($(this).find('input#inst-name').attr('placeholder'));
 		refresh_location($(this).attr('inst-id'));
 	});
-
 	$('#inst-list').on('click', 'td a#update_inst', function() {
 		$('#greyout,#signal').show();
 		$.post(MyAjax.ajaxurl, {
@@ -71,7 +70,6 @@ $(function() {
 			refresh();
 		});
 	});
-
 	$('#inst-list').on('click', 'td a#delete_inst', function() {
 
 		if(confirm("are you sure?")) {
@@ -86,7 +84,6 @@ $(function() {
 			});
 		}
 	});
-
 	$('#inst-list').on('click', 'td a#insert-inst-submit', function() {
 		$('#greyout,#signal').show();
 		$.post(MyAjax.ajaxurl, {
@@ -113,7 +110,6 @@ $(function() {
 			refresh_location(inst_id);
 		})
 	});
-
 	$('#inst-location-list').on('click', '#inst-location-update', function() {
 		var row = $(this).parent().parent();
 
@@ -140,7 +136,6 @@ $(function() {
 			refresh_location(inst_id);
 		});
 	});
-
 	$('#inst-location-list').on('click', '#inst-location-delete', function() {
 		var row = $(this).parent().parent();
 
@@ -174,7 +169,6 @@ $(function() {
 			refresh_ip_list(location_id);
 		});
 	});
-
 	$('#inst-location-list').on('click', '#inst-ip-update', function() {
 		var row = $(this).parent().parent();
 
@@ -192,6 +186,21 @@ $(function() {
 		}, function(response) {
 			refresh_ip_list(location_id);
 		})
+	});
+	$('#inst-location-list').on('click', '#inst-ip-delete', function() {
+		var row = $(this).parent().parent();
+
+		var id = row.find('#inst-ip-id').val();
+		var location_id = row.find('#inst-ip-location-id').val();
+
+		if(confirm("are you sure?")) {
+			$.post(MyAjax.ajaxurl, {
+				action: 'delete-inst-ip',
+				id: id
+			}, function(response) {
+				refresh_ip_list(location_id);
+			});
+		}
 	});
 
 })

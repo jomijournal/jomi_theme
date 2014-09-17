@@ -144,6 +144,23 @@ $(function() {
 		});
 	});
 
+	$('#inst-location-list').on('click', '#inst-location-delete', function() {
+		var row = $(this).parent().parent();
+
+		var id = row.find('#inst-location-id').val();
+		var inst_id = row.find('#inst-location-inst-id').val();
+
+		if(confirm('are you sure?')) {
+			$.post(MyAjax.ajaxurl, {
+				action: 'delete-inst-location',
+				id: id
+			}, function(response) {
+				console.log(response);
+				refresh_location(inst_id);
+			});
+		}
+	});
+
 	$('#inst-location-list').on('click', '#inst-ip-add-submit', function() {
 
 	});

@@ -207,6 +207,10 @@ function insert_inst_location() {
 add_action( 'wp_ajax_nopriv_insert-inst-location', 'insert_inst_location');
 add_action( 'wp_ajax_insert-inst-location', 'insert_inst_location');
 
+/**
+ * update institution location info
+ * @return [type] [description]
+ */
 function update_inst_location() {
 	global $wpdb;
 	global $inst_location_table_name;
@@ -245,8 +249,23 @@ function update_inst_location() {
 add_action( 'wp_ajax_nopriv_update-inst-location', 'update_inst_location');
 add_action( 'wp_ajax_update-inst-location', 'update_inst_location');
 
+/**
+ * delete institution location
+ * @return [type] [description]
+ */
 function delete_inst_location() {
+	global $wpdb;
+	global $inst_location_table_name;
 
+	$id = $_POST['id'];
+
+	$wpdb->delete(
+		$inst_location_table_name,
+		array('ID'=>$id)
+	);
+	check_db_errors();
 }
+add_action( 'wp_ajax_nopriv_delete-inst-location', 'delete_inst_location');
+add_action( 'wp_ajax_delete-inst-location', 'delete_inst_location');
 
 ?>

@@ -8,7 +8,7 @@ global $wpdb;
 // change this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
-$inst_db_version = '1.11';
+$inst_db_version = '1.13';
 
 global $inst_table_name;
 $inst_table_name = $wpdb->prefix . 'institutions';
@@ -65,12 +65,12 @@ function inst_table_install() {
 	$inst_ip_sql = "CREATE TABLE $inst_ip_table_name (
 		id          mediumint(9) NOT NULL AUTO_INCREMENT,
 		location_id int NOT NULL,
-		start       int(12) NOT NULL,
-		end         int(12) NOT NULL,
+		start       int(11) UNSIGNED NOT NULL,
+		end         int(11) UNSIGNED NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_order_sql = "CREATE TABLE $inst_order_table_name (
-		id m        ediumint(9) NOT NULL AUTO_INCREMENT,
+		id          mediumint(9) NOT NULL AUTO_INCREMENT,
 		inst_id     int NOT NULL,
 		location_id int NOT NULL,
 		date_start  date NOT NULL,
@@ -283,8 +283,8 @@ function insert_inst_ip() {
 	$ip_end = $_POST['ip_end'];
 
 	//convert to storable long data type
-	$ip_start = ip2long($ip_start);
-	$ip_end = ip2long($ip_end);
+	$ip_start = sprintf("%u", ip2long($ip_start));
+	$ip_end = sprintf("%u", ip2long($ip_end));
 
 	$push_data = array(
 		'location_id' => $location_id,
@@ -315,8 +315,8 @@ function update_inst_ip() {
 	$ip_end = $_POST['ip_end'];
 
 	//convert to storable long data type
-	$ip_start = ip2long($ip_start);
-	$ip_end = ip2long($ip_end);
+	$ip_start = sprintf("%u", ip2long($ip_start));
+	$ip_end = sprintf("%u",ip2long($ip_end));
 
 	$push_data = array(
 		'location_id' => $location_id,
@@ -328,7 +328,7 @@ function update_inst_ip() {
 		$inst_ip_table_name,
 		$push_data,
 		array('ID' => $id),
-		array('%d', '%d', '%d'),
+		array('%d', '%f', '%f'),
 		array('%d')
 	);
 

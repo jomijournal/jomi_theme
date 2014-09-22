@@ -177,6 +177,7 @@ function load_user_info() {
 	// MGH IP
 	//$ip = "170.223.105.11";
 	if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
+	if(!empty($_GET['testip'])) $ip = $_GET['testip'];
 
 	$ip_long = sprintf("%u", ip2long($ip));
 	if($access_debug) echo 'Current IP:' . $ip_long . "\n";

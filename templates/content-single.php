@@ -6,6 +6,13 @@
   global $access_blocks;
   check_access();
   //block_deny();
+  
+  $id = get_the_ID();
+  // get a custom stop time, if it exists
+  // check wordpress meta first
+  $custom_stop = get_post_meta($id, 'custom_stop', true);
+  if(empty($custom_stop)) $custom_stop = get_field('custom_stop');
+
   ?>
   <article <?php post_class(); ?>>
     <?php $wistia = get_field('wistia_id'); ?>
@@ -53,12 +60,25 @@
 
           elapsed++;
 
+          //======================
           // GENERATED JAVASCRIPT
+          // =====================
           <?php if(is_array($access_blocks)) { foreach($access_blocks as $block) { ?>
-
-            <?php if($block['time_elapsed'] > 0) {?>
-              if(elapsed == <?php echo $block['time_elapsed']; ?>) {
+            <?php if($block['time_elapsed'] == 'custom' && !empty($custom_stop)) {?>
+              // custom elapsed time
+              if(elapsed >= <?php echo $custom_stop; ?>) {
                 // block it
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
+              }
+            
+            <?php } elseif($block['time_elapsed'] > 0) {?>
+              if(elapsed >= <?php echo $block['time_elapsed']; ?>) {
+                // block it
+                block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
+              }
+            // custom start time
+            <?php } elseif ($block['time_start'] == 'custom' && !empty($custom_stop)) { ?>
+              if(s >= <?php echo $custom_stop ?>) {
                 block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
               }
             <?php } elseif ($block['time_start'] > 0) { ?>
@@ -71,7 +91,10 @@
             <?php } ?>
 
           <?php } }?>
+          // ==========================
           // END GENERATED JAVASCRIPT
+          // ==========================
+          
           // chapter control
           $('.vtime-item').removeClass('done').removeClass('current');
           $('.vtime-item').each(function(index){

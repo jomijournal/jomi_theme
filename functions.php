@@ -213,6 +213,10 @@ function save_vid_length_meta( $post_id ) {
 }
 add_action( 'save_post', 'save_vid_length_meta', 9999, 1 );
 
+// get rid of stupid wpautop
+remove_filter('the_content', 'wpautop');
+remove_filter('the_excerpt', 'wpautop');
+
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 

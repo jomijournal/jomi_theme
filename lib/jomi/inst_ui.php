@@ -203,7 +203,36 @@ $(function() {
 		}
 	});
 
-})
+	//institution order jquery
+	$('#inst-location-list').on('click', '#inst-order-insert', function(){
+		var table = $(this).parent().parent().parent().parent();
+
+		// don't need inst_id (for now)
+		var inst_id = 0;
+		var location_id = table.attr('location-id');
+
+		var date = new Date();
+		var date_start = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+		var date_end = (date.getFullYear() + 1) + '-' + date.getMonth() + '-' + date.getDate();
+
+		var type = 'default';
+		var amount = -1;
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'insert-inst-order',
+			inst_id: inst_id,
+			location_id: location_id,
+			date_start: date_start,
+			date_end: date_end,
+			type: type,
+			amount: amount
+		}, function(response) {
+			refresh_order_list(location_id);
+		});
+	});
+
+});
+
 function refresh() {
 	$('#greyout,#signal').show();
 	$.post(MyAjax.ajaxurl,{
@@ -237,6 +266,16 @@ function refresh_ip_list(location_id) {
 	function(response) {
 		$('#greyout,#signal').hide();
 		$('#inst-ip-list[location-id="' + location_id + '"]').html(response);
+	});
+}
+function refresh_order_list(location_id) {
+	$('#greyout,#signal').show();
+	$.post(MyAjax.ajaxurl, {
+		action: 'inst-order-update',
+		location_id: location_id
+	}, function(response) {
+		$('#greyout,#signal').hide();
+		$('#inst-order-list[location-id="' + location_id + '"]').html(response);
 	});
 }
 </script>
@@ -428,6 +467,11 @@ function inst_order_update($location_id) {
 
 ?>
 <table id="inst-order-list" class="inst-order-list" location-id="<?php echo $location_id; ?>">
+<tr>
+	<td>
+		<a id="inst-order-insert">add</a>
+	</td>
+</tr>
 <?php
 
 global $wpdb;
@@ -440,19 +484,19 @@ foreach($orders as $order) {
 ?>
 <tr>
 	<th>Date Start</th>
-	<td><input id="inst-order-date-start" value="<?php echo $order->date_start; ?>"></td>
+	<td><input id="inst-order-date-start" type="date" value="<?php echo $order->date_start; ?>"></td>
 </tr>
 <tr>
 	<th>Date End</th>
-	<td><input id="inst-order-date-end" value="<?php echo $order->date_end; ?>"></td>
+	<td><input id="inst-order-date-end" type="date" value="<?php echo $order->date_end; ?>"></td>
 </tr>
 <tr>
 	<th>Type</th>
-	<td><input id="inst-order-type" value="<?php echo $order->type; ?>"></td>
+	<td><input id="inst-order-type" type="text" value="<?php echo $order->type; ?>"></td>
 </tr>
 <tr>
 	<th>Amount</th>
-	<td><input id="inst-order-amount" value="<?php echo $order->amount; ?>"></td>
+	<td><input id="inst-order-amount" type="number" value="<?php echo $order->amount; ?>"></td>
 </tr>
 <tr>
 	<th>Actions</th>
@@ -460,6 +504,9 @@ foreach($orders as $order) {
 		<a id="inst-order-update">update</a> | 
 		<a id="inst-order-delete">delete</a>
 	</td>
+</tr>
+<tr>
+	<td><br></td>
 </tr>
 <?php 
 }

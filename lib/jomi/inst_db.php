@@ -357,5 +357,39 @@ function delete_inst_ip() {
 add_action( 'wp_ajax_nopriv_delete-inst-ip', 'delete_inst_ip');
 add_action( 'wp_ajax_delete-inst-ip', 'delete_inst_ip');
 
+/**
+ * insert institution order
+ * @return [type] [description]
+ */
+function insert_inst_order() {
+	global $wpdb;
+	global $inst_order_table_name;
+
+	$inst_id = $_POST['inst_id'];
+	$location_id = $_POST['location_id'];
+	$date_start = $_POST['date_start'];
+	$date_end = $_POST['date_end'];
+	$type = $_POST['type'];
+	$amount = $_POST['amount'];
+
+	$push_data = array(
+		'inst_id' => $inst_id,
+		'location_id' => $location_id,
+		'date_start' => $date_start,
+		'date_end' => $date_end,
+		'type' => $type,
+		'amount' => $amount
+ 	);
+
+ 	$wpdb->insert(
+ 		$inst_order_table_name,
+ 		$push_data
+ 	);
+
+ 	check_db_errors();
+}
+add_action( 'wp_ajax_nopriv_insert-inst-order', 'insert_inst_order');
+add_action( 'wp_ajax_insert-inst-order', 'insert_inst_order');
+
 
 ?>

@@ -230,6 +230,34 @@ $(function() {
 			refresh_order_list(location_id);
 		});
 	});
+	$('#inst-location-list').on('click', '#inst-order-update', function() {
+		var table = $(this).parent().parent().parent().parent();
+
+		var id = table.find('#inst-order-id').val();
+
+		// dont need inst id for now
+		var inst_id = 0;
+		var location_id = table.attr('location-id');
+
+		var date_start = table.find('#inst-order-date-start').val();
+		var date_end = table.find('#inst-order-date-end').val();
+
+		var type = table.find('#inst-order-type').val();
+		var amount = table.find('#inst-order-amount').val();
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'update-inst-order',
+			id: id,
+			inst_id: inst_id,
+			location_id: location_id,
+			date_start: date_start,
+			date_end: date_end,
+			type: type,
+			amount: amount
+		}, function(response) {
+			refresh_order_list(location_id);
+		});
+	});
 
 });
 
@@ -506,6 +534,10 @@ foreach($orders as $order) {
 	</td>
 </tr>
 <tr>
+	<!-- hidden stuff -->
+	<td>
+		<input id="inst-order-id" type="hidden" value="<?php echo $order->id; ?>">
+	</td>
 	<td><br></td>
 </tr>
 <?php 

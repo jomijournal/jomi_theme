@@ -132,7 +132,7 @@ foreach($rules as $rule_index=>$rule) {
   				<option val="free_trial_thanks">FREE TRIAL THANKS</option>
   			</select>
 			<input type="number" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
-			<input type="number" id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>">
+			<!--input type="number" id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>"-->
 			<input type="number" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
 			<br>Closable
 			<input type="checkbox" id="result_closable" <?php echo ($rule->result_closable > 0) ? 'checked' : ''; ?>>

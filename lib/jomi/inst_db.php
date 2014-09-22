@@ -426,4 +426,20 @@ function update_inst_order() {
 add_action( 'wp_ajax_nopriv_update-inst-order', 'update_inst_order');
 add_action( 'wp_ajax_update-inst-order', 'update_inst_order');
 
+function delete_inst_order() {
+	global $wpdb;
+	global $inst_order_table_name;
+
+	$id = $_POST['id'];
+
+	$wpdb->delete(
+		$inst_order_table_name,
+		array('ID' => $id)
+	);
+
+	check_db_errors();
+}	
+add_action( 'wp_ajax_nopriv_delete-inst-order', 'delete_inst_order');
+add_action( 'wp_ajax_delete-inst-order', 'delete_inst_order');
+
 ?>

@@ -258,6 +258,19 @@ $(function() {
 			refresh_order_list(location_id);
 		});
 	});
+	$('#inst-location-list').on('click', '#inst-order-delete', function() {
+		var table = $(this).parent().parent().parent().parent();
+
+		var id = table.find('#inst-order-id').val();
+		var location_id = table.attr('location-id');
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'delete-inst-order',
+			id: id
+		}, function(response) {
+			refresh_order_list(location_id);
+		});
+	});
 
 });
 

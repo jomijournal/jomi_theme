@@ -157,25 +157,9 @@ function load_user_info() {
     	$logged_in = false;
     }
      
-    // DEBUG
-    /*echo 'Username: ' . $current_user->user_login . '<br />';
-    echo 'User email: ' . $current_user->user_email . '<br />';
-    echo 'User first name: ' . $current_user->user_firstname . '<br />';
-    echo 'User last name: ' . $current_user->user_lastname . '<br />';
-    echo 'User display name: ' . $current_user->display_name . '<br />';
-    echo 'User ID: ' . $current_user->ID . '<br />'; */
-    //print_r($user);
-	 
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
-	// TEST ONLY
-	// US IP
-	//$ip = "173.13.115.174";
-	// CHINA IP
-	//$ip = "27.113.128.55";
-	// MGH IP
-	//$ip = "170.223.105.11";
 	if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
 	if(!empty($_GET['testip'])) $ip = $_GET['testip'];
 
@@ -217,7 +201,6 @@ function load_user_info() {
 		//}
 		if($access_debug) {
 			echo "Institution Location Data:\n";
-			//print_r($inst_locations);
 			print_r($inst_location);
 		}
 	}
@@ -320,13 +303,6 @@ function load_user_info() {
 		$city = 'Boston';
 	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
-
-	// DEBUG
-	/*print("\n" . $record->country->isoCode . "\n"); // 'US'
-	print($record->country->name . "\n"); // 'United States'
-	print($record->mostSpecificSubdivision->name . "\n"); // 'Minnesota'
-	print($record->mostSpecificSubdivision->isoCode . "\n"); // 'MN'
-	print($record->city->name . "\n"); // 'Minneapolis'*/
 
 	$user_info = array(
 		'logged_in' => $logged_in,
@@ -503,7 +479,6 @@ function get_blocks($rules, $user_info) {
 		}
 	}
 	//remove dupes
-	//$blocks = array_unique($blocks);
 	$no_more_duplicates = false;
 	while(!$no_more_duplicates) {
 		foreach($blocks as $block) {
@@ -520,9 +495,6 @@ function get_blocks($rules, $user_info) {
 		}
 		$no_more_duplicates = true;
 	}
-
-	//print_r($blocks);
-
 	return $blocks;
 }
 
@@ -539,16 +511,11 @@ function check_access() {
 
   $selector_meta = extract_selector_meta(get_the_ID());
   if($access_debug) echo '<pre>';
-  //print_r($selector_meta);
-  //echo $selector_meta['status'];
   $institution_meta = extract_institution_meta();
-  //print_r($institution_meta);
-  //$institution_id = $institution_meta['id'];
 
   $all_rules_query = "SELECT * 
                       FROM $access_table_name";
   $all_rules = $wpdb->get_results($all_rules_query);
-  //print_r($all_rules);
 
   $rules = collect_rules($selector_meta, $institution_meta);
   if($access_debug) {

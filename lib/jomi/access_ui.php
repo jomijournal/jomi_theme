@@ -132,7 +132,6 @@ foreach($rules as $rule_index=>$rule) {
   				<option val="free_trial_thanks">FREE TRIAL THANKS</option>
   			</select>
 			<input type="number" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
-			<!--input type="number" id="result_time_end" placeholder="Time End: <?php echo $rule->result_time_end; ?>" data="<?php echo $rule->result_time_end; ?>"-->
 			<input type="number" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
 			<br>Closable
 			<input type="checkbox" id="result_closable" <?php echo ($rule->result_closable > 0) ? 'checked' : ''; ?>>
@@ -357,7 +356,6 @@ function global_rulebook(){
 			params.check_value = get_check_vals(row);
 		params.result_type = params.hasOwnProperty("result_type") ? params.result_type : row.find('#result_type option:selected').attr('val');
 		params.result_time_start = params.hasOwnProperty("result_time_start") ? params.result_time_start : row.find('input#result_time_start').val();
-		params.result_time_end = params.hasOwnProperty("result_time_end") ? params.result_time_end : row.find('input#result_time_end').val();
 		params.result_time_elapsed = params.hasOwnProperty("result_time_elapsed") ? params.result_time_elapsed : row.find('input#result_time_elapsed').val();
 		params.result_closable = params.hasOwnProperty("result_closable") ? params.result_closable : ((row.find('input#result_closable').is(':checked')) ? 1 : 0);
 

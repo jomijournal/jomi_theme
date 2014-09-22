@@ -33,7 +33,6 @@ function access_table_install() {
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
 		result_type VARCHAR(20) NOT NULL,
 		result_time_start int(5) NOT NULL,
-		result_time_end int(5) NOT NULL,
 		result_time_elapsed int(5) NOT NULL,
 		result_msg text NOT NULL,
 		result_closable tinyint(1) NOT NULL,

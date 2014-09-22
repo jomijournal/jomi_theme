@@ -13,7 +13,6 @@ global $access_table_name;
 $default = array(
 	'result_type' => 'DEFAULT',
 	'result_time_start' => -1,
-	'result_time_end' => -1,
 	'result_time_elapsed' => -1,
 	'result_msg' => '<p>DEFAULT</p>',
 	'result_closable' => 0,
@@ -32,7 +31,6 @@ function process_access_post_data() {
 
 	$result_type =          (empty($_POST['result_type']))         ? $default['result_type']         : $_POST['result_type'];
 	$result_time_start =    (empty($_POST['result_time_start']))   ? $default['result_time_start']   : $_POST['result_time_start'];
-	$result_time_end =      (empty($_POST['result_time_end']))     ? $default['result_time_end']     : $_POST['result_time_end'];
 	$result_time_elapsed =  (empty($_POST['result_time_elapsed'])) ? $default['result_time_elapsed'] : $_POST['result_time_elapsed'];
 	$result_closable =      (empty($_POST['result_closable']))     ? $default['result_closable']     : $_POST['result_closable'];
 	if(empty($_POST['result_msg'])) {
@@ -72,7 +70,6 @@ function process_access_post_data() {
 	$out = array(
 		'result_type' => $result_type,
 		'result_time_start' => $result_time_start,
-		'result_time_end' => $result_time_end,
 		'result_time_elapsed' => $result_time_elapsed,
 		'result_msg' => $result_msg,
 		'result_closable' => $result_closable,

@@ -496,7 +496,6 @@ function get_blocks($rules, $user_info) {
 			array_push($blocks, array(
 				'msg' => $rule->result_msg,
 				'time_start' => $rule->result_time_start,
-				'time_end' => $rule->result_time_end,
 				'time_elapsed' => $rule->result_time_elapsed,
 				'closable' => $rule->result_closable
 			));
@@ -511,7 +510,6 @@ function get_blocks($rules, $user_info) {
 				// dont check yerself
 				if($block_check == $block) continue;
 				if($block_check['time_start'] == $block['time_start'] &&
-				   $block_check['time_end'] == $block['time_end'] &&
 				   $block_check['time_elapsed'] == $block['time_elapsed']) {
 
 					array_splice($blocks, $index_check, 1);

@@ -12,3 +12,5 @@
 			<a class="mini-link" href='/subscribers/'>See all subscribers →</a>
 		</div>
 </div>
+
+<?php require_once('front-footer.php'); ?>

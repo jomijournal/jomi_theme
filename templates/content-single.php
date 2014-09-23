@@ -12,7 +12,7 @@
   // check wordpress meta first
   $custom_stop = get_post_meta($id, 'custom_stop', true);
   if(empty($custom_stop)) $custom_stop = get_field('custom_stop');
-  
+
   ?>
   <article <?php post_class(); ?>>
     <?php $wistia = get_field('wistia_id'); ?>
@@ -70,7 +70,8 @@
                 // block it
                 block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
               }
-            
+            <?php } elseif($block['time_elapsed'] == 'custom' && empty($custom_stop)) {?>
+              
             <?php } elseif($block['time_elapsed'] > 0) {?>
               if(elapsed >= <?php echo $block['time_elapsed']; ?>) {
                 // block it
@@ -81,6 +82,8 @@
               if(s >= <?php echo $custom_stop ?>) {
                 block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
               }
+            <?php } elseif($block['time_start'] == 'custom' && empty($custom_stop)) {?>
+
             <?php } elseif ($block['time_start'] > 0) { ?>
               if(s >= <?php echo $block['time_start']; ?>) {
                 block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);

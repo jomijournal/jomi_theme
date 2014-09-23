@@ -5,11 +5,15 @@
 
 global $wpdb;
 
-// change this when installing a new table version
+// increment this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
 $inst_db_version = '1.13';
 
+/**
+ * table names.
+ * shouldn't change
+ */
 global $inst_table_name;
 $inst_table_name = $wpdb->prefix . 'institutions';
 
@@ -90,7 +94,10 @@ function inst_table_install() {
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
+	// load dbDelta function
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+	// dbDelta only runs queries to even things out (delta). does not drop + recreate tables
 	dbDelta($inst_sql);
 	dbDelta($inst_location_sql);
 	dbDelta($inst_ip_sql);
@@ -391,6 +398,10 @@ function insert_inst_order() {
 add_action( 'wp_ajax_nopriv_insert-inst-order', 'insert_inst_order');
 add_action( 'wp_ajax_insert-inst-order', 'insert_inst_order');
 
+/**
+ * update institution order
+ * @return [type] [description]
+ */
 function update_inst_order() {
 	global $wpdb;
 	global $inst_order_table_name;
@@ -426,6 +437,10 @@ function update_inst_order() {
 add_action( 'wp_ajax_nopriv_update-inst-order', 'update_inst_order');
 add_action( 'wp_ajax_update-inst-order', 'update_inst_order');
 
+/**
+ * delete institution order
+ * @return [type] [description]
+ */
 function delete_inst_order() {
 	global $wpdb;
 	global $inst_order_table_name;

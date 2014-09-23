@@ -5,20 +5,41 @@
 wp-login page style, redirects + hiding
 ===============================
  */
+
+/**
+ * load head so we get access to all of our js and css
+ * @return [type] [description]
+ */
 function jomi_login_head() {
   get_template_part('templates/head');
   do_action('get_header');
 }
 add_action('login_head', 'jomi_login_head');
+
+/**
+ * load stylesheets manually just in case
+ * @return [type] [description]
+ */
 function jomi_login_stylesheet() {
     wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/assets/css/main.min.css' );
     wp_enqueue_script( 'custom-login', get_template_directory_uri() . '/assets/js/scripts.min.js' );
 }
 add_action( 'login_enqueue_scripts', 'jomi_login_stylesheet' );
+
+/**
+ * link to our website, not wordpress's
+ * @param  [type] $url [description]
+ * @return [type]      [description]
+ */
 function jomi_login_header_url($url) {
   return site_url();
 }
 add_filter('login_headerurl', 'jomi_login_header_url');
+
+/**
+ * jquery to change some login form stuff around
+ * @return [type] [description]
+ */
 function jomi_login_footer(){
   echo site_url('','relative');
   echo '
@@ -41,13 +62,6 @@ function jomi_login_footer(){
 add_action('login_footer', 'jomi_login_footer');
 add_action('register_footer', 'jomi_login_footer');
 add_action('lostpassword_footer', 'jomi_login_footer');
-
-function login_rewrite($wp_rewrite) {
-  //add_rewrite_rule('^login/','wp-login.php?action=login','top');
-  //add_rewrite_rule('^register/','wp-login.php?action=register','top');
-}
-add_filter('init', 'login_rewrite');
-
 
 /**
  * Redirect user after successful login.

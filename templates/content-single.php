@@ -12,9 +12,7 @@
   // check wordpress meta first
   $custom_stop = get_post_meta($id, 'custom_stop', true);
   if(empty($custom_stop)) $custom_stop = get_field('custom_stop');
-
-  //echo $_GET['test_ip'];
-
+  
   ?>
   <article <?php post_class(); ?>>
     <?php $wistia = get_field('wistia_id'); ?>

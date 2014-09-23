@@ -5,7 +5,11 @@ POST TYPES
 =================================
 */
 
-add_filter('pre_get_posts', 'query_post_type');
+/**
+ * ???
+ * @param  [type] $query [description]
+ * @return [type]        [description]
+ */
 function query_post_type($query) {
   if(is_category() || is_tag()) {
     $post_type = get_query_var('post_type');
@@ -17,8 +21,12 @@ function query_post_type($query) {
     return $query;
     }
 }
+add_filter('pre_get_posts', 'query_post_type');
 
-add_action('init', 'cptui_register_my_cpt_article');
+/**
+ * register our custom "article" post type
+ * @return [type] [description]
+ */
 function cptui_register_my_cpt_article() {
 register_post_type('article', array(
   'label' => 'Journal',
@@ -51,9 +59,15 @@ register_post_type('article', array(
     'not_found_in_trash' => 'No Journal Found in Trash',
     'parent' => 'Parent Article',
   )
-) ); }
+) ); 
+}
+add_action('init', 'cptui_register_my_cpt_article');
 
-// register post types with author archive
+/**
+ * register post types with author archive
+ * @param  [type] $query [description]
+ * @return [type]        [description]
+ */
 function custom_post_author_archive($query) {
     if ($query->is_author)
         $query->set( 'post_type', array('article', 'post') );

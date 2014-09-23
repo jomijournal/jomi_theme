@@ -89,8 +89,6 @@ foreach($rules as $rule_index=>$rule) {
 		</td>
 		<td id="checks">
 			<?php 
-			//echo '<pre>';
-			//echo $rule->check_type;
 			$check_types = explode(',', $rule->check_type);
 			$check_vals = explode('|', $rule->check_value); 
 			$checks = array();
@@ -100,9 +98,6 @@ foreach($rules as $rule_index=>$rule) {
 					'value' => $check_vals[$key]
 				));
 			}
-			
-			//print_r($checks);
-			//echo '</pre>';
 			$index = 0;
 			foreach($checks as $check) { $index++;?>
 		  	<select id="check_type" data="<?php echo $check['type']; ?>">
@@ -162,15 +157,28 @@ foreach($rules as $rule_index=>$rule) {
 <?php
   exit;
 }
+add_action( 'wp_ajax_nopriv_list-rules', 'list_rules' );
+add_action( 'wp_ajax_list-rules', 'list_rules' );
 
 /**
  * GLOBAL RULEBOOK SETTINGS PAGE
  * GUI FOR MANAGING RULES
  */
-add_action('admin_menu', 'global_rulebook_menu');
+
+
+/**
+ * register global rulebook page
+ * @return [type] [description]
+ */
 function global_rulebook_menu(){
   add_options_page( "Global Access Rulebook", "Global Access Rulebook", "manage_options", "global_rulebook", "global_rulebook");
 }
+add_action('admin_menu', 'global_rulebook_menu');
+
+/**
+ * render global rulebook page
+ * @return [type] [description]
+ */
 function global_rulebook(){
   ?>
   <div id="greyout" class="greyout">
@@ -207,26 +215,22 @@ function global_rulebook(){
 	$(function(){
 		refresh();
 		$('#debug_toggle').change(function() {
-			//console.log($(this).is(':checked'));
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-update-option',
 				option_name: 'access_debug',
 				option_val: $(this).is(':checked')
 			},
 			function(response) {
-				//console.log(response);
 			});
 		});
 		$('#debug_ip').val('<?php echo get_option("access_debug_ip"); ?>');
 		$('#debug_ip_submit').on('click', function() {
-			//console.log($('#debug_ip').val());
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-update-option',
 				option_name: 'access_debug_ip',
 				option_val: $('#debug_ip').val()
 			}, 
 			function(response) {
-				//console.log(response);
 			})
 		})
 		$('#results').on('click', 'a#access_add_rule', function() {
@@ -242,7 +246,6 @@ function global_rulebook(){
 				id: $(this).attr('rule-id')
 			},
 			function(response){
-				//console.log(response);
 				refresh();
 			});
 		})
@@ -263,7 +266,7 @@ function global_rulebook(){
 		});
 		$('#results').on('click', 'a#access_update_rule', function() {
 			var row = $(this).parent().parent().parent();
-			//console.log(row.find('input#selector_value').val());
+
 			// disable editing again
 			row.find('input').attr('readonly', '');
 			row.find('input[type="checkbox"]').attr('disabled', '');
@@ -336,8 +339,6 @@ function global_rulebook(){
 		$('#select_container select').change(refresh);
 	});
 	function update(row, params) {
-
-		//console.log(row.find('input#result_time_start').val());
 		params = (typeof params !== "object") ? {} : params;
 		params.action = params.hasOwnProperty("action") ? params.action : 'update-rule';
 		params.id = params.hasOwnProperty("id") ? params.id : row.find('input#id').attr('data');
@@ -372,7 +373,6 @@ function global_rulebook(){
 		$('#greyout,#signal').show();
 		$.post( MyAjax.ajaxurl, {
 		    action : 'list-rules',
-		    //cat : $('#category').val()
 			},
 			function( response ) {
 		      $('#greyout,#signal').hide();
@@ -387,8 +387,6 @@ function global_rulebook(){
 
 			  // visual assertion
 			  $('#results').find('select').each(function() {
-			  	var dat = $(this).attr('data');
-			  	//console.log(dat);
 				$(this).find('option[val="'+ dat +'"]').attr('selected', '');
 			  });
 			}

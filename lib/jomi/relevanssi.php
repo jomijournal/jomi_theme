@@ -3,7 +3,10 @@
  * CUSTOM RELEVANSSI STUFF
  */
 
-
+/**
+ * adds the statuses that relevanssi is allowed to index
+ * @param [type] $statuses [description]
+ */
 function add_relevanssi_statuses($statuses) {
   return array(
     'publish',
@@ -14,15 +17,13 @@ function add_relevanssi_statuses($statuses) {
 }
 add_filter('relevanssi_valid_status', 'add_relevanssi_statuses', 10, 1);
 
-function add_relevanssi_post_statuses($query) {
-  //echo '<pre>';
-  //print_r($query);
-  //echo '</pre>';
-
-  return $query;
-}
-add_filter('relevanssi_query_filter', 'add_relevanssi_post_statuses', 10, 1);
-
+/**
+ * pass all valid post statuses through as valid
+ * this is a ugly workaround for relevanssi being dumb
+ * ignore the debug function name. this is functional
+ * @param  [type] $in [description]
+ * @return [type]     [description]
+ */
 function debug_relevanssi_hits($in) {
   $hits = $in[0];
   $query = $in[1];
@@ -49,37 +50,27 @@ function debug_relevanssi_hits($in) {
 
   return array($hits);
 }
-//relevanssi_hits_filter (array($hits, $query))
 add_filter('relevanssi_hits_filter', 'debug_relevanssi_hits', 10, 1);
 
-function debug_relevanssi_match($match, $idf) {
-  //echo '<pre>';
-  //print_r($match);
-  //print_r($idf);
-  //echo '</pre>';
-
-  return array($match, $idf);
-}
-//add_filter('relevanssi_match', 'debug_relevanssi_match', 10, 2);
-//relevanssi_match ($match, $idf)
-
+/**
+ * fix for stupid relevanssi
+ * this is not a debug function. it is functional, dont delete
+ * @param  [type] $post_ok [description]
+ * @param  [type] $post_ID [description]
+ * @return [type]          [description]
+ */
 function debug_relevanssi_post_ok($post_ok, $post_ID) {
-  //echo '<pre>';
-  //print_r($post_ok);
-  //print_r($post_ID);
-  //echo '</pre>';
-
   return true;
 }
 add_filter('relevanssi_post_ok', 'debug_relevanssi_post_ok', 10, 2);
-//relevanssi_post_ok ($post_ok, $post_ID)
 
-add_filter('relevanssi_search_ok', 'search_trigger');
+
 function search_trigger($search_ok) {
 	global $wp_query;
 
 	return $search_ok;
 	//return true;
 }
+add_filter('relevanssi_search_ok', 'search_trigger');
 
 ?>

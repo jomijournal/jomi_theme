@@ -1,42 +1,38 @@
 <?php
 
-// get the total number of articles available
-// used so we can check when the user enters an invalid query when searching for an article
+/**
+ * count how many articles we have so we can sanitize stupid user input (done in rewrite.php)
+ * @return [type] [description]
+ */
 function count_articles(){
+	// reset article list
 	global $article_list;
 	$article_list = array();
-	//$num_articles = 0;
-
-	//$article_count = wp_count_posts('article');
-	//echo '<pre>';
-	//print_r($article_count);
-	//echo '</pre>';
-	//echo '<pre>';
-	//$post_count = wp_count_posts('article');
-	//$num_articles = $post_count->publish + $post_count->in_production + $post_count->preprint + $post_count->coming_soon /* + $post_count->internal_review*/;
 	
-	$type = 'article';
+	// what articles we count
 	$args=array(
-	  'post_type' => $type,
+	  'post_type' => 'article',
 	  'post_status' => array('publish', 'preprint', 'in_production', 'coming_soon'),
 	  'posts_per_page' => -1,
 	  'caller_get_posts'=> 1
 	);
 	$my_query = new WP_Query($args);
+
+	// loop thru and count
 	while ($my_query->have_posts()) : 
 	  $my_query->the_post();
 	  array_push($article_list, get_field('publication_id'));
-	  //echo get_the_ID() . "\n";
 	endwhile; 
-	//print_r($article_list);
 	
+	// update db value
 	update_option('article_list', serialize($article_list));
-
-	//echo '</pre>';
-	//wp_reset_postdata();
-	//wp_reset_query();
 }
 add_action('save_post', 'count_articles');
+
+/**
+ * load db option into global
+ * @return [type] [description]
+ */
 function init_article_list() {
 	global $article_list;
 	$article_list = unserialize(get_option('article_list'));

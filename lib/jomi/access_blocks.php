@@ -3,8 +3,11 @@
  * BLOCK TEMPLATES
  */
 
+/**
+ * block to show when access is denied
+ * @return [type] [description]
+ */
 function block_deny() {
-	//echo "hello";
 	$id = $_POST['id'];
 	$msg = $_POST['msg'];
 ?>
@@ -12,10 +15,13 @@ function block_deny() {
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
+
+	<!-- header -->
 	<div class="row">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
 		<p style="text-align:center;">Please sign in or register to continue:</p>
 	</div>
+
 	<div class="row">
 		<div class="col-xs-6" style="border-right: 3px dashed #fff; padding: 0 30px;">
 			<h3>Log In</h3>
@@ -92,23 +98,17 @@ $(function() {
 
 		var login = $('#login-form input[name="log"]').val();
 		if(login === '') {
-			//console.log('no username specified');
 			$('#error').text("ERROR: No username entered");
 			$('#error').show();
 			return;
 		}
 		var pass = $('#login-form input[name="pwd"]').val();
 		if(pass === '') {
-			//console.log('no password specified');
 			$('#error').text("ERROR: No password entered");
 			$('#error').show();
 			return;
 		}
-		//console.log('user: ' + login);
-		//console.log('pass: ' + pass);
-
 		var dataString = 'log='+ login + '&pwd=' + pass;
-		//alert (dataString);return false;
 		
 		$('#greyout,#signal').show();
 
@@ -120,10 +120,8 @@ $(function() {
 		  	console.log(String(data));
 		    if(String(data).indexOf("login_error") > 0) {
 		    	// login error occured
-		    	//console.log('whoops');
 		    	$('#error').text("ERROR: Username and password do not match.\nPlease try again.")
 		    } else {
-		    	console.log('success');
 		    	$('#greyout,#signal').hide();
 		    	window.location.reload();
 		    }
@@ -137,6 +135,10 @@ $(function() {
 add_action( 'wp_ajax_block-deny', 'block_deny' );
 add_action( 'wp_ajax_nopriv_block-deny', 'block_deny' );
 
+/**
+ * free trial block
+ * @return [type] [description]
+ */
 function block_free_trial() {
 	$id = $_POST['id'];
 ?>
@@ -217,6 +219,10 @@ function isEmail(email){
 add_action( 'wp_ajax_block-free-trial', 'block_free_trial' );
 add_action( 'wp_ajax_nopriv_block-free-trial', 'block_free_trial' );
 
+/**
+ * uses wp mail functions to send a notification for a free trial
+ * @return [type] [description]
+ */
 function send_free_trial(){
 	$email = $_POST['email'];
 
@@ -229,6 +235,10 @@ function send_free_trial(){
 add_action( 'wp_ajax_send-free-trial', 'send_free_trial' );
 add_action( 'wp_ajax_nopriv_send-free-trial', 'send_free_trial' );
 
+/**
+ * "thank you" for institutions on a free trial
+ * @return [type] [description]
+ */
 function block_free_trial_thanks() {
   $id = $_POST['id'];
 ?>

@@ -78,6 +78,8 @@ function insert_rule() {
 	);
 	check_db_errors();
 }
+add_action( 'wp_ajax_nopriv_insert-rule', 'insert_rule' );
+add_action( 'wp_ajax_insert-rule', 'insert_rule' );
 
 /**
  * [delete_rule description]
@@ -95,6 +97,8 @@ function delete_rule() {
 	);
 	check_db_errors();
 }
+add_action( 'wp_ajax_nopriv_delete-rule', 'delete_rule' );
+add_action( 'wp_ajax_delete-rule', 'delete_rule' );
 
 /**
  * update an article access rule in the db
@@ -117,17 +121,6 @@ function update_rule() {
 	);
 	check_db_errors();
 }
-
-// DEBUG ONLY: insert an empty rule
-//insert_rule(array());
-
-// register ajax stuff
-add_action( 'wp_ajax_nopriv_list-rules', 'list_rules' );
-add_action( 'wp_ajax_list-rules', 'list_rules' );
-add_action( 'wp_ajax_nopriv_insert-rule', 'insert_rule' );
-add_action( 'wp_ajax_insert-rule', 'insert_rule' );
-add_action( 'wp_ajax_nopriv_delete-rule', 'delete_rule' );
-add_action( 'wp_ajax_delete-rule', 'delete_rule' );
 add_action( 'wp_ajax_nopriv_update-rule', 'update_rule' );
 add_action( 'wp_ajax_update-rule', 'update_rule' );
 

@@ -274,6 +274,7 @@ $(function() {
 
 });
 
+// refreshing functions
 function refresh() {
 	$('#greyout,#signal').show();
 	$.post(MyAjax.ajaxurl,{
@@ -341,7 +342,6 @@ global $inst_table_name;
 $inst_query = "SELECT * FROM $inst_table_name";
 
 $insts = $wpdb->get_results($inst_query);
-//print_r($insts);
 foreach($insts as $inst) {
 ?>
 <tr>

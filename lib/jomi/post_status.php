@@ -6,6 +6,10 @@ POST STATUSES
 =================================
 */
 
+/**
+ * register all custom post statuses
+ * @return [type] [description]
+ */
 function unread_post_status(){
   register_post_status( 'preprint', array(
     'label'                     => _x( 'Preprint', 'article' ),
@@ -46,8 +50,10 @@ function unread_post_status(){
 }
 add_action( 'init', 'unread_post_status' );
 
-
-add_action('admin_footer-post.php', 'append_post_status_list');
+/**
+ * let us choose a custom post status in the editor window
+ * @return [type] [description]
+ */
 function append_post_status_list(){
   global $post;
   $complete = array(
@@ -93,7 +99,13 @@ function append_post_status_list(){
       ';
   }
 }
+add_action('admin_footer-post.php', 'append_post_status_list');
 
+/**
+ * display post statuses in article listing
+ * @param  [type] $states [description]
+ * @return [type]         [description]
+ */
 function display_archive_state( $states ) {
      global $post;
      $arg = get_query_var( 'post_status' );

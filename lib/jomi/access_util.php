@@ -108,6 +108,10 @@ function check_db_errors() {
 	}
 }
 
+/**
+ * allows for updating an option via ajax
+ * @return [type] [description]
+ */
 function ajax_update_option() {
 	update_option($_POST['option_name'], $_POST['option_val']);
 	echo get_option($_POST['option_name']);

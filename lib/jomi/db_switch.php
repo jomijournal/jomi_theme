@@ -2,6 +2,7 @@
 
 /* =============================================
  * DATABASE MANAGEMENT
+ * UNDER CONSTRUCTION
  * =============================================
  */
 
@@ -40,13 +41,16 @@ function list_db_dashboard_widget_function() {
   echo '<ul>';
   foreach($results as $result) {
     echo '<li>';
-    //print_r($result);
     echo $result->Database;
     echo '</li>';
   }
   echo '</ul>';
 }
 
+/**
+ * write new database info to wp-config.php
+ * @return [type] [description]
+ */
 function switch_db_dashboard_widget_function() {
 
   global $wpdb;
@@ -95,7 +99,6 @@ function switch_db_dashboard_widget_function() {
     <input type="submit" name="db_save" id="db_save" class="button button-primary" value="Save DB Options">
   </p>
 </form>
-
 
 <?php
 }

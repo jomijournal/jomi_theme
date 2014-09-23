@@ -4,6 +4,7 @@ global $wpdb;
 global $access_db_version;
 global $access_table_name;
 
+// load debug option
 global $access_debug;
 $access_debug = get_option('access_debug');
 $access_debug = ($access_debug === "true") ? true : false;
@@ -54,6 +55,7 @@ function extract_selector_meta($id) {
 /**
  * use the user IP to get institution meta
  * can probably cache the result of this in the future
+ * not useful yet
  * @return [int] institution ID (corresponds with row ID in the DB)
  */
 function extract_institution_meta() {
@@ -77,8 +79,6 @@ function collect_rules($selector_meta, $institution_meta) {
 
   global $wpdb;
   global $access_table_name;
-  
-  //print_r($selector_meta);
 
   // init conditional
   $where_conditional = "(selector_type, selector_value) IN (";
@@ -120,10 +120,7 @@ function collect_rules($selector_meta, $institution_meta) {
                   WHERE $where_conditional 
                   ORDER BY priority DESC";
 
-  //echo $rules_query;
   $rules = $wpdb->get_results($rules_query);
-
-  //check_db_errors();
 
   return $rules;
 }
@@ -133,8 +130,8 @@ function load_user_info() {
 	global $access_debug;
 	global $reader;
 	
+	// grab user data
 	$current_user = wp_get_current_user();
-    
     if ( ($current_user instanceof WP_User) ) {
     	$user = array(
     		'login' => $current_user->user_login,
@@ -142,7 +139,6 @@ function load_user_info() {
     		'display_name' => $current_user->display_name,
     		'id' => $current_user->ID
     	);
-    	//return;
     } else {
     	$user = array(
     		'login' => 'none',
@@ -157,16 +153,21 @@ function load_user_info() {
     	$logged_in = false;
     }
      
+    // grab and filter user ip
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
+	// use debug ips if available
+	// TODO: this NEEDS to be more secure
 	if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
 	if(!empty($_GET['testip'])) $ip = $_GET['testip'];
 
+	// turn ip into a computer-readable form
 	$ip_long = sprintf("%u", ip2long($ip));
 	if($access_debug) echo 'Current IP:' . $ip_long . "\n";
-	//DEBUG
-	//echo $ip;
+
+	//begin institution querying
+
 	global $inst_ip_table_name;
 	global $inst_location_table_name;
 	global $inst_order_table_name;
@@ -181,15 +182,14 @@ function load_user_info() {
 
 	if($access_debug) {
 		echo "Institution IP data:\n";
-		//print_r($inst_ips);
 		print_r($inst_ip);
 	}
 
+	// load up matching institutions
 	$inst_locations = array();
 	if(empty($inst_ips)) {
 		//$is_subscribed = false;
 	} else { 
-		// get matching locations
 		//$is_subscribed = true;
 		//foreach($inst_ips as $inst_ip) {
 			$location_id = $inst_ip->location_id;
@@ -205,11 +205,11 @@ function load_user_info() {
 		}
 	}
 
+	// load up matching orders
 	$inst_orders = array();
 	if(empty($inst_locations)) {
 
 	} else {
-		// get matching orders
 		//foreach($inst_locations as $inst_location) {
 			$location_id = $inst_location->id;
 			$order_query = 
@@ -220,12 +220,11 @@ function load_user_info() {
 		//}
 		if($access_debug) {
 			echo "Institution Order History:\n";
-			//print_r($inst_orders);
 			print_r($inst_order);
 		}
 	}
-	//echo date('o-m-d');
 	
+	// use order to see whether institution is subscribed or not
 	if(empty($inst_orders)) {
 
 		$is_subscribed = false;
@@ -245,6 +244,7 @@ function load_user_info() {
 		//}
 	}
 
+	// grab parent institution
 	if(!empty($inst_ip) && !empty($inst_location) && !empty($inst_order)) {
 		$inst_id = $inst_location->inst_id;
 		$inst_query = "SELECT * FROM $inst_table_name WHERE id=$inst_id";
@@ -266,11 +266,7 @@ function load_user_info() {
 		);
 	}
 
-
-	// check institutions here
-	$institution = array(
-	);
-
+	// attempt to query geoip database
 	try {
 	    $record = $reader->city($ip);
 	    $country = array (
@@ -304,6 +300,7 @@ function load_user_info() {
 	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
 
+	// load up user info
 	$user_info = array(
 		'logged_in' => $logged_in,
 		'subscribed' => $is_subscribed,
@@ -330,11 +327,9 @@ function get_blocks($rules, $user_info) {
 	global $access_debug;
 
 	if(empty($rules)) {
-		//echo "empty rules";
 		return;
 	}
 	if(empty($user_info)) {
-		//echo "no check data";
 		return;
 	}
 
@@ -359,6 +354,8 @@ function get_blocks($rules, $user_info) {
 		$check_types = explode(',', $rule->check_type);
 		$check_values = explode('|', $rule->check_value);
 
+		// track how many checks have been met
+		// block will only register if all checks have been met
 		$checks = count($check_types);
 		$check_count = 0;
 
@@ -372,7 +369,6 @@ function get_blocks($rules, $user_info) {
 						if($ip_check == $ip) {
 							if($access_debug) echo "ip matched\n";
 							$check_count++;
-							//continue 2;
 						}
 					}
 					break;
@@ -394,7 +390,6 @@ function get_blocks($rules, $user_info) {
 						if($country_check['iso'] == $country or $country_check['name'] == $country) {
 							if($access_debug) echo "country matched\n";
 							$check_count++;
-							//continue 2;
 						}
 					}
 					break;
@@ -434,8 +429,6 @@ function get_blocks($rules, $user_info) {
 						   $user_check['id'] == $user) {
 							if($access_debug) echo "user matched\n";
 							$check_count++;
-							//continue 2;
-							//return;
 						}
 					}
 					break;
@@ -469,6 +462,9 @@ function get_blocks($rules, $user_info) {
 		//END FOREACH
 		}
 		if($access_debug) echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
+
+		// if all checks have been met
+		// load blocks into blocks array
 		if($check_count == $checks) {
 			array_push($blocks, array(
 				'msg' => $rule->result_msg,
@@ -478,6 +474,7 @@ function get_blocks($rules, $user_info) {
 			));
 		}
 	}
+	
 	//remove dupes
 	$no_more_duplicates = false;
 	while(!$no_more_duplicates) {
@@ -541,9 +538,6 @@ function check_access() {
   //$blocks = array();
 
   if($access_debug) echo '</pre>';
-
-  //return $blocks;
 }
-
 
 ?>

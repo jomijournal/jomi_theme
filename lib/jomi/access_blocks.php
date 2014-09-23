@@ -24,7 +24,7 @@ function block_deny() {
 
 	<div class="row">
 		<div class="col-xs-6" style="border-right: 3px dashed #fff; padding: 0 30px;">
-			<h3>Log In</h3>
+			<h3>Sign In</h3>
 			<div id="login-form" class="aligncenter" style="">
 				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
 					<p class="error" id="error"></p>
@@ -45,10 +45,11 @@ function block_deny() {
 					<!--p class="login-register" style="width:45%">
 						<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
 					</p-->
-					<div class="social-box">
-						<?php do_action('oa_social_login'); ?>
-					</div>
+					
 				</form>
+				<div class="social-box">
+					<?php do_action('oa_social_login'); ?>
+				</div>
 			</div>
 		</div>
 		<div class="col-xs-6">

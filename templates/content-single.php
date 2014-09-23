@@ -15,9 +15,9 @@
   if(empty($custom_stop)) $custom_stop = get_field('custom_stop');
 
   // get custom time start from url
-  $get_seconds = (empty($_GET['sec'])) ? '0' : $_GET['sec'];
-  $get_minutes = (empty($_GET['min'])) ? '0' : $_GET['min'];
-  $get_hours   = (empty($_GET['hr'])) ? '0' : $_GET['hr'];
+  $get_time_code = (empty($_GET['t'])) ? '' : $_GET['t'];
+
+
 
   ?>
 
@@ -91,14 +91,25 @@
       });
 
       // grab GET variables
-      var second_start = <?php echo $get_seconds; ?>;
-      var minute_start = <?php echo $get_minutes; ?>;
-      var hours_start = <?php echo $get_hours; ?>;
+      var time_code = "<?php echo $get_time_code; ?>";
 
-      var seconds = second_start + (minute_start * 60) + (hours_start * 3600);
+      var sec_regex = /(\d*)(?=s)/g;
+      var min_regex = /(\d*)(?=m)/g;
+      var hr_regex = /(\d*)(?=h)/g;
 
-      if(seconds > 0) {
-        wistiaEmbed.time(seconds);
+      var seconds = sec_regex.exec(time_code);
+      seconds = (seconds == null) ? 0 : parseInt(seconds[0]);
+
+      var minutes = min_regex.exec(time_code);
+      minutes = (minutes == null) ? 0 : parseInt(minutes[0]);
+
+      var hours = hr_regex.exec(time_code);
+      hours = (hours == null) ? 0 : parseInt(hours[0]);
+
+      var total = seconds + (minutes * 60) + (hours * 3600);
+
+      if(total > 0) {
+        wistiaEmbed.time(total);
         wistiaEmbed.play();
       }
 
@@ -197,7 +208,6 @@
         msg: 'ACCESS RESTRICTED'
        }, 
        function(response) {
-        console.log(response);
         response = response.substring(0, response.length - 1);
         $('.access-block').find('#content').empty().html(response);
        });

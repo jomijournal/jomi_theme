@@ -13,7 +13,7 @@ function wpseo_load_article_image($url) {
 	// if is article post type
 	if(is_single() && $post_type == 'article') {
 		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()));
-		var_dump($thumb);
+		//var_dump($thumb);
 		return $thumb[0];
 	} else {
 		return $url;

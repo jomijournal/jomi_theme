@@ -141,7 +141,8 @@ $jomi_includes = array(
   '/lib/jomi/post_types.php', // register post types (article)
   '/lib/jomi/rewrite.php', // rewrite rules for article
   '/lib/jomi/sidebars.php', // custom sidebars
-  '/lib/jomi/relevanssi.php'
+  '/lib/jomi/relevanssi.php',
+  '/lib/jomi/yoast_seo.php'
 );
 
 $includes = array_merge($jomi_includes, $roots_includes);

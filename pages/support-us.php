@@ -6,19 +6,6 @@ Template Name: Support Us
 
 <?php while (have_posts()) : the_post(); ?>
 
-<style>
-.support-us-top{  padding:50px;
-                  padding-top:20px;
-                  padding-bottom:20px;
-                  border-bottom: 1px solid black;
-                  background:white}
-.support-us-bottom{ padding:50px;
-                  padding-top:20px;
-                  padding-bottom:20px;
-                    background-color: #eee
-}
-</style>
-
 <div class="support-us">
     <div class="row">
         <div class="col-md-12 column">

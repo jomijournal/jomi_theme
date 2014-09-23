@@ -116,7 +116,7 @@ function update_rule() {
 		$access_table_name,
 		$push_data,
 		array('ID' => $id),
-		array('%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%s', '%s'),
+		array('%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%s', '%s'),
 		array('%d')
 	);
 	check_db_errors();

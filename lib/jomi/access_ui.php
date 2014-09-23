@@ -387,6 +387,7 @@ function global_rulebook(){
 
 			  // visual assertion
 			  $('#results').find('select').each(function() {
+			  	var dat = $(this).attr('data');
 				$(this).find('option[val="'+ dat +'"]').attr('selected', '');
 			  });
 			}

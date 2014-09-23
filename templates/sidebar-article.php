@@ -1,5 +1,7 @@
 <?php #dynamic_sidebar('sidebar-article'); ?>
 
+<div class="sidebar">
+
 <h3>Authors</h3>
 <?php
 $coauthors = get_coauthors();
@@ -110,3 +112,5 @@ if(!empty($user_inst)) {
 }
 
 ?>
+
+</div>

@@ -56,6 +56,7 @@ function roots_display_sidebar() {
     array(
       'is_404',
       'is_front_page',
+      'is_single',
       array('is_page', 'is_page_template'),
       array('is_page', 'pricing'),
       array('is_page', 'support-us'),

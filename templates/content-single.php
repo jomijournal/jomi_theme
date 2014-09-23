@@ -15,9 +15,9 @@
   if(empty($custom_stop)) $custom_stop = get_field('custom_stop');
 
   // get custom time start from url
-  //$get_seconds = (empty($_GET['s'])) ? '0' : $_GET['s'];
-  //$get_minutes = (empty($_GET['m'])) ? '0' : $_GET['m'];
-  //$get_hours   = (empty($_GET['h'])) ? '0' : $_GET['h'];
+  $get_seconds = (empty($_GET['sec'])) ? '0' : $_GET['sec'];
+  $get_minutes = (empty($_GET['min'])) ? '0' : $_GET['min'];
+  $get_hours   = (empty($_GET['hr'])) ? '0' : $_GET['hr'];
 
   ?>
 
@@ -82,14 +82,30 @@
   var blocked = false;
 
     $(function(){
-      $("#wistia").attr('id', 'wistia_<?php echo $wistia ?>').show();
-      wistiaEmbed = Wistia.embed("<?php echo $wistia ?>", {
+
+      // load the wistia id (used for getting the video from wistia)
+      $("#wistia").attr('id', 'wistia_<?php echo $wistia; ?>').show();
+      wistiaEmbed = Wistia.embed("<?php echo $wistia; ?>", {
+        // video foam = auto resizing (very good thing)
         videoFoam: true
       });
+
+      // grab GET variables
+      var second_start = <?php echo $get_seconds; ?>;
+      var minute_start = <?php echo $get_minutes; ?>;
+      var hours_start = <?php echo $get_hours; ?>;
+
+      var seconds = second_start + (minute_start * 60) + (hours_start * 3600);
+
+      if(seconds > 0) {
+        wistiaEmbed.time(seconds);
+        wistiaEmbed.play();
+      }
 
       // tracker for elapsed time (in seconds)
       var elapsed = 0;
 
+      // runs each time the video advances a second
       wistiaEmbed.bind("secondchange", function (s) {
 
         elapsed++;
@@ -186,6 +202,8 @@
         $('.access-block').find('#content').empty().html(response);
        });
       }
+
+      // scroll up function from the jquery plugin
       $.scrollUp({
         scrollName: 'scrollUp', // Element ID
         topDistance: '300', // Distance from top before showing element (px)

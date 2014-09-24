@@ -16,9 +16,12 @@ $coauthors = get_coauthors();
 foreach( $coauthors as $coauthor )
 {
 	?>
-	<a class="author" href="/author/<?php echo $coauthor->user_nicename; ?>">
-	  	<div class="avatar hidden-sm"><?php echo get_wp_user_avatar($coauthor->ID, 64); ?></div>
-	  	<div class="bio">
+	<!--a class="author" href="/author/<?php echo $coauthor->user_nicename; ?>"></a-->
+	<a class="author">
+	  	<div class="avatar col-sm-3">
+	  		<?php echo get_wp_user_avatar($coauthor->ID, 64); ?>
+	  	</div>
+	  	<div class="bio col-sm-9">
 	    	<h4><?php echo $coauthor->display_name; ?></h4>
 	    	<h5><?php echo $coauthor->description; ?></h5>
 	  	</div>

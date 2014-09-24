@@ -119,7 +119,23 @@
       // runs each time the video advances a second
       wistiaEmbed.bind("secondchange", function (s) {
 
+        //increment elapsed time
         elapsed++;
+
+        //generate share url
+        hours = Math.floor(wistiaEmbed.time() / 3600);
+        minutes = Math.floor((wistiaEmbed.time() - (hours * 3600)) / 60);
+        seconds = Math.floor(wistiaEmbed.time() - (hours * 3600) - (minutes * 60));
+
+        //var share_url = window.location.href + '?t=';
+        var share_url = "<?php echo (site_url() . '/article/' . get_field('publication_id') . '/?t='); ?>";
+        if(hours > 0) share_url += (hours + 'h');
+        if(minutes > 0) share_url += (minutes + 'm');
+        if(seconds > 0) share_url += (seconds + 's');
+
+        if(!$('#url-share-box').is(':focus')) {
+          $('#url-share-box').attr('value',share_url);
+        }
 
         //======================
         // GENERATED JAVASCRIPT

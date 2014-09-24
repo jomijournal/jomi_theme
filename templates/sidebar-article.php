@@ -2,6 +2,14 @@
 
 <div class="sidebar">
 
+<h3>Share This Article</h3>
+
+<input id="url-share-box" type="text" value="<?php echo (site_url() . '/article/' . get_field('publication_id') . '/'); ?>">
+<br>
+<br>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_sharing_toolbox"></div>
+
 <h3>Authors</h3>
 <?php
 $coauthors = get_coauthors();
@@ -72,11 +80,6 @@ if( ! empty($location) ):
 		<td><?php the_field('publication_id'); ?></td>
 	</tr>
 </table>
-
-<h3>Share This Article</h3>
-
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<div class="addthis_sharing_toolbox"></div>
 
 <?php 
 global $user_inst;

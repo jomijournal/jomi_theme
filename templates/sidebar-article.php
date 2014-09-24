@@ -17,7 +17,7 @@ foreach( $coauthors as $coauthor )
 {
 	?>
 	<!--a class="author" href="/author/<?php echo $coauthor->user_nicename; ?>"></a-->
-	<a class="author">
+	<a class="author" href="/author/<?php echo $coauthor->user_nicename; ?>">
 	  	<div class="avatar col-sm-3">
 	  		<?php echo get_wp_user_avatar($coauthor->ID, 64); ?>
 	  	</div>

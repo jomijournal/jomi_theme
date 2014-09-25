@@ -423,10 +423,10 @@ function get_blocks($rules, $user_info) {
 
 					$users = explode(",", $check_values[$index]);
 					foreach($users as $user) {
-						if($user_check['login'] == $user or
+						if(($user_check['login'] == $user or
 						   $user_check['email'] == $user or
 						   $user_check['display_name'] == $user or
-						   $user_check['id'] == $user) {
+						   $user_check['id'] == $user) && $user_info['logged_in']) {
 							if($access_debug) echo "user matched\n";
 							$check_count++;
 						}

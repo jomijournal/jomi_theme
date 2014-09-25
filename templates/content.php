@@ -54,8 +54,8 @@
 				<p><?php echo $vid_length; ?></p>
 			</div>
 		<?php } ?>
-
 			<div class='article-overlay'>
+				<a href="<?php echo $link; ?>" title="<?php the_title_attribute(); ?>" ><span></span></a>
 				<h3 class="entry-title"><a href="<?php echo $link; ?>"><?php the_title(); ?></a></h3>
 				<p class="byline vcard">
 				<?php

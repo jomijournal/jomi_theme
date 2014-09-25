@@ -8,7 +8,8 @@ ADMIN DISPLAY
 //Add custom column
 add_filter('manage_edit-article_columns', 'my_columns_head');
 function my_columns_head($defaults) {
-  $defaults['publication_id'] = 'Publication ID/Article ID';
+  $defaults['publication_id'] = 'Pub ID';
+  $defaults['production_id'] = 'Prod ID';
   return $defaults;
 }
 //Add rows data
@@ -18,12 +19,16 @@ function my_custom_column($column, $post_id ){
     case 'publication_id':
       echo get_field('publication_id');
       break;
+    case 'production_id':
+      echo get_field('production_id');
+      break;
   }
 }
 // Make these columns sortable
 function sortable_columns() {
   return array(
-    'publication_id' => 'publication_id'
+    'publication_id' => 'publication_id',
+    'production_id' => 'production_id'
   );
 }
 

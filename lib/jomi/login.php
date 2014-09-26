@@ -118,7 +118,7 @@ if (!function_exists('possibly_redirect'))
       //exit();
     }
   }
-  add_action('init','possibly_redirect');
+ // add_action('init','possibly_redirect');
 }
 
 ?>

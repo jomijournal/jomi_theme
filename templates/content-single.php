@@ -16,7 +16,7 @@
 
   // get custom time start from url
   $get_time_code = (empty($_GET['t'])) ? '' : $_GET['t'];
-  
+
   ?>
 
   <?php 
@@ -91,10 +91,13 @@
       // grab GET variables
       var time_code = "<?php echo $get_time_code; ?>";
 
+      // i dont know how to do regex.
+      // tested it at regexr. it works for now
       var sec_regex = /(\d*)(?=s)/g;
       var min_regex = /(\d*)(?=m)/g;
       var hr_regex = /(\d*)(?=h)/g;
 
+      // apply regex
       var seconds = sec_regex.exec(time_code);
       seconds = (seconds == null) ? 0 : parseInt(seconds[0]);
 
@@ -104,8 +107,13 @@
       var hours = hr_regex.exec(time_code);
       hours = (hours == null) ? 0 : parseInt(hours[0]);
 
+      // add it all up
       var total = seconds + (minutes * 60) + (hours * 3600);
 
+      // for some reason wistia likes to scrub 5 seconds ahead when using the time() function
+      if (total > 5) total -= 5;
+
+      // skip to that time
       if(total > 0) {
         wistiaEmbed.time(total);
         wistiaEmbed.play();

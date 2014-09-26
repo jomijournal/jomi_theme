@@ -158,7 +158,7 @@ function block_free_trial() {
 		<br>
 		<br>
 		<p>
-		If you are not associated with an institution, contact us:
+		If you are not associated with an institution, let us know:
 		</p>
 	</div>
 	<div class="row">
@@ -172,7 +172,7 @@ function block_free_trial() {
 	</div>
 	<div class="row">
 		<p>
-		And we will work with you personally to help you access our content.
+		We will contact the email entered, and work with you personally to help you access our content.
 		</p>
 	</div>
 </div>

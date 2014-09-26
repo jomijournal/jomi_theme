@@ -147,12 +147,32 @@ function load_user_info() {
     		'id' => 'none'
     	);
     }
+
     if(is_user_logged_in()){
     	$logged_in = true;
     } else {
     	$logged_in = false;
     }
      
+    // grab debug users if available
+    // will also set logged in to true, so it won't trip the idiotproofing in the logic that follows
+    if(!empty($_GET['testlogin'])) {
+    	$user['login'] = $_GET['testlogin'];
+    	$logged_in = true;
+    }
+    if(!empty($_GET['testemail'])) {
+    	$user['email'] = $_GET['testemail'];
+    	$logged_in = true;
+    }
+    if(!empty($_GET['testdisplayname'])) {
+    	$user['display_name'] = $_GET['testdisplayname'];
+    	$logged_in = true;
+    }
+    if(!empty($_GET['testuserid'])) {
+    	$user['id'] = $_GET['testuserid'];
+    	$logged_in = true;
+    }
+
     // grab and filter user ip
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);

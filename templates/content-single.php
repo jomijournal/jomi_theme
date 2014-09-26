@@ -16,9 +16,7 @@
 
   // get custom time start from url
   $get_time_code = (empty($_GET['t'])) ? '' : $_GET['t'];
-
-
-
+  
   ?>
 
   <?php 

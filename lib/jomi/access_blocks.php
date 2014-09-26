@@ -178,9 +178,11 @@ function block_free_trial() {
 </div>
 <script>
 $(function() {
+
 	$('#close-free-trial').on('click', function() {
 		$('#access_block').hide();
 	});
+
 	$('#request-trial-submit').on('click', function(e) {
 		var email = $('#request-access-email').val();
 		if(isEmail(email)) {
@@ -208,7 +210,7 @@ $(function() {
 			$('#email-error').show();
 			e.preventDefault();
 		}
-	})
+	});
 })
 //stolen from http://badsyntax.co/post/javascript-email-validation-rfc822
 function isEmail(email){

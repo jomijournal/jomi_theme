@@ -2,6 +2,18 @@
 
 <div class="sidebar">
 
+<?php 
+global $user_inst;
+$user_order = $user_inst['order'];
+if($order->type == "free-trial") {
+?>
+<div id="free-trial-notification">
+	<span class="free-trial-head">FREE TRIAL</span>
+	<p>You are currently using a free trial.<br>
+	Please recommend JoMI to your institution.</p>
+</div>
+<?php } ?>
+
 <h3>Share This Article</h3>
 
 <input id="url-share-box" type="text" value="<?php echo (site_url() . '/article/' . get_field('publication_id') . '/'); ?>">

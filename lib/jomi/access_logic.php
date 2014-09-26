@@ -546,7 +546,6 @@ function check_access() {
   	print_r($user_info);
   }
 
-
   $access_blocks = array();
   $access_blocks = get_blocks($rules, $user_info);
   if($access_debug) {

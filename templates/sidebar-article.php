@@ -5,7 +5,7 @@
 <?php 
 global $user_inst;
 $user_order = $user_inst['order'];
-if($order->type == "free-trial") {
+if($user_order->type == "free-trial") {
 ?>
 <div id="free-trial-notification">
 	<span class="free-trial-head">FREE TRIAL</span>

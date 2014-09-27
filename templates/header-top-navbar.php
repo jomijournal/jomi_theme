@@ -52,7 +52,7 @@ global $user;
 										<input type="text" name="log" id="user_login" class="input" value="" size="20">
 									</p>
 									<p class="login-password">
-										<label for="user_pass">Password</label>
+										<label for="user_pass">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)</label>
 										<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
 									</p>
 									<input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">

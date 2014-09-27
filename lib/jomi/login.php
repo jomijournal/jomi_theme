@@ -2,6 +2,8 @@
 
 /*
 ===============================
+everything login related
+
 wp-login page style, redirects + hiding
 ===============================
  */
@@ -89,7 +91,11 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 
 add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
-// hides wp-login.php from the url bar
+/**
+ * hides login from url bar
+ * phils code from lingualift
+ * currently disabled due to buggy behavior
+ */
 if (!function_exists('possibly_redirect'))
 {
   function possibly_redirect()
@@ -120,5 +126,30 @@ if (!function_exists('possibly_redirect'))
   }
  // add_action('init','possibly_redirect');
 }
+
+/**
+ * log in via ajax. no redirects required
+ * @return [type] [description]
+ */
+function ajax_login() {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $remember = $_POST['remember'];
+
+  $creds = array(
+    'user_login' => $username,
+    'user_password' => $password,
+    'remember' => $remember
+  );
+
+  $login_result = wp_signon($creds, true);
+
+  if (is_wp_error($login_result))
+    echo $login_result->get_error_message();
+  else
+    echo "success";
+}
+add_action( 'wp_ajax_ajax-login', 'ajax_login');
+add_action( 'wp_ajax_nopriv_ajax-login', 'ajax_login');
 
 ?>

@@ -118,7 +118,7 @@ global $user;
 		$('#loginform').on('submit', function(e) {
 			e.preventDefault();
 
-			$('#greyout,#signal').show();
+			//$('#greyout,#signal').show();
 
 			var login = $('#login-form input[name="log"]').val();
 			if(login === '') {
@@ -139,7 +139,7 @@ global $user;
 
 			var dataString = 'log='+ login + '&pwd=' + pass;
 			//alert (dataString);return false;
-			$.ajax({
+			/*$.ajax({
 			  type: "POST",
 			  url: "/wp-login.php",
 			  data: dataString,
@@ -157,6 +157,15 @@ global $user;
 			    	$('#greyout,#signal').hide();
 			    }
 			  }
+			});*/
+
+			$.post(MyAjax.ajaxurl, {
+				action: 'ajax-login',
+				username: login,
+				password: pass,
+				remember: true
+			}, function(response) {
+				console.log(response);
 			});
 		});
 

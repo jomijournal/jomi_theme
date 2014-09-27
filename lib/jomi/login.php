@@ -152,4 +152,12 @@ function ajax_login() {
 add_action( 'wp_ajax_ajax-login', 'ajax_login');
 add_action( 'wp_ajax_nopriv_ajax-login', 'ajax_login');
 
+function ajax_logout() {
+  wp_logout();
+
+  echo "success";
+}
+add_action('wp_ajax_ajax-logout', 'ajax_logout');
+add_action('wp_ajax_nopriv_ajax-logout', 'ajax_logout');
+
 ?>

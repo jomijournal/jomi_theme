@@ -36,7 +36,7 @@ global $user;
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-				<?php if(!is_user_logged_in()): ?>
+				<?php //if(!is_user_logged_in()): ?>
 				<li class="dropdown hidden-xs">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 						<div class="dropdown-menu pull-right">
@@ -79,9 +79,12 @@ global $user;
 							</div>
 					</div>
 				</li>
-				<?php else: ?>
-				<li><?php wp_loginout($_SERVER['REQUEST_URI']); ?></li>
-				<?php endif; ?>
+				<?php //else: ?>
+				<li>
+					<a id="logout-btn" href="#">logout</a>
+					<?php //wp_loginout($_SERVER['REQUEST_URI']); ?>
+				</li>
+				<?php //endif; ?>
 				<li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li>
 				<li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
 				<li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
@@ -166,8 +169,29 @@ global $user;
 				remember: true
 			}, function(response) {
 				console.log(response);
+
+				$('#login-btn').hide();
+				$('#logout-btn').show();
 			});
 		});
+		$('#logout-btn').on('click', function() {
+
+			$.post(MyAjax.ajaxurl, {
+				action: 'ajax-logout'
+			}, function(response) {
+				$('#login-btn').show();
+				$('#logout-btn').hide();
+			})
+
+		});
+
+		$('#login-btn').show();
+		$('#logout-btn').show();
+		<?php if(is_user_logged_in()) { ?>
+			$('#login-btn').hide();
+		<?php } else { ?>
+			$('#logout-btn').hide();
+		<?php } ?>
 
 		$('#error').hide();
 

@@ -122,8 +122,6 @@ global $user;
 		$('#loginform').on('submit', function(e) {
 			e.preventDefault();
 
-			$('#greyout,#signal').show();
-
 			var login = $('#login-form input[name="log"]').val();
 			if(login === '') {
 				//console.log('no username specified');
@@ -139,18 +137,26 @@ global $user;
 				return;
 			}
 
+			$('#greyout,#signal').show();
+
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-login',
 				username: login,
 				password: pass,
 				remember: true
 			}, function(response) {
+				response = response.substr(0, response.length - 1);
 				console.log(response);
 				$('#greyout,#signal').hide();
 
-				$('#login-btn').hide();
-				$('#login-btn').dropdown('toggle');
-				$('#logout-btn').show();
+				if(response == "success") {
+					$('#login-btn').hide();
+					$('#login-btn').dropdown('toggle');
+					$('#logout-btn').show();
+				} else {
+					$('#error').text("Incorrect username or password");
+					$('#error').show();
+				}
 			});
 		});
 		$('#logout-btn').on('click', function() {

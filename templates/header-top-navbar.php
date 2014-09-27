@@ -36,15 +36,16 @@ global $user;
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-				<?php //if(!is_user_logged_in()): ?>
 				<li class="dropdown hidden-xs">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 						<div class="dropdown-menu pull-right">
 							<div class="login-form" id="login-form">
 								<form name="loginform" id="loginform" action="">
+
 									<div id="greyout" class="greyout">
 										<div id="signal" class="signal"></div>
 									</div>
+
 									<p class="error" id="error"></p>
 									<p class="login-username">
 										<label for="user_login">Username/Email</label>
@@ -79,12 +80,12 @@ global $user;
 							</div>
 					</div>
 				</li>
-				<?php //else: ?>
 				<li>
-					<a id="logout-btn" href="#">logout</a>
-					<?php //wp_loginout($_SERVER['REQUEST_URI']); ?>
+					<a id="logout-btn" href="#">Logout</a>
+					<!--div id="greyout" class="greyout">
+						<div id="signal" class="signal"></div>
+					</div-->
 				</li>
-				<?php //endif; ?>
 				<li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li>
 				<li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
 				<li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
@@ -121,7 +122,7 @@ global $user;
 		$('#loginform').on('submit', function(e) {
 			e.preventDefault();
 
-			//$('#greyout,#signal').show();
+			$('#greyout,#signal').show();
 
 			var login = $('#login-form input[name="log"]').val();
 			if(login === '') {
@@ -137,30 +138,6 @@ global $user;
 				$('#error').show();
 				return;
 			}
-			//console.log('user: ' + login);
-			//console.log('pass: ' + pass);
-
-			var dataString = 'log='+ login + '&pwd=' + pass;
-			//alert (dataString);return false;
-			/*$.ajax({
-			  type: "POST",
-			  url: "/wp-login.php",
-			  data: dataString,
-			  success: function(data) {
-			  	console.log(String(data));
-			    if(String(data).indexOf("login_error") > 0) {
-			    	$('#greyout,#signal').hide();
-			    	// login error occured
-			    	//console.log('whoops');
-			    	$('#error').text("ERROR: Username and password do not match.\nPlease try again.")
-			    } else {
-			    	
-			    	console.log('success');
-			    	window.location.reload();
-			    	$('#greyout,#signal').hide();
-			    }
-			  }
-			});*/
 
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-login',
@@ -169,16 +146,22 @@ global $user;
 				remember: true
 			}, function(response) {
 				console.log(response);
+				$('#greyout,#signal').hide();
 
 				$('#login-btn').hide();
+				$('#login-btn').dropdown('toggle');
 				$('#logout-btn').show();
 			});
 		});
 		$('#logout-btn').on('click', function() {
 
+			$('#greyout,#signal').show();
+
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-logout'
 			}, function(response) {
+				$('#greyout,#signal').hide();
+
 				$('#login-btn').show();
 				$('#logout-btn').hide();
 			})

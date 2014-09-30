@@ -1,6 +1,10 @@
-<?php
-global $user;
+<?php 
+// get current user info
+global $current_user;
+get_currentuserinfo();
+
 ?>
+
 <?php if(is_front_page()) : ?>
 	<video id="video" autoplay preload loop class='background hidden-xs video-js' poster="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/vid_poster.jpg" data-setup='{"controls":false}'>
 		<source id="video-source" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4" type="video/mp4">
@@ -36,57 +40,55 @@ global $user;
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown hidden-xs">
+				<li class="dropdown">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
-						<div class="dropdown-menu pull-right">
-							<div class="login-form" id="login-form">
-								<form name="loginform" id="loginform" action="">
+					<div class="dropdown-menu pull-right">
+						<div class="login-form" id="login-form">
+							<form name="loginform" id="loginform" action="">
 
-									<div id="greyout" class="greyout">
-										<div id="signal" class="signal"></div>
-									</div>
+								<div id="greyout" class="greyout">
+									<div id="signal" class="signal"></div>
+								</div>
 
-									<p class="error" id="error"></p>
-									<p class="login-username">
-										<label for="user_login">Username/Email</label>
-										<input type="text" name="log" id="user_login" class="input" value="" size="20">
-									</p>
-									<p class="login-password">
-										<label for="user_pass">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)</label>
-										<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
-									</p>
-									<input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">
-									<div class="row">
-										<div class="col-sm-7">
-											<p class="login-submit">
-												<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
-												<input type="hidden" name="redirect_to" value="/">
-											</p>
-										</div>
-										<div class="col-sm-5">
-											<p>
-												<a href="/register" class="register">Register</a>
-											</p>
-										</div>
+								<p class="error" id="error"></p>
+								<p class="login-username">
+									<label for="user_login">Username/Email</label>
+									<input type="text" name="log" id="user_login" class="input" value="" size="20">
+								</p>
+								<p class="login-password">
+									<label for="user_pass">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)</label>
+									<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+								</p>
+								<input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">
+								<div class="row">
+									<div class="col-sm-7">
+										<p class="login-submit">
+											<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
+											<input type="hidden" name="redirect_to" value="/">
+										</p>
 									</div>
-									<br>
-									<!--p class="login-register" style="width:45%">
-										<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
-									</p-->
-									<div class="social-box">
-										<?php do_action('oa_social_login'); ?>
+									<div class="col-sm-5">
+										<p>
+											<a href="/register" class="register">Register</a>
+										</p>
 									</div>
-								</form>
-							</div>
+								</div>
+								<br>
+								<div class="social-box">
+									<?php do_action('oa_social_login'); ?>
+								</div>
+							</form>
+						</div>
 					</div>
 				</li>
-				<li>
-					<a id="logout-btn" href="#">Logout</a>
-					<!--div id="greyout" class="greyout">
-						<div id="signal" class="signal"></div>
-					</div-->
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-btn" href="#"><?php echo get_avatar($current_user->ID,24); ?> <?php echo $current_user->user_login; ?></a>
+					<div class="dropdown-menu pull-right">
+						<p><a>Help</a></p>
+						<p><a>Logout</a></p>
+					</div>
 				</li>
-				<li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li>
+				<!---li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li-->
 				<li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
 				<li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
 				<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
@@ -161,7 +163,7 @@ global $user;
 		});
 		$('#logout-btn').on('click', function() {
 
-			$('#greyout,#signal').show();
+			/*$('#greyout,#signal').show();
 
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-logout'
@@ -170,7 +172,7 @@ global $user;
 
 				$('#login-btn').show();
 				$('#logout-btn').hide();
-			})
+			});*/
 
 		});
 
@@ -206,16 +208,6 @@ global $user;
 		$('#search-submit').on('click', function() {
 			window.location.href = "/?s="+$('#search-field').val();
 		});
-
-		//$('.jsgate').hide();
-
-		//if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-
-		//}
-		//else{
-			//$('.iegate').hide();
-   		//}
-
 	});
 
 </script>

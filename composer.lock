@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a1714b4f9b65c16b84b90a4d711449f9",
+    "hash": "8b5db105ab17f1599e46f7a1c051abdd",
     "packages": [
         {
             "name": "geoip/geoip",
@@ -196,23 +196,23 @@
         },
         {
             "name": "maxmind-db/reader",
-            "version": "v0.3.1",
+            "version": "v0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/MaxMind-DB-Reader-php.git",
-                "reference": "3227faec61352872048805183f7e76ac1cafe7ea"
+                "reference": "a3beedfca5760fce03deb312c61491f612a51c17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/3227faec61352872048805183f7e76ac1cafe7ea",
-                "reference": "3227faec61352872048805183f7e76ac1cafe7ea",
+                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/a3beedfca5760fce03deb312c61491f612a51c17",
+                "reference": "a3beedfca5760fce03deb312c61491f612a51c17",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*",
+                "phpunit/phpunit": "4.2.*",
                 "satooshi/php-coveralls": "dev-master"
             },
             "type": "library",
@@ -241,7 +241,7 @@
                 "geolocation",
                 "maxmind"
             ],
-            "time": "2014-05-01 14:07:08"
+            "time": "2014-09-15 17:25:43"
         },
         {
             "name": "segmentio/analytics-php",
@@ -290,7 +290,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -431,21 +431,11 @@
             "time": "2014-08-07 04:15:15"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": [],
     "prefer-stable": false,
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "platform": [],
+    "platform-dev": []
 }

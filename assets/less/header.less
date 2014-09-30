@@ -1,174 +1,150 @@
 //* HEADER
 
-nav.site-header{
-
+nav.site-header {
    background: none;
    border: none;
+
    margin-bottom: 0px;
 
-   .clearfix();
-
+   //omnipresent navbar
    .navbar-header{
-      button.navbar-toggle{
-         right: 40px;
-         margin-top: 15px;
-      }
-      .logo{
-         float: left;
-         padding-top: 15px;
-         position: relative;
-         left: 48px;
+      padding: 5px 50px;
+
+      div.logo{
+         padding-top: 7px;
+         padding-left: 18px;
       }
    }
+   // main dropdown menu
+   .navbar-collapse {
+      border: none;
 
-   .navbar-collapse.collapse, .navbar-collapse.collapsing {
+      // search field
+      div.form-group.has-feedback{
+         padding: 0px 50px;
+         margin-bottom: 10px;
 
-      margin: 5px 10px 0px 10px;
-      border-top: none;
-      box-shadow: none;
+         input.search-field{
+            padding-right: 0px;
+            padding-left: 32px;
 
-      form.navbar-form {
+            border: none;
+            background: none;
 
-         border-top: 0px solid transparent;
-         border-bottom: 0px solid transparent;
-         margin: 0px 25px;
-         margin-top: 10px;
-         padding: 0px 0px 10px 0px;
-         z-index: 5;
+            color: #ccc;
+            border-bottom: 1px solid #333;
+            border-radius: 0px;
 
-         div.form-group.has-feedback{
-            input.form-control.search-field{
-               padding-left: 34px !important;
-               background: none;
-               color: @jomi-light-unselected-IE8;
-               color: @jomi-light-unselected;
-               width: 100%;
-               border-radius: 0px;
-               border-left: none;
-               border-right: none;
-               border-width: 1px;
-               border-color: @jomi-light-unselected-IE8;
-               border-color: @jomi-light-unselected;
-               z-index: 10;
-               &:focus{
-                  border-color: inherit;
-                  box-shadow: none;
-                  -webkit-box-shadow: none;
-               }
+            &:focus{
+               box-shadow: none;
+               -webkit-box-shadow: none;
+               //border: none;
             }
-            a{
-               &:hover{
-                  background: @jomi-dark-selected-IE8;
-                  background: @jomi-dark-selected;
-               }
-            }
-            .search-icon {
-               color: @jomi-light-unselected-IE8;
-               color: @jomi-light-unselected;
-               top: 0;
-               left: 0;
+         }
+         // search icon
+         a span.glyphicon.glyphicon-search{
+            top: 0px;
+            right: auto;
+
+            text-decoration: none;
+            color: #aaa;
+            &:hover {
+               color: #eee;
             }
          }
       }
-
-      ul.navbar-nav{
-         .clearfix();      
-         font-size:15px; 
-         padding-bottom: 0px;     
-         margin: 0px 0px;
+      
+      // links
+      ul.nav.navbar-nav {
+         padding: 0px 50px;
+         margin-top: 0px;
+         margin-bottom: 0px;
          li{
-            margin-left: 10px;
+            padding: 10px 15px;
+            padding-top: 0px;
             a{
-               color: @jomi-light-unselected-IE8;
-               color: @jomi-light-unselected;
+               border-bottom: 1px solid #333;
+               padding: 0 5px;
+               padding-bottom: 10px;
+               color: #999;
+               background: none;
                &:hover{
-                  text-decoration:none;
-                  color: @jomi-light-selected-IE8;
-                  color: @jomi-light-selected;
+                  color: #ccc;
                }
-               &:hover.dropdown-toggle{
-                  color: @jomi-light-selected-IE8;
-                  color: @jomi-light-selected;
-               }
-               &.dropdown-toggle{
-                  color: @jomi-light-selected-IE8;
-                  color: @jomi-light-selected;
-               }
-               &.border[href="/login/"]{
-                  color: @jomi-light-selected-IE8;
-                  color: @jomi-light-selected;
+               &.active{
+                  color: #aaa;
+                  font-weight: bold;
                }
             }
-            .dropdown-menu{
-               border: 0px solid;
-               background-color: @jomi-light;
-               box-shadow: 0 6px 12px @jomi-dark-glow;
-               padding: 15px; 
-               z-index: 5;
-               .login-form{
-                  z-index: 5 !important;
-                  color: @jomi-dark;
-                  input{
-                     border-radius: 25px;
-                     color: @jomi-dark;
-                  }
-                  form{
-                     p {
-                        label a{
-                           color: #4183c4 !important;
-                        }
-                        a.register{
-                           color: @jomi-dark !important;
-                           font-size: 16px;
-                           line-height: 2.5;
-                        }
-                        &.error{
-                           display: block;
-                           background: @jomi-lighter-grey;
-                           padding: 10px;
-                           border-left: 5px solid @jomi-red-warning;
-                           border-radius: 5px;
-                        }
-                        &.login-submit{
-                           margin: 0px;
-                           #submit{
-                              margin-top: 0px !important;
-                              float: left;
-                              border-radius: 25px 0px 0px 25px;
-                           }
-                        }
-                     }
-                  }
-                  .social-box{
-                     max-height: 40px;
-                     overflow: hidden;
-                  }
-               }
-            }
-            &.open {
+            &.open{
                a.dropdown-toggle{
-                  color: @jomi-light;
-                  .dropdown-menu {
-                     float: none;
-                     width: auto;
-                     margin: 0;
-                     background-color: @jomi-light !important;
-                     border: 0;
-                     box-shadow: none;
-                     z-index: 5;
-                     color: @jomi-dark;                  }
-               }  
+                  background: none;
+                  color: #aaa;
+               }
+            }
+            &:last-child a{
+               border:none;
+            }
+            #logout-btn{
+               border-bottom: 1px solid #333;
+            }
+            div.dropdown-menu{
+               padding: 10px 5px;
+               width: 100%;
+               border: none;
+               position: relative;
+               .login-buttons{
+                  padding-top: 10px;
+               }
+               label{
+                  font-weight: normal;
+                  color: #aaa;
+                  a{
+                     color: #ccc;
+                     padding: 0px;
+                  }
+               }
+               input[type="text"], input[type="password"]{
+                  float: right;
+                  border: none;
+                  background: #222;
+                  //background: rgba(0, 0, 0, 0.75);
+                  background: rgba(255, 255, 255, 0.2);
+                  color: #aaa;
+               }
+               input[type="submit"] {
+                  width: 100%;
+                  background: none;
+                  border: 2px solid #aaa;
+                  color: #aaa;
+                  border-radius: 10px;
+                  font-weight: normal;
+               }
+               a.register{
+                  border: 2px solid #aaa;
+                  border-radius: 10px;
+                  width: 100%;
+                  display: block;
+                  padding: 4px 10px 4px;
+                  text-align: center;
+               }
+               .error{
+                  color: #fff;
+                  background: #e00;
+                  border-radius: 10px;
+                  padding: 5px 10px;
+                  font-weight: bold;
+               }
+               a{
+                  border: none;
+               }
             }
          }
       }
-   }  
-
-   .btn {
-      border: 1px solid;
-      border-color: @jomi-light-unselected-IE8;
-      border-color: @jomi-light-unselected;
-      font-weight: 500;
-      color: @jomi-dark;
+   }
+   .social-box{
+      height: 40px;
+      overflow: hidden;
    }
 }
 
@@ -177,127 +153,130 @@ nav.site-header{
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
+   
    nav.site-header{
-      margin-bottom: 20px;
-      margin-top: 32px;
+      padding-top: 5px;
+      padding-bottom: 15px;
+      // omnipresent navbar
       .navbar-header{
-         width: initial;
-         button.navbar-toggle{
-            margin-right:15px;
-         }
-         .logo{
-            margin-left: 0px;
-            left: 0px;
-            padding-top: 18px;
-            img{
-               width: 80%;
-            }
+         padding: 0px;
+
+         div.logo{
+            padding-left: 0px;
          }
       }
-      .navbar-collapse.collapse, .navbar-collapse.collapsing {
-         margin-right: 15px;
-         margin-left: 15px;
-         form.navbar-form{
-            border-color: @jomi-light-unselected-IE8;
-            border-color: @jomi-light-unselected;
-            width: 30% !important;
-            margin-right: -15px;
+      // main dropdown menu
+      .navbar-collapse{
 
-            div.form-group.has-feedback{
-               input.form-control.search-field{
-                  padding-left: 25px !important;
-                  border-radius: 25px 0px 0px 25px;
-                  border: 2px solid @jomi-light-unselected-IE8;
-                  border-color: @jomi-light-unselected;
-               }
-               .search-icon{
-                  left: auto;
-                  right: -34px;
-                  border-radius: 0px 25px 25px 0px;
-                  border: 2px solid @jomi-light-unselected-IE8;
-                  border-color: @jomi-light-unselected;
-                  border-left: none;
-                  line-height: 31px;
-                  padding-right: 5px;
-                  padding-left: 3px;
-                  &:hover{
-                     color: @jomi-lighter-grey;
-                     color: fadeout(@jomi-light, 5%);
-                     background: lighten(@jomi-dark, 10%);
-                     background: fadeout(@jomi-light, 90%);
-                     border-color: @jomi-light;
-                  }
-                  &:active {
-                     color: darken(@jomi-lighter-grey, 30%);
-                     color: fadeout(@jomi-light, 35%);
-                     background: lighten(@jomi-dark, 20%);
-                     background: fadeout(@jomi-light, 80%);
-                  }
-               }
+         // search field
+         div.form-group.has-feedback{
+            padding: 0px;
+            display: inline;
+            input.search-field{
+               float: left;
+               width: 30%;
+               display: initial;
+
+               padding-left: 15px;
+               padding-right: 30px;
+               margin-left: 20px;
+               margin-top: 10px;
+
+               border: 2px solid #aaa;
+               border-radius: 20px;
+            }
+            // search icon
+            a span.glyphicon.glyphicon-search{
+               float: left;
+               right: 0;
+               top: 10px;
+               border-left: 2px solid #aaa;
             }
          }
-
-         ul.navbar-nav{       
-            list-style:none;
-            font-size:16px;     
-            padding-left: 0px;       
-            li{
+      
+         // links
+         ul.nav.navbar-nav {
+            float: right;
+            margin-top: 10px;
+            padding: 0 0;
+            li {
                float: right;
-               margin-left:15px;
+               padding: 0 0;
                a{
-                  top:6px;
-                  color: @jomi-light !important;
-                  padding: 8px 0;
-                  &.active{ 
-                     font-weight: bold;
-                     //ie8 fallback
-                     border-bottom: 1px @jomi-grey solid;
-                     border-bottom: 1px @jomi-grey-transparent solid;
+                  color: #ccc;
+                  padding: 5px 10px;
+                  border: none;
+                  &:hover{
+                     color: #eee;
+                  }
+                  &.active{
+                     border-bottom: 1px solid #888;
+                  }
+                  &.border{
+                     border: 2px solid #aaa;
+                     border-radius: 15px;
                   }
                }
-               &.open a.border{
-                  border-radius: 20px 20px 0 0;
-                  border-bottom: 0px solid @jomi-dark !important;
-                  text-decoration: none;
+               &.open{
+                  a.dropdown-toggle{
+                     color: #333;
+                     background: #fff;
+                     border-radius: 15px 15px 0px 0px;
+                     border-color: #fff;
+                  }
+               }
+               div.dropdown-menu{
+                  background: #fff;
+                  margin-top: -2px;
+                  margin-right: -1px;
+                  width: auto;
+                  position: absolute;
+                  label{
+                     a{
+                        padding: 0;
+                        font-size: 14px;
+                     }
+                     color: #333;
+                  }
+                  input[type="text"], input[type="password"] {
+                     background: #aaa;
+                     background: rgba(0, 0, 0, 0.1);
+                     color: #333;
+                  }
+                  input[type="password"] {
+                     margin-bottom: 10px;
+                  }
+                  .col-xs-7{
+                     padding-right: 5px;
+                  }
+                  .col-xs-5{
+                     padding-left: 5px;
+                  }
+                  input[type="submit"], .register{
+                     //border-color: #333;
+                     //5color: #333;
+                     font-size: 14px;
+                     text-decoration: none;
+                  }
+                  .register:hover{
+                     color: #aaa;
+                  }
                }
             }
          }
       }
    }
+
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
-  nav.site-header{
-     .navbar-collapse.collapse, .navbar-collapse.collapsing {
-         ul.navbar-nav {
-            li {
-               margin-left: 25px;
-               a.border {
-                  padding: 9px 25px;
-               }
-               a.border{
-                  border-radius: 25px;
-                  border: 2px solid @jomi-light;
-                  padding: 8px 45px;
-                  top: 5px;
-                  &:hover{
-                     //ie8 fallback
-                     background: lighten(@jomi-dark, 20%);
-
-                     background: fadeout(@jomi-light, 80%);
-                  }
-               }
-               a.border[href="#"]{
-                  color: @jomi-light;
-               }
-               &.open a.border{
-                  border-radius: 20px 20px 0 0;
-                  //ie8 fallback
-                  background: @jomi-dark;
-                  background: none;
-                  color: @jomi-dark;
-                  text-decoration: none;
-               }
+  
+   nav.site-header{
+      .navbar-collapse{
+         ul.nav.navbar-nav{
+            li a{
+               padding: 5px 15px;
+               font-size: 16px;
             }
          }
       }
@@ -306,18 +285,6 @@ nav.site-header{
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
-   nav.site-header{
-      .navbar-header{
-         width: initial;
-      }
-      .collapse ul li {
-         margin-left: 40px;
 
-      }
-      input.search{
-         position: relative;
-         width: inherit;
-      }
-   }
 }
 

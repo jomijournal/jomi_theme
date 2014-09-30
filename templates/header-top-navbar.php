@@ -16,7 +16,7 @@ get_currentuserinfo();
 <?php endif; ?>
 
 <nav class="navbar navbar-default site-header" role="navigation">
-	<div class="container-fluid container">
+	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -30,64 +30,59 @@ get_currentuserinfo();
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left box-shadow-light" role="form">
-				<div class="form-group has-feedback">
-			  		<input placeholder="Search Articles" type="text" name="login" size="30" class="form-control search-field" id="search-field"></input>
-					<!--i class="form-control-feedback glyphicon glyphicon-search search-icon"></i-->
-					<a id="search-submit"><span class="form-control-feedback glyphicon glyphicon-search search-icon"></span></a>
-				</div>
-				
-			</form>
+
+			<div class="form-group has-feedback">
+		  		<input placeholder="Search Articles" type="text" name="login" size="30" class="form-control search-field" id="search-field"></input>
+				<a id="search-submit"><span class="form-control-feedback glyphicon glyphicon-search search-icon"></span></a>
+			</div>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
+				<li class="dropdown login-dropdown">
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
-					<div class="dropdown-menu pull-right">
-						<div class="login-form" id="login-form">
-							<form name="loginform" id="loginform" action="">
+					<div class="dropdown-menu pull-right" role="menu">
 
-								<div id="greyout" class="greyout">
-									<div id="signal" class="signal"></div>
-								</div>
+						<div id="greyout" class="greyout">
+							<div id="signal" class="signal"></div>
+						</div>
 
-								<p class="error" id="error"></p>
-								<p class="login-username">
-									<label for="user_login">Username/Email</label>
-									<input type="text" name="log" id="user_login" class="input" value="" size="20">
+						<p class="error" id="error"></p>
+						<p class="login-username">
+							<label for="user_login">Username/Email</label>
+							<input type="text" name="log" id="user_login" class="input" value="" size="20">
+						</p>
+						<p class="login-password">
+							<label for="user_pass">Password (<a tabindex="3" href="/login/?action=lostpassword">Lost Password?</a>)</label>
+							<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+						</p>
+						<input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">
+						<div class="row login-buttons">
+							<div class="col-xs-7">
+								<p class="login-submit">
+									<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
+									<input type="hidden" name="redirect_to" value="/">
 								</p>
-								<p class="login-password">
-									<label for="user_pass">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)</label>
-									<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
-								</p>
-								<input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">
-								<div class="row">
-									<div class="col-sm-7">
-										<p class="login-submit">
-											<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
-											<input type="hidden" name="redirect_to" value="/">
-										</p>
-									</div>
-									<div class="col-sm-5">
-										<p>
-											<a href="/register" class="register">Register</a>
-										</p>
-									</div>
-								</div>
-								<br>
-								<div class="social-box">
-									<?php do_action('oa_social_login'); ?>
-								</div>
-							</form>
+							</div>
+							<div class="col-xs-5">
+								<a href="/register" class="register">Register</a>
+							</div>
+						</div>
+						<div class="social-box">
+							<?php do_action('oa_social_login'); ?>
 						</div>
 					</div>
 				</li>
-				<li class="dropdown">
+				<li class="logout-dropdown">
+					<a id="logout-btn" href="#">Logout</a>
+				</li>
+				<!--li class="dropdown logout-dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-btn" href="#"><?php echo get_avatar($current_user->ID,24); ?> <?php echo $current_user->user_login; ?></a>
-					<div class="dropdown-menu pull-right">
+					<div class="dropdown-menu" role="menu">
 						<p><a>Help</a></p>
 						<p><a>Logout</a></p>
 					</div>
-				</li>
+				</li-->
+			</ul>
+			<ul class="nav navbar-nav">
 				<!---li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li-->
 				<li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
 				<li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
@@ -121,17 +116,17 @@ get_currentuserinfo();
 
 	/* SIGNUP & LOGIN */
 	$(function() {
-		$('#loginform').on('submit', function(e) {
+		$('.login-submit #submit').on('click', function(e) {
 			e.preventDefault();
 
-			var login = $('#login-form input[name="log"]').val();
+			var login = $('input[name="log"]').val();
 			if(login === '') {
 				//console.log('no username specified');
 				$('#error').text("ERROR: No username entered");
 				$('#error').show();
 				return;
 			}
-			var pass = $('#login-form input[name="pwd"]').val();
+			var pass = $('input[name="pwd"]').val();
 			if(pass === '') {
 				//console.log('no password specified');
 				$('#error').text("ERROR: No password entered");
@@ -152,9 +147,10 @@ get_currentuserinfo();
 				$('#greyout,#signal').hide();
 
 				if(response == "success") {
-					$('#login-btn').hide();
-					$('#login-btn').dropdown('toggle');
-					$('#logout-btn').show();
+					$('.login-dropdown').hide();
+					$('.login-dropdown').dropdown('toggle');
+					$('.logout-dropdown').show();
+					//$('#logout-btn').show();
 				} else {
 					$('#error').text("Incorrect username or password");
 					$('#error').show();
@@ -163,25 +159,27 @@ get_currentuserinfo();
 		});
 		$('#logout-btn').on('click', function() {
 
-			/*$('#greyout,#signal').show();
+			//$('#greyout,#signal').show();
 
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-logout'
 			}, function(response) {
 				$('#greyout,#signal').hide();
 
-				$('#login-btn').show();
-				$('#logout-btn').hide();
-			});*/
+				$('.login-dropdown').show();
+				$('.logout-dropdown').hide();
+			});
 
 		});
 
-		$('#login-btn').show();
-		$('#logout-btn').show();
+		$('.login-dropdown').show();
+		$('.logout-dropdown').show();
+		//$('#logout-btn').show();
 		<?php if(is_user_logged_in()) { ?>
-			$('#login-btn').hide();
+			$('.login-dropdown').hide();
 		<?php } else { ?>
-			$('#logout-btn').hide();
+			$('.logout-dropdown').hide();
+			//$('#logout-btn').hide();
 		<?php } ?>
 
 		$('#error').hide();

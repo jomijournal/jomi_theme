@@ -111,22 +111,34 @@ nav.site-header {
                   //background: rgba(0, 0, 0, 0.75);
                   background: rgba(255, 255, 255, 0.2);
                   color: #aaa;
+
+                  transition: 0.25s all ease-in-out;
+                  -webkit-transition: 0.25s all ease-in-out;
+   
+                  &:focus{
+                     box-shadow: 0px 0px 5px #aaa;
+                     -webkit-box-shadow: 0px 0px 5px #aaa;
+                  }
                }
-               input[type="submit"] {
+               input[type="submit"], a.register {
                   width: 100%;
                   background: none;
                   border: 2px solid #aaa;
                   color: #aaa;
                   border-radius: 10px;
                   font-weight: normal;
-               }
-               a.register{
-                  border: 2px solid #aaa;
-                  border-radius: 10px;
-                  width: 100%;
+            
                   display: block;
                   padding: 4px 10px 4px;
                   text-align: center;
+                  text-decoration: none;
+
+                  &:hover{
+                     background: #222;
+                     background: rgba(255, 255, 255, 0.1);
+                     color: #eee;
+                     border-color: #eee;
+                  }
                }
                .error{
                   color: #fff;
@@ -234,6 +246,8 @@ nav.site-header {
                   margin-top: -2px;
                   width: auto;
                   position: absolute;
+                  padding: 10px 10px;
+                  border-top-left-radius: 5px;
                   label{
                      a{
                         padding: 0;
@@ -260,6 +274,9 @@ nav.site-header {
                      //5color: #333;
                      font-size: 14px;
                      text-decoration: none;
+                     &:hover {
+
+                     }
                   }
                   .register:hover{
                      color: #aaa;

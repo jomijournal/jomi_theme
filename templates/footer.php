@@ -10,8 +10,8 @@
 		            <h3>About</h3>
 		            <ul class="about-list">
 		            	<li><a href="/about/">About JoMI</a></li>
-		            	<li><a href="blog.jomi.com">JoMI Blog</a></li>
-		            	<li><a href="http://eepurl.com/GL-7L">Newsletter</a></li>
+		            	<li><a target="_blank" href="blog.jomi.com">JoMI Blog</a></li>
+		            	<li><a target="_blank" href="http://eepurl.com/GL-7L">Newsletter</a></li>
 		            	<li><a href="/pricing/">Pricing</a></li>
 		            </ul>
 	            </div>

@@ -85,7 +85,7 @@ get_currentuserinfo();
 			<ul class="nav navbar-nav">
 				<!---li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li-->
 				<li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
-				<li><a href="http://blog.jomi.com" class=""                                                  >Blog</a></li>
+				<li><a href="http://blog.jomi.com" class="" target="_blank"                                  >Blog</a></li>
 				<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
 				<li><a href="/articles/" class="<?php 			if( is_page( 'articles') ) echo " active"; ?>">Articles</a></li>
 			</ul>

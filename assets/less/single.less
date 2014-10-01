@@ -60,12 +60,12 @@
 			   float: left;
 			   padding: 0px 0px;
 			   width: 100%;
+			   font-size: 13px;
 			   h3{
 			      color: #999;
 			      text-align: center;
 			      margin-bottom: 15px;
 			      text-transform: uppercase;
-			      font-size:14px;
 			      font-weight:700;
 			      margin-top:10px;
 			   }
@@ -98,6 +98,30 @@
 			         }
 			      }
 			   }
+			}
+			div.hide-chapter{
+				position: relative;
+				text-align: center;
+				display: block;
+				width: 100%;
+				float: left;
+				/* padding: 10px 0px; */
+				margin-bottom: 5px;
+				margin-top: -5px;
+				a#hide-chapter-btn{
+					display: block;
+					background: #444;
+					background: rgba(255, 255, 255, 0.1);
+					padding: 3px 0px;
+					color: #aaa;
+					text-decoration: none;
+					font-size: 13px;
+					&:hover{
+						background: #666;
+						background: rgba(255, 255, 255, 0.15);
+						color: #ccc;
+					}
+				}
 			}
 		}
 	}
@@ -193,11 +217,30 @@
 			margin-bottom: 25px;
 			.video-area {
 				#chapters{
-				  width: 33.33333%;
+				  width: 25%;
 				  padding-right: 2px;
+				  overflow: hidden;
+
+				  transition: 0.5s all ease-in-out;
+				  -webkit-transition: 0.5s all ease-in-out;
+				}
+				div.hide-chapter{
+					position: absolute;
+					bottom: 5px;
+					left: 0;
+					width: 25%;
+					padding: 0px 5px;
+					margin-bottom: 0px;
+					margin-top: 0px;
+					a#hide-chapter-btn{
+						border-radius: 5px;
+					}
 				}
 				.video-holder{
-				  width: 66.66666%;
+				  width: 75%;
+
+				  transition: 0.5s all ease-in-out;
+				  -webkit-transition: 0.5s all ease-in-out;
 				}
 			}
 		}

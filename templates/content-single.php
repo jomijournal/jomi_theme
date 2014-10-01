@@ -31,10 +31,15 @@
       <div id="access_block" class="access-block">
         <div id="content" style="width: 100%; height: 100%;"></div>
       </div>
-      <div id="chapters" class="col-sm-4">
+      <div id="chapters" class="col-sm-3">
         <ul></ul>
       </div>
-      <div class="video-holder col-sm-8" id="video">
+
+      <!--div class="hide-chapter">
+        <a href="#" id="hide-chapter-btn">hide chapters</a>
+      </div-->
+
+      <div class="video-holder col-sm-9" id="video">
         <div id="wistia" class="wistia_embed">&nbsp;</div>
         <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
       </div>
@@ -210,6 +215,13 @@
       $('.nav-tabs li a').click(function (e) {
         history.pushState( null, null, $(this).attr('href') );
       });
+
+      /*$('#hide-chapter-btn').on('click', function() {
+        $('#chapters').attr('class', 'col-sm-1').css('width', '8.33333%');
+
+        $('.video-holder').attr('class', 'col-sm-11').css('width', '91.6666666%');
+        $(this).text('show chapters');
+      });*/
 
       function block(msg, closable) {
 

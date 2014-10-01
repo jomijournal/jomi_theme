@@ -57,7 +57,7 @@ footer.front-footer{
       padding:0;
       li{
          margin: 0 0px;
-         margin-bottom: 20px;
+         margin-bottom: 5px;
          display: inline-block;
          width: 95%;
          a{
@@ -70,9 +70,10 @@ footer.front-footer{
             }
          }
          a.border{
-            border-radius: 25px;
-            border: 2px solid @jomi-light;
-            padding: 8px 4px;
+            
+            border-bottom: 1px solid #333;
+            padding: 4px 2px;
+            font-size: 14px;
 
             transition: all 0.15s ease-in-out;
             -webkit-transition: all 0.15s ease-in-out;
@@ -159,7 +160,19 @@ footer.front-footer{
    footer{
       margin-top: 45px;
    }
-
+   footer.front-footer{
+      ul{
+         li{
+            margin-bottom: 20px;
+            a.border{
+               border-radius: 25px;
+               border: 2px solid @jomi-light;
+               padding: 8px 4px;
+               font-size: 16px;
+            }
+         }
+      }
+   }
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 

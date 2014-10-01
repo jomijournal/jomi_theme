@@ -2,11 +2,21 @@
 	<div class="footer">
 		<div class="container">
 		    <div class="row">
-	            <div class="col-sm-7">
+	            <div class="col-sm-5">
 	            <a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a>
 	            <h5>ISSN: 2373-6003</h5>
 	            </div>
+	            <div class="col-sm-2">
+		            <h3>About</h3>
+		            <ul class="about-list">
+		            	<li><a href="/about/">About JoMI</a></li>
+		            	<li><a href="blog.jomi.com">JoMI Blog</a></li>
+		            	<li><a href="http://eepurl.com/GL-7L">Newsletter</a></li>
+		            	<li><a href="/pricing/">Pricing</a></li>
+		            </ul>
+	            </div>
 	            <div class="col-sm-3">
+	            	<h3>Contact</h3>
 	            	<a class="contact-us" href="/contact/">Contact Us</a>
 	            	<br>
 	                <!--Phone: 555-555-5555-->
@@ -16,9 +26,10 @@
 	                <br>
 	                Email: <a href="mailto:contact@jomi.com">contact@jomi.com</a>
 	                <br>
-	                
+	                <br>
 	            </div>
 		    	<div class="col-sm-2">
+		    		<h3>Connect</h3>
 	                <ul class="social-icons">
 	                    <li>
 	                        <a href="http://www.facebook.com/JomiJournal" target="_blank" data-original-title="Facebook" class="social_facebook"></a>

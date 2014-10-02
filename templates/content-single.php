@@ -58,29 +58,38 @@
           <li><a href="#outline" data-toggle="tab">Procedure Outline</a></li>
         </ul>
       </header>
-      <div class="entry-content">
+
+      <!-- FOR FUNDAMENTALS -->
+      <div class="entry-content" id="content-simple"></div>
+
+      <!-- FOR REGULAR ARTICLES -->
+      <div class="entry-content" id="content-article">
         <div class="tab-content">
           <div class="tab-pane active" id="main">
             <?php echo get_field('meta'); ?>
-            <?php the_content(); ?>
+            <!-- separating into a div for easier jquery grabbing-->
+            <div id="the-content"><?php the_content(); ?></div>
             <h3>Citations</h3>
             <?php echo get_field('citations'); ?>
           </div>
           <div class="tab-pane" id="outline"><?php echo get_field('outline'); ?></div>
         </div>
       </div>
+
       <?php comments_template(); ?>
     </article>
   </div>
   <div class="col-sm-4">
     <?php require_once('sidebar-article.php'); ?>
   </div>
+
   <!-- replace state is an html5 feature. if ie8 tries to do this, it will stop the video from loading -->
   <!--[if gt IE 8]>
   <script>
     window.history.replaceState('', '', '/article/<?php echo get_field("publication_id"); ?>/<?php global $post; echo $post->post_name; ?>');
   </script>
   <![endif]-->
+
   <script>
   var blocked = false;
 
@@ -93,36 +102,33 @@
         videoFoam: true
       });
 
-      // grab GET variables
-      var time_code = "<?php echo $get_time_code; ?>";
+      $('.nav-tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+      $('.nav-tabs li a').click(function (e) {
+        history.pushState( null, null, $(this).attr('href') );
+      });
 
-      // i dont know how to do regex.
-      // tested it at regexr. it works for now
-      var sec_regex = /(\d*)(?=s)/g;
-      var min_regex = /(\d*)(?=m)/g;
-      var hr_regex = /(\d*)(?=h)/g;
-
-      // apply regex
-      var seconds = sec_regex.exec(time_code);
-      seconds = (seconds == null) ? 0 : parseInt(seconds[0]);
-
-      var minutes = min_regex.exec(time_code);
-      minutes = (minutes == null) ? 0 : parseInt(minutes[0]);
-
-      var hours = hr_regex.exec(time_code);
-      hours = (hours == null) ? 0 : parseInt(hours[0]);
-
-      // add it all up
-      var total = seconds + (minutes * 60) + (hours * 3600);
-
-      // for some reason wistia likes to scrub 5 seconds ahead when using the time() function
-      if (total > 5) total -= 5;
-
-      // skip to that time
-      if(total > 0) {
-        wistiaEmbed.time(total);
-        wistiaEmbed.play();
+      // show a simple article container if the article is a fundamental video
+      if($('article').hasClass('category-fundamentals')) {
+        $('#content-simple').html($('#content-article div.tab-pane#main #the-content').html()).show();
+        $('#content-article').hide();
+        $('ul.nav-tabs').hide();
       }
+
+      // load chapters from meta tags
+      loadChapters();
+
+      /*$('#hide-chapter-btn').on('click', function() {
+        $('#chapters').attr('class', 'col-sm-1').css('width', '8.33333%');
+
+        $('.video-holder').attr('class', 'col-sm-11').css('width', '91.6666666%');
+        $(this).text('show chapters');
+      });*/
+
+      // load url time code, if given
+      loadTimeCode();
 
       // tracker for elapsed time (in seconds)
       var elapsed = 0;
@@ -134,9 +140,9 @@
         elapsed++;
 
         //generate share url
-        hours = Math.floor(wistiaEmbed.time() / 3600);
-        minutes = Math.floor((wistiaEmbed.time() - (hours * 3600)) / 60);
-        seconds = Math.floor(wistiaEmbed.time() - (hours * 3600) - (minutes * 60));
+        var hours = Math.floor(wistiaEmbed.time() / 3600);
+        var minutes = Math.floor((wistiaEmbed.time() - (hours * 3600)) / 60);
+        var seconds = Math.floor(wistiaEmbed.time() - (hours * 3600) - (minutes * 60));
 
         //var share_url = window.location.href + '?t=';
         var share_url = "<?php echo (site_url() . '/article/' . get_field('publication_id') . '/?t='); ?>";
@@ -201,28 +207,12 @@
         });
       });
 
-      $('.nav-tabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-      });
-
-      $('#meta-chapters section').each(function(){
-        $('#chapters ul').append('<li class="vtime-item" data-time="'+$(this).data('time')+'"><a href="#video" onclick="wistiaEmbed.time('+$(this).data('time')+').play();">'+$(this).data('title')+'</a></li>');
-      });
-
-      $('#chapters').show();
-
-      $('.nav-tabs li a').click(function (e) {
-        history.pushState( null, null, $(this).attr('href') );
-      });
-
-      /*$('#hide-chapter-btn').on('click', function() {
-        $('#chapters').attr('class', 'col-sm-1').css('width', '8.33333%');
-
-        $('.video-holder').attr('class', 'col-sm-11').css('width', '91.6666666%');
-        $(this).text('show chapters');
-      });*/
-
+      /**
+       * use ajax to show blocks when prompted
+       * @param  {[type]} msg      [description]
+       * @param  {[type]} closable [description]
+       * @return {[type]}          [description]
+       */
       function block(msg, closable) {
 
         if(blocked) return;
@@ -246,6 +236,63 @@
         $('.access-block').find('#content').empty().html(response);
        });
       }
+
+      /**
+       * load time code from url and skip to it
+       * @return {[type]} [description]
+       */
+      function loadTimeCode() {
+        // grab GET variables
+        var time_code = "<?php echo $get_time_code; ?>";
+
+        // i dont know how to do regex.
+        // tested it at regexr. it works for now
+        var sec_regex = /(\d*)(?=s)/g;
+        var min_regex = /(\d*)(?=m)/g;
+        var hr_regex = /(\d*)(?=h)/g;
+
+        // apply regex
+        var seconds = sec_regex.exec(time_code);
+        seconds = (seconds == null) ? 0 : parseInt(seconds[0]);
+
+        var minutes = min_regex.exec(time_code);
+        minutes = (minutes == null) ? 0 : parseInt(minutes[0]);
+
+        var hours = hr_regex.exec(time_code);
+        hours = (hours == null) ? 0 : parseInt(hours[0]);
+
+        // add it all up
+        var total = seconds + (minutes * 60) + (hours * 3600);
+
+        // for some reason wistia likes to scrub 5 seconds ahead when using the time() function
+        if (total > 5) total -= 5;
+
+        // skip to that time
+        if(total > 0) {
+          wistiaEmbed.time(total);
+          wistiaEmbed.play();
+        }
+      }
+
+      /**
+       * load chapters from meta tags
+       * @return {[type]} [description]
+       */
+      function loadChapters() {
+        // generate chapters from metadata
+        $('#meta-chapters section').each(function(){
+          $('#chapters ul').append('<li class="vtime-item" data-time="'+$(this).data('time')+'"><a href="#video" onclick="wistiaEmbed.time('+$(this).data('time')+').play();">'+$(this).data('title')+'</a></li>');
+        });
+
+        $('#chapters').show();
+
+        // dont display chapters if none are grabbed
+        if($('#chapters ul').is(':empty')) {
+          $('#chapters').hide();
+          $('.video-holder').attr('class', 'col-sm-12').css('width', '100%').css('padding', '0 0');
+        }
+      }
+
 
       // scroll up function from the jquery plugin
       $.scrollUp({

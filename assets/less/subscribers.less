@@ -13,7 +13,7 @@
    //padding-top: 25px !important;
    padding-top: 0px;
    h2{
-      margin-top: 0px;
+      margin-top: 10px;
       margin-bottom: 0px;
       text-align: center;
    }
@@ -26,117 +26,56 @@
       border-radius: 10px;
       padding: 4px 10px 4px;
    }
-
-   .mc_embed_signup{
-      form{
-         input[type=email]{
-            width: 100%;
-            margin-bottom: 10px;
-         }
-      }
-   }
    .btn.fat.white{
       width: 100%;
    }
+   div.orgs{
+      a{
+         text-decoration: none;
+         text-align: center;
+         background: #eee;
+         display: block;
+         width: 100%;
+         img{
+            margin: 0 auto;
+         }
+         p{
+            color: #666;
+            background: #ddd;
+            font-size: .7em;
+            font-weight: bold;
+            padding: 5px 0px;
+            text-align: center;
+         }
+         &:hover{
+            background: #e8e8e8;
+            p{
+               color: #888;
+               background: #d8d8d8;
+            }   
+         }
+      }
+      &.small{
+         a {
+            margin-bottom: 5px;
+            p{
+               margin-bottom: 5px;
+            }
+            img{
+               display: none;
+            }
+         }
+      }
+   }
+   
 } 
 
-.orgs {
-   //margin-bottom:45px;
-   &.small{
-      .logo{
-         display: none;
-      }
-   }
-   &.large{
-      .logo{
-         display:block;
-      }
-   }
-}
-.org{
-   text-align:center;
-   margin-top: 10px;
-   margin-bottom: 10px;
-   .logo{
-      padding: 20px 0;
-      background-color:#f0f0f0;
-      //display: none;
-      img{
-         //width: 100%;
-         width: auto;
-      }
-      &:hover{
 
-      }
-   }
-   .link{
-      text-decoration: none;
-      color: #555;
-      font-size: 20px;
-      text-align: left;
-   }
-   .lab{ // Label 
-      background-color: #ddd;
-      color: #646464;
-      font-weight: 700;
-      font-size: .7em;
-      padding: 5px 0;
-   }
-   .logosmall{
-      padding: 20px 0;
-      background-color:#EBEBEB;
-      border-radius:8px;
-   }
-
-   &:hover{ 
-      .logo {
-         background-color:#CECECE;
-      }
-      .logosmall {
-         background-color:#CECECE;
-      }
-      .lab{
-         background-color:#B3B3B3;
-         color: #ffffff;
-      }
-   }
-
-}
-.logopic{
-   width: 80%;
-}
 
 //* MOBILE
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
-   .orgs{
-      margin-bottom:45px;
-      .org{
-         margin-top: 10px;
-         margin-bottom: 10px;
-         .logo{
-            padding: 20px 20px;
-            img{
-               width: 100%;
-            }
-         }
-      }
-
-      &.large{
-         .lab{
-            margin-bottom: 0px;
-         }
-      }
-      &.small{
-         .logo{
-            display:none;
-         }
-         .link{
-            display:block;
-         }
-      }
-   }
    .subscribers div.container.wrap{
       h2{
          margin-top: 20px;
@@ -149,51 +88,45 @@
          margin-top: 20px;
          font-size: 12px;
       }
-      
+      div.orgs{
+         a{
+            img{
+               width: 100%;
+               padding: 20px 20px;
+            }
+            p{
+               
+            }
+            
+         }
+         &.large{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            img{
+
+            }
+         }
+         &.small{
+            a {
+               margin-bottom: 15px;
+               p{
+                  display: none;
+               }
+            }
+         }
+      }
+
    }
    
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
-   .orgs{
-      .org{
-         margin-top: 15px;
-         margin-bottom: 15px;
-         .logo{
-            padding: 20px 0;
-            img{
-               width: 85%;
-            }
-         }
-      }
-      &.large{
-
-      }
-      &.small{
-         .logo{
-            display: block;
-         }
-         .link{
-            display: none;
-         }
-      }
-   }
    .btn{
       //padding: 8px 35px !important; 
       font-size: 16px;
    }
-
-      .col-sm-3{
-         margin-right: 0px;
-      }
-
 }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
-   .orgs{
-      .org .logo img{
-         width: 85%;
-         //margin-bottom:10px !important;
-      }
-   }
+
 }

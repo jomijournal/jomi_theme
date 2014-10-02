@@ -59,14 +59,22 @@ $categories = get_the_category($id);
 				if($category->slug == 'fundamentals') { ?>
 					<p class="fundamentals-badge">Fundamental</p>
 				<?php } elseif($category->slug == 'orthopedics') { ?>
-					<p class="orthopedics-badge">Orthopedic</p>
+					<p class="orthopedic-badge">Orthopedic</p>
+				<?php } elseif($category->slug == 'general') { ?>
+					<p class="general-badge">General</p>
+				<?php } elseif($category->slug == 'vascular') { ?>
+					<p class="vascular-badge">Vascular</p>
+				<?php } elseif($category->slug == 'ophthalmology') { ?>
+					<p class="ophthalmology-badge">Ophthalmology</p>
+				<?php } elseif($category->slug == 'ent') { ?>
+					<p class="ent-badge">ENT</p>
 				<?php }
 			} ?>
 
 		</div>
 		<?php 
 		// show video duration
-		if(in_array($status, array('preprint', ''))) {?>
+		if(in_array($status, array('preprint', 'publish'))) {?>
 			<div class="duration">
 				<?php
 					$id = get_the_ID();

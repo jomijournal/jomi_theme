@@ -58,6 +58,8 @@ $categories = get_the_category($id);
 			<?php foreach($categories as $category) { 
 				if($category->slug == 'fundamentals') { ?>
 					<p class="fundamentals-badge">Fundamental</p>
+				<?php } elseif($category->slug == 'orthopedics') { ?>
+					<p class="orthopedics-badge">Orthopedic</p>
 				<?php }
 			} ?>
 

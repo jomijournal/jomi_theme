@@ -39,15 +39,6 @@ $categories = get_the_category($id);
 			<img width="750" height="300" src="<?php echo ABSPATH . '/wp-content/themes/jomi/assets/img/01_standard_white.png';?>" class="attachment-large wp-post-image" alt="video thumbnail">
 		<?php } ?>
 
-		<?php 
-		// cover unavailable articles in a dark grey mask
-		if(in_array($status, array('in_production', 'coming_soon'))) { ?>
-			<div class='unavailable'>
-				<h3><?php echo $status_text; ?></h3>
-			</div>
-
-		<?php } ?>
-
 		<div class="article-badges">
 
 			<?php if ($status == 'preprint') { ?>
@@ -72,6 +63,16 @@ $categories = get_the_category($id);
 			} ?>
 
 		</div>
+
+		<?php 
+		// cover unavailable articles in a dark grey mask
+		if(in_array($status, array('in_production', 'coming_soon'))) { ?>
+			<div class='unavailable'>
+				<h3><?php echo $status_text; ?></h3>
+			</div>
+
+		<?php } ?>
+
 		<?php 
 		// show video duration
 		if(in_array($status, array('preprint', 'publish'))) {?>

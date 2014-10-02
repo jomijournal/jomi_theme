@@ -26,15 +26,19 @@
 			}
 		} else {
 			$link = get_permalink();
-		}
-		if ( has_post_thumbnail() ) { ?>
+		} ?>
 
-			<a href="<?php echo $link; ?>" title="<?php the_title_attribute(); ?>" >
+		//
+		<a href="<?php echo $link; ?>" title="<?php the_title_attribute(); ?>" >
+		<?php if ( has_post_thumbnail() ) { ?>
 			<?php the_post_thumbnail('large'); ?>
-
+		<?php } else { ?>
+			<img width="750" height="300" src="<?php echo ABSPATH . '/wp-content/themes/jomi/assets/img/01_standard_white.png';?>" class="attachment-large wp-post-image" alt="video thumbnail">
 		<?php } ?>
 
-		<?php if(in_array($status, array('in_production', 'coming_soon'))) { ?>
+		<?php 
+		// cover unavailable articles in a dark grey mask
+		if(in_array($status, array('in_production', 'coming_soon'))) { ?>
 			<div class='unavailable'>
 				<h3><?php echo $status_text; ?></h3>
 			</div>

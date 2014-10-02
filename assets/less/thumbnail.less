@@ -127,25 +127,32 @@
             font-size: 36px;
          }
       }
-      // preprint visual
-      h5{
+      div.article-badges{
          position: absolute;
-         z-index: 1;
-         color: #fff;
-         background: #8F0000;
-         padding: 5px;
          top: 3px;
          right: 3px;
-         font-size: 14px;
-         font-weight: bold;
-         border-radius: 5px;
-         margin-top: 0px;
-         margin-bottom: 0px;
+
+         p{
+            z-index: 1;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            padding: 5px;
+         }
+         // preprint visual
+         p.preprint-badge{
+            background: #8F0000;
+         }
+         p.fundamentals-badge{
+            background: #990099;
+         }
       }
       // time duration display
       .duration{
-
-         p{
+         p.duration-text{
             padding: 1px 8px;
             //ie8 fallback
             background: #333;

@@ -32,7 +32,7 @@ get_currentuserinfo();
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 			<div class="form-group has-feedback">
-		  		<input placeholder="Search Articles" type="text" name="login" size="30" class="form-control search-field" id="search-field"></input>
+		  		<input placeholder="Search Articles" type="text" name="login" class="form-control search-field" id="search-field"></input>
 				<a id="search-submit"><span class="form-control-feedback glyphicon glyphicon-search search-icon"></span></a>
 			</div>
 

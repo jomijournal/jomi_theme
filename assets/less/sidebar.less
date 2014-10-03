@@ -42,12 +42,8 @@
   .author{
     display:block;
     margin-bottom:5px;
-    //background: #f8f8f8;
-    //border:3px solid #eee;
     color:#111 !important;
-    //text-decoration: none;
     &:hover {
-      //border:3px solid #428bca;
       background: #f8f8f8;
     }
     h4{
@@ -62,9 +58,8 @@
       margin-top: 0;
       margin-bottom: 0;
     }
-    .avatar{
-      //float: left;
-      //margin-right:5px;
+    div.avatar{
+      padding: 0 15px;
       img{
          width: 100%;
          //box-shadow: -1px 1px 0px #444;
@@ -74,9 +69,6 @@
     }
     .bio{
       border-left: 1px solid #aaa;
-      //width: 100%;
-      //display: block;
-      //padding-left: 5px;
     }
   }
   table.info {
@@ -248,6 +240,11 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
+  .single .sidebar{
+    .author div.avatar{
+      padding: 0 15px;
+    }
+  }
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 

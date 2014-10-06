@@ -70,7 +70,13 @@
           </div>
 
           <div class="tab-pane" id="outline">
-            <?php echo get_field('outline'); ?><?php echo toc_get_index(get_field('outline'));?>
+            <div id="toc_container" class="toc_wrap_right toc_white no_bullets">
+              <p class="toc_title">Table of Contents</p>
+              <ul class="toc_list">
+                <?php echo toc_get_index(get_field('outline'));?>
+              </ul>
+            </div>
+            <?php echo get_field('outline'); ?>
           </div>
 
         </div>
@@ -116,6 +122,13 @@
         $('#content-article').hide();
         $('ul.nav-tabs').hide();
       }
+
+      // generate anchors for all h4s in outline (because toc plugin doesn't work for ACF fields)
+      $('#outline h4').each(function(index) {
+        var text = $(this).text();
+        link_id = text.replace(/\s+/g, '-');
+        $(this).html('<span id="' + link_id + '">' + text + '</span>');
+      });
 
       // load chapters from meta tags
       loadChapters();

@@ -55,10 +55,17 @@
 <script src="/wp-content/themes/jomi/assets/js/vendor/cookies.min.js?v=2"></script>
 <script>
     browserBlast({
-    devMode: false, // Show warning on all browsers for testing
-    supportedIE: '9', // Supported IE version, warning will display on older browsers
-    message: 'Hey! Your browser is unsupported. Please <a href="http://browsehappy.com" target="_blank">upgrade</a> for the best experience.' // Set custom message
-});
+	    devMode: false, // Show warning on all browsers for testing
+	    supportedIE: '9', // Supported IE version, warning will display on older browsers
+	    message: 'Hey! Your browser is unsupported. Please <a href="http://browsehappy.com" target="_blank">upgrade</a> for the best experience.' // Set custom message
+	});
+
+	$(function() {
+		$("img.lazy").lazyload({
+		    threshold : 200,
+		    effect : "fadeIn"
+		});
+	});
 </script>
 
 <?php wp_footer(); ?>

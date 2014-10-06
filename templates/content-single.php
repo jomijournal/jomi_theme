@@ -50,21 +50,17 @@
     <article <?php post_class(); ?>>
       <?php $wistia = get_field('wistia_id'); ?>
 
-      <header>
-        <h1 class="entry-title"><?php the_title(); ?></h1>
-        <?php get_template_part('templates/entry-meta'); ?>
+      <h1 class="entry-title"><?php the_title(); ?></h1>
+      
+      <div class="tabbable tabs-left">
         <ul class="nav nav-tabs" role="tablist" data-toggle="tabs">
           <li class="active"><a href="#main" data-toggle="tab">Main Text</a></li>
           <li><a href="#outline" data-toggle="tab">Procedure Outline</a></li>
         </ul>
-      </header>
 
-      <!-- FOR FUNDAMENTALS -->
-      <div class="entry-content" id="content-simple"></div>
+        <!-- FOR REGULAR ARTICLES -->
+        <div class="tab-content" id="content-article">
 
-      <!-- FOR REGULAR ARTICLES -->
-      <div class="entry-content" id="content-article">
-        <div class="tab-content">
           <div class="tab-pane active" id="main">
             <?php echo get_field('meta'); ?>
             <!-- separating into a div for easier jquery grabbing-->
@@ -72,9 +68,17 @@
             <h3>Citations</h3>
             <?php echo get_field('citations'); ?>
           </div>
-          <div class="tab-pane" id="outline"><?php echo get_field('outline'); ?><?php echo toc_get_index(get_field('outline'));?></div>
+
+          <div class="tab-pane" id="outline">
+            <?php echo get_field('outline'); ?><?php echo toc_get_index(get_field('outline'));?>
+          </div>
+
         </div>
+
       </div>
+
+      <!-- FOR FUNDAMENTALS -->
+      <div class="entry-content" id="content-simple"></div>
 
       <?php comments_template(); ?>
     </article>
@@ -102,11 +106,7 @@
         videoFoam: true
       });
 
-      $('.nav-tabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-      });
-      $('.nav-tabs li a').click(function (e) {
+      $('ul.nav.nav-tabs li a').on('click', function(e) {
         history.pushState( null, null, $(this).attr('href') );
       });
 

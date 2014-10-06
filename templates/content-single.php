@@ -72,7 +72,7 @@
             <h3>Citations</h3>
             <?php echo get_field('citations'); ?>
           </div>
-          <div class="tab-pane" id="outline"><?php echo get_field('outline'); ?></div>
+          <div class="tab-pane" id="outline"><?php echo get_field('outline'); ?><?php echo toc_get_index(get_field('outline'));?></div>
         </div>
       </div>
 

@@ -31,16 +31,10 @@ $categories = get_the_category($id);
 <div class="article-thumbnail">
 
 		<a href="<?php echo $link; ?>" title="<?php the_title_attribute(); ?>" >
-		<?php 
-		// load featured image if available. if not, load ugly default image
-		//if ( has_post_thumbnail() ) { ?>
-			<?php //the_post_thumbnail('large'); ?>
-		<?php //} else { ?>
-			<img width="780" height="312" 
-			src="<?php echo '/wp-content/themes/jomi/assets/img/01_standard_white.png'; ?>" 
-			data-original="<?php echo wp_get_attachment_url( get_post_thumbnail_id($id)); ?>"
-			class="attachment-large wp-post-image lazy" alt="video thumbnail">
-		<?php //} ?>
+		<img width="780" height="312" 
+		src=""
+		data-original="<?php echo wp_get_attachment_url( get_post_thumbnail_id($id)); ?>"
+		class="attachment-large wp-post-image lazy" alt="video thumbnail">
 
 		<div class="article-badges">
 

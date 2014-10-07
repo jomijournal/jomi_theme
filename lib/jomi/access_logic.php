@@ -329,6 +329,21 @@ function load_user_info() {
 	$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];
 	$continent['name'] = (empty($_GET['testcontinent'])) ? $continent['name'] : $_GET['testcontinent'];
 
+	$logged_in  = (empty($_GET['testloggedin']))   ? $logged_in  : $_GET['testloggedin'];
+	// correct for strings passed in by get
+	if($logged_in === "true" || $logged_in === "1") {
+		$logged_in = true;
+	} elseif ($logged_in === "false" || $logged_in === "0") {
+		$logged_in = false;
+	}
+	$is_subscribed = (empty($_GET['testsubscribed'])) ? $is_subscribed : $_GET['subscribed'];
+	// correct for strings passed in by get
+	if($is_subscribed === "true" || $is_subscribed === "1") {
+		$is_subscribed = true;
+	} elseif ($is_subscribed === "false" || $is_subscribed === "0") {
+		$is_subscribed = false;
+	}
+
 	// load up user info
 	$user_info = array(
 		'logged_in' => $logged_in,
@@ -341,11 +356,6 @@ function load_user_info() {
 		'continent' => $continent,
 		'city' => $city
 	);
-
-	// apply other misc url debugs if present
-	$user_info['logged_in']  = (empty($_GET['testloggedin']))   ? $user_info['logged_in']  : $_GET['testloggedin'];
-	$user_info['subscribed'] = (empty($_GET['testsubscribed'])) ? $user_info['subscribed'] : $_GET['subscribed'];
-
 	return $user_info;
 }
 

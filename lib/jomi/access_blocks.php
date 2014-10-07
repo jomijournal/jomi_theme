@@ -12,7 +12,7 @@ function block_deny() {
 	$msg = $_POST['msg'];
 	$redirect_to = $_POST['redirectto'];
 ?>
-<div class="container">
+<div class="container sign-up">
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
@@ -20,11 +20,12 @@ function block_deny() {
 	<!-- header -->
 	<div class="row">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
-		<p style="text-align:center;">Please sign in or register to continue:</p>
+		<p style="text-align:center;">Please sign in or register to continue</p>
+		<p style="text-align:center;">If you have just registered with jomi.com, please check your email to verify your account, then log in.</p>
 	</div>
 
 	<div class="row">
-		<div class="col-xs-6" style="border-right: 3px dashed #fff; padding: 0 30px;">
+		<div class="col-xs-6" style="border-right: 3px dashed #fff;">
 			<h3>Sign In</h3>
 			<div id="login-form" class="aligncenter" style="">
 				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">

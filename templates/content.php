@@ -32,7 +32,7 @@ $categories = get_the_category($id);
 
 		<a href="<?php echo $link; ?>" title="<?php the_title_attribute(); ?>" >
 		<img width="780" height="312" 
-		src=""
+		src="<?php echo '/wp-content/themes/jomi/assets/img/01_standard_dark.jpg'?>"
 		data-original="<?php echo wp_get_attachment_url( get_post_thumbnail_id($id)); ?>"
 		class="attachment-large wp-post-image lazy" alt="video thumbnail">
 

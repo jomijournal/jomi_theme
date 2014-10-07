@@ -5,6 +5,9 @@ get_currentuserinfo();
 
 ?>
 
+<div class="site-notification" id="site-notification" style="display:none;"></div>
+
+
 <?php if(is_front_page()) : ?>
 	<video id="video" autoplay preload loop class='background hidden-xs video-js' poster="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/vid_poster.jpg" data-setup='{"controls":false}'>
 		<source id="video-source" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4" type="video/mp4">

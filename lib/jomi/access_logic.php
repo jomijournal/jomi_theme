@@ -294,22 +294,16 @@ function load_user_info() {
 	    	'iso' => $record->country->isoCode,
 	    	'name' => $record->country->name
 	    );
-	    // apply debug if present
-	    $country['name'] = (empty($_GET['testcountry'])) ? $country['name'] : $_GET['testcountry'];
 
 		$region = array (
 			'iso' => $record->mostSpecificSubdivision->isoCode,
 			'name' => $record->mostSpecificSubdivision->name
 		);
-		// apply debug if present
-		$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];
 
 		$continent = array (
 			'iso' => $record->continent->code,
 			'name' => $record->continent->name
-		);
-		// apply debug if present
-		$continent['name'] = (empty($_GET['testcontinent'])) ? $continent['name'] : $_GET['testcontinent'];
+		);	
 
 		$city = $record->city->name;
 	} catch (Exception $e) {
@@ -329,6 +323,11 @@ function load_user_info() {
 		$city = 'Boston';
 	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
 	}
+
+	// apply debug if present
+	$country['name'] = (empty($_GET['testcountry'])) ? $country['name'] : $_GET['testcountry'];
+	$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];]
+	$continent['name'] = (empty($_GET['testcontinent'])) ? $continent['name'] : $_GET['testcontinent'];
 
 	// load up user info
 	$user_info = array(

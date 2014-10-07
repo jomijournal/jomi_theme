@@ -24,9 +24,9 @@ add_action('login_head', 'jomi_login_head');
  */
 function jomi_login_stylesheet() {
     wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/assets/css/main.min.css' );
-    wp_enqueue_script( 'custom-login', get_template_directory_uri() . '/assets/js/scripts.min.js' );
+    //wp_enqueue_script( 'custom-login', get_template_directory_uri() . '/assets/js/scripts.min.js' );
 }
-add_action( 'login_enqueue_scripts', 'jomi_login_stylesheet' );
+//add_action( 'login_enqueue_scripts', 'jomi_login_stylesheet' );
 
 /**
  * link to our website, not wordpress's
@@ -51,12 +51,16 @@ function jomi_login_footer(){
     $("#loginform").attr("action", "' . site_url() . '/login/");
     $("#registerform").attr("action", "' . site_url() . '/register/");
     $("#login a").first().attr("title","Journal of Medical Insight");
-    //$("input[name=' . "'redirect_to'" . ']").attr("value","'.site_url().'");
+    $("input[name=' . "'redirect_to'" . ']").attr("value","'. $_POST['redirect_to'] .'");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=register'" . ']").attr("href", "'.site_url().'/register");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=lostpassword'" . ']").attr("href", "'.site_url().'/forgot");
     $("a[href=' . "'" . site_url() . "/wp-login.php'" . ']").attr("href", "'.site_url().'/login");
 
-    $("#registerform input[name=' . "'redirect_to'" . ']").attr("value","'.site_url('/login?checkemail=registered').'")
+    $("p#backtoblog a").attr("href", "' . $_POST['redirect_to'] . '");
+
+    console.log("redirect link: ' . $_POST['redirect_to'] . '");
+
+    //$("#registerform input[name=' . "'redirect_to'" . ']").attr("value","'.site_url('/login?checkemail=registered').'");
   });
   </script>
   ';
@@ -89,7 +93,7 @@ function my_login_redirect( $redirect_to, $request, $user ) {
   }
 }
 
-add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
+//add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
 /**
  * hides login from url bar

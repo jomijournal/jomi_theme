@@ -10,6 +10,7 @@
 function block_deny() {
 	$id = $_POST['id'];
 	$msg = $_POST['msg'];
+	$redirect_to = $_POST['redirectto'];
 ?>
 <div class="container">
 	<div id="greyout" class="greyout">
@@ -27,7 +28,7 @@ function block_deny() {
 			<h3>Sign In</h3>
 			<div id="login-form" class="aligncenter" style="">
 				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
-					<p class="error" id="error"></p>
+					<p class="error" id="block-error"></p>
 					<div class="login-username">
 						<label for="user_login">Username/Email<br>
 						<input type="text" name="log" id="user_login" class="input" value="" size="20"></label>
@@ -36,7 +37,7 @@ function block_deny() {
 						<label for="user_pass">Password<br>
 						<input type="password" name="pwd" id="user_pass" class="input" value="" size="20"></label>
 					</div>
-					<p class="login-remember"><label class="active"><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked"> Remember Me</label></p>
+					<p class="login-remember"><label class="active"><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked">Remember Me</label></p>
 
 					<p class="login-submit">
 						<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
@@ -55,7 +56,7 @@ function block_deny() {
 		<div class="col-xs-6">
 			<h3>Register</h3>
 			<div id="login">
-				<form name="registerform" id="registerform" action="<?php echo site_url('wp-login.php?action=register', 'login_post'); ?>" method="post">
+				<form name="registerform" id="registerform" action="<?php echo site_url('wp-login.php?action=register'); ?>" method="post">
 					<div id="user_login-p" style="display: none;">
 						<label for="user_login" id="user_login-label">Username/Email<br>
 						<input type="text" name="user_login" id="user_login" class="input" value=""></label>
@@ -69,26 +70,12 @@ function block_deny() {
 						<input type="password" autocomplete="off" name="pass1" id="pass1"></label>
 					</p>
 					<p id="pass_strength_msg">Your password must be at least 6 characters long.</p>
-					<input type="hidden" name="redirect_to" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
+					<input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>">
 					<p class="submit">
 						<input type="submit" name="wp-submit" id="wp-submit" class="btn btn-default" value="Register">
 					</p>
 				</form>
 			</div>
-			<script type="text/javascript">
-			try{document.getElementById('user_login').focus();}catch(e){}
-			if(typeof wpOnload=='function')wpOnload();
-			</script>
-			<script type="text/javascript">
-					jQuery(document).ready(function() {
-						jQuery("#user_login").removeAttr("size");
-						jQuery("#user_login").parent().attr("id", "user_login-label");
-						jQuery("#user_login").parent().parent().attr("id", "user_login-p");
-						jQuery("#user_email").removeAttr("size");
-						jQuery("#user_email").parent().attr("id", "user_email-label");
-						jQuery("#user_email").parent().parent().attr("id", "user_email-p");
-					});
-			</script>
         </div>
 	</div>
 </div>
@@ -99,34 +86,40 @@ $(function() {
 
 		var login = $('#login-form input[name="log"]').val();
 		if(login === '') {
-			$('#error').text("ERROR: No username entered");
-			$('#error').show();
+			$('#block-error').text("ERROR: No username entered");
+			$('#block-error').show();
 			return;
 		}
 		var pass = $('#login-form input[name="pwd"]').val();
 		if(pass === '') {
-			$('#error').text("ERROR: No password entered");
-			$('#error').show();
+			$('#block-error').text("ERROR: No password entered");
+			$('#block-error').show();
 			return;
 		}
-		var dataString = 'log='+ login + '&pwd=' + pass;
+		//var dataString = 'log='+ login + '&pwd=' + pass;
 		
 		$('#greyout,#signal').show();
 
-		$.ajax({
-		  type: "POST",
-		  url: "/wp-login.php",
-		  data: dataString,
-		  success: function(data) {
-		  	console.log(String(data));
-		    if(String(data).indexOf("login_error") > 0) {
-		    	// login error occured
-		    	$('#error').text("ERROR: Username and password do not match.\nPlease try again.")
-		    } else {
-		    	$('#greyout,#signal').hide();
-		    	window.location.reload();
-		    }
-		  }
+		$.post(MyAjax.ajaxurl, {
+			action: 'ajax-login',
+			username: login,
+			password: pass,
+			remember: true
+		}, function(response) {
+			response = response.substr(0, response.length - 1);
+			//console.log(response);
+			$('#greyout,#signal').hide();
+
+			if(response == "success") {
+				$('.login-dropdown').hide();
+				$('.login-dropdown').dropdown('toggle');
+				$('.logout-dropdown').show();
+
+				$('#access_block').hide();
+			} else {
+				$('#block-error').text("Incorrect username or password");
+				$('#block-error').show();
+			}
 		});
 	});
 });

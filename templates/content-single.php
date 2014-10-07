@@ -242,7 +242,8 @@
        $.post(MyAjax.ajaxurl, {
         action: function_name,
         id: <?php echo get_the_ID(); ?>,
-        msg: 'ACCESS RESTRICTED'
+        msg: 'ACCESS RESTRICTED',
+        redirectto: $('#url-share-box').attr('value')
        }, 
        function(response) {
         response = response.substring(0, response.length - 1);

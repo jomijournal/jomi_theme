@@ -326,7 +326,7 @@ function load_user_info() {
 
 	// apply debug if present
 	$country['name'] = (empty($_GET['testcountry'])) ? $country['name'] : $_GET['testcountry'];
-	$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];]
+	$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];
 	$continent['name'] = (empty($_GET['testcontinent'])) ? $continent['name'] : $_GET['testcontinent'];
 
 	// load up user info

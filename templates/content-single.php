@@ -17,6 +17,33 @@
   // get custom time start from url
   $get_time_code = (empty($_GET['t'])) ? '' : $_GET['t'];
 
+  $chapters = array();
+  $chapter_count = 0;
+
+  //load acf chapter repeater field
+  if(get_field('chapters')) {
+    while(has_sub_field('chapters')) {
+      $chapter_title = get_sub_field('title');
+      $chapter_time = get_sub_field('time');
+
+      // load into chapter array
+      array_push($chapters, array(
+        'title' => $chapter_title,
+        'time' => $chapter_time
+      ));
+    }
+    $chapter_count = count($chapters);
+  }
+  
+  // generate html for chapters
+  $chapters_html = "";
+
+  if(!empty($chapters)) {
+    foreach($chapters as $chapter) {
+      $chapters_html .= "<li class='vtime-item' data-time='" . $chapter['time'] . "'><a href='#video' onclick='wistiaEmbed.time(" . $chapter['time'] . ").play();'>" . $chapter['title'] . "</a></li>";
+    }
+  }
+
   ?>
 
   <?php 
@@ -298,9 +325,15 @@
           $('#chapters ul').append('<li class="vtime-item" data-time="'+$(this).data('time')+'"><a href="#video" onclick="wistiaEmbed.time('+$(this).data('time')+').play();">'+$(this).data('title')+'</a></li>');
         });
 
+        // if no valid metadata exists, and acf repeater field exists, grab from acf repeater fields
+        // do this synchronously so the video doesnt stutter
+        if($('#chapters ul').is(':empty') && <?php echo $chapter_count; ?> > 0) {
+          $('#chapters ul').html("<?php echo $chapters_html; ?>");
+        }
+
         $('#chapters').show();
 
-        // dont display chapters if none are grabbed
+        // dont display chapters if none are grabbed from meta or acf
         if($('#chapters ul').is(':empty')) {
           $('#chapters').hide();
           $('.video-holder').attr('class', 'col-sm-12').css('width', '100%').css('padding', '0 0');

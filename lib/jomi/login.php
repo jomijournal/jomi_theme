@@ -43,6 +43,8 @@ add_filter('login_headerurl', 'jomi_login_header_url');
  * @return [type] [description]
  */
 function jomi_login_footer(){
+  echo '<div class="blackbg"></div>';
+  
   echo site_url('','relative');
   echo '
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

@@ -368,6 +368,9 @@ function get_blocks($rules, $user_info) {
 				break;
 		}
 
+		//check for negative priority. this skips checking the rule altogether
+		if($rule->priority < 0) continue;
+
 		// TODO: check for invalid time results
 		
 		// SPLIT UP CHECK TYPES

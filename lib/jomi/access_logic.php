@@ -332,6 +332,14 @@ function load_user_info() {
 		'continent' => $continent,
 		'city' => $city
 	);
+
+	// apply url debugs if they exist
+	$user_info['logged_in']  = (empty($_GET['testloggedin']))   ? $user_info['logged_in']  : $_GET['testloggedin'];
+	$user_info['subscribed'] = (empty($_GET['testsubscribed'])) ? $user_info['subscribed'] : $_GET['subscribed'];
+	$user_info['country']    = (empty($_GET['testcountry']))    ? $user_info['country']    : $_GET['testcountry'];
+	$user_info['region']     = (empty($_GET['testregion']))     ? $user_info['region']     : $_GET['testregion'];
+	$user_info['continent']  = (empty($_GET['testcontinent']))  ? $user_info['continent']  : $_GET['testcontinent'];
+
 	return $user_info;
 }
 

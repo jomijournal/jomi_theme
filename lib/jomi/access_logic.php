@@ -289,18 +289,28 @@ function load_user_info() {
 	// attempt to query geoip database
 	try {
 	    $record = $reader->city($ip);
+
 	    $country = array (
 	    	'iso' => $record->country->isoCode,
 	    	'name' => $record->country->name
 	    );
+	    // apply debug if present
+	    $country['name'] = (empty($_GET['testcountry'])) ? $country['name'] : $_GET['testcountry'];
+
 		$region = array (
 			'iso' => $record->mostSpecificSubdivision->isoCode,
 			'name' => $record->mostSpecificSubdivision->name
 		);
+		// apply debug if present
+		$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];
+
 		$continent = array (
 			'iso' => $record->continent->code,
 			'name' => $record->continent->name
 		);
+		// apply debug if present
+		$continent['name'] = (empty($_GET['testcontinent'])) ? $continent['name'] : $_GET['testcontinent'];
+
 		$city = $record->city->name;
 	} catch (Exception $e) {
 		// if can't find, default to Boston, MA, US
@@ -333,12 +343,9 @@ function load_user_info() {
 		'city' => $city
 	);
 
-	// apply url debugs if they exist
+	// apply other misc url debugs if present
 	$user_info['logged_in']  = (empty($_GET['testloggedin']))   ? $user_info['logged_in']  : $_GET['testloggedin'];
 	$user_info['subscribed'] = (empty($_GET['testsubscribed'])) ? $user_info['subscribed'] : $_GET['subscribed'];
-	$user_info['country']    = (empty($_GET['testcountry']))    ? $user_info['country']    : $_GET['testcountry'];
-	$user_info['region']     = (empty($_GET['testregion']))     ? $user_info['region']     : $_GET['testregion'];
-	$user_info['continent']  = (empty($_GET['testcontinent']))  ? $user_info['continent']  : $_GET['testcontinent'];
 
 	return $user_info;
 }
@@ -536,6 +543,9 @@ function check_access() {
   global $access_blocks;
 
   global $access_debug;
+  // if not admin, then don't display at all
+  global $is_user_admin;
+  if(!$is_user_admin) $access_debug = false;
 
   $selector_meta = extract_selector_meta(get_the_ID());
   if($access_debug) echo '<pre>';

@@ -161,6 +161,21 @@ unset($file, $filepath);
 remove_filter('the_content', 'wpautop');
 remove_filter('the_excerpt', 'wpautop');
 
+/**
+ * check if user is admin so we can do a bunch of wack stuff without polluting the main site
+ * @return [type] [description]
+ */
+function check_user_admin() {
+  global $is_user_admin;
+  global $current_user;
+  if(in_array('administrator', $current_user->roles)) {
+    $is_user_admin = true;
+  } else {
+    $is_user_admin = false;
+  }
+}
+add_action('init', 'check_user_admin');
+
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 

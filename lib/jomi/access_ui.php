@@ -193,10 +193,6 @@ function global_rulebook(){
     <span class="switch-handle"></span>
   </label>
 
-  <b>DEBUG IP</b>
-  <input id="debug_ip" type="text">
-  <input id="debug_ip_submit" type="submit">
-
   <br>
 
   <div id="select_container">
@@ -223,16 +219,6 @@ function global_rulebook(){
 			function(response) {
 			});
 		});
-		$('#debug_ip').val('<?php echo get_option("access_debug_ip"); ?>');
-		$('#debug_ip_submit').on('click', function() {
-			$.post(MyAjax.ajaxurl, {
-				action: 'ajax-update-option',
-				option_name: 'access_debug_ip',
-				option_val: $('#debug_ip').val()
-			}, 
-			function(response) {
-			})
-		})
 		$('#results').on('click', 'a#access_add_rule', function() {
 			var row = $(this).parent().parent().parent();
 			update(row, {

@@ -143,12 +143,15 @@
         history.pushState( null, null, $(this).attr('href') );
       });
 
-      // show a simple article container if the article is a fundamental video
-      if($('article').hasClass('category-fundamentals')) {
+      // show a simple article container if there's no procedure outline
+      //if($('article').hasClass('category-fundamentals')) {
+      if(<?php echo (empty(get_field('outline'))) ? "true" : "false"; ?>) {
         $('#content-simple').html($('#content-article div.tab-pane#main #the-content').html()).show();
         $('#content-article').hide();
         $('ul.nav-tabs').hide();
       }
+
+
 
       // generate anchors for all h4s in outline (because toc plugin doesn't work for ACF fields)
       $('#outline h4').each(function(index) {

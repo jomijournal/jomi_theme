@@ -265,9 +265,10 @@
         if(closable) blocked = true;
 
         var function_name = msg;
-
-       $('.access-block').show();
-       wistiaEmbed.pause();
+        
+        wistiaEmbed.pause();
+        $('.access-block').show();
+        wistiaEmbed.pause();
 
        if (document.cancelFullScreen) {
           document.cancelFullScreen();

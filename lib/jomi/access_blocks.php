@@ -20,11 +20,12 @@ function block_deny() {
 	<!-- header -->
 	<div class="row">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
-		<p style="text-align:center;">Please sign in or register to continue</p>
+		<p style="text-align:center;">Please sign in or register to continue viewing this article</p>
+		<p style="text-align:center;">To subscribe (or have us speak to your librarian), please <a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request"><strong>send us an email</strong></a>.</p>
 	</div>
 
 	<div class="row">
-		<div class="col-xs-6" style="border-right: 3px dashed #fff;">
+		<div class="col-xs-6" style="border-right: 3px dashed #fff;text-align:right;">
 			<h3>Sign In</h3>
 			<div id="login-form" class="aligncenter" style="">
 				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
@@ -39,6 +40,7 @@ function block_deny() {
 					</div>
 					<p class="login-remember"><input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked"></p>
 
+					<p>&nbsp;</p>
 					<p class="login-submit">
 						<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
 						<input type="hidden" name="redirect_to" value="/">
@@ -48,10 +50,6 @@ function block_deny() {
 					</p-->
 					
 				</form>
-				<br>
-				<div class="social-box">
-					<?php do_action('oa_social_login'); ?>
-				</div>
 			</div>
 		</div>
 		<div class="col-xs-6">
@@ -78,6 +76,11 @@ function block_deny() {
 				</form>
 			</div>
         </div>
+
+	</div>
+	<br>
+	<div class="social-box">
+		<?php do_action('oa_social_login'); ?>
 	</div>
 </div>
 <script>

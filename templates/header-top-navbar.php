@@ -75,7 +75,8 @@ get_currentuserinfo();
 					</div>
 				</li>
 				<li class="logout-dropdown">
-					<a id="logout-btn" href="#">Logout</a>
+					<!--a id="logout-btn" href="#">Logout</a-->
+					<?php wp_loginout($_SERVER['REQUEST_URI']); ?>
 				</li>
 				<!--li class="dropdown logout-dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-btn" href="#"><?php echo get_avatar($current_user->ID,24); ?> <?php echo $current_user->user_login; ?></a>
@@ -119,6 +120,9 @@ get_currentuserinfo();
 
 	/* SIGNUP & LOGIN */
 	$(function() {
+
+
+
 		$('.login-submit #submit').on('click', function(e) {
 			e.preventDefault();
 
@@ -153,6 +157,7 @@ get_currentuserinfo();
 					$('.login-dropdown').hide();
 					$('.login-dropdown').dropdown('toggle');
 					$('.logout-dropdown').show();
+					$('.logout-dropdown a').text("Logout");
 					//$('#logout-btn').show();
 				} else {
 					$('#error').text("Incorrect username or password");
@@ -160,6 +165,9 @@ get_currentuserinfo();
 				}
 			});
 		});
+		$('.logout-dropdown a').on('click', function() {
+
+		})
 		$('#logout-btn').on('click', function() {
 
 			//$('#greyout,#signal').show();
@@ -172,11 +180,12 @@ get_currentuserinfo();
 				$('.login-dropdown').show();
 				$('.logout-dropdown').hide();
 			});
-
 		});
 
-		$('.login-dropdown').show();
 		$('.logout-dropdown').show();
+		$('.logout-dropdown a').text("Logout");
+		$('.login-dropdown').show();
+
 		//$('#logout-btn').show();
 		<?php if(is_user_logged_in()) { ?>
 			$('.login-dropdown').hide();

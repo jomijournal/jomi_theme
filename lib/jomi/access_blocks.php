@@ -21,7 +21,6 @@ function block_deny() {
 	<div class="row">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
 		<p style="text-align:center;">Please sign in or register to continue</p>
-		<p style="text-align:center;">If you have just registered with jomi.com, please check your email to verify your account, then log in.</p>
 	</div>
 
 	<div class="row">
@@ -35,10 +34,10 @@ function block_deny() {
 						<input type="text" name="log" id="user_login" class="input" value="" size="20"></label>
 					</div>
 					<div class="login-password">
-						<label for="user_pass">Password<br>
+						<label for="user_pass">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)<br>
 						<input type="password" name="pwd" id="user_pass" class="input" value="" size="20"></label>
 					</div>
-					<p class="login-remember"><label class="active"><input name="rememberme" type="checkbox" id="rememberme" value="forever" checked="checked">Remember Me</label></p>
+					<p class="login-remember"><input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked"></p>
 
 					<p class="login-submit">
 						<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
@@ -49,6 +48,7 @@ function block_deny() {
 					</p-->
 					
 				</form>
+				<br>
 				<div class="social-box">
 					<?php do_action('oa_social_login'); ?>
 				</div>

@@ -92,8 +92,10 @@
             <?php echo get_field('meta'); ?>
             <!-- separating into a div for easier jquery grabbing-->
             <div id="the-content"><?php the_content(); ?></div>
-            <h3>Citations</h3>
-            <?php echo get_field('citations'); ?>
+            <?php if(!empty(get_field('citations'))) { ?>
+              <h3>Citations</h3>
+              <?php echo get_field('citations'); ?>
+            <?php } ?>
           </div>
 
           <div class="tab-pane" id="outline">

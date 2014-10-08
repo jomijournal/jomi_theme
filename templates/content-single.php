@@ -34,7 +34,7 @@
     }
     $chapter_count = count($chapters);
   }
-  
+
   // generate html for chapters
   $chapters_html = "";
 
@@ -264,6 +264,17 @@
        $('.access-block').show();
        wistiaEmbed.pause();
 
+       if (document.cancelFullScreen) {
+          document.cancelFullScreen();
+       } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+       } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+       }
+       // hard block?
+       //$('.video-holder').empty();
+       //wistiaEmbed.remove();
+
        console.log(function_name);
 
        $.post(MyAjax.ajaxurl, {
@@ -273,6 +284,7 @@
         redirectto: $('#url-share-box').attr('value')
        }, 
        function(response) {
+        wistiaEmbed.pause();
         response = response.substring(0, response.length - 1);
         $('.access-block').find('#content').empty().html(response);
        });

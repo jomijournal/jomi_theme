@@ -158,6 +158,9 @@ get_currentuserinfo();
 					$('.login-dropdown').dropdown('toggle');
 					$('.logout-dropdown').show();
 					$('.logout-dropdown a').text("Logout");
+					var redirect_link = $('.logout-dropdown a').attr('href');
+					redirect_link = "<?php echo wp_logout_url($_SERVER['REQUEST_URI']); ?>";
+					$('.logout-dropdown a').attr('href', redirect_link);
 					//$('#logout-btn').show();
 				} else {
 					$('#error').text("Incorrect username or password");

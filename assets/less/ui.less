@@ -3,88 +3,88 @@
 *:focus {outline: none;}
 
 input[type=text], input[type=password], input[type=email], textarea{
-   border: 2px #ddd solid;
-   font-size: 16px;
-   border-radius: 5px;
-   color: #111;
-   padding: 5px 8px;
-   &.error{
-      border-color: #CE0000;
-   }
-   &.border{
-      //ie8 fallback
-      background: #333;
+	border: 2px #ddd solid;
+	font-size: 16px;
+	border-radius: 5px;
+	color: #111;
+	padding: 5px 8px;
+	&.error{
+		border-color: #CE0000;
+	}
+	&.border{
+		//ie8 fallback
+		background: #333;
 
-      background:rgba(255,255,255,0.2);
-      border-radius: 25px;
-      border: 2px solid #fff;
-      background: transparent;
-      padding: 4px 35px;
-      color: #fff;
-      opacity:0.8;
-      &:hover{
-        //ie8 fallback
-        background: #333;
+		background:rgba(255,255,255,0.2);
+		border-radius: 25px;
+		border: 2px solid #fff;
+		background: transparent;
+		padding: 4px 35px;
+		color: #fff;
+		opacity:0.8;
+		&:hover{
+		  //ie8 fallback
+		  background: #333;
 
-        background:rgba(255,255,255,0.2);
-      }
-   }
+		  background:rgba(255,255,255,0.2);
+		}
+	}
 }
 
 .wpcf7 input[type=text], .wpcf7 input[type=password], .wpcf7 input[type=email]{
-   width:70%;
+	width:70%;
 }
 .wpcf7 textarea{
-   width:100%;
+	width:100%;
 }
 
 .btn {
-   display: inline-block;
-   padding: 4px 10px 4px;
-   margin-bottom: 0; // For input.btn
-   font-size: 16px;
-   font-weight: 700;
-   color: #333;
-   text-align: center;
-   vertical-align: middle;
-   border: 1px solid #ccc;
-   border: 2px solid darken(#eee, 20%);
-   border-radius: 25px;
-   cursor: pointer;
-   background: #DDD;
+	display: inline-block;
+	padding: 4px 10px 4px;
+	margin-bottom: 0; // For input.btn
+	font-size: 16px;
+	font-weight: 700;
+	color: #333;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #ccc;
+	border: 2px solid darken(#eee, 20%);
+	border-radius: 25px;
+	cursor: pointer;
+	background: #DDD;
   &.border{
-    border: 2px #ddd solid;
-    background: transparent;
-    color: #999;
-    text-shadow: none;
-    &:hover{
-      color: #555;
-      background-color: #f8f8f8;
-    }
+	 border: 2px #ddd solid;
+	 background: transparent;
+	 color: #999;
+	 text-shadow: none;
+	 &:hover{
+		color: #555;
+		background-color: #f8f8f8;
+	 }
   }
   &.white{
-    border: 2px #ddd solid;
-    background: #fff;
-    color: #999;
-    text-shadow: none;
-    &:hover{
-      color: #555;
-      background-color: #f8f8f8;
-    }
+	 border: 2px #ddd solid;
+	 background: #fff;
+	 color: #999;
+	 text-shadow: none;
+	 &:hover{
+		color: #555;
+		background-color: #f8f8f8;
+	 }
   }
 }
 .btn-submit {
-   background: #fff;
-   color: #888;
-   font-weight: 500;
-   border: 2px solid #ddd;
-   border-radius: 25px;
-   width: 100px;
-   &:hover {
-      background: #eee;
-      border-color: #aaa;
-      color: #555;
-   }
+	background: #fff;
+	color: #888;
+	font-weight: 500;
+	border: 2px solid #ddd;
+	border-radius: 25px;
+	width: 100px;
+	&:hover {
+		background: #eee;
+		border-color: #aaa;
+		color: #555;
+	}
 }
 
 // Large
@@ -295,73 +295,73 @@ input[type=text], input[type=password], input[type=email], textarea{
 // stolen from codepen
 .signal {
   display: none;
-    border:3px solid #fff;
-    border-radius:30px;
-    height:30px;
-    left:50%;
-    margin:-15px 0 0 -15px;
-    opacity:0;
-    position:absolute;
-    top:50%;
-    width:30px;
-    z-index: 10;
+	 border:3px solid #fff;
+	 border-radius:30px;
+	 height:30px;
+	 left:50%;
+	 margin:-15px 0 0 -15px;
+	 opacity:0;
+	 position:absolute;
+	 top:50%;
+	 width:30px;
+	 z-index: 10;
  
-    animation: pulsate 1s ease-out;
-    -webkit-animation: pulsate 1s ease-out;
-    animation-iteration-count:infinite;
-    -webkit-animation-iteration-count:infinite;
+	 animation: pulsate 1s ease-out;
+	 -webkit-animation: pulsate 1s ease-out;
+	 animation-iteration-count:infinite;
+	 -webkit-animation-iteration-count:infinite;
 }
 @-webkit-keyframes pulsate {
-    0% {
-      transform:scale(.1);
-      opacity: 0.0;
-    }
-    50% {
-      opacity:1;
-    }
-    100% {
-      transform:scale(1.2);
-      opacity:0;
-    }
+	 0% {
+		transform:scale(.1);
+		opacity: 0.0;
+	 }
+	 50% {
+		opacity:1;
+	 }
+	 100% {
+		transform:scale(1.2);
+		opacity:0;
+	 }
 }
 @keyframes pulsate {
-    0% {
-      transform:scale(.1);
-      opacity: 0.0;
-    }
-    50% {
-      opacity:1;
-    }
-    100% {
-      transform:scale(1.2);
-      opacity:0;
-    }
+	 0% {
+		transform:scale(.1);
+		opacity: 0.0;
+	 }
+	 50% {
+		opacity:1;
+	 }
+	 100% {
+		transform:scale(1.2);
+		opacity:0;
+	 }
 }
 
 
 /* ---------------------------------------- 
-    BrowserBlast by @markgdyr
-    markgoodyear.com
+	 BrowserBlast by @markgdyr
+	 markgoodyear.com
 ---------------------------------------- */
 #browserblast {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    border-bottom: 2px solid #D4C790;
+	 position: fixed;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 40px;
+	 border-bottom: 2px solid #D4C790;
   font-family: sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 40px;
-    color: #6d6647;
-    text-align: center;
-    background: #FAF4AF;
+	 font-size: 12px;
+	 font-weight: bold;
+	 line-height: 40px;
+	 color: #6d6647;
+	 text-align: center;
+	 background: #FAF4AF;
 }
-    #browserblast a {
-        color: green;
-        text-decoration: underline;
-    }
+	 #browserblast a {
+		  color: green;
+		  text-decoration: underline;
+	 }
 
 /*  
 To prevent the banner overlapping content
@@ -370,7 +370,7 @@ so you can push it down. The margin should be
 total hight of the banner (height + border).
 */
 .unsupported-browser {
-    margin-top: 42px;
+	 margin-top: 42px;
 }
 
 /**
@@ -378,18 +378,18 @@ total hight of the banner (height + border).
  */
 /* Image style */
 #scrollUp {
-    background-image: url("../img/icons/up.png");
-    bottom: 20px;
-    right: 20px;
-    width: 38px;    /* Width of image */
-    height: 38px;   /* Height of image */
-    color: rgba(0, 0, 0, 0);
+	 background-image: url("../img/icons/up.png");
+	 bottom: 20px;
+	 right: 20px;
+	 width: 38px;    /* Width of image */
+	 height: 38px;   /* Height of image */
+	 color: rgba(0, 0, 0, 0);
 
-    transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    &:hover{
-      opacity: 0.6;
-    }
+	 transition: all 0.3s ease-in-out;
+	 -webkit-transition: all 0.3s ease-in-out;
+	 &:hover{
+		opacity: 0.6;
+	 }
 }
 
 
@@ -399,26 +399,26 @@ total hight of the banner (height + border).
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
-   input[type=text], textarea{
-      &.border{
-         width: 175px;
-      }
-   }
+	input[type=text], textarea{
+		&.border{
+			width: 175px;
+		}
+	}
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
-   input[type=text], textarea{
-      &.border{
-         width: auto;
-         padding: 4px 35px;
-      }
-   }
+	input[type=text], textarea{
+		&.border{
+			width: auto;
+			padding: 4px 35px;
+		}
+	}
 }
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
-   input[type=text], textarea{
-      &.border{
-         padding: 4px 45px;
-      }
-   }
+	input[type=text], textarea{
+		&.border{
+			padding: 4px 45px;
+		}
+	}
 }

@@ -75,8 +75,8 @@ get_currentuserinfo();
 					</div>
 				</li>
 				<li class="logout-dropdown">
-					<!--a id="logout-btn" href="#">Logout</a-->
-					<?php wp_loginout($_SERVER['REQUEST_URI']); ?>
+					<a id="logout-btn" href="#">Logout</a>
+					<?php //wp_loginout($_SERVER['REQUEST_URI']); ?>
 				</li>
 				<!--li class="dropdown logout-dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-btn" href="#"><?php echo get_avatar($current_user->ID,24); ?> <?php echo $current_user->user_login; ?></a>

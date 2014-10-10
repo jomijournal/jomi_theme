@@ -2,11 +2,11 @@
 	<div class="footer">
 		<div class="container">
 		    <div class="row">
-	            <div class="col-sm-5">
+	            <div class="col-sm-5 col-xs-12">
 	            <a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a>
 	            <h5>ISSN: 2373-6003</h5>
 	            </div>
-	            <div class="col-sm-2">
+	            <div class="col-sm-2 col-xs-6">
 		            <h3>About</h3>
 		            <ul class="about-list">
 		            	<li><a href="/about/">About JoMI</a></li>
@@ -15,7 +15,7 @@
 		            	<li><a href="/pricing/">Pricing</a></li>
 		            </ul>
 	            </div>
-	            <div class="col-sm-3">
+	            <div class="col-sm-3 col-xs-6">
 	            	<h3>Contact</h3>
 	            	<a class="contact-us" href="/contact/">Contact Us</a>
 	            	<br>
@@ -28,7 +28,7 @@
 	                <br>
 	                <br>
 	            </div>
-		    	<div class="col-sm-2">
+		    	<div class="col-sm-2 col-xs-12">
 		    		<h3>Connect</h3>
 	                <ul class="social-icons">
 	                    <li>

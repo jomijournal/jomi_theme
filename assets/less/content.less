@@ -3,6 +3,10 @@
 
 //.subscribers .wrap, .about .wrap, .contact .wrap, .notifications .wrap, .pricing .wrap, body.video .wrap, .planned .wrap, .index .wrap{
 .page div.container.wrap{
+	main.main{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
 	background: @jomi-light;
 	color: @jomi-dark;
 	padding: 0px 0px;
@@ -34,6 +38,16 @@
 	background-color: #eee;
 }
 
+//* CONTACT PAGE
+.page.contact {
+	ul.nav.nav-tabs{
+		li a{
+			font-size: 10px;
+			padding: 3px 5px;
+		}
+	}
+}
+
 //* ARTICLE INDEX PAGE
 .index .wrap {
 	a{
@@ -50,7 +64,21 @@
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 	.page div.container.wrap{
+		main.main{
+			padding-left: 15px;
+			padding-right: 15px;
+		}
 		padding: 0px 25px;
+	}
+
+	//* CONTACT PAGE
+	.page.contact {
+		ul.nav.nav-tabs{
+			li a{
+				font-size: 14px;
+				padding: 8px 12px;
+			}
+		}
 	}
 
 }

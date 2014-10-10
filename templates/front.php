@@ -6,8 +6,8 @@
 		<div class="partners">
 			<h3>JoMI is used at prestigious medical schools and hospitals around the world:</h3>
 			<div class="logos">
-				<img src='/wp-content/themes/jomi/assets/img/clients/logo-ucsf.png'></img>
-				<img src='/wp-content/themes/jomi/assets/img/clients/logo-mgh.png'></img>
+				<img src='/wp-content/themes/jomi/assets/img/clients/logo-ucsf.png'>
+				<img src='/wp-content/themes/jomi/assets/img/clients/logo-mgh.png'>
 			</div>
 			<a class="mini-link" href='/subscribers/'>See all subscribers →</a>
 		</div>

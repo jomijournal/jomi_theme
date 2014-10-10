@@ -37,7 +37,9 @@
 			display: block;
 			width: 100%;
 			img{
+				padding: 5px 10px;
 				margin: 0 auto;
+				width: 100%;
 			}
 			p{
 				color: #666;
@@ -53,6 +55,16 @@
 					color: #888;
 					background: #d8d8d8;
 				}   
+			}
+		}
+		&.large{
+			div.col-sm-3.col-xs-6{
+				&:nth-child(odd){
+					padding-right: 5px;
+				}
+				&:nth-child(even) {
+					padding-left: 5px;
+				}
 			}
 		}
 		&.small{
@@ -102,6 +114,14 @@
 			&.large{
 				margin-top: 15px;
 				margin-bottom: 15px;
+				div.col-sm-3.col-xs-6{
+					&:nth-child(odd){
+						padding-right: 15px;
+					}
+					&:nth-child(even) {
+						padding-left: 15px;
+					}
+				}
 				img{
 
 				}

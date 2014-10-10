@@ -1,6 +1,7 @@
 //* FRONTPAGE
 
-.home{
+body.home{
+
    .background{
       position: fixed;
       top: 0;
@@ -21,48 +22,56 @@
       height: 10000px;
       float: left;
    }
-   .taglines{
-      max-width:750px;
-      margin: 0 35px;
-      text-shadow: 0px 0px 5px @jomi-grey;
-      h1{
-         font-size:22px;
-         margin-top: 15px;
-         white-space: pre-line; //wrap on line breaks
-      }
-      h2{
-         font-size:16px;
-         margin-bottom:15px;
-         opacity:0.9;
-      }
-      h3{
-         font-size:14px;
-         opacity:0.7;
-      }
-      .mini-link{
-         font-size: 14px;
-         color: @jomi-grey;
-         color: @jomi-grey-transparent;
-         &:hover{
-            color: @jomi-light;
-         }
-      }
-      .partners{
-         margin-top:25px;
-         h3{
-         }
-         .logos{
-            margin:10px 0;
-            opacity:0.8;
-         }
-      }
-      img{
-         width: 75%;
-         margin-right: 10px;
-         margin-top: 5px;
-         opacity: 0.75;
-      }
 
+   main.main{
+
+      padding-left: 0px;
+      padding-right: 0px;
+
+      
+      .taglines{
+         max-width:750px;
+         margin: 0 15px;
+         text-shadow: 0px 0px 5px @jomi-grey;
+         h1{
+            font-size:22px;
+            margin-top: 15px;
+            white-space: pre-line; //wrap on line breaks
+         }
+         h2{
+            font-size:16px;
+            margin-bottom:15px;
+            opacity:0.9;
+         }
+         h3{
+            font-size:14px;
+            opacity:0.7;
+         }
+         .mini-link{
+            font-size: 14px;
+            color: @jomi-grey;
+            color: @jomi-grey-transparent;
+            &:hover{
+               color: @jomi-light;
+            }
+         }
+         .partners{
+            margin-top:25px;
+            h3{
+            }
+            .logos{
+               margin:10px 0;
+               opacity:0.8;
+            }
+         }
+         img{
+            width: 75%;
+            margin-right: 10px;
+            margin-top: 5px;
+            opacity: 0.75;
+         }
+
+      }
    }
 }
 
@@ -70,29 +79,32 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
-   .home{
-      .taglines{
-         margin:0 !important;
-         h1{
-            font-size:36px;
-            margin-top: 15px;
-            white-space: pre-line; //wrap on line breaks
+   body.home{
+      main.main{
+
+         padding-left: 15px;
+         padding-right: 15px;
+
+         .taglines{
+            margin:0 !important;
+            h1{
+               font-size:36px;
+               margin-top: 15px;
+               white-space: pre-line; //wrap on line breaks
+            }
+            h2{
+               font-size:22px;
+               margin-bottom:35px;
+               opacity:0.9;
+            }
+            h3{
+               font-size:16px;
+               opacity:0.7;
+            }
+            .partners{
+               margin-top:55px;
+            }
          }
-         h2{
-            font-size:22px;
-            margin-bottom:35px;
-            opacity:0.9;
-         }
-         h3{
-            font-size:16px;
-            opacity:0.7;
-         }
-         .partners{
-            margin-top:55px;
-         }
-      }
-      .taglines h1 br{
-         //display: none;
       }
    }
 }

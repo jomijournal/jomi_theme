@@ -4,19 +4,17 @@ Template Name: Articles
 */
 ?>
 
-<div class='article-container'>
-
 <?php
 
 $type = 'article';
 $args=array(
   'post_type' => $type,
   'posts_per_page' => -1,
-  'caller_get_posts'=> 1
 );
-$my_query = new WP_Query($args);
+//$my_query = new WP_Query($args);
+query_posts($args);
 
-if (!$my_query->have_posts()) : ?>
+if (!have_posts()) : ?>
   <div class="alert alert-warning">
     <?php _e('Sorry, no results were found.', 'roots'); ?>
   </div>
@@ -33,12 +31,12 @@ $status_order = array(
 );
 
 foreach($status_order as $status) {
-  while ($my_query->have_posts()) : $my_query->the_post(); 
+  while (have_posts()) : the_post(); 
      if(in_array(get_post_status(), $exclude)) continue;
      if($status != get_post_status()) continue;
      get_template_part('templates/content', get_post_format()); 
   endwhile; 
-  $my_query->rewind_posts();
+  rewind_posts();
 }
 
 ?>
@@ -52,5 +50,3 @@ foreach($status_order as $status) {
     </ul>
   </nav>
 <?php endif; ?>
-
-</div>

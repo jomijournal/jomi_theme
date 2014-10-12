@@ -97,6 +97,22 @@
 			}
 		}
 		div.notable-articles{
+			p{
+				margin-bottom: 5px;
+			}
+			.col-xs-4{
+				padding-left: 5px;
+				padding-right: 5px;
+				&:first-child{
+					padding-left: 15px;
+					padding-right: 5px;
+				}
+				&:last-child{
+					padding-left: 5px;
+					padding-right: 15px;
+				}
+
+			}
 			br{
 				display: none;
 			}
@@ -110,16 +126,16 @@
 					figcaption{
 						line-height: 1.1;
 						font-size: 12px;
-						color: #ccc;
-						background: #333;
+						background: #e8e8e8;
+						color: #333;
 						padding: 2px 6px;
 						text-decoration: none;
 					}
 				}
 				&:hover{
 					figure figcaption {
-						background: #666;
-						color: #fff;
+						color: #666;
+						background: #eee;
 					}
 				}
 			}

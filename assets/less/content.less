@@ -96,7 +96,40 @@
 				}
 			}
 		}
+		div.notable-articles{
+			br{
+				display: none;
+			}
+			a{
+				text-decoration: none;
+				figure{
+					img{
+						display: block;
+						width: 100%;
+					}
+					figcaption{
+						line-height: 1.1;
+						font-size: 12px;
+						color: #ccc;
+						background: #333;
+						padding: 2px 6px;
+						text-decoration: none;
+					}
+				}
+				&:hover{
+					figure figcaption {
+						background: #666;
+						color: #fff;
+					}
+				}
+			}
+			
+		}
 		div.logos{
+			.col-xs-4{
+				height: 100px;
+				overflow: hidden;
+			}
 			img{
 				width: 100%;
 				display: block;

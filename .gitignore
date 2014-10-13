@@ -24,5 +24,3 @@ vendor/*
 # assets/img/vid_poster.jpg
 
 api_keys.json
-
-composer.lock

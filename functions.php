@@ -158,8 +158,8 @@ foreach($includes as $file){
 unset($file, $filepath);
 
 // get rid of stupid wpautop
-//remove_filter('the_content', 'wpautop');
-//remove_filter('the_excerpt', 'wpautop');
+remove_filter('the_content', 'wpautop');
+remove_filter('the_excerpt', 'wpautop');
 
 /**
  * check if user is admin so we can do a bunch of wack stuff without polluting the main site

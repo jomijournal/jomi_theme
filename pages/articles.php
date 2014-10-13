@@ -48,3 +48,5 @@ foreach($status_order as $status) {
     </ul>
   </nav>
 <?php endif; ?>
+
+<?php wp_reset_query(); ?>

@@ -336,11 +336,11 @@ function load_user_info() {
 	} elseif ($logged_in === "false" || $logged_in === "0") {
 		$logged_in = false;
 	}
-	$is_subscribed = (empty($_GET['testsubscribed'])) ? $is_subscribed : $_GET['subscribed'];
+	$is_subscribed = (empty($_GET['testsubscribed'])) ? $is_subscribed : $_GET['testsubscribed'];
 	// correct for strings passed in by get
-	if($is_subscribed === "true" || $is_subscribed === "1") {
+	if($is_subscribed == "true" || $is_subscribed == "1") {
 		$is_subscribed = true;
-	} elseif ($is_subscribed === "false" || $is_subscribed === "0") {
+	} elseif ($is_subscribed == "false" || $is_subscribed == "0") {
 		$is_subscribed = false;
 	}
 

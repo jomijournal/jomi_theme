@@ -256,7 +256,8 @@ function block_free_trial_thanks() {
 </div>
 <script>
 $(function() {
-	$('#close-free-trial').on('click', function() {
+	$('#close-free-trial').on('click', function(e) {
+		e.preventDefault();
 		$('#access_block').hide();
 		wistiaEmbed.play();
 	});

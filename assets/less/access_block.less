@@ -15,18 +15,32 @@
 	background: @jomi-darker-grey;
 	//background: @jomi-darker-grey-transparent;
 	background: rgba(0, 0, 0, 0.75);
+	font-size: 0.85em;
 
 	color: @jomi-light;
 
 	background-image: url('./../img/diagonal_tile_red.png');
+
+	h1{
+		font-size: 28px;
+	}
+	h2{
+
+	}
+	h3{
+		margin-top: 0px;
+		margin-bottom: 5px;
+	}
+
 	.container{
 		padding: 0 15px;
 	}
 	.social-box{
-	   max-height: 40px;
-	   overflow: hidden;
-	   width: 156px;
-	   margin: 0 auto;
+		margin-top: -15px;
+		max-height: 40px;
+		overflow: hidden;
+		width: 156px;
+		margin: 0 auto;
 	}
 	.container.sign-up{
 		h1{
@@ -34,6 +48,10 @@
 		}
 		p{
 			margin: 0;
+		}
+		.col-xs-6{
+			//padding-left: 5px;
+			//padding-right: 5px;
 		}
 		#block-error{
 			display: none;
@@ -121,12 +139,19 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
+	.access-block{
+		font-size: 0.9em;
+	}
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-
+	.access-block{
+		font-size: 1em;
+		h1{
+			font-size: 36px;
+		}
+	}
 }
 /* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 }

@@ -32,11 +32,11 @@ function block_deny() {
 					<p class="error" id="block-error"></p>
 					<div class="login-username">
 						<label for="user_login">Username/Email<br>
-						<input type="text" name="log" id="user_login" class="input" value="" size="20"></label>
+						<input type="text" name="log" id="user_login" class="input" value="" size="15"></label>
 					</div>
 					<div class="login-password">
 						<label for="user_pass">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)<br>
-						<input type="password" name="pwd" id="user_pass" class="input" value="" size="20"></label>
+						<input type="password" name="pwd" id="user_pass" class="input" value="" size="15"></label>
 					</div>
 					<p class="login-remember"><input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked"></p>
 

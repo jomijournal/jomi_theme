@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <div class="col-sm-8">
+  <div class="col-sm-8 col-xs-12">
     <article <?php post_class(); ?>>
       <?php $wistia = get_field('wistia_id'); ?>
 
@@ -118,7 +118,7 @@
       <?php comments_template(); ?>
     </article>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-4 col-xs-12">
     <?php require_once('sidebar-article.php'); ?>
   </div>
 

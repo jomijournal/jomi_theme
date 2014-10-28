@@ -324,7 +324,8 @@
         var total = seconds + (minutes * 60) + (hours * 3600);
 
         // for some reason wistia likes to scrub 5 seconds ahead when using the time() function
-        if (total > 5) total -= 5;
+        // edit: looks like wistia fixed it, leaving code in just in case
+        //if (total > 5) total -= 5;
 
         // skip to that time
         if(total > 0) {

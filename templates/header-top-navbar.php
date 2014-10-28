@@ -121,8 +121,6 @@ get_currentuserinfo();
 	/* SIGNUP & LOGIN */
 	$(function() {
 
-
-
 		$('.login-submit #submit').on('click', function(e) {
 			login(e);
 		});

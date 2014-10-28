@@ -3,16 +3,17 @@
 		<div class="container">
 		    <div class="row">
 	            <div class="col-sm-5 col-xs-12">
-	            <a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a>
+	            <a href="<?php site_url('/'); ?>"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a>
 	            <h5>ISSN: 2373-6003</h5>
 	            </div>
 	            <div class="col-sm-2 col-xs-6">
 		            <h3>About</h3>
 		            <ul class="about-list">
-		            	<li><a href="/about/">About JoMI</a></li>
+		            	<li><a href="<?php echo site_url('/about/'); ?>">About JoMI</a></li>
+		            	<li><a href="<?php echo site_url('/index/'); ?>">Article Index</a></li>
 		            	<li><a target="_blank" href="blog.jomi.com">JoMI Blog</a></li>
 		            	<li><a target="_blank" href="http://eepurl.com/GL-7L">Newsletter</a></li>
-		            	<li><a href="/pricing/">Pricing</a></li>
+		            	<li><a href="<?php echo site_url('/pricing/'); ?>">Pricing</a></li>
 		            </ul>
 	            </div>
 	            <div class="col-sm-3 col-xs-6">

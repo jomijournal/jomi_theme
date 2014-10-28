@@ -163,23 +163,13 @@ get_currentuserinfo();
 					$('.login-dropdown').dropdown('toggle');
 					
 					$('.logout-dropdown').show();
-					//$('.logout-dropdown a').text("Logout");
-
-					//var redirect_link = $('.logout-dropdown a').attr('href');
-					//redirect_link = "<?php echo wp_logout_url($_SERVER['REQUEST_URI']); ?>";
-
-					//$('.logout-dropdown a').attr('href', redirect_link);
-					$('a#logout-btn').show();
+					//$('a#logout-btn').show();
 					
 				} else {
 					$('#error').text("Incorrect username or password");
 					$('#error').show();
 				}
 			});
-		});
-
-		$('.logout-dropdown a').on('click', function() {
-
 		});
 
 		// logout ajax
@@ -190,10 +180,13 @@ get_currentuserinfo();
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-logout'
 			}, function(response) {
-				$('#greyout,#signal').hide();
+				//$('#greyout,#signal').hide();
 
-				$('.login-dropdown').show();
-				$('.logout-dropdown').hide();
+				//$('.login-dropdown').show();
+				//$('.logout-dropdown').hide();
+
+				//refresh page
+				window.location.reload();
 			});
 		});
 

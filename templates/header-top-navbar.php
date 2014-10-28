@@ -126,6 +126,7 @@ get_currentuserinfo();
 		$('.login-submit #submit').on('click', function(e) {
 			e.preventDefault();
 
+			// input idiotproofing
 			var login = $('input[name="log"]').val();
 			if(login === '') {
 				//console.log('no username specified');
@@ -141,36 +142,47 @@ get_currentuserinfo();
 				return;
 			}
 
+			// visual indicator
 			$('#greyout,#signal').show();
 
+			// login ajax
 			$.post(MyAjax.ajaxurl, {
 				action: 'ajax-login',
 				username: login,
 				password: pass,
 				remember: true
 			}, function(response) {
+
 				response = response.substr(0, response.length - 1);
 				console.log(response);
 				$('#greyout,#signal').hide();
 
 				if(response == "success") {
+
 					$('.login-dropdown').hide();
 					$('.login-dropdown').dropdown('toggle');
+					
 					$('.logout-dropdown').show();
-					$('.logout-dropdown a').text("Logout");
-					var redirect_link = $('.logout-dropdown a').attr('href');
-					redirect_link = "<?php echo wp_logout_url($_SERVER['REQUEST_URI']); ?>";
-					$('.logout-dropdown a').attr('href', redirect_link);
-					//$('#logout-btn').show();
+					//$('.logout-dropdown a').text("Logout");
+
+					//var redirect_link = $('.logout-dropdown a').attr('href');
+					//redirect_link = "<?php echo wp_logout_url($_SERVER['REQUEST_URI']); ?>";
+
+					//$('.logout-dropdown a').attr('href', redirect_link);
+					$('a#logout-btn').show();
+					
 				} else {
 					$('#error').text("Incorrect username or password");
 					$('#error').show();
 				}
 			});
 		});
+
 		$('.logout-dropdown a').on('click', function() {
 
-		})
+		});
+
+		// logout ajax
 		$('#logout-btn').on('click', function() {
 
 			//$('#greyout,#signal').show();

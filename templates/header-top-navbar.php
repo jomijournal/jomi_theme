@@ -124,70 +124,16 @@ get_currentuserinfo();
 
 
 		$('.login-submit #submit').on('click', function(e) {
-			e.preventDefault();
-
-			// input idiotproofing
-			var login = $('input[name="log"]').val();
-			if(login === '') {
-				//console.log('no username specified');
-				$('#error').text("ERROR: No username entered");
-				$('#error').show();
-				return;
+			login(e);
+		});
+		$('#user_login,#user_pass').keydown(function(event){
+			if(event.which == 13) { //enter
+				login(event);
 			}
-			var pass = $('input[name="pwd"]').val();
-			if(pass === '') {
-				//console.log('no password specified');
-				$('#error').text("ERROR: No password entered");
-				$('#error').show();
-				return;
-			}
-
-			// visual indicator
-			$('#greyout,#signal').show();
-
-			// login ajax
-			$.post(MyAjax.ajaxurl, {
-				action: 'ajax-login',
-				username: login,
-				password: pass,
-				remember: true
-			}, function(response) {
-
-				response = response.substr(0, response.length - 1);
-				console.log(response);
-				$('#greyout,#signal').hide();
-
-				if(response == "success") {
-
-					$('.login-dropdown').hide();
-					$('.login-dropdown').dropdown('toggle');
-					
-					$('.logout-dropdown').show();
-					//$('a#logout-btn').show();
-					
-				} else {
-					$('#error').text("Incorrect username or password");
-					$('#error').show();
-				}
-			});
 		});
 
-		// logout ajax
-		$('#logout-btn').on('click', function() {
-
-			//$('#greyout,#signal').show();
-
-			$.post(MyAjax.ajaxurl, {
-				action: 'ajax-logout'
-			}, function(response) {
-				//$('#greyout,#signal').hide();
-
-				//$('.login-dropdown').show();
-				//$('.logout-dropdown').hide();
-
-				//refresh page
-				window.location.reload();
-			});
+		$('#logout-btn').on('click', function(e) {
+			logout(e)
 		});
 
 		$('.logout-dropdown').show();
@@ -217,8 +163,7 @@ get_currentuserinfo();
 		$('#search-field').attr('value','<?php echo get_search_query(); ?>');
 		<?php } ?>
 		$('#search-field').keydown(function(event){
-			if(event.which == 13)
-			{
+			if(event.which == 13) { //enter
 				event.preventDefault();
 				window.location.href = "/?s="+$(this).val();
 			}
@@ -227,5 +172,72 @@ get_currentuserinfo();
 			window.location.href = "/?s="+$('#search-field').val();
 		});
 	});
+
+	//ajax login
+	function login(e) {
+		e.preventDefault();
+
+		// input idiotproofing
+		var login = $('input[name="log"]').val();
+		if(login === '') {
+			//console.log('no username specified');
+			$('#error').text("ERROR: No username entered");
+			$('#error').show();
+			return;
+		}
+		var pass = $('input[name="pwd"]').val();
+		if(pass === '') {
+			//console.log('no password specified');
+			$('#error').text("ERROR: No password entered");
+			$('#error').show();
+			return;
+		}
+
+		// visual indicator
+		$('#greyout,#signal').show();
+
+		// login ajax
+		$.post(MyAjax.ajaxurl, {
+			action: 'ajax-login',
+			username: login,
+			password: pass,
+			remember: true
+		}, function(response) {
+
+			response = response.substr(0, response.length - 1);
+			console.log(response);
+			$('#greyout,#signal').hide();
+
+			if(response == "success") {
+
+				$('.login-dropdown').hide();
+				$('.login-dropdown').dropdown('toggle');
+				
+				$('.logout-dropdown').show();
+				//$('a#logout-btn').show();
+				
+			} else {
+				$('#error').text("Incorrect username or password");
+				$('#error').show();
+			}
+		});
+	}
+
+	//ajax logout
+	function logout(e) {
+		//$('#greyout,#signal').show();
+
+		$.post(MyAjax.ajaxurl, {
+			action: 'ajax-logout'
+		}, function(response) {
+			//$('#greyout,#signal').hide();
+
+			//$('.login-dropdown').show();
+			//$('.logout-dropdown').hide();
+
+			//refresh page
+			window.location.reload();
+		});
+	}
 
 </script>

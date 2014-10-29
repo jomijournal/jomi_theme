@@ -34,6 +34,37 @@ function sortable_columns() {
 
 add_filter( "manage_edit-article_sortable_columns", "sortable_columns" );
 
+/*
+ * ADMIN COLUMN - SORTING - ORDERBY
+ * http://scribu.net/wordpress/custom-sortable-columns.html#comment-4732
+ */
+add_filter( 'request', 'pub_id_column_orderby' );
+function pub_id_column_orderby( $vars ) {
+  if ( isset( $vars['orderby'] ) && 'publication_id' == $vars['orderby'] ) {
+    $vars = array_merge( $vars, array(
+      'meta_key' => 'publication_id',
+      'orderby' => 'meta_value_num'
+      //'orderby' => 'meta_value'
+      //'order' => 'asc' // don't use this; blocks toggle UI
+    ) );
+  }
+  return $vars;
+}
+
+add_filter( 'request', 'prod_id_column_orderby' );
+function prod_id_column_orderby( $vars ) {
+  if ( isset( $vars['orderby'] ) && 'production_id' == $vars['orderby'] ) {
+    $vars = array_merge( $vars, array(
+      'meta_key' => 'production_id',
+      'orderby' => 'meta_value_num'
+      //'orderby' => 'meta_value'
+      //'order' => 'asc' // don't use this; blocks toggle UI
+    ) );
+  }
+  return $vars;
+}
+
+
 // Delete columns:
 // tags (useless)
 // all stuff added by yoast SEO

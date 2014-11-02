@@ -62,7 +62,7 @@ function jomi_login_footer(){
 
     console.log("redirect link: ' . $_POST['redirect_to'] . '");
 
-    //$("#registerform input[name=' . "'redirect_to'" . ']").attr("value","'.site_url('/login?checkemail=registered').'");
+    $("#registerform input[name=' . "'redirect_to'" . ']").attr("value","'.site_url('/login?checkemail=registered').'");
   });
   </script>
   ';

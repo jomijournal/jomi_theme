@@ -80,7 +80,7 @@ function inst_table_install() {
 		date_start  date NOT NULL,
 		date_end    date NOT NULL,
 		type        VARCHAR(20) NOT NULL,
-		amount      float NOT NULL
+		amount      FLOAT NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_contact_sql = "CREATE TABLE $inst_contact_table_name (

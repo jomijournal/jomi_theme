@@ -76,6 +76,7 @@ function inst_table_install() {
 	$inst_order_sql = "CREATE TABLE $inst_order_table_name (
 		id          mediumint(9) NOT NULL AUTO_INCREMENT,
 		inst_id     int NOT NULL,
+		user_id     int NOT NULL,
 		location_id int NOT NULL,
 		date_start  date NOT NULL,
 		date_end    date NOT NULL,

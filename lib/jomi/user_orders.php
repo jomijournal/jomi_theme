@@ -96,7 +96,7 @@ function refresh_user_order_list() {
 		action: 'user-order-update',
 		user_id: '<?php echo $user->ID; ?>'
 	}, function(response) {
-		console.log(response);
+		//console.log(response);
 		jQuery('#user-orders').html(response);
 	});
 }

@@ -18,7 +18,7 @@ function list_db_add_dashboard_widgets() {
    'list_db_dashboard_widget_function' // Display function.
   );  
 }
-add_action( 'wp_dashboard_setup', 'list_db_add_dashboard_widgets' );
+#add_action( 'wp_dashboard_setup', 'list_db_add_dashboard_widgets' );
 
 function switch_db_add_dashboard_widgets() {
   wp_add_dashboard_widget(
@@ -27,7 +27,7 @@ function switch_db_add_dashboard_widgets() {
    'switch_db_dashboard_widget_function' // Display function.
   );  
 }
-add_action( 'wp_dashboard_setup', 'switch_db_add_dashboard_widgets' );
+#add_action( 'wp_dashboard_setup', 'switch_db_add_dashboard_widgets' );
 
 /**
  * Create the function to output the contents of our Dashboard Widget.

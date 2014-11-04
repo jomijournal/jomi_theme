@@ -213,7 +213,7 @@ add_action('init', 'register_referel');
 function mrefer_add($message){
 
   if ($message[to][0][email]=='dev@jomi.com'){
-    $refer_strip=str_replace('http:/', '', $_COOKIE['refer_cookie']);
+    $refer_strip=str_replace('http', '', $_COOKIE['refer_cookie']);
     $message[html]=$message[html].$refer_strip;
     return $message;
   }

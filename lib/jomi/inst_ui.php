@@ -210,6 +210,7 @@ $(function() {
 		// don't need inst_id (for now)
 		var inst_id = 0;
 		var location_id = table.attr('location-id');
+		var user_id = -1;
 
 		var date = new Date();
 		var date_start = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
@@ -222,6 +223,7 @@ $(function() {
 			action: 'insert-inst-order',
 			inst_id: inst_id,
 			location_id: location_id,
+			user_id: user_id,
 			date_start: date_start,
 			date_end: date_end,
 			type: type,
@@ -238,6 +240,7 @@ $(function() {
 		// dont need inst id for now
 		var inst_id = 0;
 		var location_id = table.attr('location-id');
+		var user_id = -1;
 
 		var date_start = table.find('#inst-order-date-start').val();
 		var date_end = table.find('#inst-order-date-end').val();
@@ -250,6 +253,7 @@ $(function() {
 			id: id,
 			inst_id: inst_id,
 			location_id: location_id,
+			user_id: user_id,
 			date_start: date_start,
 			date_end: date_end,
 			type: type,

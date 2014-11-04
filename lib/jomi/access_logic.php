@@ -173,6 +173,11 @@ function load_user_info() {
     	$logged_in = true;
     }
 
+
+    /*****
+	* INSTITUTION SNATCHING
+    *****/
+
     // grab and filter user ip
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
@@ -286,7 +291,39 @@ function load_user_info() {
 		);
 	}
 
-	// attempt to query geoip database
+	/****
+	* USER ORDER SNATCHIN
+	****/
+	global $wpdb;
+	global $inst_order_table_name;
+
+	$user_id = $user['id'];
+	$order_query = 
+	"SELECT * FROM $inst_order_table_name
+	WHERE user_id=$user_id";
+	$user_orders = $wpdb->get_results($order_query);
+
+	if($access_debug) {
+		echo "User Order History:\n";
+		print_r($user_orders);
+	}
+
+	$cur_time = time();
+	foreach($user_orders as $user_order) {
+		// check if order falls within today's date
+		$fromtime = strtotime($user_order->date_start);
+		$endtime = strtotime($user_order->date_end);
+		if ($cur_time >= $fromtime && $cur_time <= $endtime) {
+
+		    $is_subscribed = true;
+		    break;
+		} 
+	}
+
+
+	/****
+	* GEOIP SNATCHIN
+	****/
 	try {
 	    $record = $reader->city($ip);
 

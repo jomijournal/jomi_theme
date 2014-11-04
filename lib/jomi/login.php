@@ -46,26 +46,26 @@ function jomi_login_footer(){
   echo '<div class="blackbg"></div>';
   
   echo site_url('','relative');
-  echo '
+?>
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>
   $(function(){
-    $("#loginform").attr("action", "' . site_url() . '/login/");
-    $("#registerform").attr("action", "' . site_url() . '/register/");
+    $("#loginform").attr("action", "<?php echo site_url('/login/'); ?>");
+    $("#registerform").attr("action", "<?php echo site_url('/register/');?>");
     $("#login a").first().attr("title","Journal of Medical Insight");
-    $("input[name=' . "'redirect_to'" . ']").attr("value","'. $_POST['redirect_to'] .'");
+    $("input[name=' . "'redirect_to'" . ']").attr("value","<?php echo $_POST['redirect_to']; ?>");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=register'" . ']").attr("href", "'.site_url().'/register");
     $("a[href=' . "'" . site_url() . "/wp-login.php?action=lostpassword'" . ']").attr("href", "'.site_url().'/forgot");
     $("a[href=' . "'" . site_url() . "/wp-login.php'" . ']").attr("href", "'.site_url().'/login");
 
     $("p#backtoblog a").attr("href", "' . $_POST['redirect_to'] . '");
 
-    console.log("redirect link: ' . $_POST['redirect_to'] . '");
+    //console.log("redirect link: ' . $_POST['redirect_to'] . '");
 
     $("#registerform input[name=' . "'redirect_to'" . ']").attr("value","'.site_url('/login?checkemail=registered').'");
   });
   </script>
-  ';
+<?php
 }
 add_action('login_footer', 'jomi_login_footer');
 add_action('register_footer', 'jomi_login_footer');

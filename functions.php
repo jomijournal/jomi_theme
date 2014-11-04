@@ -142,6 +142,7 @@ $jomi_includes = array(
   '/lib/jomi/rewrite.php', // rewrite rules for article
   '/lib/jomi/sidebars.php', // custom sidebars
   '/lib/jomi/relevanssi.php',
+  '/lib/jomi/user_orders.php',
   '/lib/jomi/vid_length.php', // video thumbnail length code
   '/lib/jomi/yoast_seo.php'
 );

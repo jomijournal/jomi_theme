@@ -9,6 +9,9 @@ function add_user_order_table($user) {
 <h1>USER ORDERS</h1>
 
 <div id="user-orders"></div>
+<div id="greyout" class="greyout">
+	<div id="signal" class="signal"></div>
+</div>
 
 <script>
 
@@ -92,10 +95,13 @@ jQuery(function() {
 });
 
 function refresh_user_order_list() {
+	jQuery('#greyout,#signal').show();
+
 	jQuery.post(MyAjax.ajaxurl, {
 		action: 'user-order-update',
 		user_id: '<?php echo $user->ID; ?>'
 	}, function(response) {
+		jQuery('#greyout,#signal').hide();
 		//console.log(response);
 		jQuery('#user-orders').html(response);
 	});

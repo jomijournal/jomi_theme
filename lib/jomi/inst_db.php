@@ -375,6 +375,7 @@ function insert_inst_order() {
 
 	$inst_id = $_POST['inst_id'];
 	$location_id = $_POST['location_id'];
+	$user_id = $_POST['user_id'];
 	$date_start = $_POST['date_start'];
 	$date_end = $_POST['date_end'];
 	$type = $_POST['type'];
@@ -383,6 +384,7 @@ function insert_inst_order() {
 	$push_data = array(
 		'inst_id' => $inst_id,
 		'location_id' => $location_id,
+		'user_id' => $user_id,
 		'date_start' => $date_start,
 		'date_end' => $date_end,
 		'type' => $type,
@@ -411,6 +413,7 @@ function update_inst_order() {
 
 	$inst_id = $_POST['inst_id'];
 	$location_id = $_POST['location_id'];
+	$user_id = $_POST['user_id'];
 	$date_start = $_POST['date_start'];
 	$date_end = $_POST['date_end'];
 	$type = $_POST['type'];
@@ -419,6 +422,7 @@ function update_inst_order() {
 	$push_data = array(
 		'inst_id' => $inst_id,
 		'location_id' => $location_id,
+		'user_id' => $user_id,
 		'date_start' => $date_start,
 		'date_end' => $date_end,
 		'type' => $type,
@@ -429,7 +433,7 @@ function update_inst_order() {
  		$inst_order_table_name,
  		$push_data,
  		array('ID' => $id),
- 		array('%d', '%d', '%s', '%s', '%s', '%f'),
+ 		array('%d', '%d', '%d', '%s', '%s', '%s', '%f'),
  		array('%d')
  	);
 

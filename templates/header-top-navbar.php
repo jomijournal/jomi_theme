@@ -76,7 +76,6 @@ get_currentuserinfo();
 				</li>
 				<li class="logout-dropdown">
 					<a id="logout-btn" href="#">Logout</a>
-					<?php //wp_loginout($_SERVER['REQUEST_URI']); ?>
 				</li>
 				<!--li class="dropdown logout-dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-btn" href="#"><?php echo get_avatar($current_user->ID,24); ?> <?php echo $current_user->user_login; ?></a>
@@ -87,11 +86,10 @@ get_currentuserinfo();
 				</li-->
 			</ul>
 			<ul class="nav navbar-nav">
-				<!---li><a href='/login/' class=" active <?php 			if( is_user_logged_in() ) echo " hidden"; else echo " visible-xs"; ?>">Sign in</a></li-->
-				<li><a href="/about/" class="<?php 			if( is_page( 'about') ) echo " active"; ?>"      >About</a></li>
-				<li><a href="http://blog.jomi.com" class="" target="_blank"                                  >Blog</a></li>
-				<li><a href='/subscribers/' class="<?php 	if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
-				<li><a href="/articles/" class="<?php 			if( is_page( 'articles') ) echo " active"; ?>">Articles</a></li>
+				<li><a href="<?php echo site_url('/about/'); ?>"       class="<?php if( is_page( 'about') ) echo " active"; ?>"      >About    </a></li>
+				<li><a href="http://blog.jomi.com"                     class=""  target="_blank"                                     >Blog     </a></li>
+				<li><a href="<?php echo site_url('/subscribers/'); ?>" class="<?php if( is_page( 'subscribers') ) echo " active"; ?>">Subscribe</a></li>
+				<li><a href="<?php echo site_url('/articles/'); ?>"    class="<?php if( is_page( 'articles') ) echo " active"; ?>"   >Articles </a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->

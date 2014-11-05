@@ -44,6 +44,10 @@ $(function() {
 	refresh();
 
 	// institution list jquery
+	/**
+	 * if an institution is clicked, load the location info for that institution
+	 * @return {[type]} [description]
+	 */
 	$('#inst-list').on('click', 'td#input, td#insert', function() {
 		if($(this).attr('id') == 'insert') return;
 		// reset previous active element
@@ -58,6 +62,11 @@ $(function() {
 			.val($(this).find('input#inst-name').attr('placeholder'));
 		refresh_location($(this).attr('inst-id'));
 	});
+
+	/**
+	 * update institution
+	 * @return {[type]} [description]
+	 */
 	$('#inst-list').on('click', 'td a#update_inst', function() {
 		$('#greyout,#signal').show();
 		$.post(MyAjax.ajaxurl, {
@@ -70,6 +79,10 @@ $(function() {
 			refresh();
 		});
 	});
+	/**
+	 * delete institution
+	 * @return {[type]} [description]
+	 */
 	$('#inst-list').on('click', 'td a#delete_inst', function() {
 
 		if(confirm("are you sure?")) {
@@ -84,6 +97,10 @@ $(function() {
 			});
 		}
 	});
+	/**
+	 * insert institution
+	 * @return {[type]} [description]
+	 */
 	$('#inst-list').on('click', 'td a#insert-inst-submit', function() {
 		$('#greyout,#signal').show();
 		$.post(MyAjax.ajaxurl, {
@@ -97,6 +114,10 @@ $(function() {
 	});
 
 	// location list jquery
+	/**
+	 * insert institution location
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-location-add', function() {
 		var row = $(this).parent().parent();
 		var inst_id = row.find('#inst-add-location-inst-id').val();
@@ -110,6 +131,10 @@ $(function() {
 			refresh_location(inst_id);
 		})
 	});
+	/**
+	 * update institution location
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-location-update', function() {
 		var row = $(this).parent().parent();
 
@@ -138,6 +163,10 @@ $(function() {
 			refresh_location(inst_id);
 		});
 	});
+	/**
+	 * delete institution location
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-location-delete', function() {
 		var row = $(this).parent().parent();
 
@@ -155,6 +184,10 @@ $(function() {
 	});
 
 	// ip list jquery
+	/**
+	 * insert location ip
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-ip-add-submit', function() {
 		var row = $(this).parent().parent();
 
@@ -171,6 +204,11 @@ $(function() {
 			refresh_ip_list(location_id);
 		});
 	});
+
+	/**
+	 * update location ip
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-ip-update', function() {
 		var row = $(this).parent().parent();
 
@@ -189,6 +227,11 @@ $(function() {
 			refresh_ip_list(location_id);
 		})
 	});
+
+	/**
+	 * delete location ip
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-ip-delete', function() {
 		var row = $(this).parent().parent();
 
@@ -206,8 +249,12 @@ $(function() {
 	});
 
 	//institution order jquery
+	/**
+	 * insert location order
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-order-insert', function(){
-		var table = $(this).parent().parent().parent().parent();
+		var table = $(this).parent().parent();
 
 		// don't need inst_id (for now)
 		var inst_id = 0;
@@ -234,6 +281,11 @@ $(function() {
 			refresh_order_list(location_id);
 		});
 	});
+
+	/**
+	 * update location order
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-order-update', function() {
 		var table = $(this).parent().parent().parent().parent();
 
@@ -264,6 +316,11 @@ $(function() {
 			refresh_order_list(location_id);
 		});
 	});
+
+	/**
+	 * delete location order
+	 * @return {[type]} [description]
+	 */
 	$('#inst-location-list').on('click', '#inst-order-delete', function() {
 		var table = $(this).parent().parent().parent().parent();
 
@@ -281,6 +338,10 @@ $(function() {
 });
 
 // refreshing functions
+/**
+ * refresh list of institutions
+ * @return {[type]} [description]
+ */
 function refresh() {
 	$('#greyout,#signal').show();
 	$.post(MyAjax.ajaxurl,{
@@ -294,6 +355,12 @@ function refresh() {
 	refresh_location();
 
 }
+
+/**
+ * refresh list of locations
+ * @param  {[type]} id [description]
+ * @return {[type]}    [description]
+ */
 function refresh_location(id) {
 	$('#greyout,#signal').show();
 	$.post(MyAjax.ajaxurl, {
@@ -305,6 +372,12 @@ function refresh_location(id) {
 		$('#inst-location-list').html(response);
 	});
 }
+
+/**
+ * refresh list of location ips
+ * @param  {[type]} location_id [description]
+ * @return {[type]}             [description]
+ */
 function refresh_ip_list(location_id) {
 	$('#greyout,#signal').show();
 	$.post(MyAjax.ajaxurl, {
@@ -316,6 +389,12 @@ function refresh_ip_list(location_id) {
 		$('#inst-ip-list[location-id="' + location_id + '"]').html(response);
 	});
 }
+
+/**
+ * refresh list of location orders
+ * @param  {[type]} location_id [description]
+ * @return {[type]}             [description]
+ */
 function refresh_order_list(location_id) {
 	$('#greyout,#signal').show();
 	$.post(MyAjax.ajaxurl, {
@@ -440,7 +519,7 @@ foreach($locations as $location) {
 		<input id="inst-add-location-inst-id" type="hidden" value="<?php echo $id; ?>">
 	</td>
 	<td>
-		<a id="inst-location-add">add</a>
+		<a href="#" id="inst-location-add">add location</a>
 	</td>
 </tr>
 <?php
@@ -515,11 +594,7 @@ function inst_order_update($location_id) {
 
 ?>
 <table id="inst-order-list" class="inst-order-list" location-id="<?php echo $location_id; ?>">
-<tr>
-	<td>
-		<a id="inst-order-insert">add</a>
-	</td>
-</tr>
+<a id="inst-order-insert">add order</a>
 <?php
 
 global $wpdb;
@@ -551,14 +626,9 @@ foreach($orders as $order) {
 	<td>
 		<a id="inst-order-update">update</a> | 
 		<a id="inst-order-delete">delete</a>
-	</td>
-</tr>
-<tr>
-	<!-- hidden stuff -->
-	<td>
+		<!-- hidden stuff -->
 		<input id="inst-order-id" type="hidden" value="<?php echo $order->id; ?>">
 	</td>
-	<td><br></td>
 </tr>
 <?php 
 }

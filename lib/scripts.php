@@ -21,11 +21,11 @@ function roots_scripts() {
     $css_hash = json_decode($contents)->csspath->hash;
     $js_hash = json_decode($contents)->jspath->hash;
 
-    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css?v=' . $css_hash, false, false);
-    wp_enqueue_style('coin-css', get_template_directory_uri() . '/assets/vendor/coindonationwidget.com/coin.css', false, false);
+    wp_enqueue_style('roots_main', site_url('/wp-content/themes/jomi/assets/css/main.min.css?v=') . $css_hash, false, false);
+    wp_enqueue_style('coin-css', site_url('/wp-content/themes/jomi/assets/vendor/coindonationwidget.com/coin.css'), false, false);
     wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', false, false);
     
-    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js?v=' . $js_hash, array(), null, false);
+    wp_register_script('roots_scripts', site_url('/wp-content/themes/jomi/assets/js/scripts.min.js?v=') . $js_hash, array(), null, false);
 
   #wp_enqueue_style('roots_main', get_theme_directory_uri() . '/assets/css/main.min.css', false, false);
   #wp_register_script('roots_scripts', get_theme_directory_uri() . '/assets/js/scripts.min.js', array(), null, false);

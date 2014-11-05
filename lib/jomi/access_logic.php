@@ -89,6 +89,37 @@ function extract_institution_meta() {
 	global $user_ip_long;
 	$user_ip_long = $ip_long;
 
+	//check current ip with cached session ip. if matching, then get institution data from cache and return
+	if(empty($_SESSION['ip']) || empty($_SESSION['ip_long'])) {
+
+	} elseif($ip == $_SESSION['ip'] || $ip_long == $_SESSION['ip_long']) {
+		if(!empty($_SESSION['inst']) 
+			&& !empty($_SESSION['inst_ip']) 
+			&& !empty($_SESSION['location']) 
+			&& !empty($_SESSION['order']) 
+			&& !empty($_SESSION['is_subscribed'])) {
+
+			global $user_inst;
+			$user_inst = array(
+				  'inst'          => $_SESSION['inst']
+				, 'ip'            => $_SESSION['inst_ip']
+				, 'location'      => $_SESSION['location']
+				, 'order'         => $_SESSION['order']
+				, 'is_subscribed' => $_SESSION['is_subscribed']
+			);
+
+			if($access_debug) {
+				echo "Loading institutions from cache...\n";
+				print_r($user_inst);
+			}
+
+			return;
+		}
+	} else {
+		reset_session();
+	}
+
+
 	//load institution database globals
 	global $wpdb;
 	global $inst_ip_table_name;
@@ -211,8 +242,15 @@ function extract_institution_meta() {
 			'is_subscribed' => $is_subscribed
 		);
 
-		// set php session to fetch from later. IP <-> institution relationship is pretty inelastic, so the cookies should be the go-to method of getting institutional data
-		
+		// set php session data, if changed
+		if(empty($_SESSION['inst']))          $_SESSION['inst']          = $user_inst['inst'];
+		if(empty($_SESSION['inst_ip']))       $_SESSION['inst_ip']       = $user_inst['ip'];
+		if(empty($_SESSION['location']))      $_SESSION['location']      = $user_inst['location'];
+		if(empty($_SESSION['order']))         $_SESSION['order']         = $user_inst['order'];
+		if(empty($_SESSION['is_subscribed'])) $_SESSION['is_subscribed'] = $user_inst['is_subscribed'];
+
+		if(empty($_SESSION['ip']))      $_SESSION['ip']      = $ip;
+		if(empty($_SESSION['ip_long'])) $_SESSION['ip_long'] = $ip_long;
 
 	}
 }

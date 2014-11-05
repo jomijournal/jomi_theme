@@ -181,10 +181,10 @@ function start_php_session() {
 	session_start();
 
 	$curtime = time();
-	$expiretime = $_SESSION['expiretime']
+	$expiretime = $_SESSION['expiretime'];
 
 	// if 10 days later, or not set, clear all session vars
-	if(empty($lastmodified) || $curtime >= $expiretime) {
+	if(empty($expiretime) || $curtime >= $expiretime) {
 		reset_session();
 	}
 }

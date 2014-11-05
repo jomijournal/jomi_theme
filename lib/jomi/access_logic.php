@@ -15,6 +15,7 @@ $access_debug = ($access_debug === "true") ? true : false;
 
 /**
  * get useful article meta to help comb through article access rules
+ * this is executed during "the loop", so getting any other meta not included here should be straightforward
  * @param  [int] $id article id
  * @return [array] (category, id, status, author)
  */
@@ -22,25 +23,33 @@ function extract_selector_meta($id) {
 
 	// TODO: match up against defaults?
 	
+	// get publication id from the ACF field
 	$publication_id = get_field('publication_id');
 
+	// get all applicable categories
 	$categories = get_the_category($id);
 	$cat_ids = array();
 	$cat_slugs = array();
 	$cat_names = array();
 	foreach($categories as $category) {
-		//$category = ($category == '') ? '' : $category;
+		// extract ids, slugs, and names
 		array_push($cat_ids, $category->cat_ID);
 		array_push($cat_slugs, $category->slug);
 		array_push($cat_names, $category->name);
 	}
-	$status = (get_post_status($id) == false) ? '' : get_post_status($id);
+
+	// if post status doesn't exist, set to draft
+	$status = (get_post_status($id) == false) ? 'draft' : get_post_status($id);
+
+	// get all applicable coauthors
 	$coauthors = get_coauthors($id);
 	$coauth_out = array();
 	foreach($coauthors as $coauthor) {
+		// extract coauthor names
 		array_push($coauth_out, $coauthor->ID);
 	}
 
+	// package all extracted meta
 	$selector_meta = array(
 		'id' => $id,
 		'pub_id' => $publication_id,
@@ -50,140 +59,23 @@ function extract_selector_meta($id) {
 		'status' => $status,
 		'author' => $coauth_out,
 	);
+	// send it out
 	return $selector_meta;
 }
 /**
  * use the user IP to get institution meta
  * can probably cache the result of this in the future
- * not useful yet
  * @return [int] institution ID (corresponds with row ID in the DB)
  */
 function extract_institution_meta() {
-	$ip = $_SERVER['REMOTE_ADDR'];
 
-	// TODO: query institution table and get the institution rules
-	
-	$out = array(
-		// institution ID
-		'id' => 0
-	);
-	return $out;
-}
-/**
- * collect, sort, and concatenate the rules applying to this article
- * @param  [array] $selector_meta    selector meta object grabbed from extract_selector_meta
- * @param  [array] $institution_meta institution meta object grabbed from extract_institution_meta
- * @return [type]                   [description]
- */
-function collect_rules($selector_meta, $institution_meta) {
-
-  global $wpdb;
-  global $access_table_name;
-
-  // init conditional
-  $where_conditional = "(selector_type, selector_value) IN (";
-
-  // all
-  $where_conditional .= "('all', ''),";
-  // categories
-  $cat_ids = $selector_meta['cat_ids'];
-  //$cat_slugs = $selector_meta['cat_slugs'];
-  //$cat_names = $selector_meta['cat_names'];
-  foreach($cat_ids as $index => $cat_id) {
-  	$where_conditional .= "('category', $cat_id),";
-  	//$cat_slug = $cat_slugs[$index];
-  	//$where_conditional .= "('category', $cat_slug),";
-  	//$cat_name = $cat_names[$index];
-  	//$where_conditional .= "('category', $cat_name),";
-  }
-  // article id
-  $id = $selector_meta['id'];
-  $where_conditional .= "('article_id', $id),";
-  // publication id
-  $pub_id = $selector_meta['pub_id'];
-  $where_conditional .= "('pub_id', $pub_id),";
-  // status
-  $status = $selector_meta['status'];
-  $where_conditional .= "('post_status', '$status'),";
-  // authors
-  $authors = $selector_meta['author'];
-  foreach($authors as $author) {
-  	$where_conditional .= "('author', $author),";
-  }
-  // TODO: add institution meta cond. here:
-
-  // cap it off
-  $where_conditional .= "('-1','-1'))";
-
-  $rules_query = "SELECT * 
-                  FROM $access_table_name 
-                  WHERE $where_conditional 
-                  ORDER BY priority DESC";
-
-  $rules = $wpdb->get_results($rules_query);
-
-  return $rules;
-}
-
-function load_user_info() {
-	global $wpdb;
 	global $access_debug;
-	global $reader;
-	
-	// grab user data
-	$current_user = wp_get_current_user();
-    if ( ($current_user instanceof WP_User) ) {
-    	$user = array(
-    		'login' => $current_user->user_login,
-    		'email' => $current_user->user_email,
-    		'display_name' => $current_user->display_name,
-    		'id' => $current_user->ID
-    	);
-    } else {
-    	$user = array(
-    		'login' => 'none',
-    		'email' => 'none',
-    		'display_name' => 'none',
-    		'id' => 'none'
-    	);
-    }
 
-    if(is_user_logged_in()){
-    	$logged_in = true;
-    } else {
-    	$logged_in = false;
-    }
-     
-    // grab debug users if available
-    // will also set logged in to true, so it won't trip the idiotproofing in the logic that follows
-    if(!empty($_GET['testlogin'])) {
-    	$user['login'] = $_GET['testlogin'];
-    	$logged_in = true;
-    }
-    if(!empty($_GET['testemail'])) {
-    	$user['email'] = $_GET['testemail'];
-    	$logged_in = true;
-    }
-    if(!empty($_GET['testdisplayname'])) {
-    	$user['display_name'] = $_GET['testdisplayname'];
-    	$logged_in = true;
-    }
-    if(!empty($_GET['testuserid'])) {
-    	$user['id'] = $_GET['testuserid'];
-    	$logged_in = true;
-    }
-
-
-    /*****
-	* INSTITUTION SNATCHING
-    *****/
-
-    // grab and filter user ip
+	// grab and filter user ip
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
 	// use debug ips if available
-	// TODO: this NEEDS to be more secure
 	if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
 	if(!empty($_GET['testip'])) $ip = $_GET['testip'];
 
@@ -191,18 +83,27 @@ function load_user_info() {
 	$ip_long = sprintf("%u", ip2long($ip));
 	if($access_debug) echo 'Current IP:' . $ip_long . "\n";
 
-	//begin institution querying
+	// set global ip flags
+	global $user_ip;
+	$user_ip = $ip;
+	global $user_ip_long;
+	$user_ip_long = $ip_long;
 
+	//load institution database globals
+	global $wpdb;
 	global $inst_ip_table_name;
 	global $inst_location_table_name;
 	global $inst_order_table_name;
 	global $inst_table_name;
 
-	// get matching ips
+	//** LOAD MATCHING IPS
+
+	// query database for user's IP
 	$ip_query = "SELECT * FROM $inst_ip_table_name 
 	WHERE $ip_long BETWEEN start AND end";
 	$inst_ips = $wpdb->get_results($ip_query);
-	// get first result
+
+	// only use the first result
 	$inst_ip = $inst_ips[0];
 
 	if($access_debug) {
@@ -210,70 +111,89 @@ function load_user_info() {
 		print_r($inst_ip);
 	}
 
-	// load up matching institutions
+	//** LOAD INSTITUTION LOCATIONS
+
 	$inst_locations = array();
 	if(empty($inst_ips)) {
-		//$is_subscribed = false;
+		// no ips matched
 	} else { 
-		//$is_subscribed = true;
-		//foreach($inst_ips as $inst_ip) {
-			$location_id = $inst_ip->location_id;
-			$location_query = 
-			"SELECT * FROM $inst_location_table_name
-			WHERE id=$location_id";
-			$inst_locations = array_merge($inst_locations, $wpdb->get_results($location_query));
-			$inst_location = $inst_locations[0];
-		//}
+
+		// load location id from matched ip entry
+		$location_id = $inst_ip->location_id;
+
+		// query DB for location
+		$location_query = 
+		"SELECT * FROM $inst_location_table_name
+		WHERE id=$location_id";
+		$inst_locations = $wpdb->get_results($location_query);
+
+		//only use first location result. the query should only produce one entry anyways
+		$inst_location = $inst_locations[0];
+
 		if($access_debug) {
 			echo "Institution Location Data:\n";
 			print_r($inst_location);
 		}
 	}
 
-	// load up matching orders
+	//** LOAD MATCHING ORDER ENTRIES
+	
 	$inst_orders = array();
 	if(empty($inst_locations)) {
 
 	} else {
-		//foreach($inst_locations as $inst_location) {
-			$location_id = $inst_location->id;
-			$order_query = 
-			"SELECT * FROM $inst_order_table_name
-			WHERE location_id=$location_id";
-			$inst_orders = array_merge($inst_orders, $wpdb->get_results($order_query));
-			$inst_order = $inst_orders[0];
-		//}
+		// load location id
+		$location_id = $inst_location->id;
+
+		// query DB for matching orders
+		$order_query = 
+		"SELECT * FROM $inst_order_table_name
+		WHERE location_id=$location_id";
+		$inst_orders = $wpdb->get_results($order_query);
+
 		if($access_debug) {
 			echo "Institution Order History:\n";
-			print_r($inst_order);
+			print_r($inst_orders);
 		}
 	}
 	
-	// use order to see whether institution is subscribed or not
+	//** CHECK VALIDITY OF ORDER
+	
+	// not subscribed by default. will flip when conditions are met
+	$is_subscribed = false;
+
 	if(empty($inst_orders)) {
-
-		$is_subscribed = false;
+		
 	} else {
-
+		// grab today's date and time
 		$cur_time = time();
-		$is_subscribed = false;
-		//foreach($inst_orders as $inst_order) {
+
+		// loop thru each order. loop will break once a valid order is found
+		foreach($inst_orders as $inst_order) {
+
 			// check if order falls within today's date
 			$fromtime = strtotime($inst_order->date_start);
 			$endtime = strtotime($inst_order->date_end);
 			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
-
-			    $is_subscribed = true;
-			    //break;
+				// order is valid, break loop
+				$is_subscribed = true;
+				break;
 			} 
-		//}
+		}
 	}
 
-	// grab parent institution
+	//** GRAB INSTITUTION OBJECT (structure that groups locations)
+	
 	if(!empty($inst_ip) && !empty($inst_location) && !empty($inst_order)) {
+
+		// grab institution id from location
 		$inst_id = $inst_location->inst_id;
+
+		// query DB for institution
 		$inst_query = "SELECT * FROM $inst_table_name WHERE id=$inst_id";
 		$insts = $wpdb->get_results($inst_query);
+
+		//only need one result
 		$inst = $insts[0];
 
 		if($access_debug) {
@@ -281,6 +201,8 @@ function load_user_info() {
 			print_r($inst);
 		}
 
+		// package data into a global
+		// TODO: cache data into cookies and store it in there for faster fetching later
 		global $user_inst;
 		$user_inst = array(
 			'inst' => $inst,
@@ -290,17 +212,136 @@ function load_user_info() {
 			'is_subscribed' => $is_subscribed
 		);
 	}
+}
 
-	/****
-	* USER ORDER SNATCHIN
-	****/
+
+/**
+ * collect, sort, and concatenate the rules applying to this article
+ * @param  [array] $selector_meta    selector meta object grabbed from extract_selector_meta
+ * @param  [array] $institution_meta institution meta object grabbed from extract_institution_meta
+ * @return [type]                   [description]
+ */
+function collect_rules($selector_meta, $institution_meta) {
+
+	global $wpdb;
+	global $access_table_name;
+
+	//** Build the SQL query that will search for rules in the database, that apply to the current article's creds
+
+	// init conditional
+	$where_conditional = "(selector_type, selector_value) IN (";
+
+	// match automatically if "all" is set
+	$where_conditional .= "('all', ''),";
+
+	// match category IDs
+	$cat_ids = $selector_meta['cat_ids'];
+	foreach($cat_ids as $index => $cat_id) {
+		$where_conditional .= "('category', $cat_id),";
+	}
+
+	// match wordpress post ID
+	$id = $selector_meta['id'];
+	$where_conditional .= "('article_id', $id),";
+
+	// match jomi-set publication ID
+	$pub_id = $selector_meta['pub_id'];
+	$where_conditional .= "('pub_id', $pub_id),";
+
+	// match article post status
+	$status = $selector_meta['status'];
+	$where_conditional .= "('post_status', '$status'),";
+
+	// match author IDs
+	$authors = $selector_meta['author'];
+	foreach($authors as $author) {
+		$where_conditional .= "('author', $author),";
+	}
+
+	// cap it off
+	$where_conditional .= "('-1','-1'))";
+
+	// build query
+	$rules_query ="SELECT * 
+						FROM $access_table_name 
+						WHERE $where_conditional 
+						ORDER BY priority DESC";
+
+	// collect matches and return
+	$rules = $wpdb->get_results($rules_query);
+
+	return $rules;
+}
+
+/**
+ * load user info based on their Wordpress login info
+ * @return [type] [description]
+ */
+function load_user_info() {
+	global $wpdb;
+	global $access_debug;
+	global $reader;
+	
+	// grab user object from wordpress
+	$current_user = wp_get_current_user();
+	if ( ($current_user instanceof WP_User) ) {
+		// package critical info
+		$user = array(
+			'login' => $current_user->user_login,
+			'email' => $current_user->user_email,
+			'display_name' => $current_user->display_name,
+			'id' => $current_user->ID
+		);
+	} else {
+		// package defaults
+		$user = array(
+			'login' => 'none',
+			'email' => 'none',
+			'display_name' => 'none',
+			'id' => 'none'
+		);
+	}
+
+	// set logged_in flag
+	if(is_user_logged_in()){
+		$logged_in = true;
+	} else {
+		$logged_in = false;
+	}
+     
+	// grab debug users if available. these are set individually via GET
+	// will also set logged in to true, so it won't trip the idiotproofing in the logic that follows
+	if(!empty($_GET['testlogin'])) {
+		$user['login'] = $_GET['testlogin'];
+		$logged_in = true;
+	}
+	if(!empty($_GET['testemail'])) {
+		$user['email'] = $_GET['testemail'];
+		$logged_in = true;
+	}
+	if(!empty($_GET['testdisplayname'])) {
+		$user['display_name'] = $_GET['testdisplayname'];
+		$logged_in = true;
+	}
+	if(!empty($_GET['testuserid'])) {
+		$user['id'] = $_GET['testuserid'];
+		$logged_in = true;
+	}
+
+	//** GET PER USER ORDERS
+
 	global $wpdb;
 	global $inst_order_table_name;
 
+	// get user id
 	$user_id = $user['id'];
+
+	// build query
 	$order_query = 
 	"SELECT * FROM $inst_order_table_name
 	WHERE user_id=$user_id";
+
+	// query database for matching orders
 	$user_orders = $wpdb->get_results($order_query);
 
 	if($access_debug) {
@@ -308,41 +349,68 @@ function load_user_info() {
 		print_r($user_orders);
 	}
 
+	// get current time
 	$cur_time = time();
+
+	// cycle through all orders. if an order is valid, break the loop
 	foreach($user_orders as $user_order) {
 		// check if order falls within today's date
 		$fromtime = strtotime($user_order->date_start);
 		$endtime = strtotime($user_order->date_end);
-		if ($cur_time >= $fromtime && $cur_time <= $endtime) {
 
-		    $is_subscribed = true;
-		    break;
-		} 
+		// order is valid. flip is_subscribed flag and break
+		if ($cur_time >= $fromtime && $cur_time <= $endtime) {
+			$is_subscribed = true;
+			break;
+		}
 	}
 
 
 	/****
 	* GEOIP SNATCHIN
 	****/
+
+	// load ip grabbed from extract_institution_meta;
+	global $user_ip;
+	$ip = $user_ip;
+
+	// if global doesn't exist
+	if(empty($ip)) {
+		// grab and filter user ip
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$ip = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+
+		// use debug ips if available
+		if(!empty(get_option('access_debug_ip'))) $ip = get_option('access_debug_ip');
+		if(!empty($_GET['testip'])) $ip = $_GET['testip'];
+	}
+
+	// attempt to query GeoLite IP database
 	try {
-	    $record = $reader->city($ip);
+		// query the database reader
+		$record = $reader->city($ip);
 
-	    $country = array (
-	    	'iso' => $record->country->isoCode,
-	    	'name' => $record->country->name
-	    );
-
-		$region = array (
-			'iso' => $record->mostSpecificSubdivision->isoCode,
-			'name' => $record->mostSpecificSubdivision->name
+		// package country data
+		$country = array (
+			'iso' => $record->country->isoCode,
+			'name' => $record->country->name
 		);
 
+		// package region (state) data
+		$region = array (
+		'iso' => $record->mostSpecificSubdivision->isoCode,
+		'name' => $record->mostSpecificSubdivision->name
+		);
+
+		// package continent data
 		$continent = array (
-			'iso' => $record->continent->code,
-			'name' => $record->continent->name
+		'iso' => $record->continent->code,
+		'name' => $record->continent->name
 		);	
 
+		// package city data
 		$city = $record->city->name;
+
 	} catch (Exception $e) {
 		// if can't find, default to Boston, MA, US
 		$country = array(
@@ -358,14 +426,13 @@ function load_user_info() {
 			'name' => 'North America'
 		);
 		$city = 'Boston';
-	    //return new WP_Error( 'ip_not_found', "I've fallen and can't get up" );
+
 	}
 
-	// apply debug if present
+	// apply various debugs, if they exist
 	$country['name'] = (empty($_GET['testcountry'])) ? $country['name'] : $_GET['testcountry'];
 	$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];
 	$continent['name'] = (empty($_GET['testcontinent'])) ? $continent['name'] : $_GET['testcontinent'];
-
 	$logged_in  = (empty($_GET['testloggedin']))   ? $logged_in  : $_GET['testloggedin'];
 	// correct for strings passed in by get
 	if($logged_in === "true" || $logged_in === "1") {
@@ -373,6 +440,8 @@ function load_user_info() {
 	} elseif ($logged_in === "false" || $logged_in === "0") {
 		$logged_in = false;
 	}
+
+
 	$is_subscribed = (empty($_GET['testsubscribed'])) ? $is_subscribed : $_GET['testsubscribed'];
 	// correct for strings passed in by get
 	if($is_subscribed == "true" || $is_subscribed == "1") {
@@ -381,7 +450,7 @@ function load_user_info() {
 		$is_subscribed = false;
 	}
 
-	// load up user info
+	// package user info
 	$user_info = array(
 		'logged_in' => $logged_in,
 		'subscribed' => $is_subscribed,
@@ -407,6 +476,7 @@ function get_blocks($rules, $user_info) {
 
 	global $access_debug;
 
+	// dont even try if no rules, or user data is present
 	if(empty($rules)) {
 		return;
 	}
@@ -417,7 +487,7 @@ function get_blocks($rules, $user_info) {
 	$blocks = array();
 
 	foreach($rules as $rule) {
-		// check for invalid/empty result first and return if so
+		// check for invalid/empty result first and skip over if so
 		switch($rule->result_type) {
 			case '':
 			case 'None':
@@ -445,6 +515,7 @@ function get_blocks($rules, $user_info) {
 
 		foreach($check_types as $index => $check_type) {
 			switch($check_type) {
+				// IP check
 				case 'is_ip':
 					$ip_check = $user_info['ip'];
 					$ips = explode(',', $check_values[$index]);
@@ -457,6 +528,7 @@ function get_blocks($rules, $user_info) {
 					}
 					break;
 
+				// institution check
 				case 'is_institution':
 					$institution_check = $user_info['institution'];
 					$institutions = explode(',', $check_values[$index]);
@@ -466,6 +538,7 @@ function get_blocks($rules, $user_info) {
 					}
 					break;
 
+				// country check. checks ISO and name (name is case sensitive)
 				case 'is_country':
 					$country_check = $user_info['country'];
 					$countries = explode(",", $check_values[$index]);
@@ -477,6 +550,8 @@ function get_blocks($rules, $user_info) {
 						}
 					}
 					break;
+
+				// region (state) check. checks ISO and name (name is case sensitive)
 				case 'is_region':
 					$region = $user_info['region'];
 					$region_checks = explode(',', $check_values[$index]);
@@ -489,6 +564,8 @@ function get_blocks($rules, $user_info) {
 					}
 
 					break;
+
+				// continent check. checks ISO and name (name is case sensitive)
 				case 'is_continent':
 					$continent = $user_info['continent'];
 					$continent_checks = explode(',', $check_values[$index]);
@@ -501,6 +578,8 @@ function get_blocks($rules, $user_info) {
 					}
 
 					break;
+
+				// checks user. matches against user login (username), email, display name, and ID. if any of these match, user is considered matched.
 				case 'is_user':
 
 					$user_check = $user_info['user'];
@@ -516,6 +595,8 @@ function get_blocks($rules, $user_info) {
 						}
 					}
 					break;
+
+				// checks if user is logged in or not.
 				case 'is_logged_in':
 
 					$logged_in_check = $user_info['logged_in'];
@@ -528,6 +609,8 @@ function get_blocks($rules, $user_info) {
 					}
 
 					break;
+
+				// checks if the user has a per-user subscription, or is part of a subscribing institution
 				case 'is_subscribed':
 					$user_subscribed = $user_info['subscribed'];
 					$check_subscribed = $check_values[$index];
@@ -536,7 +619,10 @@ function get_blocks($rules, $user_info) {
 						$check_count++;
 					}
 
-				break;
+					break;
+
+				// ADD ADDITIONAL CHECKS HERE
+
 				default:
 					echo "invalid check type";
 					break;
@@ -593,28 +679,35 @@ function check_access() {
   global $is_user_admin;
   if(!$is_user_admin) $access_debug = false;
 
+  // load metadata on the current article being viewed
   $selector_meta = extract_selector_meta(get_the_ID());
+
   if($access_debug) echo '<pre>';
+
+  // extract user IP and matching institution (if applicable)
   $institution_meta = extract_institution_meta();
 
-  $all_rules_query = "SELECT * 
-                      FROM $access_table_name";
-  $all_rules = $wpdb->get_results($all_rules_query);
-
+  // get rules from the access database table
   $rules = collect_rules($selector_meta, $institution_meta);
+
   if($access_debug) {
-  	echo "Rules that apply to this article:\n";
+  	echo "Rules to be checked:\n";
   	print_r($rules);
   }
 
+  // load user info, if the user is logged in
   $user_info = load_user_info();
+
   if($access_debug) {
   	echo "User Meta:\n";
   	print_r($user_info);
   }
 
+  // load blocks to be applied
   $access_blocks = array();
+  // filter those blocks with the per-user and institutional info
   $access_blocks = get_blocks($rules, $user_info);
+
   if($access_debug) {
   	echo "Applied Blocks:\n";
   	print_r($access_blocks);

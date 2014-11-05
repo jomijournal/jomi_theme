@@ -27,11 +27,11 @@ function inst_menu(){
 	<div id="signal" class="signal"></div>
 </div>
 <div class="row">
-	<div class="col-md-3 inst-list-col">
+	<div class="col-xs-12 inst-list-col">
 		<table class="inst-list" id="inst-list">
 		</table>
 	</div>
-	<div class="col-md-9 inst-location-list-col">
+	<div class="col-xs-12 inst-location-list-col">
 		<table class="inst-location-list" id="inst-location-list">
 		</table>
 	</div>

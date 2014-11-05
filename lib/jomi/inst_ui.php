@@ -49,6 +49,7 @@ $(function() {
 	 * @return {[type]} [description]
 	 */
 	$('#inst-list').on('click', 'td#input, td#insert', function() {
+
 		if($(this).attr('id') == 'insert') return;
 		// reset previous active element
 		$('#inst-list').find('td.active')
@@ -67,7 +68,9 @@ $(function() {
 	 * update institution
 	 * @return {[type]} [description]
 	 */
-	$('#inst-list').on('click', 'td a#update_inst', function() {
+	$('#inst-list').on('click', 'td a#update_inst', function(e) {
+		e.preventDefault();
+
 		$('#greyout,#signal').show();
 		$.post(MyAjax.ajaxurl, {
 			action: 'update-inst',
@@ -83,7 +86,8 @@ $(function() {
 	 * delete institution
 	 * @return {[type]} [description]
 	 */
-	$('#inst-list').on('click', 'td a#delete_inst', function() {
+	$('#inst-list').on('click', 'td a#delete_inst', function(e) {
+		e.preventDefault();
 
 		if(confirm("are you sure?")) {
 			$('#greyout,#signal').show();
@@ -101,7 +105,9 @@ $(function() {
 	 * insert institution
 	 * @return {[type]} [description]
 	 */
-	$('#inst-list').on('click', 'td a#insert-inst-submit', function() {
+	$('#inst-list').on('click', 'td a#insert-inst-submit', function(e) {
+		e.preventDefault();
+
 		$('#greyout,#signal').show();
 		$.post(MyAjax.ajaxurl, {
 			action: 'insert-inst',
@@ -118,7 +124,9 @@ $(function() {
 	 * insert institution location
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-location-add', function() {
+	$('#inst-location-list').on('click', '#inst-location-add', function(e) {
+		e.preventDefault();
+
 		var row = $(this).parent().parent();
 		var inst_id = row.find('#inst-add-location-inst-id').val();
 		var description = row.find('#inst-add-location-description').val();
@@ -135,7 +143,9 @@ $(function() {
 	 * update institution location
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-location-update', function() {
+	$('#inst-location-list').on('click', '#inst-location-update', function(e) {
+		e.preventDefault();
+
 		var row = $(this).parent().parent();
 
 		var id = row.find('#inst-location-id').val();
@@ -167,7 +177,9 @@ $(function() {
 	 * delete institution location
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-location-delete', function() {
+	$('#inst-location-list').on('click', '#inst-location-delete', function(e) {
+		e.preventDefault();
+
 		var row = $(this).parent().parent();
 
 		var id = row.find('#inst-location-id').val();
@@ -188,7 +200,9 @@ $(function() {
 	 * insert location ip
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-ip-add-submit', function() {
+	$('#inst-location-list').on('click', '#inst-ip-add-submit', function(e) {
+		e.preventDefault();
+
 		var row = $(this).parent().parent();
 
 		var location_id = row.find('#inst-ip-add-location-id').val();
@@ -209,7 +223,9 @@ $(function() {
 	 * update location ip
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-ip-update', function() {
+	$('#inst-location-list').on('click', '#inst-ip-update', function(e) {
+		e.preventDefault();
+
 		var row = $(this).parent().parent();
 
 		var id = row.find('#inst-ip-id').val();
@@ -232,7 +248,9 @@ $(function() {
 	 * delete location ip
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-ip-delete', function() {
+	$('#inst-location-list').on('click', '#inst-ip-delete', function(e) {
+		e.preventDefault();
+
 		var row = $(this).parent().parent();
 
 		var id = row.find('#inst-ip-id').val();
@@ -253,8 +271,10 @@ $(function() {
 	 * insert location order
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-order-insert', function(){
-		var table = $(this).parent().parent();
+	$('#inst-location-list').on('click', '#inst-order-insert', function(e){
+		e.preventDefault();
+
+		var table = $(this).parent().parent().parent().parent();
 
 		// don't need inst_id (for now)
 		var inst_id = 0;
@@ -286,7 +306,9 @@ $(function() {
 	 * update location order
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-order-update', function() {
+	$('#inst-location-list').on('click', '#inst-order-update', function(e) {
+		e.preventDefault();
+
 		var table = $(this).parent().parent().parent().parent();
 
 		var id = table.find('#inst-order-id').val();
@@ -321,7 +343,9 @@ $(function() {
 	 * delete location order
 	 * @return {[type]} [description]
 	 */
-	$('#inst-location-list').on('click', '#inst-order-delete', function() {
+	$('#inst-location-list').on('click', '#inst-order-delete', function(e) {
+		e.preventDefault();
+
 		var table = $(this).parent().parent().parent().parent();
 
 		var id = table.find('#inst-order-id').val();
@@ -504,9 +528,9 @@ foreach($locations as $location) {
 		<?php inst_ip_update($location->id); ?>
 	</td>
 	<td>
-		<a id="inst-location-update">update</a>
+		<a href="#" id="inst-location-update">update</a>
 		<br>
-		<a id="inst-location-delete">delete</a>
+		<a href="#" id="inst-location-delete">delete</a>
 	</td>
 </tr>
 <?php
@@ -548,7 +572,7 @@ if(!empty($_POST['location_id'])) $location_id = $_POST['location_id'];
 		<td><input id="inst-ip-add-start" type="text" placeholder="Start IP Range"></td>
 		<td><input id="inst-ip-add-end" type="text" placeholder="End IP Range"></td>
 		<td>
-			<a id="inst-ip-add-submit">add</a>
+			<a href="#" id="inst-ip-add-submit">add ip</a>
 			<input id="inst-ip-add-location-id" type="hidden" value="<?php echo $location_id; ?>">
 		</td>
 	</tr>
@@ -566,9 +590,9 @@ foreach($ips as $ip) {
 	<td><input id="inst-ip-start" type="text" value="<?php echo long2ip($ip->start); ?>"></td>
 	<td><input id="inst-ip-end" type="text" value="<?php echo long2ip($ip->end); ?>"></td>
 	<td>
-		<a id="inst-ip-update">update</a>
+		<a href="#" id="inst-ip-update">update</a>
 		<br>
-		<a id="inst-ip-delete">delete</a>
+		<a href="#" id="inst-ip-delete">delete</a>
 
 		<input id="inst-ip-id" type="hidden" value="<?php echo $ip->id; ?>">
 		<input id="inst-ip-location-id" type="hidden" value="<?php echo $location_id; ?>">
@@ -594,7 +618,11 @@ function inst_order_update($location_id) {
 
 ?>
 <table id="inst-order-list" class="inst-order-list" location-id="<?php echo $location_id; ?>">
-<a id="inst-order-insert">add order</a>
+<tr>
+	<td>
+		<a href="#" id="inst-order-insert">add order</a>
+	</td>
+</tr>
 <?php
 
 global $wpdb;
@@ -624,8 +652,8 @@ foreach($orders as $order) {
 <tr>
 	<th>Actions</th>
 	<td>
-		<a id="inst-order-update">update</a> | 
-		<a id="inst-order-delete">delete</a>
+		<a href="#" id="inst-order-update">update</a> | 
+		<a href="#" id="inst-order-delete">delete</a>
 		<!-- hidden stuff -->
 		<input id="inst-order-id" type="hidden" value="<?php echo $order->id; ?>">
 	</td>

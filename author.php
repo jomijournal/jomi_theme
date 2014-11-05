@@ -23,7 +23,7 @@
 	?>
 
 	<?php if ($my_query->have_posts()) : while ($my_query->have_posts()) : $my_query->the_post(); ?>
-		<?php get_template_part('templates/content', get_post_format()); ?>
+		<?php get_template_part('templates/article', 'thumbnail'); ?>
 	<?php endwhile; else: ?>
 		<p>No posts by this author.</p>
 	<?php endif; ?>

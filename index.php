@@ -19,7 +19,7 @@ foreach($status_order as $status) {
   while (have_posts()) : the_post(); 
      if(in_array(get_post_status(), $exclude)) continue;
      if($status != get_post_status()) continue;
-     get_template_part('templates/content', get_post_format()); 
+     get_template_part('templates/article', 'thumbnail'); 
   endwhile; 
   rewind_posts();
 }

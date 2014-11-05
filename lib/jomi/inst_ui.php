@@ -121,17 +121,19 @@ $(function() {
 		var region = row.find('#inst-location-region').val();
 		var country = row.find('#inst-location-country').val();
 		var zip = row.find('#inst-location-zip').val();
+		var comment = row.find('#inst-location-comment').val();
 
 		$.post(MyAjax.ajaxurl, {
-			action: 'update-inst-location',
-			id: id,
-			inst_id: inst_id,
-			description: description,
-			address: address,
-			city: city,
-			region: region,
-			country: country,
-			zip: zip
+			action: 'update-inst-location'
+			, id: id
+			, inst_id: inst_id
+			, description: description
+			, address: address
+			, city: city
+			, region: region
+			, country: country
+			, zip: zip
+			, comment: comment
 		}, function(response) {
 			refresh_location(inst_id);
 		});
@@ -414,6 +416,7 @@ foreach($locations as $location) {
 		<input id="inst-location-zip" type="text" placeholder="zip code" value="<?php echo $location->zip; ?>">
 		<input id="inst-location-id" type="hidden" value="<?php echo $location->id; ?>">
 		<input id="inst-location-inst-id" type="hidden" value="<?php echo $id; ?>">
+		<input id="inst-location-comment" type="text" placeholder="comment" value="<?php echo $location->comment; ?>">
 	</td>
 	<td>
 		<?php inst_order_update($location->id); ?>

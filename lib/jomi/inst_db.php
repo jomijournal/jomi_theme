@@ -202,14 +202,15 @@ function insert_inst_location() {
 	$description = $_POST['description'];
 
 	$push_data = array(
-		'inst_id' => $inst_id,
-		'description' => $description,
-		'continent' => '',
-		'region' => '',
-		'city' => '',
-		'zip' => 0,
-		'country' => '',
-		'address' => ''
+		'inst_id' => $inst_id
+		, 'description' => $description
+		, 'continent' => ''
+		, 'region' => ''
+		, 'city' => ''
+		, 'zip' => 0
+		, 'country' => ''
+		, 'address' => ''
+		, 'comment' => ''
 	);
 
 	$wpdb->insert($inst_location_table_name, $push_data);
@@ -235,23 +236,25 @@ function update_inst_location() {
 	$zip = $_POST['zip'];
 	$country = $_POST['country'];
 	$address = $_POST['address'];
+	$comment = $_POST['comment'];
 
 	$push_data = array(
-		'inst_id' => $inst_id,
-		'description' => $description,
-		'continent' => $continent,
-		'region' => $region,
-		'city' => $city,
-		'zip' => $zip,
-		'country' => $country,
-		'address' => $address
+		'inst_id' => $inst_id
+		, 'description' => $description
+		, 'continent' => $continent
+		, 'region' => $region
+		, 'city' => $city
+		, 'zip' => $zip
+		, 'country' => $country
+		, 'address' => $address
+		, 'comment' => $comment
 	);
 
 	$wpdb->update(
 		$inst_location_table_name, 
 		$push_data,
 		array('ID' => $id),
-		array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s'),
+		array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'),
 		array('%d')
 	);
 	check_db_errors();

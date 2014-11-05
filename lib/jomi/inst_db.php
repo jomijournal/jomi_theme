@@ -64,6 +64,7 @@ function inst_table_install() {
 		city        VARCHAR(50) NOT NULL,
 		zip         VARCHAR(10) NOT NULL,
 		address     VARCHAR(100) NOT NULL,
+		comment     text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_ip_sql = "CREATE TABLE $inst_ip_table_name (

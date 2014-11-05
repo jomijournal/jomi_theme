@@ -8,7 +8,7 @@ global $wpdb;
 // increment this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
-$inst_db_version = '1.13';
+$inst_db_version = '1.15';
 
 /**
  * table names.

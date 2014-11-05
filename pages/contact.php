@@ -16,9 +16,9 @@ get_template_part('page', 'header');
 
     <!-- Tab panes -->
     <div class="tab-content">
-      <div class="tab-pane active" id="thoughts"><br><?php /*the_block('thoughts');*/ echo do_shortcode('[contact-form-7 id="247" title="Send Thoughts"]'); ?></div>
-      <div class="tab-pane" id="request"><br><?php /*the_block('request');*/ echo do_shortcode('[contact-form-7 id="246" title="Request a Topic"]'); ?></div>
-      <div class="tab-pane" id="propose"><br><?php /*the_block('propose');*/ echo do_shortcode('[contact-form-7 id="243" title="Propose a Procedure"]'); ?></div>
+      <div class="tab-pane active" id="thoughts"><br><?php echo do_shortcode('[contact-form-7 id="247" title="Send Thoughts"]'); ?></div>
+      <div class="tab-pane" id="request"><br>        <?php echo do_shortcode('[contact-form-7 id="246" title="Request a Topic"]'); ?></div>
+      <div class="tab-pane" id="propose"><br>        <?php echo do_shortcode('[contact-form-7 id="243" title="Propose a Procedure"]'); ?></div>
     </div>
   </div>
 

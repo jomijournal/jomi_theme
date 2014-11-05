@@ -1,5 +1,3 @@
-<?php #dynamic_sidebar('sidebar-article'); ?>
-
 <div class="sidebar">
 
 <?php 
@@ -16,7 +14,7 @@ if($user_order->type == "free-trial") {
 
 <h3>Share This Article</h3>
 
-<input id="url-share-box" type="text" value="<?php echo (site_url() . '/article/' . get_field('publication_id') . '/'); ?>">
+<input id="url-share-box" type="text" value="<?php echo (site_url('/article/') . get_field('publication_id') . '/'); ?>">
 <br>
 <br>
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
@@ -29,7 +27,7 @@ foreach( $coauthors as $coauthor )
 {
 	?>
 	<!--a class="author" href="/author/<?php echo $coauthor->user_nicename; ?>"></a-->
-	<a class="author" href="/author/<?php echo $coauthor->user_nicename; ?>">
+	<a class="author" href="<?php echo site_url('/author/' . $coauthor->user_nicename); ?>">
 	  	<div class="avatar col-xs-3">
 	  		<?php echo get_wp_user_avatar($coauthor->ID, 64); ?>
 	  	</div>

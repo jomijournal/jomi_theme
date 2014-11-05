@@ -12,11 +12,11 @@ if ( in_array($status, array('preprint', 'in_production', 'coming_soon') ) ) {
 			break;
 		case 'in_production':
 			$status_text = 'In Production';
-			$link = '/notifications?area=' . get_the_title();
+			$link = site_url('/notifications?area=') . get_the_title();
 			break;
 		case 'coming_soon':
 			$status_text = "Coming Soon";
-			$link = '/notifications?area=' . get_the_title();
+			$link = site_url('/notifications?area=') . get_the_title();
 			break;
 	}
 } else {
@@ -32,7 +32,7 @@ $categories = get_the_category($id);
 
 		<a href="<?php echo $link; ?>" title="<?php the_title_attribute(); ?>" >
 		<img width="780" height="312" 
-		src="<?php echo '/wp-content/themes/jomi/assets/img/01_standard_dark.jpg'?>"
+		src="<?php echo site_url('/wp-content/themes/jomi/assets/img/01_standard_dark.jpg'); ?>"
 		data-original="<?php echo wp_get_attachment_url( get_post_thumbnail_id($id)); ?>"
 		class="attachment-large wp-post-image lazy" alt="video thumbnail">
 

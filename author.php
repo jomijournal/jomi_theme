@@ -1,5 +1,3 @@
-<?php #get_template_part('templates/page', 'header'); ?>
-
 <div id="content" class="narrowcolumn">
 
     <?php
@@ -19,7 +17,7 @@
       'post_status' => array('publish', 'preprint', 'coming_soon', 'in_production'),
       'posts_per_page' => -1,
       'caller_get_posts'=> 1,
-      'author' => $curauth->ID
+      'author_name' => $author_name
     );
     $my_query = new WP_Query($args);
     ?>

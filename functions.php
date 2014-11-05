@@ -216,7 +216,7 @@ function roots_wrap_info() {
  * Is later added to admin email
  * if they register
 **/
-function register_referel() {
+/*function register_referel() {
 	if ($_SERVER['REQUEST_URI']=='/register') {
 		setcookie('refer_cookie', $_SERVER['HTTP_REFERER'], time()+10000, COOKIEPATH, COOKIE_DOMAIN, false);
 	}
@@ -232,7 +232,7 @@ function mrefer_add($message){
 		return $message;
 	}
 }
-add_filter('mandrill_payload','mrefer_add');
+add_filter('mandrill_payload','mrefer_add');*/
 //mandrill_payload is correct filter for this not wp_mail.
 
 ?>

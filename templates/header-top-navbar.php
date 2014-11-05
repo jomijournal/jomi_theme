@@ -9,11 +9,11 @@ get_currentuserinfo();
 
 
 <?php if(is_front_page()) : ?>
-	<video id="video" autoplay preload loop class='background hidden-xs video-js' poster="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/vid_poster.jpg" data-setup='{"controls":false}'>
-		<source id="video-source" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4" type="video/mp4">
-		<source id="video-source-webm" src="https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background.webm" type="video/webm">
+	<video id="video" autoplay preload loop class='background hidden-xs video-js' poster="<?php echo site_url('/assets/img/vid_poster.jpg'); ?>" data-setup='{"controls":false}'>
+		<source id="video-source" src="<?php echo site_url('/wp-content/themes/jomi/assets/video/background_vid.mp4'); ?>" type="video/mp4">
+		<source id="video-source-webm" src="<?php echo site_url('/wp-content/themes/jomi/assets/video/background.webm'); ?>" type="video/webm">
 	</video>
-	<img src='https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/img/background_mobile.jpg' class='background visible-xs'/>
+	<img src="<?php echo site_url('/assets/img/background_mobile.jpg'); ?>" class='background visible-xs'/>
 	<div class='blackbox background'></div>
 
 <?php endif; ?>
@@ -28,7 +28,7 @@ get_currentuserinfo();
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<div class="logo"><a href="/"><img src="/wp-content/themes/jomi/assets/img/logo.png" alt="Journal of Medical Insight"></a></div>
+			<div class="logo"><a href="/"><img src="<?php echo site_url('/wp-content/themes/jomi/assets/img/logo.png'); ?>" alt="Journal of Medical Insight"></a></div>
 		</div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,7 +54,7 @@ get_currentuserinfo();
 							<input type="text" name="log" id="user_login" class="input" value="" size="20">
 						</p>
 						<p class="login-password">
-							<label for="user_pass">Password (<a tabindex="3" href="/login/?action=lostpassword">Lost Password?</a>)</label>
+							<label for="user_pass">Password (<a tabindex="3" href="<?php echo site_url('/login/?action=lostpassword'); ?>">Lost Password?</a>)</label>
 							<input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
 						</p>
 						<input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">
@@ -62,11 +62,11 @@ get_currentuserinfo();
 							<div class="col-xs-7">
 								<p class="login-submit">
 									<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
-									<input type="hidden" name="redirect_to" value="/">
+									<input type="hidden" name="redirect_to" value="<?php echo site_url('/'); ?>">
 								</p>
 							</div>
 							<div class="col-xs-5">
-								<a href="/register" class="register">Register</a>
+								<a href="<?php echo site_url('/register/'); ?>" class="register">Register</a>
 							</div>
 						</div>
 						<div class="social-box">
@@ -109,8 +109,8 @@ get_currentuserinfo();
 			$('#video-source-webm').attr('src', '');
 			$('#video').load();
 		} else if ($(window).width() >= 768 && $('#video-source').attr("src") == ''){
-			$('#video-source').attr('src', 'https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background_vid.mp4');
-			$('#video-source-webm').attr('src', 'https://jomicom.a.cdnify.io/wp-content/themes/jomi/assets/video/background.webm');
+			$('#video-source').attr('src', "<?php echo site_url('/wp-content/themes/jomi/assets/video/background_vid.mp4'); ?>");
+			$('#video-source-webm').attr('src', "<?php echo site_url('/wp-content/themes/jomi/assets/video/background.webm'); ?>");
 			$('#video').load();
 		}
 	});

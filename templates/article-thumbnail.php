@@ -2,6 +2,7 @@
 
 $id = get_the_ID();
 $status = get_post_status($id);
+$title = get_the_title();
 
 if ( in_array($status, array('preprint', 'in_production', 'coming_soon') ) ) {
 	// turn post status into pretty english
@@ -36,7 +37,7 @@ $categories = get_the_category($id);
 			src="<?php echo site_url('/wp-content/themes/jomi/assets/img/01_standard_dark.jpg'); ?>"
 			data-original="<?php echo wp_get_attachment_url( get_post_thumbnail_id($id)); ?>"
 			class="attachment-large wp-post-image lazy" 
-			alt="video thumbnail"
+			alt="<?php echo $title; ?>"
 		>
 
 		<noscript>
@@ -44,7 +45,7 @@ $categories = get_the_category($id);
 			width="780" height="312" 
 			src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($id)); ?>"
 			class="attachment-large wp-post-image lazy" 
-			alt="video thumbnail"
+			alt="<?php echo $title; ?>"
 		>
 		</noscript>
 

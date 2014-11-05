@@ -190,4 +190,35 @@ function roots_wrap_info() {
 }*/
 
 
+
+/**
+Grab referral if we are going to register
+Is later added to admin email
+if they register
+**/
+function register_referel() {
+  
+    if ($_SERVER['REQUEST_URI']=='/register')
+        {
+        
+      
+          setcookie('refer_cookie', $_SERVER['HTTP_REFERER'], time()+10000, COOKIEPATH, COOKIE_DOMAIN, false);
+         
+        }
+}
+add_action('init', 'register_referel');
+
+//Add referrer to email message if going to admin only
+//Strip out http because mandrill api will change all links in email
+function mrefer_add($message){
+
+  if ($message[to][0][email]=='dev@jomi.com'){
+    $refer_strip=str_replace('http', '', $_COOKIE['refer_cookie']);
+    $message[html]=$message[html].$refer_strip;
+    return $message;
+  }
+}
+add_filter('mandrill_payload','mrefer_add');
+//mandrill_payload is correct filter for this not wp_mail.
+
 ?>

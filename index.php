@@ -1,5 +1,3 @@
-<?php get_template_part('templates/page', 'header'); ?>
-
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">Sorry, no results were found.</div>
 <?php endif; ?>

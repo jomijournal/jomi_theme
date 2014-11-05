@@ -109,52 +109,52 @@ $reader = new Reader(ABSPATH . '/wp-content/themes/jomi/assets/data/geolite2/Geo
  * Roots includes
  */
 $roots_includes = array(
-  '/lib/utils.php',           // Utility functions
-  '/lib/init.php',            // Initial theme setup and constants
-  '/lib/wrapper.php',         // Theme wrapper class
-  '/lib/sidebar.php',         // Sidebar class
-  '/lib/config.php',          // Configuration
-  '/lib/activation.php',      // Theme activation
-  '/lib/titles.php',          // Page titles
-  '/lib/cleanup.php',         // Cleanup
-  '/lib/nav.php',             // Custom nav modifications
-  '/lib/gallery.php',         // Custom [gallery] modifications
-  '/lib/comments.php',        // Custom comments modifications
-  '/lib/relative-urls.php',   // Root relative URLs
-  '/lib/widgets.php',         // Sidebars and widgets
-  '/lib/scripts.php',         // Scripts and stylesheets
-  '/lib/custom.php',          // Custom functions
+	'/lib/utils.php',           // Utility functions
+	'/lib/init.php',            // Initial theme setup and constants
+	'/lib/wrapper.php',         // Theme wrapper class
+	'/lib/sidebar.php',         // Sidebar class
+	'/lib/config.php',          // Configuration
+	'/lib/activation.php',      // Theme activation
+	'/lib/titles.php',          // Page titles
+	'/lib/cleanup.php',         // Cleanup
+	'/lib/nav.php',             // Custom nav modifications
+	'/lib/gallery.php',         // Custom [gallery] modifications
+	'/lib/comments.php',        // Custom comments modifications
+	'/lib/relative-urls.php',   // Root relative URLs
+	'/lib/widgets.php',         // Sidebars and widgets
+	'/lib/scripts.php',         // Scripts and stylesheets
+	'/lib/custom.php',          // Custom functions
 );
 $jomi_includes = array(
-  '/lib/jomi/admin.php', // admin usability and visual improvements
-  '/lib/jomi/access_logic.php', // access frontend check and block displays
-  '/lib/jomi/access_db.php', // access db management
-  '/lib/jomi/access_util.php', // access helper functions
-  '/lib/jomi/access_ui.php', // access ui + javascript
-  '/lib/jomi/access_blocks.php', // access block templates
-  '/lib/jomi/article_count.php',  // count # of articles published/preprinted
-  '/lib/jomi/db_switch.php', // db switch utility on dashboard
-  '/lib/jomi/inst_db.php',
-  '/lib/jomi/inst_ui.php',
-  '/lib/jomi/login.php', // login page utility and restyling
-  '/lib/jomi/post_status.php', // register post statuses
-  '/lib/jomi/post_types.php', // register post types (article)
-  '/lib/jomi/rewrite.php', // rewrite rules for article
-  '/lib/jomi/sidebars.php', // custom sidebars
-  '/lib/jomi/relevanssi.php',
-  '/lib/jomi/user_orders.php',
-  '/lib/jomi/vid_length.php', // video thumbnail length code
-  '/lib/jomi/yoast_seo.php'
+	'/lib/jomi/admin.php', // admin usability and visual improvements
+	'/lib/jomi/access_logic.php', // access frontend check and block displays
+	'/lib/jomi/access_db.php', // access db management
+	'/lib/jomi/access_util.php', // access helper functions
+	'/lib/jomi/access_ui.php', // access ui + javascript
+	'/lib/jomi/access_blocks.php', // access block templates
+	'/lib/jomi/article_count.php',  // count # of articles published/preprinted
+	'/lib/jomi/db_switch.php', // db switch utility on dashboard
+	'/lib/jomi/inst_db.php',
+	'/lib/jomi/inst_ui.php',
+	'/lib/jomi/login.php', // login page utility and restyling
+	'/lib/jomi/post_status.php', // register post statuses
+	'/lib/jomi/post_types.php', // register post types (article)
+	'/lib/jomi/rewrite.php', // rewrite rules for article
+	'/lib/jomi/sidebars.php', // custom sidebars
+	'/lib/jomi/relevanssi.php',
+	'/lib/jomi/user_orders.php',
+	'/lib/jomi/vid_length.php', // video thumbnail length code
+	'/lib/jomi/yoast_seo.php'
 );
 
 $includes = array_merge($jomi_includes, $roots_includes);
 
 foreach($includes as $file){
-  if(!$filepath = locate_template($file)) {
-    trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
-  }
+	if(!$filepath = locate_template($file)) {
+		trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
+	}
 
-  require_once $filepath;
+	require_once $filepath;
 }
 unset($file, $filepath);
 
@@ -167,13 +167,13 @@ remove_filter('the_excerpt', 'wpautop');
  * @return [type] [description]
  */
 function check_user_admin() {
-  global $is_user_admin;
-  global $current_user;
-  if(in_array('administrator', $current_user->roles)) {
-    $is_user_admin = true;
-  } else {
-    $is_user_admin = false;
-  }
+	global $is_user_admin;
+	global $current_user;
+	if(in_array('administrator', $current_user->roles)) {
+		$is_user_admin = true;
+	} else {
+		$is_user_admin = false;
+	}
 }
 add_action('init', 'check_user_admin');
 
@@ -181,42 +181,36 @@ add_action('init', 'check_user_admin');
 /*add_action('wp_footer', 'roots_wrap_info');
 
 function roots_wrap_info() {  
-  $format = '<h6>The %s template being used is: %s</h6>';
-  $main   = Roots_Wrapping::$main_template;
-  global $template;
+	$format = '<h6>The %s template being used is: %s</h6>';
+	$main   = Roots_Wrapping::$main_template;
+	global $template;
 
-  printf($format, 'Main', $main);
-  printf($format, 'Base', $template);
+	printf($format, 'Main', $main);
+	printf($format, 'Base', $template);
 }*/
 
 
 
 /**
-Grab referral if we are going to register
-Is later added to admin email
-if they register
+ * Grab referral if we are going to register
+ * Is later added to admin email
+ * if they register
 **/
 function register_referel() {
-  
-    if ($_SERVER['REQUEST_URI']=='/register')
-        {
-        
-      
-          setcookie('refer_cookie', $_SERVER['HTTP_REFERER'], time()+10000, COOKIEPATH, COOKIE_DOMAIN, false);
-         
-        }
+	if ($_SERVER['REQUEST_URI']=='/register') {
+		setcookie('refer_cookie', $_SERVER['HTTP_REFERER'], time()+10000, COOKIEPATH, COOKIE_DOMAIN, false);
+	}
 }
 add_action('init', 'register_referel');
 
 //Add referrer to email message if going to admin only
 //Strip out http because mandrill api will change all links in email
 function mrefer_add($message){
-
-  if ($message[to][0][email]=='dev@jomi.com'){
-    $refer_strip=str_replace('http', '', $_COOKIE['refer_cookie']);
-    $message[html]=$message[html].$refer_strip;
-    return $message;
-  }
+	if($message[to][0][email]=='dev@jomi.com'){
+		$refer_strip=str_replace('http', '', $_COOKIE['refer_cookie']);
+		$message[html]=$message[html].$refer_strip;
+		return $message;
+	}
 }
 add_filter('mandrill_payload','mrefer_add');
 //mandrill_payload is correct filter for this not wp_mail.

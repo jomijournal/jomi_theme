@@ -1,10 +1,9 @@
-<?php #get_template_part('templates/page', 'header'); ?>
-
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">Sorry, no results were found.</div>
 <?php endif; ?>
 
 <?php 
+
 $exclude = array(
   'internal_review'
 );
@@ -16,11 +15,13 @@ $status_order = array(
 );
 
 foreach($status_order as $status) {
+
   while (have_posts()) : the_post(); 
      if(in_array(get_post_status(), $exclude)) continue;
      if($status != get_post_status()) continue;
      get_template_part('templates/content', get_post_format()); 
   endwhile; 
+  
   rewind_posts();
 }
 

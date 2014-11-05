@@ -202,7 +202,6 @@ function extract_institution_meta() {
 		}
 
 		// package data into a global
-		// TODO: cache data into cookies and store it in there for faster fetching later
 		global $user_inst;
 		$user_inst = array(
 			'inst' => $inst,
@@ -211,6 +210,10 @@ function extract_institution_meta() {
 			'order' => $inst_order,
 			'is_subscribed' => $is_subscribed
 		);
+
+		// set php session to fetch from later. IP <-> institution relationship is pretty inelastic, so the cookies should be the go-to method of getting institutional data
+		
+
 	}
 }
 

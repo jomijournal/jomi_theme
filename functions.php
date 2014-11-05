@@ -177,6 +177,26 @@ function check_user_admin() {
 }
 add_action('init', 'check_user_admin');
 
+function start_php_session() {
+	session_start();
+
+	$curtime = time();
+	$expiretime = $_SESSION['expiretime']
+
+	// if 10 days later, or not set, clear all session vars
+	if(empty($lastmodified) || $curtime >= $expiretime) {
+		reset_session();
+	}
+}
+add_action('init', 'start_php_session');
+
+function reset_session() {
+	session_unset();
+
+	$curtime = time();
+	$_SESSION['expiretime'] = $curtime + 864000; //expire after 10 days
+}
+
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 

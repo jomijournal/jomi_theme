@@ -173,14 +173,8 @@ foreach($orders as $order) {
 	<td>
 		<a href="#" id="user-order-update">update</a> | 
 		<a href="#" id="user-order-delete">delete</a>
-	</td>
-</tr>
-<tr>
-	<!-- hidden stuff -->
-	<td>
 		<input id="user-order-id" type="hidden" value="<?php echo $order->id; ?>">
 	</td>
-	<td><br></td>
 </tr>
 <?php 
 }

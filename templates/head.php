@@ -16,8 +16,8 @@
 	<?php } ?>
 	<meta name="citation_journal_title" content="Journal of Medical Insight">
 	<meta name="citation_publication_date" content="<?php echo the_date(); ?>">
-	<meta name="citation_volume" content="<?php #the_year(); ?>">
-	<meta name="citation_issue" content="<?php #the_month(); ?>">
+	<meta name="citation_volume" content="<?php the_time('Y'); ?>">
+	<meta name="citation_issue" content="<?php the_time('n'); ?>">
 	<?php endwhile; ?>
 	<?php endif; ?>
 

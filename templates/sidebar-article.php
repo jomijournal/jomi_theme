@@ -92,6 +92,14 @@ if( ! empty($location) ):
 		<td><strong>Article ID</strong></td>
 		<td><?php the_field('publication_id'); ?></td>
 	</tr>
+	<tr>
+		<td><strong>Volume</strong></td>
+		<td><?php the_time('Y'); ?></td>
+	</tr>
+	<tr>
+		<td><strong>Issue</strong></td>
+		<td><?php the_time('n'); ?></td>
+	</tr>
 </table>
 
 <?php 

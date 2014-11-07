@@ -185,9 +185,9 @@ function global_rulebook(){
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
-	<h4>Category</h4>
 
 	<b>DEBUG</b>
+	&nbsp;
 	<label class="switch">
 		<input id="debug_toggle" type="checkbox" class="switch-input" <?php echo (get_option('access_debug', 'false') == 'true') ? 'checked' : ''; ?>>
 		<span class="switch-label" data-on="On" data-off="Off"></span>

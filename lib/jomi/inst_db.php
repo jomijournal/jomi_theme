@@ -8,7 +8,7 @@ global $wpdb;
 // increment this when installing a new table version
 // otherwise, access_table_install will not run every time (this is a good thing)
 global $inst_db_version;
-$inst_db_version = '1.15';
+$inst_db_version = '1.17';
 
 /**
  * table names.
@@ -82,7 +82,7 @@ function inst_table_install() {
 		date_start  date NOT NULL,
 		date_end    date NOT NULL,
 		type        VARCHAR(20) NOT NULL,
-		amount      FLOAT NOT NULL,
+		order_amount      int NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_contact_sql = "CREATE TABLE $inst_contact_table_name (
@@ -392,7 +392,7 @@ function insert_inst_order() {
 		'date_start' => $date_start,
 		'date_end' => $date_end,
 		'type' => $type,
-		'amount' => $amount
+		'order_amount' => $amount
  	);
 
  	$wpdb->insert(
@@ -430,7 +430,7 @@ function update_inst_order() {
 		'date_start' => $date_start,
 		'date_end' => $date_end,
 		'type' => $type,
-		'amount' => $amount
+		'order_amount' => $amount
  	);
 
  	$wpdb->update(

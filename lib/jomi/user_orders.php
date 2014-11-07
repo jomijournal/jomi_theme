@@ -13,6 +13,9 @@ function add_user_order_table($user) {
 	<div id="signal" class="signal"></div>
 </div>
 
+<script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
+<link rel="stylesheet" href="/wp-content/themes/jomi/assets/css/main.min.css?v=b85ad1&amp;ver=4.0">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script>
 
 jQuery(function() {
@@ -20,7 +23,9 @@ jQuery(function() {
 	refresh_user_order_list();
 	
 	//institution order jquery
-	jQuery('#user-orders').on('click', '#user-order-insert', function(){
+	jQuery('#user-orders').on('click', '#user-order-insert', function(e){
+		e.preventDefault();
+
 		var table = jQuery(this).parent().parent().parent().parent();
 
 		// don't need inst_id (for now)
@@ -48,7 +53,9 @@ jQuery(function() {
 			refresh_user_order_list();
 		});
 	});
-	jQuery('#user-orders').on('click', '#user-order-update', function() {
+	jQuery('#user-orders').on('click', '#user-order-update', function(e) {
+		e.preventDefault();
+
 		var table = jQuery(this).parent().parent().parent().parent();
 
 		var id = table.find('#user-order-id').val();
@@ -78,7 +85,9 @@ jQuery(function() {
 			refresh_user_order_list();
 		});
 	});
-	jQuery('#user-orders').on('click', '#user-order-delete', function() {
+	jQuery('#user-orders').on('click', '#user-order-delete', function(e) {
+		e.preventDefault();
+
 		var table = jQuery(this).parent().parent().parent().parent();
 
 		var id = table.find('#user-order-id').val();
@@ -130,7 +139,7 @@ function user_order_update($user_id) {
 <table id="user-order-list" class="inst-order-list" user-id="<?php echo $user_id; ?>">
 <tr>
 	<td>
-		<a id="user-order-insert">add</a>
+		<a href="#" id="user-order-insert">add</a>
 	</td>
 </tr>
 <?php
@@ -162,8 +171,8 @@ foreach($orders as $order) {
 <tr>
 	<th>Actions</th>
 	<td>
-		<a id="user-order-update">update</a> | 
-		<a id="user-order-delete">delete</a>
+		<a href="#" id="user-order-update">update</a> | 
+		<a href="#" id="user-order-delete">delete</a>
 	</td>
 </tr>
 <tr>

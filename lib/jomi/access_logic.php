@@ -368,38 +368,41 @@ function load_user_info() {
 
 	//** GET PER USER ORDERS
 
-	global $wpdb;
-	global $inst_order_table_name;
+	if($logged_in) {
 
-	// get user id
-	$user_id = $user['id'];
+		global $wpdb;
+		global $inst_order_table_name;
 
-	// build query
-	$order_query = 
-	"SELECT * FROM $inst_order_table_name
-	WHERE user_id=$user_id";
+		// get user id
+		$user_id = $user['id'];
 
-	// query database for matching orders
-	$user_orders = $wpdb->get_results($order_query);
+		// build query
+		$order_query = 
+		"SELECT * FROM $inst_order_table_name
+		WHERE user_id=$user_id";
 
-	if($access_debug) {
-		echo "User Order History:\n";
-		print_r($user_orders);
-	}
+		// query database for matching orders
+		$user_orders = $wpdb->get_results($order_query);
 
-	// get current time
-	$cur_time = time();
+		if($access_debug) {
+			echo "User Order History:\n";
+			print_r($user_orders);
+		}
 
-	// cycle through all orders. if an order is valid, break the loop
-	foreach($user_orders as $user_order) {
-		// check if order falls within today's date
-		$fromtime = strtotime($user_order->date_start);
-		$endtime = strtotime($user_order->date_end);
+		// get current time
+		$cur_time = time();
 
-		// order is valid. flip is_subscribed flag and break
-		if ($cur_time >= $fromtime && $cur_time <= $endtime) {
-			$is_subscribed = true;
-			break;
+		// cycle through all orders. if an order is valid, break the loop
+		foreach($user_orders as $user_order) {
+			// check if order falls within today's date
+			$fromtime = strtotime($user_order->date_start);
+			$endtime = strtotime($user_order->date_end);
+
+			// order is valid. flip is_subscribed flag and break
+			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
+				$is_subscribed = true;
+				break;
+			}
 		}
 	}
 

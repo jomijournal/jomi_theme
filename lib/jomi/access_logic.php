@@ -720,6 +720,11 @@ function check_access() {
   global $is_user_admin;
   if(!$is_user_admin) $access_debug = false;
 
+  // if debug flag is set, then display i guess
+  if(!empty($_GET['showdebug'])) {
+  	$access_debug = true;
+  }
+
   // load metadata on the current article being viewed
   $selector_meta = extract_selector_meta(get_the_ID());
 

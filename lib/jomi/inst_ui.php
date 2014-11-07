@@ -38,6 +38,7 @@ function inst_menu(){
 </div>
 
 <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
+<link rel="stylesheet" href="/wp-content/themes/jomi/assets/css/main.min.css?v=b85ad1&amp;ver=4.0">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script>
 $(function() {

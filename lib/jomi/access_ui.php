@@ -38,7 +38,7 @@ function list_rules() {
 	);
 	array_unshift($rules, $add_rule);
 
-  ?>
+	?>
 <table class="access_rules">
 	<tr>
 		<th>ID</th>
@@ -71,16 +71,16 @@ foreach($rules as $rule_index=>$rule) {
 			#}
 			#$index = 0;
 			#foreach($selectors as $selector) { $index++;?>
-		  	<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
-  				<option val=""           >None</option>
-  				<option val="all"        >All</option>
-  				<option val="category"   >Category</option>
-  				<option val="article_id" >Article ID</option>
-  				<option val="pub_id"     >Publication ID</option>
-  				<option val="institution">Institution</option>
-  				<option val="post_status">Post Status</option>
-  				<option val="author"     >Author</option>
-  			</select>
+				<select id="selector_type" data="<?php echo $rule->selector_type; ?>">
+					<option val=""           >None</option>
+					<option val="all"        >All</option>
+					<option val="category"   >Category</option>
+					<option val="article_id" >Article ID</option>
+					<option val="pub_id"     >Publication ID</option>
+					<option val="institution">Institution</option>
+					<option val="post_status">Post Status</option>
+					<option val="author"     >Author</option>
+				</select>
 			<input id="selector_value" placeholder="<?php echo $rule->selector_value; ?>" data="<?php echo $rule->selector_value ?>">
 				<?php #if($index > 1) { ?>
 					<!--a id="delete_selector" href="#" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">-</a-->
@@ -100,17 +100,17 @@ foreach($rules as $rule_index=>$rule) {
 			}
 			$index = 0;
 			foreach($checks as $check) { $index++;?>
-		  	<select id="check_type" data="<?php echo $check['type']; ?>">
-  				<option val=""               >None</option>
-  				<option val="is_ip"          >Is IP(s)</option>
-  				<option val="is_institution" >Is Institution(s)</option>
-  				<option val="is_country"     >Is Country(s)</option>
-  				<option val="is_region"      >Is Region(s)</option>
-  				<option val="is_continent"   >Is Continent(s)</option>
-  				<option val="is_user"        >Is User(s)</option>
-  				<option val="is_logged_in"   >Is Logged In (T/F)</option>
-  				<option val="is_subscribed"  >Is Subscribed (T/F)</option>
-  			</select>
+				<select id="check_type" data="<?php echo $check['type']; ?>">
+					<option val=""               >None</option>
+					<option val="is_ip"          >Is IP(s)</option>
+					<option val="is_institution" >Is Institution(s)</option>
+					<option val="is_country"     >Is Country(s)</option>
+					<option val="is_region"      >Is Region(s)</option>
+					<option val="is_continent"   >Is Continent(s)</option>
+					<option val="is_user"        >Is User(s)</option>
+					<option val="is_logged_in"   >Is Logged In (T/F)</option>
+					<option val="is_subscribed"  >Is Subscribed (T/F)</option>
+				</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
 				<?php if($index > 1) { ?>
 					<a id="delete_check" href="#" rule-index="<?php echo $index; ?>" style="background-color:#f00;color:#fff;width:10px;height:10px;padding:3px 5px;text-decoration:none;">--</a>
@@ -118,14 +118,14 @@ foreach($rules as $rule_index=>$rule) {
 			<?php } ?>
 		</td>
 		<td>
-  			<select id="result_type" data="<?php echo $rule->result_type; ?>">
-  			  	<option val=""                 >None</option>
-  				<option val="deny"             >DENY</option>
-  				<option val="sign_up"          >SIGN UP</option>
-  				<option val="checkpoint"       >CHECKPOINT</option>
-  				<option val="free_trial"       >FREE TRIAL</option>
-  				<option val="free_trial_thanks">FREE TRIAL THANKS</option>
-  			</select>
+				<select id="result_type" data="<?php echo $rule->result_type; ?>">
+						<option val=""                 >None</option>
+					<option val="deny"             >DENY</option>
+					<option val="sign_up"          >SIGN UP</option>
+					<option val="checkpoint"       >CHECKPOINT</option>
+					<option val="free_trial"       >FREE TRIAL</option>
+					<option val="free_trial_thanks">FREE TRIAL THANKS</option>
+				</select>
 			<input type="text" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
 			<input type="text" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
 			<br>Closable
@@ -155,7 +155,7 @@ foreach($rules as $rule_index=>$rule) {
 ?>
 </table>
 <?php
-  exit;
+	exit;
 }
 add_action( 'wp_ajax_nopriv_list-rules', 'list_rules' );
 add_action( 'wp_ajax_list-rules', 'list_rules' );
@@ -171,7 +171,7 @@ add_action( 'wp_ajax_list-rules', 'list_rules' );
  * @return [type] [description]
  */
 function global_rulebook_menu(){
-  add_options_page( "Global Access Rulebook", "Global Access Rulebook", "manage_options", "global_rulebook", "global_rulebook");
+	add_options_page( "Global Access Rulebook", "Global Access Rulebook", "manage_options", "global_rulebook", "global_rulebook");
 }
 add_action('admin_menu', 'global_rulebook_menu');
 
@@ -180,34 +180,37 @@ add_action('admin_menu', 'global_rulebook_menu');
  * @return [type] [description]
  */
 function global_rulebook(){
-  ?>
-  <div id="greyout" class="greyout">
-	<div id="signal" class="signal"></div>
-  </div>
-  <h4>Category</h4>
+	?>
+	<script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
+	<link rel="stylesheet" href="/wp-content/themes/jomi/assets/css/main.min.css?v=b85ad1&amp;ver=4.0">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<div id="greyout" class="greyout">
+		<div id="signal" class="signal"></div>
+	</div>
+	<h4>Category</h4>
 
-  <b>DEBUG</b>
-  <label class="switch">
-    <input id="debug_toggle" type="checkbox" class="switch-input" <?php echo (get_option('access_debug', 'false') == 'true') ? 'checked' : ''; ?>>
-    <span class="switch-label" data-on="On" data-off="Off"></span>
-    <span class="switch-handle"></span>
-  </label>
+	<b>DEBUG</b>
+	<label class="switch">
+		<input id="debug_toggle" type="checkbox" class="switch-input" <?php echo (get_option('access_debug', 'false') == 'true') ? 'checked' : ''; ?>>
+		<span class="switch-label" data-on="On" data-off="Off"></span>
+		<span class="switch-handle"></span>
+	</label>
 
-  <br>
+	<br>
 
-  <div id="select_container">
-	  <select id="category">
-	    <option val="all">All</option>
-	    <option val="adf">asdf</option>
-	  </select>
-  </div>
+	<div id="select_container">
+		<select id="category">
+			<option val="all">All</option>
+			<option val="adf">asdf</option>
+		</select>
+	</div>
 
-  <div id="results">
-  </div>
+	<div id="results">
+	</div>
 
-  <script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script>
+	<script type="text/javascript" src="/wp-content/themes/jomi/assets/js/scripts.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
 	$(function(){
 		refresh();
 		$('#debug_toggle').change(function() {
@@ -241,8 +244,8 @@ function global_rulebook(){
 			row.find('input').removeAttr('readonly');
 			row.find('input[type="checkbox"]').removeAttr('disabled');
 			row.find('select').removeAttr('disabled');
-			  row.find('#access_add_check').each(function() {	$(this).show(); });
-			  row.find('#delete_check').each(function() { $(this).show(); });
+				row.find('#access_add_check').each(function() {	$(this).show(); });
+				row.find('#delete_check').each(function() { $(this).show(); });
 
 			row.find('input').each(function() {
 				$(this).val($(this).attr('data'));
@@ -257,8 +260,8 @@ function global_rulebook(){
 			row.find('input').attr('readonly', '');
 			row.find('input[type="checkbox"]').attr('disabled', '');
 			row.find('select').attr('disabled', '');
-			  row.find('#access_add_check').each(function() {	$(this).hide(); });
-			  row.find('#delete_check').each(function() { $(this).hide(); });
+				row.find('#access_add_check').each(function() {	$(this).hide(); });
+				row.find('#delete_check').each(function() { $(this).hide(); });
 			// switch to 'edit' button
 			$(this).text('Edit Rule');
 			$(this).attr('id', 'access_edit_rule');
@@ -358,24 +361,24 @@ function global_rulebook(){
 
 		$('#greyout,#signal').show();
 		$.post( MyAjax.ajaxurl, {
-		    action : 'list-rules',
+				action : 'list-rules',
 			},
 			function( response ) {
-		      $('#greyout,#signal').hide();
-			  $('#results').html(response);
-			  // disable editing
-			  $('#results').find('input').attr('readonly', '');
-			  $('#results').find('input[type="checkbox"]').attr('disabled', '');
-			  $('#results').find('select').attr('disabled', '');
-			  $('#results').find('a#access_add_check').each(function() {	$(this).hide(); });
-			  $('#results').find('a#delete_check').each(function() { $(this).hide(); });
+					$('#greyout,#signal').hide();
+				$('#results').html(response);
+				// disable editing
+				$('#results').find('input').attr('readonly', '');
+				$('#results').find('input[type="checkbox"]').attr('disabled', '');
+				$('#results').find('select').attr('disabled', '');
+				$('#results').find('a#access_add_check').each(function() {	$(this).hide(); });
+				$('#results').find('a#delete_check').each(function() { $(this).hide(); });
 
 
-			  // visual assertion
-			  $('#results').find('select').each(function() {
-			  	var dat = $(this).attr('data');
+				// visual assertion
+				$('#results').find('select').each(function() {
+					var dat = $(this).attr('data');
 				$(this).find('option[val="'+ dat +'"]').attr('selected', '');
-			  });
+				});
 			}
 		);
 	}
@@ -427,9 +430,9 @@ function global_rulebook(){
 		return check_vals;
 	}
 	function isBlank(str) {
-	    return (!str || /^\s*$/.test(str));
+			return (!str || /^\s*$/.test(str));
 	}
-  </script>
-  <?php
+	</script>
+	<?php
 }
 ?>

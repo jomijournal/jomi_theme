@@ -68,6 +68,10 @@ function block_deny() {
 						<label id="pass1-label" for="pass1">Password<br>
 						<input type="password" autocomplete="off" name="pass1" id="pass1"></label>
 					</p>
+					<p id="pass1-p">
+						<label id="pass1-label" for="pass1">Confirm Password<br>
+						<input type="password" autocomplete="off" name="pass2" id="pass2"></label>
+					</p>
 					<p id="pass_strength_msg">Your password must be at least 6 characters long.</p>
 					<input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>">
 					<p class="submit">

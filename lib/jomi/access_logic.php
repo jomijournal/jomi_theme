@@ -13,6 +13,69 @@ $access_debug = ($access_debug === "true") ? true : false;
  * ACCESS LOGIC
  */
 
+
+/**
+ * super function that calls everything
+ * this is the entry point for the access system. called in by article.php
+ * @return [type] [description]
+ */
+function check_access() {
+  global $wpdb;
+  global $access_table_name;
+  global $access_blocks;
+
+  // debug flag
+  // will print a bunch of useful info at the top of article pages
+  global $access_debug;
+  // if not admin, then don't display at all
+  global $is_user_admin;
+  if(!$is_user_admin) $access_debug = false;
+
+  // if debug flag is set, then display i guess
+  if(!empty($_GET['showdebug'])) {
+  	$access_debug = true;
+  }
+
+  // load metadata on the current article being viewed
+  $selector_meta = extract_selector_meta(get_the_ID());
+
+  if($access_debug) echo '<pre>';
+
+  // extract user IP and matching institution (if applicable)
+  $institution_meta = extract_institution_meta();
+
+  // get rules from the access database table
+  $rules = collect_rules($selector_meta, $institution_meta);
+
+  if($access_debug) {
+  	echo "Rules to be checked:\n";
+  	print_r($rules);
+  }
+
+  // load user info, if the user is logged in
+  $user_info = load_user_info();
+
+  if($access_debug) {
+  	echo "User Meta:\n";
+  	print_r($user_info);
+  }
+
+  // load blocks to be applied
+  $access_blocks = array();
+  // filter those blocks with the per-user and institutional info
+  $access_blocks = get_blocks($rules, $user_info);
+
+  if($access_debug) {
+  	echo "Applied Blocks:\n";
+  	print_r($access_blocks);
+  }
+
+  // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
+  //$blocks = array();
+
+  if($access_debug) echo '</pre>';
+}
+
 /**
  * get useful article meta to help comb through article access rules
  * this is executed during "the loop", so getting any other meta not included here should be straightforward
@@ -792,63 +855,5 @@ function get_blocks($rules, $user_info) {
 	return $blocks;
 }
 
-/**
- * super function that calls everything
- * @return [type] [description]
- */
-function check_access() {
-  global $wpdb;
-  global $access_table_name;
-  global $access_blocks;
-
-  global $access_debug;
-  // if not admin, then don't display at all
-  global $is_user_admin;
-  if(!$is_user_admin) $access_debug = false;
-
-  // if debug flag is set, then display i guess
-  if(!empty($_GET['showdebug'])) {
-  	$access_debug = true;
-  }
-
-  // load metadata on the current article being viewed
-  $selector_meta = extract_selector_meta(get_the_ID());
-
-  if($access_debug) echo '<pre>';
-
-  // extract user IP and matching institution (if applicable)
-  $institution_meta = extract_institution_meta();
-
-  // get rules from the access database table
-  $rules = collect_rules($selector_meta, $institution_meta);
-
-  if($access_debug) {
-  	echo "Rules to be checked:\n";
-  	print_r($rules);
-  }
-
-  // load user info, if the user is logged in
-  $user_info = load_user_info();
-
-  if($access_debug) {
-  	echo "User Meta:\n";
-  	print_r($user_info);
-  }
-
-  // load blocks to be applied
-  $access_blocks = array();
-  // filter those blocks with the per-user and institutional info
-  $access_blocks = get_blocks($rules, $user_info);
-
-  if($access_debug) {
-  	echo "Applied Blocks:\n";
-  	print_r($access_blocks);
-  }
-
-  // FOR DEBUGGING ONLY. STOPS ALL BLOCKS FROM LOADING
-  //$blocks = array();
-
-  if($access_debug) echo '</pre>';
-}
 
 ?>

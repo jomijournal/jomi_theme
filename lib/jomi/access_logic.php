@@ -242,6 +242,11 @@ function extract_institution_meta() {
 			'is_subscribed' => $is_subscribed
 		);
 
+		//if($access_debug) {
+		//	echo "packaged institution data:\n";
+		//	print_r($user_inst);
+		//}
+
 		// set php session data, if changed
 		if(empty($_SESSION['inst']))          $_SESSION['inst']          = $user_inst['inst'];
 		if(empty($_SESSION['inst_ip']))       $_SESSION['inst_ip']       = $user_inst['ip'];
@@ -517,6 +522,8 @@ function get_blocks($rules, $user_info) {
 
 	global $access_debug;
 
+	global $user_inst;
+
 	// dont even try if no rules, or user data is present
 	if(empty($rules)) {
 		return;
@@ -555,6 +562,11 @@ function get_blocks($rules, $user_info) {
 		$check_count = 0;
 
 		foreach($check_types as $index => $check_type) {
+
+			if($access_debug) {
+				echo "checking " . $check_type . " against " . $check_values[$index] . "\r\n";
+			}
+
 			switch($check_type) {
 				// IP check
 				case 'is_ip':
@@ -563,8 +575,16 @@ function get_blocks($rules, $user_info) {
 
 					foreach($ips as $ip) {
 						if($ip_check == $ip) {
-							if($access_debug) echo "ip matched\n";
+							if($access_debug) {
+								echo "ip matched\n";
+								echo $ip . " == " . $ip_check . "\r\n\r\n";
+							}
 							$check_count++;
+						} else {
+							if($access_debug) {
+								echo "ips dont match\n";
+								echo $ip . " != " . $ip_check . "\r\n\r\n";
+							}
 						}
 					}
 					break;
@@ -586,8 +606,16 @@ function get_blocks($rules, $user_info) {
 
 					foreach($countries as $country) {
 						if($country_check['iso'] == $country or $country_check['name'] == $country) {
-							if($access_debug) echo "country matched\n";
+							if($access_debug) {
+								echo "country matched\n";
+								echo $country . ' == ' . $country_check . "\r\n\r\n";
+							}
 							$check_count++;
+						} else {
+							if($access_debug) {
+								echo "country not matched\n";
+								echo $country . ' != ' . $country_check . "\r\n\r\n";
+							}
 						}
 					}
 					break;
@@ -599,8 +627,16 @@ function get_blocks($rules, $user_info) {
 
 					foreach($region_checks as $region_check) {
 						if($region['iso'] == $region_check || $region['name'] == $region_check) {
-							if($access_debug) echo "region matched!\n";
+							if($access_debug) {
+								echo "region matched!\n";
+								echo $region . ' == ' . $region_check . "\r\n\r\n";
+							}
 							$check_count++;
+						} else {
+							if($access_debug) {
+								echo "region not matched!\n";
+								echo $region . ' != ' . $region_check . "\r\n\r\n";
+							}
 						}
 					}
 
@@ -613,9 +649,17 @@ function get_blocks($rules, $user_info) {
 
 					foreach($continent_checks as $continent_check) {
 						if($continent['iso'] == $continent_check || $continent['name'] == $continent_check) {
-							if($access_debug) echo "continent matched!\n";
+							if($access_debug) {
+								echo "continent matched!\n";
+								echo $continent . ' == ' . $continent_check . "\r\n\r\n";
+							}
 							$check_count++;
-						} 
+						} else {
+							if($access_debug) {
+								echo "continent not matched!\n";
+								echo $continent . ' != ' . $continent_check . "\r\n\r\n";
+							}
+						}
 					}
 
 					break;
@@ -631,8 +675,16 @@ function get_blocks($rules, $user_info) {
 						   $user_check['email'] == $user or
 						   $user_check['display_name'] == $user or
 						   $user_check['id'] == $user) && $user_info['logged_in']) {
-							if($access_debug) echo "user matched\n";
+							if($access_debug) {
+								echo "user matched\n";
+								echo $user_check . ' == ' . $user . "\r\n\r\n";
+							}
 							$check_count++;
+						} else {
+							if($access_debug) {
+								echo "user not matched\n";
+								echo $user_check . ' != ' . $user . "\r\n\r\n";
+							}
 						}
 					}
 					break;
@@ -644,8 +696,16 @@ function get_blocks($rules, $user_info) {
 					$logged_ins = explode(',', $check_values[$index]);
 					foreach($logged_ins as $logged_in) {
 						if(($logged_in == 'T' && $logged_in_check) || ($logged_in == 'F' && !$logged_in_check)) {
-							if($access_debug) echo "loggedin matched!\n";
+							if($access_debug) {
+								echo "loggedin matched!\n";
+								echo $logged_in_check . ' == ' . $logged_in . "\r\n\r\n";
+							}
 							$check_count++;
+						} else {
+							if($access_debug) {
+								echo "loggedin not matched!\n";
+								echo $logged_in_check . ' != ' . $logged_in . "\r\n\r\n";
+							}
 						}
 					}
 
@@ -653,11 +713,36 @@ function get_blocks($rules, $user_info) {
 
 				// checks if the user has a per-user subscription, or is part of a subscribing institution
 				case 'is_subscribed':
+
 					$user_subscribed = $user_info['subscribed'];
+					$inst_subscribed = $user_inst['is_subscribed'];
 					$check_subscribed = $check_values[$index];
-					if(($check_subscribed == 'T' && $user_subscribed) || ($check_subscribed == 'F' && !$user_subscribed)) {
-						if($access_debug) echo "subscribed matched!\n";
-						$check_count++;
+
+					if($user_subscribed != null) {
+						if(($check_subscribed == 'T' && $user_subscribed) || ($check_subscribed == 'F' && !$user_subscribed)) {
+							if($access_debug) {
+								echo "user subscribed matched!\n";
+								echo $check_subscribed . ' == ' . $user_subscribed . "\r\n\r\n";
+							}
+							$check_count++;
+						}
+					} else {
+						if($access_debug) {
+							//echo "user subscribed empty. skipping....\r\n";
+						}
+					}
+					if($inst_subscribed != null) {
+						if(($check_subscribed == 'T' && $inst_subscribed) || ($check_subscribed == 'F' && !$inst_subscribed)) {
+							if($access_debug) {
+								echo "inst subscribed matched!\n";
+								echo $check_subscribed . ' == ' . $inst_subscribed . "\r\n\r\n";
+							}
+							$check_count++;
+						}
+					} else {
+						if($access_debug) {
+							//echo "inst subscribed empty. skipping....\r\n";
+						}
 					}
 
 					break;
@@ -672,7 +757,8 @@ function get_blocks($rules, $user_info) {
 			}
 		//END FOREACH
 		}
-		if($access_debug) echo 'checks passed: ' . $check_count . '/' . $checks . "\n";
+
+		if($access_debug) echo 'checks passed: ' . $check_count . '/' . $checks . "\r\n\r\n";
 
 		// if all checks have been met
 		// load blocks into blocks array

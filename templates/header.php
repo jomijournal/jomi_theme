@@ -51,11 +51,11 @@ get_currentuserinfo();
             <p class="error" id="error"></p>
             <p class="login-username">
               <label for="user_login">Username/Email</label>
-              <input type="text" name="log" id="user_login" class="input" value="" size="20">
+              <input type="text" name="log" id="user_login" class="input" value="" size="25">
             </p>
             <p class="login-password">
               <label for="user_pass">Password (<a tabindex="3" href="<?php echo site_url('/login/?action=lostpassword'); ?>">Lost Password?</a>)</label>
-              <input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+              <input type="password" name="pwd" id="user_pass" class="input" value="" size="25">
             </p>
             <input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked">
             <div class="row login-buttons">

@@ -10,6 +10,8 @@ $valid_trial_types = array(
 	'Free-Trial',
 	'trial',
 	'Trial',
+	'free trial',
+	'Free Trial'
 );
 // all valid order types that will changed sidebar text to 'Subscribed'
 $valid_subscribed_types = array(

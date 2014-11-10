@@ -3,7 +3,26 @@
 <?php 
 global $user_inst;
 $user_order = $user_inst['order'];
-if($user_order->type == "free-trial") {
+
+// all valid order types that will trigger a free trial smidget
+$valid_trial_types = array(
+	'free-trial',
+	'Free-Trial',
+	'trial',
+	'Trial'
+);
+// all valid order types that will changed sidebar text to 'Subscribed'
+$valid_subscribed_types = array(
+	'',
+	'default',
+	'Default',
+	'subscribed',
+	'Subscribed'
+);
+
+$order_type = $user_order->type;
+
+if(in_array($order_type, $valid_trial_types)) {
 ?>
 <div id="free-trial-notification">
 	<span class="free-trial-head">FREE TRIAL</span>

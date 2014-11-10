@@ -790,12 +790,7 @@ function get_blocks($rules, $user_info) {
 							}
 							$check_count++;
 						}
-					} else {
-						if($access_debug) {
-							//echo "user subscribed empty. skipping....\r\n";
-						}
-					}
-					if($inst_subscribed != null) {
+					} elseif($inst_subscribed != null) {
 						if(($check_subscribed == 'T' && $inst_subscribed) || ($check_subscribed == 'F' && !$inst_subscribed)) {
 							if($access_debug) {
 								echo "inst subscribed matched!\n";
@@ -804,8 +799,11 @@ function get_blocks($rules, $user_info) {
 							$check_count++;
 						}
 					} else {
-						if($access_debug) {
-							//echo "inst subscribed empty. skipping....\r\n";
+						if($check_subscribed == 'F') {
+							if($access_debug) {
+								echo "not subscribed matched!\r\n\r\n";
+							}
+							$check_count++;
 						}
 					}
 

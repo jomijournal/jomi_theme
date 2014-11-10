@@ -9,7 +9,7 @@ $valid_trial_types = array(
 	'free-trial',
 	'Free-Trial',
 	'trial',
-	'Trial'
+	'Trial',
 );
 // all valid order types that will changed sidebar text to 'Subscribed'
 $valid_subscribed_types = array(
@@ -140,13 +140,15 @@ if(!empty($user_inst)) {
 		<td><strong>Name</strong></td>
 		<td><?php echo $inst->name; ?></td>
 	</tr>
-	<tr>
+	<!--tr>
 		<td><strong>Location</strong></td>
 		<td><?php echo $location->description; ?><br><?php echo ($location->address . ', ' . $location->city . ' ' . $location->region . ' ' . $location->zip)?></td>
-	</tr>
+	</tr-->
 	<tr>
 		<td><strong>Status</strong></td>
-		<td><?php echo ($is_sub > 0) ? '<span style="color:green;font-weight:bold;">SUBSCRIBED' : '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span><br>
+		<td><?php echo ($is_sub > 0) ? '<!--span style="color:green;font-weight:bold;">SUBSCRIBED' : '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span-->
+		<strong><?php echo $order->type; ?></strong>
+		<br>
 		<?php echo $order->date_start . ' → ' . $order->date_end; ?></td>
 	</tr>
 </table>

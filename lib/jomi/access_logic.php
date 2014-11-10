@@ -33,7 +33,8 @@ function check_access() {
 
   // if debug flag is set, then display i guess
   if(!empty($_GET['showdebug'])) {
-  	$access_debug = true;
+  	if($_GET['showdebug'] == 'true') $access_debug = true;
+  	else $access_debug = false;
   }
 
   // load metadata on the current article being viewed

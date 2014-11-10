@@ -149,32 +149,36 @@ function block_free_trial() {
 		<div id="signal" class="signal"></div>
 	</div>
 	<div class="row">
-		<strong><h1>ACCESS RESTRICTED</h1></strong>
-		<p>
-		Please recommend JoMI to your institution or librarian.
-		</p>
-		<p>
-		Free trials are currently available to institutions in your area.
-		</p>
-		<br>
-		<br>
-		<p>
-		If you are not associated with an institution, let us know:
-		</p>
-	</div>
-	<div class="row">
-		<form name="" action="" method="">
-			<div class="error" id="email-error"></div>
+		<div class="col-xs-10 col-xs-offset-1">
+			<strong><h1>Subscription Required</h1></strong>
+			<br/>
 			<p>
-    			<input id="request-access-email" type="email" name="your-email" value="" placeholder="Email" class="" aria-required="true" aria-invalid="false">
-				<input id="request-trial-submit" type="submit" value="Request Access" class="btn border">
+			Please enter your email below to request access:
 			</p>
-		</form>
+			<br/>
+		</div>
 	</div>
 	<div class="row">
-		<p>
-		We will contact the email entered, and work with you personally to help you access our content.
-		</p>
+		<div class="col-xs-10 col-xs-offset-1">
+			<form name="" action="" method="">
+				<div class="error" id="email-error"></div>
+				<p>
+					<div class="row">
+						<div class="col-xs-12 col-sm-7">
+							<input id="request-access-email" type="email" name="your-email" value="" placeholder="Email" class="" aria-required="true" aria-invalid="false">
+						</div>
+						<div class="col-xs-12 col-sm-5">
+							<input id="request-trial-submit" type="submit" value="Request Access" class="btn border">
+						</div>
+					</div>
+				</p>
+			</form>
+			<br/>
+			<p>
+			We have institutional, individual, and emergency access available.
+			</p>
+			<br/>
+		</div>
 	</div>
 </div>
 <script>
@@ -188,12 +192,18 @@ $(function() {
 		var email = $('#request-access-email').val();
 		if(isEmail(email)) {
 			e.preventDefault();
+
+			$('#greyout,#signal').show();
+
 			$('#email-error').hide();
 			$.post(MyAjax.ajaxurl, {
 				action: 'send-free-trial',
 				email: email
 			}, function(response) {
 				console.log(response);
+
+				$('#greyout,#signal').hide();
+
 				$('#email-error').show();
 				$('#email-error').text('Request Sent!');
 				$('#email-error').css("background", "rgb(71, 155, 71)");
@@ -207,7 +217,7 @@ $(function() {
 		     setTimeout(function() { 
 		       $("#email-error").css("-webkit-animation-play-state", "paused");
 		       $("#email-error").css("animation-play-state", "paused");
-		     }, 300);
+		     }, 280);
 			$('#email-error').show();
 			e.preventDefault();
 		}

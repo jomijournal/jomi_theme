@@ -77,14 +77,18 @@
 			font-size: 1em;
 			margin: 0;
 		}
+		form p{
+			text-align: center;
+		}
 		input[type="email"]{
-			width: 25%;
+			width: 100%;
 		}
 		input[type="submit"].btn{
 
 			margin-top: 0px !important;
 			padding: 5px 10px !important;
 			color: @jomi-light;
+			width: 100%;
 			&:hover{
 				color: #444;
 			}
@@ -94,10 +98,10 @@
 		}
 		div#email-error{
 			display: none;
-			width: 25%;
+			width: 50%;
 			text-align: center;
 			position: relative;
-			margin-left: 37.5%;
+			margin: 0 auto;
 			padding: 10px 15px;
 			font-size: 1em;
 			font-weight: 700;
@@ -141,6 +145,16 @@
 @media (min-width: 768px) {
 	.access-block{
 		font-size: 0.9em;
+		.free-trial{
+			input[type="email"]{
+				width: 65%;
+				float: right;
+			}
+			input[type="submit"].btn{
+				width: 50%;
+				float: left;
+			}
+		}
 	}
 }
 /* Medium devices (desktops, 992px and up) */

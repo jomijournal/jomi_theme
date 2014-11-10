@@ -231,7 +231,11 @@ function send_free_trial(){
 	$email = $_POST['email'];
 
 	// let us know about it
-	wp_mail('contact@jomi.com', 'Free Trial Request', $email . ' would like to request a free trial');
+	
+	$dev_body = $email . ' would like to request a free trial' . '<br>';
+	$dev_body .= 'http_referer:' . $_SERVER['HTTP_REFERER'];
+
+	wp_mail('contact@jomi.com', 'Free Trial Request', $dev_body);
 
 	// let them know about it
 	wp_mail($email, 'Free Trial Request', 'Thanks for requesting a free trial! We will get back to you as soon as possible, and work with you personally so we can get you access to our video articles.');

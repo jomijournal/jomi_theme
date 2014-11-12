@@ -27,8 +27,8 @@ $order_type = $user_order->type;
 if(in_array($order_type, $valid_trial_types)) {
 ?>
 <div id="free-trial-notification">
-	<span class="free-trial-head">FREE TRIAL</span>
-	<p>You are currently using a free trial.<br>
+	<span class="free-trial-head">TRIAL</span>
+	<p>You are currently using trial access.<br>
 	Please recommend JoMI to your institution.</p>
 </div>
 <?php } ?>
@@ -136,7 +136,7 @@ if(!empty($user_inst)) {
 	?>
 <table class="info">
 	<tr>
-		<h3>Institution</h3>
+		<h3>Subscribing Institution</h3>
 	</tr>
 	<tr>
 		<td><strong>Name</strong></td>
@@ -149,9 +149,13 @@ if(!empty($user_inst)) {
 	<tr>
 		<td><strong>Status</strong></td>
 		<td><?php echo ($is_sub > 0) ? '<!--span style="color:green;font-weight:bold;">SUBSCRIBED' : '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span-->
-		<strong><?php echo $order->type; ?></strong>
+		<?php if($is_sub > 0) { ?>
+		<strong style="color:green;font-weight:bold;"><?php echo $order->type; ?></strong>
+		<?php } else { ?>
+		<strong style="color:red;font-weight:bold;">Not Subscribed</strong>
+		<?php } ?>
 		<br>
-		<?php echo $order->date_start . ' → ' . $order->date_end; ?></td>
+		<?php echo "Expires on " . $order->date_end; ?></td>
 	</tr>
 </table>
 

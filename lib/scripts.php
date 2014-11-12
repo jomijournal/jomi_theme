@@ -51,7 +51,7 @@ function roots_scripts() {
 	wp_enqueue_script('addthis');
 	wp_enqueue_script('typekit');
 
-	wp_enqueue_script('livereload');
+	//wp_enqueue_script('livereload');
 
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('roots_scripts');

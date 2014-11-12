@@ -11,7 +11,7 @@
 					<ul class="about-list">
 						<li><a                 href="<?php echo site_url('/about/'); ?>">About JoMI</a></li>
 						<li><a                 href="<?php echo site_url('/index/'); ?>">Article Index</a></li>
-						<li><a target="_blank" href="blog.jomi.com">JoMI Blog</a></li>
+						<li><a target="_blank" href="http://blog.jomi.com">JoMI Blog</a></li>
 						<li><a target="_blank" href="http://eepurl.com/GL-7L">Newsletter</a></li>
 						<li><a                 href="<?php echo site_url('/pricing/'); ?>">Pricing</a></li>
 					</ul>

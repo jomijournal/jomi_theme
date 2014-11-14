@@ -197,6 +197,13 @@ function reset_session() {
 	$_SESSION['expiretime'] = $curtime + 864000; //expire after 10 days
 }
 
+
+function sitemap_register_preprint($where_filter) {
+	$where_filter = "OR post_status IN ('publish','preprint','inherit')";
+	return $where_filter;
+}
+add_filter('wpseo_typecount_where', 'sitemap_register_preprint', 10, 1);
+
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 

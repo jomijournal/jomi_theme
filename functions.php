@@ -96,6 +96,10 @@
 //* FUNCTIONS.PHP
 //* ALL OF THIS IS EXECUTED AT RUNTIME 
 
+/** set environment flags **/
+
+define('WP_ENV','TEST');
+//define('WP_ENV','PROD');
 
 /* COMPOSER INCLUDES */
 require_once('vendor/autoload.php');
@@ -104,6 +108,13 @@ require_once('vendor/autoload.php');
 use GeoIp2\Database\Reader;
 global $reader;
 $reader = new Reader(ABSPATH . '/wp-content/themes/jomi/assets/data/geolite2/GeoLite2-City.mmdb');
+
+/* SET UP STRIPE */
+if(WP_ENV == 'PROD') {
+	Stripe::setApiKey(get_option("stripe_live_secret_api_key"));
+} else {
+	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));
+}
 
 /**
  * Roots includes

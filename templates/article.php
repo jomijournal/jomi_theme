@@ -19,7 +19,8 @@
 		exit();
 
 		} else {
-
+			//clear password
+			$_POST['password'] = '';
 		}
 	}
 

@@ -229,8 +229,9 @@ add_action('init', 'register_referel');
 //Strip out http because mandrill api will change all links in email
 function mrefer_add($message){
        	if($message['to']['0']['email']=='dev@jomi.com'){
-		$refer_strip=str_replace('http', '', $_COOKIE['refer_cookie']);
-		$message['template']['content']['0']['content']=$message['template']['content']['0']['content'].$refer_strip;
+	//	$refer_strip=str_replace('http', '', $_COOKIE['refer_cookie']);
+        $refer_strip=$_COOKIE['refer_cookie'];	
+	$message['template']['content']['0']['content']=$message['template']['content']['0']['content'].$refer_strip;
 		return $message;
 	}
     return $message;

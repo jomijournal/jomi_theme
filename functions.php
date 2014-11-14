@@ -204,6 +204,34 @@ function sitemap_register_preprint($where_filter) {
 }
 add_filter('wpseo_typecount_where', 'sitemap_register_preprint', 10, 1);
 
+
+// parse api_keys.json
+function parse_api_keys() {
+	$file_path = ABSPATH . 'wp-content/themes/jomi/api_keys.json';
+
+	if(file_exists($file_path)) {
+		// load into array
+		$api_keys = file_get_contents($file_path);
+		$api_keys = json_decode($api_keys, true);
+
+		// abort if bad json
+		if(empty($api_keys)) return;
+
+		while ($api_key = current($api_keys)) {
+
+			$key = key($api_keys);
+			$val = $api_keys[$key];
+
+			$key .= '_api_key';
+
+			update_option($key, $val);
+
+			next($api_keys);
+		}
+	}
+}
+add_action('init', 'parse_api_keys');
+
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 

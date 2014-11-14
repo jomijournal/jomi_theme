@@ -38,6 +38,27 @@
 	  window.analytics.load("g0tsfo2n3d");
 	  window.analytics.page();
 	</script>
+        <!-- HOTJAR -->
+        <script>
+    (function(f,b,g){
+        var d=g.prototype.open,a=g.prototype.send,c;
+        f.hj=f.hj||function(){(f.hj.q=f.hj.q||[]).push(arguments)};
+        f._hjSettings={hjid:2618};
+
+if(b.addEventListener){b.addEventListener("DOMContentLoaded",function(){f.hj.documentHtml=b.documentElement.outerHTML})}
+        c=b.createElement("script");c.async=1;c.src="//
+static.hotjar.com/insights.js
+";b.getElementsByTagName("head")[0].appendChild(c);f.hj.xo=g.prototype.open;f.hj.xs=g.prototype.send;
+        if(!f._hjPlayback && b.addEventListener){
+            f.hj.xo=g.prototype.open;f.hj.xs=g.prototype.send;
+
+g.prototype.open=function(l,j,m,h,k){this._u=j;f.hj.xo.call(this,l,j,m,h,k)};
+            g.prototype.send=function(e){var j=this,i=j._u.indexOf("
+insights.hotjar.com")===-1;if(i){function
+h(){if(j.readyState===4){f.hj("_xhr",j._u,j.status,j.response)}}this.addEventListener("readystatechange",h,false)}f.hj.xs.call(this,e)}
+        }
+    })(window,document,window.XMLHttpRequest);
+</script>
 
 	<!-- LEGACY SCRIPTS N STUFF -->
 	<!--[if lt IE 9]>

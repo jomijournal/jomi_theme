@@ -10,7 +10,7 @@ POST STATUSES
  * register all custom post statuses
  * @return [type] [description]
  */
-function unread_post_status(){
+function custom_post_status(){
   register_post_status( 'preprint', array(
     'label'                     => _x( 'Preprint', 'article' ),
     'public'                    => true,
@@ -48,7 +48,7 @@ function unread_post_status(){
   ) );
 
 }
-add_action( 'init', 'unread_post_status' );
+add_action( 'init', 'custom_post_status' );
 
 /**
  * let us choose a custom post status in the editor window

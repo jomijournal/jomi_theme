@@ -1,5 +1,130 @@
 //* PRICING
 
+.page div.container.wrap{
+
+	div.pricing{
+		h1{
+			text-align: center;
+		}
+		.plans{
+			> div{
+				padding: 0;
+				margin-bottom: 15px;
+			}
+		}
+		.student{
+			.plan-header{background-color: #FF5050;}
+			.plan-body{background-color: #FF7575;}
+			.plan-form{border-color: #FF7575;}
+			.plan-cost{border-color: #FF7575;}
+		}
+		.resident{
+			.plan-header{background-color: #FF3030;}
+			.plan-body{background-color: #FF6060;}
+			.plan-form{border-color: #FF6060;}
+			.plan-cost{border-color: #FF6060;}
+		}
+		.attending{
+			.plan-header{background-color: #FF0000;}
+			.plan-body{background-color: #FF4545;}
+			.plan-form{border-color: #FF4545;}
+			.plan-cost{border-color: #FF4545;}
+		}
+		.institution{
+			.plan-header{background-color: #333;}
+			.plan-body{background-color: #666;}
+			.plan-form{border-color: #666;}
+			.plan-cost{border-color: #666;}
+		}
+		.plan-header {
+			margin:0 4px;
+
+			padding:0px 0;
+
+			h2 {
+				color: #eee;
+				margin: 0;
+				font-size: 2.5em;
+				//font-weight: bold;
+				text-align: center;
+			}
+		}
+		.plan-body{
+			//height: 150px;
+			//overflow-y: hidden;
+
+			margin: 0 4px;
+			padding: 10px 0;
+
+			color: #eee;
+			text-align: center;
+
+			p{
+				display: block;
+				margin: 10px;
+
+				&.desc{
+					font-weight: bold;
+					font-size: 1em;
+				}
+				&.as-low-as{
+					margin-bottom: 1px;
+
+					font-weight: bold;
+					font-size: 1.25em;
+				}
+				&.price{
+					margin-top: 1px;
+
+					font-weight: bold;
+					font-size: 1.5em;
+				}
+			}
+		}
+		.plan-form{
+			margin: 0px 4px;
+			padding: 10px 0;
+
+			color: #888;
+			text-align: left;
+
+			background-color: #eee;
+
+			border: 1px solid #000;
+			border-top: none;
+			border-bottom: none;
+
+			p{
+				margin: 0 10px;
+			}
+		}
+		.plan-cost{
+			margin: 0px 4px;
+			padding: 10px 0;
+
+			color: #888;
+			text-align: left;
+
+			background-color: #ddd;
+
+			border: 1px solid #000;
+			border-top: none;
+
+			p{
+				margin: 0 10px;
+				font-size: 2.5em;
+				text-align: center;
+			}
+			sup.cents{
+				vertical-align: middle;
+				font-size: 0.5em;
+			}
+		}
+
+	}
+
+}
+
 //* MOBILE
 
 /* Small devices (tablets, 768px and up) */

@@ -3,6 +3,28 @@
 	/**
 	 * ARTICLE ACCESS CHECK HERE
 	 */
+	
+
+	if(!empty(get_field('password'))) {
+
+		if($_POST['password'] != get_field('password')) {
+	?>
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+		<p>THIS ARTICLE IS PASSWORD PROTECTED</p>
+		<input type="text" name="password">
+		<input type="submit" value="unlock">
+	</form>
+
+	<?php
+		exit();
+
+		} else {
+			//clear password
+			$_POST['password'] = '';
+		}
+	}
+
+
 	global $access_blocks;
 	check_access();
 	//block_deny();
@@ -146,7 +168,7 @@
 	<![endif]-->
 
 	<script>
-	var blocked = false;
+		var blocked = false;
 
 		$(function(){
 

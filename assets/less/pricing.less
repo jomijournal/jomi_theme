@@ -3,6 +3,19 @@
 .page div.container.wrap{
 
 	div.pricing{
+
+		.login-notification{
+			margin: 10px;
+			background: #D00000;
+			padding: 5px 15px;
+			border-radius: 5px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 2em;
+			color: #eee;
+			background-image: url('/wp-content/themes/jomi/assets/img/diagonal_tile_red.png');
+		}
+
 		h1{
 			text-align: center;
 		}
@@ -102,7 +115,7 @@
 			margin: 0px 4px;
 			padding: 10px 0;
 
-			color: #888;
+			color: #333;
 			text-align: left;
 
 			background-color: #ddd;
@@ -118,6 +131,28 @@
 			sup.cents{
 				vertical-align: middle;
 				font-size: 0.5em;
+			}
+
+			button.subscribe-btn{
+				font-size: 0.75em;
+				background: #333;
+				color: #eee;
+				border-radius: 5px;
+				border: 0px solid #eee;
+
+				transition: 0.2s all ease-in-out;
+				-webkit-transition: 0.2s all ease-in-out;
+
+				&:hover {
+					background: #888;
+					color: #fff;
+					border: 1px solid #333;
+				}
+				&:active {
+					background: #eee;
+					color: #333;
+					border: 0px solid #eee;
+				}
 			}
 		}
 

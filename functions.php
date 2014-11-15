@@ -161,6 +161,7 @@ $jomi_includes = array(
 	'/lib/jomi/post_types.php', // register post types (article)
 	'/lib/jomi/rewrite.php', // rewrite rules for article
 	'/lib/jomi/sidebars.php', // custom sidebars
+	'/lib/jomi/stripe.php',
 	'/lib/jomi/relevanssi.php',
 	'/lib/jomi/user_orders.php',
 	'/lib/jomi/vid_length.php', // video thumbnail length code
@@ -294,51 +295,5 @@ function mrefer_add($message){
 add_filter('mandrill_payload','mrefer_add');
 //*/
 //mandrill_payload is correct filter for this not wp_mail.
-
-
-function stripe_charge() {
-
-	$amount = $_POST['amount'];
-	$currency = $_POST['currency'];
-	$token_id = $_POST['id'];
-	$desc = $_POST['desc'];
-	$email = $_POST['email'];
-
-	try{
-		$customer = Stripe_Customer::create( array(
-			'email' => $email
-			, 'card'  => $token_id
-		));
-	} catch(Stripe_Error $e) {
-		print_r($e);
-	}
-
-
-	// Create the charge on Stripe's servers - this will charge the user's default card
-	try {
-		$charge = Stripe_Charge::create( array(
-				'amount'      => $amount // amount in cents, again
-				, 'currency'    => $currency
-				//, 'card'        => $token_id
-				, 'customer'    => $customer['id']
-				, 'description' => $description
-			)
-		);
-
-		//echo "SUCCESS";
-		print_r($charge);
-
-	} catch(Stripe_CardError $e) {
-		//echo "NOPE";
-		print_r($e);
-	}
-	
-}
-add_action( 'wp_ajax_nopriv_stripe-charge', 'stripe_charge' );
-add_action( 'wp_ajax_stripe-charge', 'stripe_charge' );
-
-
-
-
 
 ?>

@@ -98,17 +98,23 @@
 
 /** set environment flags **/
 
-$local_envs = array (
-	'localhost',
-	'jomi',
-	'127.0.0.1'
-);
 
-if(in_array($_SERVER['HTTP_HOST'], $local_envs)) {
-	define('WP_ENV','TEST');
-} else {
-	define('WP_ENV','PROD');
+
+function set_env_flag() {
+
+	$local_envs = array (
+		'localhost',
+		'jomi',
+		'127.0.0.1'
+	);
+
+	if(in_array($_SERVER['HTTP_HOST'], $local_envs)) {
+		define('WP_ENV','TEST');
+	} else {
+		define('WP_ENV','PROD');
+	}
 }
+add_action('init', 'set_env_flag');
 
 /* COMPOSER INCLUDES */
 require_once('vendor/autoload.php');

@@ -6,72 +6,36 @@
 
 <?php 
 
-echo '<pre>';
+global $user_stripe_subscribed;
 
-$user_id = get_current_user_id();
-
-// not logged in. dont go through with purchase.
-if($user_id == 0) {
-	return;
-}
-
-$user = get_user_by('id',$user_id);
-
-// get user failed? dont go through with purchase
-if($user == false) {
-	return;
-}
-
-$cust_id = get_user_meta($user_id, 'stripe_cust_id', true);
-
-$customer = Stripe_Customer::retrieve($cust_id);
-
-//print_r($customer);
-
-// get subscription object
-$subscriptions = $customer['subscriptions'];
-$sub_total_count = $subscriptions['total_count'];
-$sub_objects = $subscriptions['data'];
-
-$subscribed = false;
-
-foreach($sub_objects as $sub) {
-	$status = $sub['status'];
-	if(in_array($status, array("trialing","active","past_due","unpaid"))) {
-		$subscribed = true;
-	}
-}
-
-if($subscribed) echo "SUBSCRIBED!!!";
-
-echo $cust_id;
-
-echo '</pre>';
+verify_user_stripe();
 
 $action = $_GET['action'];
 if(empty($action)) {
 
 ?>
 
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login Request" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Login Request</h4>
-      </div>
-      <div class="modal-body">
-        <p>Please login before subscribing to JoMI</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+<div class="modal fade" id="warning-modal" tabindex="-1" role="dialog" aria-labelledby="Warning" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>Generic Warning</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
 <div class="pricing">
+
+	<input type="hidden" id="user-stripe-subscribed" value="<?php echo $user_stripe_subscribed; ?>">
 
 	<?php //if(!is_user_logged_in()) { ?>
 	<div class="row">
@@ -218,7 +182,7 @@ var plan;
 $(function() {
 
 	// init modal and hide at page load
-	$('#login-modal').modal({
+	$('#warning-modal').modal({
 		show: false
 	});
 
@@ -239,7 +203,17 @@ $(function() {
 
 		// logged out
 		if($('#login-btn').is(':visible')) {
-			$('#login-modal').modal('show');
+			$('.modal-title').html("Login Request");
+			$('.modal-body p').html("Please login to JoMI before subscribing.");
+			$('#warning-modal').modal('show');
+			return;
+		}
+
+		if($('#user-stripe-subscribed').attr('value') == 1 ||
+			$('#user-stripe-subscribed').attr('value') == true) {
+			$('.modal-title').html("Warning");
+			$('.modal-body p').html("You're already subscribed to JoMI!");
+			$('#warning-modal').modal('show');
 			return;
 		}
 

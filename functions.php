@@ -130,6 +130,8 @@ if(WP_ENV == 'PROD') {
 } else {
 	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));
 }
+global $user_stripe_subscribed;
+$user_stripe_subscribed = false;
 
 /**
  * Roots includes

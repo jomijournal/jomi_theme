@@ -86,4 +86,58 @@ function stripe_charge() {
 add_action( 'wp_ajax_nopriv_stripe-charge', 'stripe_charge' );
 add_action( 'wp_ajax_stripe-charge', 'stripe_charge' );
 
+
+function verify_user_stripe() {
+	//echo '<pre>';
+	$user_id = get_current_user_id();
+
+	// not logged in. dont go through with purchase.
+	if($user_id == 0) {
+		return;
+	}
+
+	$user = get_user_by('id',$user_id);
+
+	// get user failed? dont go through with purchase
+	if($user == false) {
+		return;
+	}
+
+	$cust_id = get_user_meta($user_id, 'stripe_cust_id', true);
+
+	try {
+		$customer = Stripe_Customer::retrieve($cust_id);
+	} catch(Stripe_Error $e) {
+		return;
+	}
+
+	//print_r($customer);
+
+	// get subscription object
+	$subscriptions = $customer['subscriptions'];
+	$sub_total_count = $subscriptions['total_count'];
+	$sub_objects = $subscriptions['data'];
+
+	$subscribed = false;
+
+	foreach($sub_objects as $sub) {
+		$status = $sub['status'];
+		if(in_array($status, array("trialing","active","past_due","unpaid"))) {
+			$subscribed = true;
+		}
+	}
+	//if($subscribed) echo "SUBSCRIBED!!!";
+
+	//echo $cust_id;
+
+	//echo '</pre>';
+	
+	//return $subscribed;
+	
+	global $user_stripe_subscribed;
+	$user_stripe_subscribed = $subscribed;
+
+	return $user_stripe_subscribed;
+}
+
 ?>

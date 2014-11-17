@@ -8,7 +8,7 @@
 
 global $user_stripe_subscribed;
 
-verify_user_stripe();
+verify_user_stripe_subscribed();
 
 $action = $_GET['action'];
 if(empty($action)) {
@@ -212,7 +212,7 @@ $(function() {
 		if($('#user-stripe-subscribed').attr('value') == 1 ||
 			$('#user-stripe-subscribed').attr('value') == true) {
 			$('.modal-title').html("Warning");
-			$('.modal-body p').html("You're already subscribed to JoMI!");
+			$('.modal-body p').html("You're already subscribed to JoMI!<br>If you're having trouble accessing our content, please email us at <a href='mailto:contact@jomi.com'>contact@jomi.com</a>");
 			$('#warning-modal').modal('show');
 			return;
 		}

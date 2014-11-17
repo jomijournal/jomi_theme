@@ -437,7 +437,7 @@ function load_user_info() {
 
 	//** GET PER USER ORDERS
 
-	if($logged_in) {
+	/*if($logged_in) {
 
 		global $wpdb;
 		global $inst_order_table_name;
@@ -472,6 +472,17 @@ function load_user_info() {
 				$is_subscribed = true;
 				break;
 			}
+		}
+	}*/
+
+	if($logged_in) {
+		$stripe_subscribed = verify_user_stripe_subscribed();
+
+		if($stripe_subscribed) $is_subscribed = true;
+
+		if($access_debug) {
+			echo "User Stripe Subscribed:\n";
+			echo $stripe_subscribed . "\n";
 		}
 	}
 

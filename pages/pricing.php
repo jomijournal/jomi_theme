@@ -6,6 +6,48 @@
 
 <?php 
 
+echo '<pre>';
+
+$user_id = get_current_user_id();
+
+// not logged in. dont go through with purchase.
+if($user_id == 0) {
+	return;
+}
+
+$user = get_user_by('id',$user_id);
+
+// get user failed? dont go through with purchase
+if($user == false) {
+	return;
+}
+
+$cust_id = get_user_meta($user_id, 'stripe_cust_id', true);
+
+$customer = Stripe_Customer::retrieve($cust_id);
+
+//print_r($customer);
+
+// get subscription object
+$subscriptions = $customer['subscriptions'];
+$sub_total_count = $subscriptions['total_count'];
+$sub_objects = $subscriptions['data'];
+
+$subscribed = false;
+
+foreach($sub_objects as $sub) {
+	$status = $sub['status'];
+	if(in_array($status, array("trialing","active","past_due","unpaid"))) {
+		$subscribed = true;
+	}
+}
+
+if($subscribed) echo "SUBSCRIBED!!!";
+
+echo $cust_id;
+
+echo '</pre>';
+
 $action = $_GET['action'];
 if(empty($action)) {
 
@@ -164,6 +206,7 @@ if(empty($action)) {
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
 
+// turn off non-js api for modals
 $(document).off('.modal.data-api');
 
 var amount;
@@ -174,10 +217,12 @@ var plan;
 
 $(function() {
 
+	// init modal and hide at page load
 	$('#login-modal').modal({
 		show: false
 	});
 
+	// load stripe handler
 	var handler = StripeCheckout.configure({
 		key: '<?php echo get_option("stripe_test_public_api_key"); ?>'
 		, image: '/wp-content/themes/jomi/assets/img/enso_transparent.png'
@@ -191,8 +236,6 @@ $(function() {
 	$('.subscribe-btn').on('click', function(e) {
 
 		e.preventDefault();
-
-		
 
 		// logged out
 		if($('#login-btn').is(':visible')) {

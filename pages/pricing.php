@@ -11,9 +11,27 @@ if(empty($action)) {
 
 ?>
 
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login Request" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Login Request</h4>
+      </div>
+      <div class="modal-body">
+        <p>Please login before subscribing to JoMI</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <div class="pricing">
 
-	<?php if(!is_user_logged_in()) { ?>
+	<?php //if(!is_user_logged_in()) { ?>
 	<div class="row">
 		<div class="col-xs-12">
 			<div href="#login" class="login-notification">
@@ -21,7 +39,7 @@ if(empty($action)) {
 			</div>
 		</div>
 	</div>
-	<?php } ?>
+	<?php //} ?>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="pricing-notification" id="pricing-notification"></div>
@@ -146,6 +164,8 @@ if(empty($action)) {
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
 
+$(document).off('.modal.data-api');
+
 var amount;
 var name;
 var desc;
@@ -153,6 +173,10 @@ var currency = 'USD';
 var plan;
 
 $(function() {
+
+	$('#login-modal').modal({
+		show: false
+	});
 
 	var handler = StripeCheckout.configure({
 		key: '<?php echo get_option("stripe_test_public_api_key"); ?>'
@@ -167,6 +191,14 @@ $(function() {
 	$('.subscribe-btn').on('click', function(e) {
 
 		e.preventDefault();
+
+		
+
+		// logged out
+		if($('#login-btn').is(':visible')) {
+			$('#login-modal').modal('show');
+			return;
+		}
 
 		var price = $(this).parent().parent().parent().find('input[type="radio"]:checked');
 		var price_amount = price.attr('value');

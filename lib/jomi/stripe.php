@@ -14,8 +14,6 @@ function stripe_charge() {
 	$email = $_POST['email'];
 	$plan = $_POST['plan'];
 
-	
-
 
 	// create customer
 	try{

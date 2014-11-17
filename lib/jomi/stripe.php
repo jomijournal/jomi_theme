@@ -3,6 +3,27 @@
  * STRIPE HELPER FUNCS
  */
 
+function get_cust_id($user_id) {
+	// not logged in. dont go through with purchase.
+	if($user_id == 0) {
+		return false;
+	}
+
+	$user = get_user_by('id',$user_id);
+
+	// get user failed? dont go through with purchase
+	if($user == false) {
+		return false;
+	}
+
+	$cust_id = get_user_meta($user_id, 'stripe_cust_id', true);
+
+	if(empty($cust_id)) return false;
+
+	return $cust_id;
+}
+
+
 
 function stripe_charge() {
 
@@ -16,19 +37,7 @@ function stripe_charge() {
 
 	$user_id = get_current_user_id();
 
-	// not logged in. dont go through with purchase.
-	if($user_id == 0) {
-		return;
-	}
-
-	$user = get_user_by('id',$user_id);
-
-	// get user failed? dont go through with purchase
-	if($user == false) {
-		return;
-	}
-
-	$cust_id = get_user_meta($user_id, 'stripe_cust_id', true);
+	$cust_id = get_cust_id($user_id);
 
 	// user does not have a stripe customer ID associated with it
 	// create a new customer and link it to the wordpress user
@@ -61,7 +70,7 @@ function stripe_charge() {
 		return;
 	}
 
-	print_r($customer);
+	//print_r($customer);
 
 	// Create the charge on Stripe's servers - this will charge the user's default card
 	try {
@@ -74,11 +83,7 @@ function stripe_charge() {
 			)
 		);
 
-		//echo "SUCCESS";
-		//print_r($charge);
-
 	} catch(Stripe_CardError $e) {
-		//echo "NOPE";
 		print_r($e);
 	}
 	
@@ -87,31 +92,18 @@ add_action( 'wp_ajax_nopriv_stripe-charge', 'stripe_charge' );
 add_action( 'wp_ajax_stripe-charge', 'stripe_charge' );
 
 
-function verify_user_stripe() {
-	//echo '<pre>';
+function verify_user_stripe_subscribed() {
 	$user_id = get_current_user_id();
 
-	// not logged in. dont go through with purchase.
-	if($user_id == 0) {
-		return;
-	}
+	$cust_id = get_cust_id($user_id);
 
-	$user = get_user_by('id',$user_id);
-
-	// get user failed? dont go through with purchase
-	if($user == false) {
-		return;
-	}
-
-	$cust_id = get_user_meta($user_id, 'stripe_cust_id', true);
-
-	try {
-		$customer = Stripe_Customer::retrieve($cust_id);
-	} catch(Stripe_Error $e) {
-		return;
-	}
-
-	//print_r($customer);
+	if(!empty($cust_id)) {
+		try {
+			$customer = Stripe_Customer::retrieve($cust_id);
+		} catch(Stripe_Error $e) {
+			return;
+		}
+	} else return false;
 
 	// get subscription object
 	$subscriptions = $customer['subscriptions'];
@@ -126,14 +118,8 @@ function verify_user_stripe() {
 			$subscribed = true;
 		}
 	}
-	//if($subscribed) echo "SUBSCRIBED!!!";
-
-	//echo $cust_id;
-
-	//echo '</pre>';
 	
-	//return $subscribed;
-	
+	// set global flag
 	global $user_stripe_subscribed;
 	$user_stripe_subscribed = $subscribed;
 

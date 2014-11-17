@@ -24,6 +24,8 @@ $valid_subscribed_types = array(
 
 $order_type = $user_order->type;
 
+$status = get_post_status();
+
 if(in_array($order_type, $valid_trial_types)) {
 ?>
 <div id="free-trial-notification">
@@ -107,7 +109,11 @@ if( ! empty($location) ):
 	</tr>
 	<tr>
 		<td><strong>Publication Date</strong></td>
-		<td><?php echo get_the_date(); ?></td>
+		<?php if($status == 'publish') { ?>
+			<td><?php echo get_the_date(); ?></td>
+		<?php } else { ?>
+			<td>Article Not Yet Published</td>
+		<?php } ?>
 	</tr>
 	<tr>
 		<td><strong>Article ID</strong></td>
@@ -115,11 +121,19 @@ if( ! empty($location) ):
 	</tr>
 	<tr>
 		<td><strong>Volume</strong></td>
-		<td><?php the_time('Y'); ?></td>
+		<?php if($status == 'publish') { ?>
+			<td><?php the_time('Y'); ?></td>
+		<?php } else { ?>
+			<td>Article Not Yet Published</td>
+		<?php } ?>
 	</tr>
 	<tr>
 		<td><strong>Issue</strong></td>
-		<td><?php the_time('n'); ?></td>
+		<?php if($status == 'publish') { ?>
+			<td><?php the_time('n'); ?></td>
+		<?php } else { ?>
+			<td>Article Not Yet Published</td>
+		<?php } ?>
 	</tr>
 </table>
 

@@ -259,6 +259,31 @@ function parse_api_keys() {
 }
 add_action('init', 'parse_api_keys');
 
+function send_notification_email() {
+	$content = $_POST['content'];
+	$email = $_POST['email'];
+
+	// dont send if nothing is requested
+	if(empty($content)) return;
+
+	// if no one to be notified, dont send
+	if(empty($email)) return;
+
+	$admin_email = get_option('admin_email');
+
+	$body_for_user = 'Thank you for requesting to be notified when [' . $content . '] is released!<br><br>';
+	$body_for_user .= 'We will get back to you as soon as it is published.<br>';
+
+	wp_mail($email, 'Content Notification', $body_for_user);
+
+	$body_for_admin = $email . ' requested to be notified when [' . $content . '] is released.<br>';
+
+	wp_mail('contact@jomi.com', 'Content Notification', $body_for_admin);
+
+}
+add_action( 'wp_ajax_nopriv_send-notification-email', 'send_notification_email' );
+add_action( 'wp_ajax_send-notification-email', 'send_notification_email' );
+
 // Bug testing only. Not to be used on a production site!!
 /*add_action('wp_footer', 'roots_wrap_info');
 

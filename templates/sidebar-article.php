@@ -43,6 +43,7 @@ if(in_array($order_type, $valid_trial_types)) {
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <div class="addthis_sharing_toolbox"></div>
 
+<!-- AUTHOR INFO -->
 <h3>Authors</h3>
 <?php
 $coauthors = get_coauthors();
@@ -64,8 +65,9 @@ foreach( $coauthors as $coauthor )
 }
 ?>
 
-<h3>Institution</h3>
 
+<!-- INSTITUTION INFO -->
+<h3>Institution</h3>
 <h5 style="text-align:center;"><?php the_field('hospital_name'); ?></h5>
 <div id="view1">
 <?php
@@ -100,9 +102,11 @@ if( ! empty($location) ):
 //]]>
 </script>
 <?php endif; ?> 
-
 </div>
 
+
+
+<!-- ARTICLE INFORMATION -->
 <table class="info">
 	<tr>
 		<h3>Information</h3>
@@ -136,6 +140,53 @@ if( ! empty($location) ):
 		<?php } ?>
 	</tr>
 </table>
+
+
+<!-- PUBLISH NOTIFICATION -->
+<?php if($status != 'publish') { ?> 
+<h3>Stay Updated</h3>
+<table class="info">
+	<tr>
+		<td id="notification-status" class="notification-status">Request Sent!</td>
+	</tr>
+	<tr>
+		
+		<td><input type="text" placeholder="Email:" id="notification-input" class="notification-input">
+		<a href="#" class="btn notification-submit" id="notification-submit">Submit</a></td>
+	</tr>
+</table>
+
+<script>
+$('#notification-submit').on('click', function(e){
+	e.preventDefault();
+
+	var content = 'Article <?php echo get_field("publication_id"); ?> - <?php echo get_the_title(); ?>';
+	var email = $('#notification-input').val();
+
+	if(!isEmail(email)) {
+		$('.notification-status').css('background-color', '#FF4A4A');
+		$('.notification-status').html('Invalid Email!');
+		$('.notification-status').show();
+		return;
+	}
+
+	$.post(MyAjax.ajaxurl, {
+		action: 'send-notification-email'
+		, content: content
+		, email: email
+	}, function(response) {
+		$('.notification-status').css('background-color', '#2EBB2E');
+		$('.notification-status').html('Request Sent!');
+		$('.notification-status').show();
+	});
+});
+//stolen from http://badsyntax.co/post/javascript-email-validation-rfc822
+function isEmail(email){
+    return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email );
+}
+</script>
+
+<?php } ?>
 
 <?php 
 global $user_inst;

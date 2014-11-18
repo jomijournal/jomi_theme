@@ -83,6 +83,8 @@ function stripe_charge() {
 			)
 		);
 
+		wp_redirect(site_url('/pricing/?action=orderplaced'));
+
 	} catch(Stripe_CardError $e) {
 		print_r($e);
 	}

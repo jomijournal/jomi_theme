@@ -100,6 +100,12 @@ function verify_user_stripe_subscribed() {
 	if(!empty($cust_id)) {
 		try {
 			$customer = Stripe_Customer::retrieve($cust_id);
+
+			if($access_debug) {
+				echo "Stripe Customer:\n";
+				print_r($customer);
+			}
+			
 		} catch(Stripe_Error $e) {
 			return;
 		}

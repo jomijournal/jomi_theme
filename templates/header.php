@@ -42,7 +42,9 @@ global $user_stripe_subscribed;
 			</div>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown login-dropdown">
+
+				<!-- LOGIN MENU -->
+				<li class="dropdown login-dropdown" <?php if(is_user_logged_in()){echo "style='display:none;'";} ?>>
 					<a class="dropdown-toggle border" href="#" data-toggle="dropdown" id="login-btn">Sign&nbsp;in</a>
 					<div class="dropdown-menu login-dropdown-menu pull-right" role="menu">
 
@@ -76,11 +78,10 @@ global $user_stripe_subscribed;
 						</div>
 					</div>
 				</li>
-				<!--li class="logout-dropdown">
-					<a id="logout-btn" href="#">Logout</a>
-				</li-->
-				<li class="dropdown logout-dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-toggle" href="#" data-original="<span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span>"></a>
+				
+				<!-- LOGOUT MENU -->
+				<li class="dropdown logout-dropdown" <?php if(!is_user_logged_in()){echo "style='display:none;'";} ?>>
+					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-toggle" href="#" data-original="<span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span>"><span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span></a>
 					<div class="dropdown-menu" role="menu">
 						<a href="#">Account Settings</a>
 						<hr/>
@@ -144,15 +145,15 @@ global $user_stripe_subscribed;
 			logout(e)
 		});
 
-		$('.logout-dropdown').show();
+		//$('.logout-dropdown').show();
 		$('#logout-toggle').html($('#logout-toggle').attr('data-original'));
-		$('.login-dropdown').show();
+		//$('.login-dropdown').show();
 
 		//$('#logout-btn').show();
 		<?php if(is_user_logged_in()) { ?>
-			$('.login-dropdown').hide();
+			//$('.login-dropdown').hide();
 		<?php } else { ?>
-			$('.dropdown.logout-dropdown').hide();
+			//$('.dropdown.logout-dropdown').hide();
 			//$('#logout-btn').hide();
 		<?php } ?>
 

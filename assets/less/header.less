@@ -293,7 +293,25 @@ nav.site-header {
 						display: none;
 					}
 
+					&.logout-dropdown{
+						border: 1px solid #666;
+						border-radius: 5px;
+						margin-left: 10px;
+
+						padding: 0;
+						a.dropdown-toggle{
+							padding: 5px 15px;
+							background: rgba(255, 255, 255, 0.1);
+							&:hover{
+								background: rgba(255, 255, 255, 0.2);
+							}
+						}
+					}
 					&.logout-dropdown.open{
+
+						border:none;
+						margin-left: 12px;
+
 						background: #eee;
 						border-radius: 15px 15px 0px 0px;
 						border-color: #eee;
@@ -304,6 +322,9 @@ nav.site-header {
 							font-weight: normal;
 							text-decoration: none;
 							border-bottom: 0px;
+							&:hover {
+								background: initial;
+							}
 						}
 
 						.dropdown-menu{

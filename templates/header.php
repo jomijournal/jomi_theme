@@ -80,7 +80,7 @@ global $user_stripe_subscribed;
 					<a id="logout-btn" href="#">Logout</a>
 				</li-->
 				<li class="dropdown logout-dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-toggle" href="#" data-original="<?php echo $current_user->user_login; ?>"></a>
+					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-toggle" href="#" data-original="<span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span>"></a>
 					<div class="dropdown-menu" role="menu">
 						<a href="#">Account Settings</a>
 						<hr/>
@@ -145,7 +145,7 @@ global $user_stripe_subscribed;
 		});
 
 		$('.logout-dropdown').show();
-		$('#logout-toggle').text($('#logout-toggle').attr('data-original'));
+		$('#logout-toggle').html($('#logout-toggle').attr('data-original'));
 		$('.login-dropdown').show();
 
 		//$('#logout-btn').show();
@@ -223,7 +223,8 @@ global $user_stripe_subscribed;
 				
 				$('.logout-dropdown').show();
 				//$('a#logout-btn').show();
-				$('#logout-toggle').text(response);
+				//$('#logout-toggle').text(response);
+				$('#logout-toggle').html($('#logout-toggle').attr('data-original'));
 				
 			} else {
 				$('#error').text("Incorrect username or password");

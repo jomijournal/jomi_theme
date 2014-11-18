@@ -151,9 +151,11 @@ function ajax_login() {
   $login_result = wp_signon($creds, true);
 
   if (is_wp_error($login_result))
-    echo $login_result->get_error_message();
-  else
-    echo "success";
+    //echo $login_result->get_error_message();
+    echo "failure";
+  else {
+    echo $username;
+  }
 }
 add_action( 'wp_ajax_ajax-login', 'ajax_login');
 add_action( 'wp_ajax_nopriv_ajax-login', 'ajax_login');

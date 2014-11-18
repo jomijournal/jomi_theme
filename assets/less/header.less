@@ -82,18 +82,41 @@ nav.site-header {
 						font-weight: bold;
 					}
 				}
-				&.open{
+				&.login-dropdown.open{
 					a.dropdown-toggle{
 						background: none;
 						color: #aaa;
+						font-weight: bold;
 					}
 				}
 				&:last-child a{
 					border:none;
 				}
-				#logout-btn{
-					border-bottom: 1px solid #333;
+				&.logout-dropdown.open{
+					a.dropdown-toggle{
+						background: none;
+						color: #aaa;
+						font-weight: bold;
+						border-bottom: 1px solid #333;
+					}
+					.dropdown-menu{
+						padding: 0 0;
+						background: rgba(255, 255, 255, 0.1);
+						a{
+							display: block;
+							padding: 5px 10px;
+							text-decoration: none;
+						}
+						a#logout-btn{
+							border-bottom: 1px solid #333;
+						}
+						hr{
+							margin: 0 0;
+							border-top: 1px solid #333;
+						}
+					}
 				}
+				
 				div.dropdown-menu{
 					padding: 10px 5px;
 					width: 100%;
@@ -250,19 +273,70 @@ nav.site-header {
 					}
 					&.login-dropdown{
 						padding: 0 0;
+						&.open{
+							a.dropdown-toggle{
+								background: #fff;
+								border-radius: 15px 15px 0px 0px;
+								border-color: #fff;
+								font-weight: normal;
+								color: #333;
+							}
+						}
+					}
+					&.logout-dropdown.open{
+						background: #eee;
+						border-radius: 15px 15px 0px 0px;
+						border-color: #eee;
+						color: #333;
+						
+						a.dropdown-toggle{
+							color:#333;
+							font-weight: normal;
+							text-decoration: none;
+							border-bottom: 0px;
+						}
+
+						.dropdown-menu{
+							color: #333;
+							background: #eee;
+							padding: 0 0;
+							position: absolute;
+
+							a{
+								display: block;
+								padding: 5px 10px;
+								margin: 5px 0;
+								color: #333;
+								text-decoration: none;
+
+								transition: 0.05s all ease-in-out;
+								-webkit-transition: 0.05s all ease-in-out;
+
+								&:hover {
+									color: #eee;
+									background: #888;
+								}
+							}
+							a#logout-btn{
+								border-bottom: none;
+							}
+							hr{
+								margin: 0;
+								border-color: #ddd;
+							}
+						}
 					}
 					&.open{
-						a.dropdown-toggle{
+						/*a.dropdown-toggle{
 							color: #333;
 							background: #fff;
 							border-radius: 15px 15px 0px 0px;
 							border-color: #fff;
-						}
+						}*/
 					}
-					#logout-btn{
-						border-bottom: none;
-					}
-					div.dropdown-menu{
+					
+					// login dropdown
+					div.dropdown-menu.login-dropdown-menu{
 						background: #fff;
 						margin-top: -2px;
 						width: auto;

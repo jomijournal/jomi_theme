@@ -364,6 +364,32 @@ function stripe_charge(token) {
 </script>
 
 <?php } elseif($action == 'orderplaced') { ?>
-order placed
 
+
+<div class="pricing orderplaced">
+
+<div class="row">
+	<div class="col-xs-12">
+		<h1>Thank You for Subscribing to JoMI!</h1>
+		<hr>
+	</div>
+	<div class="col-xs-12">
+		<h2>You're now helping us produce the latest and greatest surgical procedures and educational videos</h2>
+		<br>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-4 col-xs-12">
+		<a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a>
+	</div>
+	<div class="col-sm-4 col-xs-12">
+		<a href="<?php echo site_url('/index/'); ?>" class="link-block">Check out the Index</a>
+	</div>
+	<div class="col-sm-4 col-xs-12">
+		<a href="<?php echo site_url('/articles/'); ?>" class="link-block">Watch Some Videos</a>
+	</div>
+</div>
+
+</div>
 <?php } ?>

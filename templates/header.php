@@ -3,6 +3,8 @@
 global $current_user;
 get_currentuserinfo();
 
+global $user_stripe_subscribed;
+
 ?>
 
 <div class="site-notification" id="site-notification" style="display:none;"></div>
@@ -82,9 +84,13 @@ get_currentuserinfo();
 					<div class="dropdown-menu" role="menu">
 						<a href="#">Account Settings</a>
 						<hr/>
-						<a href="#">Send Invite</a>
-						<a href="#">Send Feedback</a>
+						<a href="#" data-toggle="tooltip" data-placement="top" title="Feature Coming Soon">Send Invite</a>
+						<a href="<?php echo site_url('/contact/'); ?>">Send Feedback</a>
 						<hr/>
+						<?php if(!$user_stripe_subscribed) { ?>
+						<a style="font-weight:bold;" href="<?php echo site_url('/pricing/'); ?>">Subscribe</a>
+						<hr/>
+						<?php } ?>
 						<a href="#" id="logout-btn">Logout</a>
 					</div>
 				</li>
@@ -122,6 +128,8 @@ get_currentuserinfo();
 
 	/* SIGNUP & LOGIN */
 	$(function() {
+
+		$('[data-toggle="tooltip"]').tooltip();
 
 		$('.login-submit #submit').on('click', function(e) {
 			login(e);

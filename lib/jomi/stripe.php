@@ -105,7 +105,7 @@ function verify_user_stripe_subscribed() {
 				echo "Stripe Customer:\n";
 				print_r($customer);
 			}
-			
+
 		} catch(Stripe_Error $e) {
 			return;
 		}
@@ -131,5 +131,7 @@ function verify_user_stripe_subscribed() {
 
 	return $user_stripe_subscribed;
 }
+
+add_action('init', 'verify_user_stripe_subscribed');
 
 ?>

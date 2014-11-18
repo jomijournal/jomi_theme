@@ -145,18 +145,6 @@ global $user_stripe_subscribed;
 			logout(e)
 		});
 
-		//$('.logout-dropdown').show();
-		$('#logout-toggle').html($('#logout-toggle').attr('data-original'));
-		//$('.login-dropdown').show();
-
-		//$('#logout-btn').show();
-		<?php if(is_user_logged_in()) { ?>
-			//$('.login-dropdown').hide();
-		<?php } else { ?>
-			//$('.dropdown.logout-dropdown').hide();
-			//$('#logout-btn').hide();
-		<?php } ?>
-
 		$('#error').hide();
 
 		// Setup drop down menu

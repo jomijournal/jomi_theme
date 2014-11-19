@@ -15,9 +15,12 @@
 			text-align: center;
 		}
 		.plans{
-			> div{
+			> div {
 				padding: 0;
-				margin-bottom: 15px;
+				> div{
+					padding: 0;
+					margin-bottom: 15px;
+				}
 			}
 		}
 		.student{
@@ -57,22 +60,24 @@
 			.plan-form{border-color: #666;}
 			.plan-cost{
 				border-color: #666;
+				text-align: center;
 
 				p{
 					font-size: 1em;
 					text-align: left;
 				}
-				button.contact-btn{
-					display: block;
-					margin: 0 auto;
-					margin-top: 5px;
-					text-align: center;
+				a.contact-btn{
+					display: inline-block;
+					margin: 5px 0;
+					padding: 5px;
 					font-size: 1.75em;
 					border: 1px solid rgba(255, 255, 255, 0);
 
 					background: #333;
 					color: #eee;
 					border-radius: 5px;
+
+					text-decoration: none;
 
 					transition: 0.2s all ease-in-out;
 					-webkit-transition: 0.2s all ease-in-out;

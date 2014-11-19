@@ -49,111 +49,117 @@ if(empty($action)) {
 	</div>
 	<div class="plans row">
 
+		<div class="col-md-9 col-xs-12">
 
-
-		<div class="student col-xs-12 col-sm-4 col-md-3">
-			<div class="plan-header">
-				<h2>Students</h2>
+			<div class="student col-xs-12 col-sm-4">
+				<div class="plan-header">
+					<h2>Students</h2>
+				</div>
+				<div class="plan-body">
+					<p class="desc">For inquisitive pre-medical and medical students</p>
+					<p class="as-low-as">As low as</p>
+					<p class="price">$99/year</p>
+				</div>
+				<div class="plan-form">
+					<p>
+						<input id="student-monthly" type="radio" name="student-option" period="monthly" value="1000">
+						Monthly &nbsp;&nbsp;
+						($10.00/mo.)
+					</p>
+					<p>
+						<input id="student-annually" type="radio" name="student-option" period="annually" value="9900" checked>
+						Annually &nbsp;&nbsp;
+						($8.25/mo.)
+					</p>
+				</div>
+				<div class="plan-cost">
+					<p class="price">$99<sup class="cents">.00</sup></p>
+					<p><button class="subscribe-btn" id="student-sub">Subscribe</button></p>
+				</div>
 			</div>
-			<div class="plan-body">
-				<p class="desc">For inquisitive pre-medical and medical students</p>
-				<p class="as-low-as">As low as</p>
-				<p class="price">$99/year</p>
-			</div>
-			<div class="plan-form">
-				<p>
-					<input id="student-monthly" type="radio" name="student-option" period="monthly" value="1000">
-					Monthly &nbsp;&nbsp;
-					($10.00/mo.)
-				</p>
-				<p>
-					<input id="student-annually" type="radio" name="student-option" period="annually" value="9900" checked>
-					Annually &nbsp;&nbsp;
-					($8.25/mo.)
-				</p>
-			</div>
-			<div class="plan-cost">
-				<p class="price">$99<sup class="cents">.00</sup></p>
-				<p><button class="subscribe-btn" id="student-sub">Subscribe</button></p>
-			</div>
-		</div>
-
-
-
-		<div class="resident col-xs-12 col-sm-4 col-md-3">
-			<div class="plan-header">
-				<h2>Residents</h2>
-			</div>
-			<div class="plan-body">
-				<p class="desc">For apprehensive medical and surgical residents</p>
-				<p class="as-low-as">As low as</p>
-				<p class="price">$999/year</p>
-			</div>
-			<div class="plan-form">
-				<p>
-					<input id="resident-monthly" type="radio" name="resident-option" period="monthly" value="10000">
-					Monthly &nbsp;&nbsp;
-					($100.00/mo.)
-				</p>
-				<p>
-					<input id="resident-annually" type="radio" name="resident-option" period="annually" value="99900" checked>
-					Annually &nbsp;&nbsp;
-					($83.25/mo.)
-				</p>
-			</div>
-			<div class="plan-cost">
-				<p class="price">$999<sup class="cents">.00</sup></p>
-				<p><button class="subscribe-btn" id="resident-sub">Subscribe</button></p>
-			</div>
-		</div>
 
 
 
-		<div class="attending col-xs-12 col-sm-4 col-md-3">
-			<div class="plan-header">
-				<h2>Attendings</h2>
+			<div class="resident col-xs-12 col-sm-4">
+				<div class="plan-header">
+					<h2>Residents</h2>
+				</div>
+				<div class="plan-body">
+					<p class="desc">For apprehensive medical and surgical residents</p>
+					<p class="as-low-as">As low as</p>
+					<p class="price">$999/year</p>
+				</div>
+				<div class="plan-form">
+					<p>
+						<input id="resident-monthly" type="radio" name="resident-option" period="monthly" value="10000">
+						Monthly &nbsp;&nbsp;
+						($100.00/mo.)
+					</p>
+					<p>
+						<input id="resident-annually" type="radio" name="resident-option" period="annually" value="99900" checked>
+						Annually &nbsp;&nbsp;
+						($83.25/mo.)
+					</p>
+				</div>
+				<div class="plan-cost">
+					<p class="price">$999<sup class="cents">.00</sup></p>
+					<p><button class="subscribe-btn" id="resident-sub">Subscribe</button></p>
+				</div>
 			</div>
-			<div class="plan-body">
-				<p class="desc">For adaptive surgeons and attending physicians</p>
-				<p class="as-low-as">As low as</p>
-				<p class="price">$1998/year</p>
-			</div>
-			<div class="plan-form">
-				<p>
-					<input id="attending-monthly" type="radio" name="attending-option" period="monthly" value="20000">
-					Monthly &nbsp;&nbsp;
-					($200.00/mo.)
-				</p>
-				<p>
-					<input id="attending-annually" type="radio" name="attending-option" period="annually" value="199800" checked>
-					Annually &nbsp;&nbsp;
-					($166.50/mo.)
-				</p>
-			</div>
-			<div class="plan-cost">
-				<p class="price">$1998<sup class="cents">.00</sup></p>
-				<p><button class="subscribe-btn" id="attending-sub">Subscribe</button></p>
-			</div>
-		</div>
 
 
-		<div class="institution col-xs-12 col-sm-12 col-md-3">
-			<div class="plan-header">
-				<h2>Institutions</h2>
+
+			<div class="attending col-xs-12 col-sm-4">
+				<div class="plan-header">
+					<h2>Attendings</h2>
+				</div>
+				<div class="plan-body">
+					<p class="desc">For adaptive surgeons and attending physicians</p>
+					<p class="as-low-as">As low as</p>
+					<p class="price">$1998/year</p>
+				</div>
+				<div class="plan-form">
+					<p>
+						<input id="attending-monthly" type="radio" name="attending-option" period="monthly" value="20000">
+						Monthly &nbsp;&nbsp;
+						($200.00/mo.)
+					</p>
+					<p>
+						<input id="attending-annually" type="radio" name="attending-option" period="annually" value="199800" checked>
+						Annually &nbsp;&nbsp;
+						($166.50/mo.)
+					</p>
+				</div>
+				<div class="plan-cost">
+					<p class="price">$1998<sup class="cents">.00</sup></p>
+					<p><button class="subscribe-btn" id="attending-sub">Subscribe</button></p>
+				</div>
 			</div>
-			<div class="plan-body">
-				<p class="desc">For progressive medical and teaching institutions</p>
-				<p class="as-low-as">Limited-Time</p>
-				<p class="price">Early Adopter Pricing</p>
+
 			</div>
-			<div class="plan-form">
-				<p>Pricing is based on institution size but is also flexible to budget constraints</p>
+
+			<div class="col-md-3 col-xs-12">
+
+				<div class="institution col-xs-12 col-sm-12">
+					<div class="plan-header">
+						<h2>Institutions</h2>
+					</div>
+					<div class="plan-body">
+						<p class="desc">For progressive medical and teaching institutions</p>
+						<p class="as-low-as">Limited-Time</p>
+						<p class="price">Early Adopter Pricing</p>
+					</div>
+					<div class="plan-form">
+						<p>Pricing is based on institution size but is also flexible to budget constraints</p>
+					</div>
+					<div class="plan-cost">
+						<p>JoMI was created to improve outcomes in healthcare and surgery.<br> If your institution does not have the resources or budget to subscribe at our normal rate, we will personally work with your institution to guarantee access to our content</p>
+						<a class="contact-btn" href="mailto:lib@jomi.com">Contact Us</a>
+					</div>
+				</div>
+
 			</div>
-			<div class="plan-cost">
-				<p>JoMI was created to improve outcomes in healthcare and surgery.<br> If your institution does not have the resources or budget to subscribe at our normal rate, we will personally work with your institution to guarantee access to our content</p>
-				<button class="contact-btn" href="mailto:lib@jomi.com">Contact Us</button>
-			</div>
-		</div>
+
 	</div>
 </div>
 

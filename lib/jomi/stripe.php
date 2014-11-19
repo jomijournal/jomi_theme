@@ -87,6 +87,7 @@ function stripe_charge() {
 
 	} catch(Stripe_CardError $e) {
 		print_r($e);
+		wp_redirect(site_url('/pricing/?action=ordererror'));
 	}
 	
 }

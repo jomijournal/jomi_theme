@@ -37,15 +37,6 @@ if(empty($action)) {
 
 	<input type="hidden" id="user-stripe-subscribed" value="<?php echo $user_stripe_subscribed; ?>">
 
-	<?php //if(!is_user_logged_in()) { ?>
-	<div class="row">
-		<div class="col-xs-12">
-			<div href="#login" class="login-notification">
-				Please log in before subscribing to JoMI
-			</div>
-		</div>
-	</div>
-	<?php //} ?>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="pricing-notification" id="pricing-notification"></div>
@@ -203,8 +194,8 @@ $(function() {
 
 		// logged out
 		if($('#login-btn').is(':visible')) {
-			$('.modal-title').html("Login Request");
-			$('.modal-body p').html("Please login to JoMI before subscribing.");
+			$('.modal-title').html("Log In Request");
+			$('.modal-body p').html("Please log in to JoMI before subscribing.");
 			$('#warning-modal').modal('show');
 			return;
 		}
@@ -368,28 +359,56 @@ function stripe_charge(token) {
 
 <div class="pricing orderplaced">
 
-<div class="row">
-	<div class="col-xs-12">
-		<h1>Thank You for Subscribing to JoMI!</h1>
-		<hr>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>Thank You for Subscribing to JoMI!</h1>
+			<hr>
+		</div>
+		<div class="col-xs-12">
+			<h2>You're now helping us produce the latest and greatest surgical procedures and educational videos</h2>
+			<br>
+		</div>
 	</div>
-	<div class="col-xs-12">
-		<h2>You're now helping us produce the latest and greatest surgical procedures and educational videos</h2>
-		<br>
+
+	<div class="row">
+		<div class="col-sm-4 col-xs-12">
+			<a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a>
+		</div>
+		<div class="col-sm-4 col-xs-12">
+			<a href="<?php echo site_url('/index/'); ?>" class="link-block">Check out the Index</a>
+		</div>
+		<div class="col-sm-4 col-xs-12">
+			<a href="<?php echo site_url('/articles/'); ?>" class="link-block">Watch Some Videos</a>
+		</div>
 	</div>
+
+</div>
+<?php } elseif($action = 'ordererror') { ?>
+
+<div class="pricing ordererror">
+
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>Uh Oh! Something went wrong...</h1>
+			<hr>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6">
+			<strong>This could be a result of:</strong>
+			<ul>
+				<li>A connection interruption</li>
+				<li>Incorrect billing information</li>
+				<li>An error on JoMI's end</li>
+			</ul>
+			<strong>Please email us at <a href="mailto:contact@jomi.com">contact@jomi.com</a> or <a href="<?php echo site_url('/contact/'); ?>">contact us</a> if the problem persists. Thank you for your patience!</strong>
+		</div>
+		<div class="col-xs-6">
+			<img src="http://i.imgur.com/swKtO.png">
+		</div>
+	</div>
+
 </div>
 
-<div class="row">
-	<div class="col-sm-4 col-xs-12">
-		<a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a>
-	</div>
-	<div class="col-sm-4 col-xs-12">
-		<a href="<?php echo site_url('/index/'); ?>" class="link-block">Check out the Index</a>
-	</div>
-	<div class="col-sm-4 col-xs-12">
-		<a href="<?php echo site_url('/articles/'); ?>" class="link-block">Watch Some Videos</a>
-	</div>
-</div>
-
-</div>
 <?php } ?>

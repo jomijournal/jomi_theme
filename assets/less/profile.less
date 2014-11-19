@@ -2,23 +2,37 @@
  * PROFILE (USER EDIT) PAGE
  */
 
+body.profile div.container.wrap {
+	padding: 0;
+}
+
+.under-construction {
+	background-image: url('./../img/diagonal_yellow.jpg');
+	background-repeat: repeat;
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
+	//opacity: 0.3;
+}
+
 .profile {
-	.under-construction {
-		background-image: url('./../img/diagonal_yellow.jpg');
-		background-repeat: repeat;
-		display: block;
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		left: 0;
-		top: 0;
-		z-index: -1;
-		//opacity: 0.3;
-	}
+	
+	text-align: center;
+
 	h1 {
 		text-align: center;
 		font-weight: bold;
-		font-size: 48px;
+		font-size: 2.5em;
+		z-index: 100;
+	}
+
+	strong{
+		text-align: center;
+		font-size: 1.5em;
 	}
 }
 

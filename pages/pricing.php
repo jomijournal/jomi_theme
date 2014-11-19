@@ -6,6 +6,51 @@
 
 <?php 
 
+//TODO: MAKE ADMIN PAGE FOR THESE VARS
+
+$student_monthly = 1000;
+$student_annual = 9900;
+
+$resident_monthly = 10000;
+$resident_annual = 99900;
+
+$attending_monthly = 20000;
+$attending_annual = 199800;
+
+
+$student_monthly_text = '$' . number_format($student_monthly / 100, 2);
+$student_annual_text = '$' . number_format($student_annual / 1200, 2);
+
+$resident_monthly_text = '$' . number_format($resident_monthly / 100, 2);
+$resident_annual_text = '$' . number_format($resident_annual / 1200, 2);
+
+$attending_monthly_text = '$' . number_format($attending_monthly / 100, 2);
+$attending_annual_text = '$' . number_format($attending_annual / 1200, 2);
+
+
+$student_monthly_cents = substr(number_format($student_monthly % 100, 2), 2);
+$student_annual_cents = substr(number_format($student_annual % 100, 2), 2);
+
+$resident_monthly_cents = substr(number_format($resident_monthly % 100, 2), 2);
+$resident_annual_cents = substr(number_format($resident_annual % 100, 2), 2);
+
+$attending_monthly_cents = substr(number_format($attending_monthly % 100, 2), 2);
+$attending_annual_cents = substr(number_format($attending_annual % 100, 2), 2);
+
+
+$student_monthly_dollars = number_format($student_monthly / 100);
+$student_annual_dollars = number_format($student_annual / 100);
+
+$resident_monthly_dollars = number_format($resident_monthly / 100);
+$resident_annual_dollars = number_format($resident_annual / 100);
+
+$attending_monthly_dollars = number_format($attending_monthly / 100);
+$attending_annual_dollars = number_format($attending_annual / 100);
+
+
+// percent off
+$discount = 1.00;
+
 global $user_stripe_subscribed;
 
 verify_user_stripe_subscribed();
@@ -60,22 +105,22 @@ if(empty($action)) {
 					<div class="plan-body">
 						<p class="desc">For inquisitive pre-medical and medical students</p>
 						<p class="as-low-as">As low as</p>
-						<p class="price">$99/year</p>
+						<p class="price">$<?php echo ($student_annual / 100); ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
-							<input id="student-monthly" type="radio" name="student-option" period="monthly" value="1000">
+							<input id="student-monthly" type="radio" name="student" period="monthly" value="<?php echo $student_monthly; ?>">
 							Monthly &nbsp;&nbsp;
-							($10.00/mo.)
+							(<?php echo $student_monthly_text; ?>/mo.)
 						</p>
 						<p>
-							<input id="student-annually" type="radio" name="student-option" period="annually" value="9900" checked>
+							<input id="student-annually" type="radio" name="student" period="annual" value="<?php echo $student_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							($8.25/mo.)
+							(<?php echo $student_annual_text; ?>/mo.)
 						</p>
 					</div>
 					<div class="plan-cost">
-						<p class="price">$99<sup class="cents">.00</sup></p>
+						<p class="price">$<?php echo ($student_annual / 100); ?><sup class="cents">.<?php echo $student_annual_cents; ?></sup></p>
 						<p><button class="subscribe-btn" id="student-sub">Subscribe</button></p>
 					</div>
 				</div>
@@ -89,22 +134,22 @@ if(empty($action)) {
 					<div class="plan-body">
 						<p class="desc">For apprehensive medical and surgical residents</p>
 						<p class="as-low-as">As low as</p>
-						<p class="price">$999/year</p>
+						<p class="price">$<?php echo ($resident_annual / 100); ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
-							<input id="resident-monthly" type="radio" name="resident-option" period="monthly" value="10000">
+							<input id="resident-monthly" type="radio" name="resident" period="monthly" value="<?php echo $resident_monthly; ?>">
 							Monthly &nbsp;&nbsp;
-							($100.00/mo.)
+							(<?php echo $resident_monthly_text; ?>/mo.)
 						</p>
 						<p>
-							<input id="resident-annually" type="radio" name="resident-option" period="annually" value="99900" checked>
+							<input id="resident-annually" type="radio" name="resident" period="annual" value="<?php echo $resident_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							($83.25/mo.)
+							(<?php echo $resident_annual_text; ?>/mo.)
 						</p>
 					</div>
 					<div class="plan-cost">
-						<p class="price">$999<sup class="cents">.00</sup></p>
+						<p class="price">$<?php echo ($resident_annual / 100); ?><sup class="cents">.<?php echo $resident_annual_cents; ?></sup></p>
 						<p><button class="subscribe-btn" id="resident-sub">Subscribe</button></p>
 					</div>
 				</div>
@@ -118,22 +163,22 @@ if(empty($action)) {
 					<div class="plan-body">
 						<p class="desc">For adaptive surgeons and attending physicians</p>
 						<p class="as-low-as">As low as</p>
-						<p class="price">$1998/year</p>
+						<p class="price">$<?php echo ($attending_annual / 100); ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
-							<input id="attending-monthly" type="radio" name="attending-option" period="monthly" value="20000">
+							<input id="attending-monthly" type="radio" name="attending" period="monthly" value="<?php echo $attending_monthly; ?>">
 							Monthly &nbsp;&nbsp;
-							($200.00/mo.)
+							(<?php echo $attending_monthly_text; ?>/mo.)
 						</p>
 						<p>
-							<input id="attending-annually" type="radio" name="attending-option" period="annually" value="199800" checked>
+							<input id="attending-annually" type="radio" name="attending" period="annual" value="<?php echo $attending_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							($166.50/mo.)
+							(<?php echo $attending_annual_text; ?>/mo.)
 						</p>
 					</div>
 					<div class="plan-cost">
-						<p class="price">$1998<sup class="cents">.00</sup></p>
+						<p class="price">$<?php echo ($attending_annual / 100); ?><sup class="cents">.<?php echo $attending_annual_cents; ?></sup></p>
 						<p><button class="subscribe-btn" id="attending-sub">Subscribe</button></p>
 					</div>
 				</div>
@@ -142,7 +187,11 @@ if(empty($action)) {
 
 			<div class="row">
 				<div class="col-xs-12">
-					asdf
+					<div class="coupon-container">
+						Coupon Code:
+						<input type="text" class ="coupon-input" id="coupon-input">
+						<button class="btn coupon-submit">Submit</button>
+					</div>
 				</div>
 			</div>
 
@@ -255,7 +304,7 @@ $(function() {
 		if(price.attr('period') == 'monthly') {
 			desc += ' - Monthly';
 			plan += 'monthly';
-		} else if(price.attr('period') == 'annually') {
+		} else if(price.attr('period') == 'annual') {
 			desc += ' - Annual';
 			plan += 'annual';
 		}
@@ -280,16 +329,43 @@ $(function() {
 
 		var price_display = $(this).parent().parent().parent().find('.plan-cost .price');
 
-		//var price = (value/100) * 12;
-		price = value / 100;
-		//price.toFixed(3);
-		//price.toFixed(2);
-		// taken from http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript
-		//price = price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+		var type = $(this).attr('name');
+		var period = $(this).attr('period');
 
-		var price_text = '$' + price;
+		var dollars;
+		var cents;
 
-		price_display.html(price_text + "<sup class='cents'>.00</sup>");
+		if(type == 'student') {
+			if(period == 'monthly') {
+				dollars = '<?php echo $student_monthly_dollars; ?>';
+				cents = '<?php echo $student_monthly_cents; ?>';
+			} else {
+				dollars = '<?php echo $student_annual_dollars; ?>';
+				cents = '<?php echo $student_annual_cents; ?>';
+			} 
+		} else if (type == 'resident') {
+			if(period == 'monthly') {
+				dollars = '<?php echo $resident_monthly_dollars; ?>';
+				cents = '<?php echo $resident_monthly_cents; ?>';
+			} else {
+				dollars = '<?php echo $resident_annual_dollars; ?>';
+				cents = '<?php echo $resident_annual_cents; ?>';
+			} 
+		} else if (type == 'attending') {
+			if(period == 'monthly') {
+				dollars = '<?php echo $attending_monthly_dollars; ?>';
+				cents = '<?php echo $attending_monthly_cents; ?>';
+			} else {
+				dollars = '<?php echo $attending_annual_dollars; ?>';
+				cents = '<?php echo $attending_annual_cents; ?>';
+			} 
+		}
+
+		//price = value / 100;
+
+		//var price_text = '$' + price;
+
+		price_display.html("$" + dollars + "<sup class='cents'>." + cents + "</sup>");
 	});
 });
 

@@ -40,9 +40,55 @@
 		}
 		.institution{
 			.plan-header{background-color: #333;}
-			.plan-body{background-color: #666;}
+			.plan-body{
+				background-color: #666;
+				p.as-low-as a{
+					color: #96CFFF;
+					text-decoration: none;
+					&:hover{
+						color: #4CADFF;
+						text-decoration: underline;
+					}
+				}
+				p.price{
+					//font-size: 1.4em;
+				}
+			}
 			.plan-form{border-color: #666;}
-			.plan-cost{border-color: #666;}
+			.plan-cost{
+				border-color: #666;
+
+				p{
+					font-size: 1em;
+					text-align: left;
+				}
+				button.contact-btn{
+					display: block;
+					margin: 0 auto;
+					margin-top: 5px;
+					text-align: center;
+					font-size: 1.75em;
+					border: 1px solid rgba(255, 255, 255, 0);
+
+					background: #333;
+					color: #eee;
+					border-radius: 5px;
+
+					transition: 0.2s all ease-in-out;
+					-webkit-transition: 0.2s all ease-in-out;
+
+					&:hover {
+						background: #888;
+						color: #fff;
+						border: 1px solid #333;
+					}
+					&:active {
+						background: #eee;
+						color: #333;
+						border: 0px solid #eee;
+					}
+				}
+			}
 		}
 		.plan-header {
 			margin:0 4px;

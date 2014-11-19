@@ -143,16 +143,15 @@ if(empty($action)) {
 			</div>
 			<div class="plan-body">
 				<p class="desc">For progressive medical and teaching institutions</p>
-				<p class="as-low-as">As low as</p>
-				<p class="price">$100/video/year</p>
+				<p class="as-low-as">Limited-Time</p>
+				<p class="price">Early Adopter Pricing</p>
 			</div>
 			<div class="plan-form">
-				<p>Contact lib@jomi.com pls</p>
-				<p>&nbsp;</p>
+				<p>Pricing is based on institution size but is also flexible to budget constraints</p>
 			</div>
 			<div class="plan-cost">
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
+				<p>JoMI was created to improve outcomes in healthcare and surgery.<br> If your institution does not have the resources or budget to subscribe at our normal rate, we will personally work with your institution to guarantee access to our content</p>
+				<button class="contact-btn" href="mailto:lib@jomi.com">Contact Us</button>
 			</div>
 		</div>
 	</div>

@@ -75,19 +75,20 @@ function stripe_charge() {
 	}
 
 	try {
-		$customer->subscriptions->create(
-			array (
-				'plan' => $plan
-				, 'coupon' => $discount
-			)
-		);
-
-		wp_mail($email, 'JoMI Subscription', 'Thanks for subscribing to JoMI! <br>Let us know if you have any questions.');
-
-		$admin_email = get_option('admin_email');
-
-		wp_mail($admin_email, $email . ' Subscribed to JoMI!', 'plan: ' . $plan . '<br>coupon: ' . $discount . '<br>');
-
+		if(!empty($discount)) {
+			$customer->subscriptions->create(
+				array (
+					'plan' => $plan
+					, 'coupon' => $discount
+				)
+			);
+		} else {
+			$customer->subscriptions->create(
+				array (
+					'plan' => $plan
+				)
+			);
+		}
 		echo "success";
 		return;
 
@@ -96,6 +97,12 @@ function stripe_charge() {
 		echo "trouble creating subscription";
 		return;
 	}
+
+	wp_mail($email, 'JoMI Subscription', 'Thanks for subscribing to JoMI! <br>Let us know if you have any questions.');
+
+	$admin_email = get_option('admin_email');
+
+	wp_mail($admin_email, $email . ' Subscribed to JoMI!', 'plan: ' . $plan . '<br>coupon: ' . $discount . '<br>');
 
 	//print_r($customer);
 

@@ -219,7 +219,7 @@ if(empty($action)) {
 				<div class="col-xs-12">
 					<div class="coupon-display">
 
-						<?php if ($percent_off < 1 && $percent_off > 0) { ?>
+						<?php if ($discount < 1) { ?>
 						Coupon used: <span class="coupon-code"><?php echo $discount_code; ?></span><br>
 						Percent Off: <?php echo $percent_off; ?>%
 						<?php } else { ?>

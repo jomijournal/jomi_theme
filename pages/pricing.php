@@ -312,7 +312,7 @@ $(function() {
 		// logged out
 		if($('#login-btn').is(':visible')) {
 			$('.modal-title').html("Log In Request");
-			$('.modal-body p').html("Please log in to JoMI before subscribing.");
+			$('.modal-body p').html("Please log in to JoMI before subscribing.<br>Logging in allows us to store your subscription information and give you access to our content.");
 			$('#warning-modal').modal('show');
 			return;
 		}

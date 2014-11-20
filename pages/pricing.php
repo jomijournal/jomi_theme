@@ -21,14 +21,18 @@ $discount_code = $_POST['discount_code'];
 
 if(!empty($discount_code)) {
 	$discount = stripe_get_coupon_discount($discount_code);
-	$percent_off = $discount * 100;
 
 	if($discount != 1) {
+		$percent_off = $discount * 100;
 		$discount = 1 - $discount;
+	} else {
+		$discount_code = 'Invalid Coupon';
+		$discount = 1;
+		$percent_off = 0;
 	}
 	
 } else {
-	$discount_code = 'Invalid Coupon!';
+	$discount_code = '';
 	$discount = 1;
 }
 
@@ -484,6 +488,9 @@ function stripe_charge(token) {
 
 		}, function(response) {
 			console.log(response);
+
+			if(response == "success" || response == "success0") window.location.href = "<?php echo site_url('/pricing/?action=orderplaced'); ?>";
+			else window.location.href = "<?php echo site_url('/pricing/?action=ordererror'); ?>";
 		});
 	}
 }
@@ -541,7 +548,7 @@ function stripe_charge(token) {
 			<strong>Please email us at <a href="mailto:contact@jomi.com">contact@jomi.com</a> or <a href="<?php echo site_url('/contact/'); ?>">contact us</a> if the problem persists. Thank you for your patience!</strong>
 		</div>
 		<div class="col-xs-6">
-			<img src="http://i.imgur.com/swKtO.png">
+			<img src="https://i.imgur.com/swKtO.png">
 		</div>
 	</div>
 

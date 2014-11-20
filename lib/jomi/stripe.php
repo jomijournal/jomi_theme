@@ -34,8 +34,14 @@ function stripe_charge() {
 	$desc = $_POST['desc'];
 	$email = $_POST['email'];
 	$plan = $_POST['plan'];
+	$discount = $_POST['discount'];
 
 	$user_id = get_current_user_id();
+
+	if(empty($user_id)) {
+		echo "user not logged in";
+		return;
+	}
 
 	$cust_id = get_cust_id($user_id);
 
@@ -55,7 +61,15 @@ function stripe_charge() {
 			update_user_meta($user_id, 'stripe_cust_id', $cust_id);
 
 		} catch(Stripe_Error $e) {
-			print_r($e);
+			//print_r($e);
+			echo "trouble creating user";
+			return;
+		}
+	} else {
+		try {
+			$customer = Stripe_Customer::retrieve($cust_id);
+		} catch (Stripe_Error $e) {
+			echo "trouble retreiving user";
 			return;
 		}
 	}
@@ -64,16 +78,22 @@ function stripe_charge() {
 		$customer->subscriptions->create(
 			array (
 				'plan' => $plan
+				, 'coupon' => $discount
 		));
+
+		echo "success";
+		return;
+
 	} catch(Stripe_Error $e) {
-		print_r($e);
+		//print_r($e);
+		echo "trouble creating subscription";
 		return;
 	}
 
 	//print_r($customer);
 
 	// Create the charge on Stripe's servers - this will charge the user's default card
-	try {
+	/*try {
 		$charge = Stripe_Charge::create( array(
 				'amount'      => $amount // amount in cents, again
 				, 'currency'    => $currency
@@ -83,12 +103,14 @@ function stripe_charge() {
 			)
 		);
 
-		wp_redirect(site_url('/pricing/?action=orderplaced'));
+		//wp_redirect(site_url('/pricing/?action=orderplaced'));
+		echo "success";
 
 	} catch(Stripe_CardError $e) {
-		print_r($e);
-		wp_redirect(site_url('/pricing/?action=ordererror'));
-	}
+		//print_r($e);
+		//wp_redirect(site_url('/pricing/?action=ordererror'));
+		echo "error";
+	}*/
 	
 }
 add_action( 'wp_ajax_nopriv_stripe-charge', 'stripe_charge' );
@@ -96,6 +118,9 @@ add_action( 'wp_ajax_stripe-charge', 'stripe_charge' );
 
 
 function verify_user_stripe_subscribed() {
+
+	global $access_debug;
+
 	$user_id = get_current_user_id();
 
 	$cust_id = get_cust_id($user_id);
@@ -117,6 +142,11 @@ function verify_user_stripe_subscribed() {
 	// get subscription object
 	$subscriptions = $customer['subscriptions'];
 	$sub_total_count = $subscriptions['total_count'];
+
+	if($sub_total_count < 1) {
+		return false;
+	}
+
 	$sub_objects = $subscriptions['data'];
 
 	$subscribed = false;
@@ -135,7 +165,7 @@ function verify_user_stripe_subscribed() {
 	return $user_stripe_subscribed;
 }
 
-add_action('init', 'verify_user_stripe_subscribed');
+//add_action('init', 'verify_user_stripe_subscribed');
 
 /**
  * get the percentage discount based on the coupon id

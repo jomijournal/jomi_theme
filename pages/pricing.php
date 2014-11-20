@@ -22,10 +22,20 @@ $discount_code = $_POST['discount_code'];
 if(!empty($discount_code)) {
 	$discount = stripe_get_coupon_discount($discount_code);
 	$percent_off = $discount * 100;
+
+	$discount = 1 - $discount;
+	
 	//echo $discount;
 } else {
 	$discount_code = '';
 	$discount = 1;
+}
+
+// testing
+if(!empty($_GET['testdiscount'])) {
+	$discount = $_GET['testdiscount'];
+	$percent_off = (1 - $discount) * 100;
+	$discount_code = "COUPONFROMGET";
 }
 
 if($discount < 1) {

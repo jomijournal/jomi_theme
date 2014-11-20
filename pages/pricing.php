@@ -17,6 +17,13 @@ $resident_annual = 99900;
 $attending_monthly = 20000;
 $attending_annual = 199800;
 
+$discount_code = $_POST['discount_code'];
+
+if(!empty($discount_code)) {
+	echo stripe_get_coupon_discount($discount_code);
+} else $discount_code = '';
+
+
 
 $student_monthly_text = '$' . number_format($student_monthly / 100, 2);
 $student_annual_text = '$' . number_format($student_annual / 1200, 2);
@@ -186,12 +193,19 @@ if(empty($action)) {
 			</div>
 
 			<div class="row">
+				<?php if(!empty($discount_code)) { ?>
 				<div class="col-xs-12">
-					<div class="coupon-container">
-						Coupon Code:
-						<input type="text" class ="coupon-input" id="coupon-input">
-						<button class="btn coupon-submit">Submit</button>
+					<div class="coupon-display">
+						Coupon used: <span class="coupon-code"><?php echo $discount_code; ?></span>
 					</div>
+				</div>
+				<?php } ?>
+				<div class="col-xs-12">
+					<form class="coupon-container" method="POST" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+						Coupon Code:
+						<input type="text" class="coupon-input" id="coupon-input" name="discount_code">
+						<input type="submit" class="btn coupon-submit" value="Submit">
+					</form>
 				</div>
 			</div>
 
@@ -237,6 +251,7 @@ var name;
 var desc;
 var currency = 'USD';
 var plan;
+var discount = '<?php echo $discount_code?>';
 
 $(function() {
 
@@ -360,11 +375,6 @@ $(function() {
 				cents = '<?php echo $attending_annual_cents; ?>';
 			} 
 		}
-
-		//price = value / 100;
-
-		//var price_text = '$' + price;
-
 		price_display.html("$" + dollars + "<sup class='cents'>." + cents + "</sup>");
 	});
 });
@@ -382,6 +392,7 @@ function stripe_charge(token) {
 			, desc: desc
 			, currency: currency
 			, plan: plan
+			, discount: discount
 
 			, id:       (token.id       == null) ? null : token.id
 			, object:   (token.object   == null) ? null : token.object
@@ -413,6 +424,7 @@ function stripe_charge(token) {
 			, desc: desc
 			, currency: currency
 			, plan: plan
+			, discount: discount
 
 			, id:       (token.id       == null) ? null : token.id
 			, object:   (token.object   == null) ? null : token.object

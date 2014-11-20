@@ -107,7 +107,7 @@ add_action( 'wp_ajax_nopriv_stripe-charge', 'stripe_charge' );
 add_action( 'wp_ajax_stripe-charge', 'stripe_charge' );
 
 
-function verify_user_stripe_subscribed() {
+function stripe_verify_user_subscribed() {
 
 	global $access_debug;
 
@@ -118,16 +118,18 @@ function verify_user_stripe_subscribed() {
 	if(!empty($cust_id)) {
 		try {
 			$customer = Stripe_Customer::retrieve($cust_id);
-
-			if($access_debug && is_single()) {
-				echo "Stripe Customer:\n";
-				print_r($customer);
-			}
-
 		} catch(Stripe_Error $e) {
 			return;
 		}
 	} else return false;
+
+	if($access_debug && is_single()) {
+		echo "Stripe Customer:\n";
+		print_r($customer);
+	}
+
+	global $stripe_user;
+	$stripe_user = $customer;
 
 	// get subscription object
 	$subscriptions = $customer['subscriptions'];
@@ -145,14 +147,17 @@ function verify_user_stripe_subscribed() {
 		$status = $sub['status'];
 		if(in_array($status, array("trialing","active","past_due","unpaid"))) {
 			$subscribed = true;
+
+			global $stripe_user_active_sub;
+			$stripe_user_active_sub = $sub;
 		}
 	}
 	
 	// set global flag
-	global $user_stripe_subscribed;
-	$user_stripe_subscribed = $subscribed;
+	global $stripe_user_subscribed;
+	$stripe_user_subscribed = $subscribed;
 
-	return $user_stripe_subscribed;
+	return $stripe_user_subscribed;
 }
 
 //add_action('init', 'verify_user_stripe_subscribed');

@@ -476,7 +476,7 @@ function load_user_info() {
 	}*/
 
 	if($logged_in) {
-		$stripe_subscribed = verify_user_stripe_subscribed();
+		$stripe_subscribed = stripe_verify_user_subscribed();
 
 		if($stripe_subscribed) $is_subscribed = true;
 

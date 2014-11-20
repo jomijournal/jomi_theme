@@ -73,8 +73,8 @@ $attending_monthly_dollars = number_format(floor($attending_monthly / 100));
 $attending_annual_dollars  = number_format(floor($attending_annual  / 100));
 
 // verify if user is subscribed
-global $user_stripe_subscribed;
-verify_user_stripe_subscribed();
+global $stripe_user_subscribed;
+stripe_verify_user_subscribed();
 
 // default page
 $action = $_GET['action'];
@@ -102,7 +102,7 @@ if(empty($action)) {
 
 <div class="pricing">
 
-	<input type="hidden" id="user-stripe-subscribed" value="<?php echo $user_stripe_subscribed; ?>">
+	<input type="hidden" id="stripe-user-subscribed" value="<?php echo $stripe_user_subscribed; ?>">
 
 	<div class="row">
 		<div class="col-xs-12">
@@ -306,8 +306,8 @@ $(function() {
 		}
 
 		// already subscribed
-		if($('#user-stripe-subscribed').attr('value') == 1 ||
-			$('#user-stripe-subscribed').attr('value') == true) {
+		if($('#stripe-user-subscribed').attr('value') == 1 ||
+			$('#stripe-user-subscribed').attr('value') == true) {
 			$('.modal-title').html("Warning");
 			$('.modal-body p').html("You're already subscribed to JoMI!<br>If you're having trouble accessing our content, please email us at <a href='mailto:contact@jomi.com'>contact@jomi.com</a>");
 			$('#warning-modal').modal('show');

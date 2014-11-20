@@ -129,7 +129,7 @@ function verify_user_stripe_subscribed() {
 		try {
 			$customer = Stripe_Customer::retrieve($cust_id);
 
-			if($access_debug) {
+			if($access_debug && is_single()) {
 				echo "Stripe Customer:\n";
 				print_r($customer);
 			}
@@ -192,6 +192,27 @@ function stripe_get_coupon_discount($coupon_id = "") {
 	$discount /= 100;
 
 	return $discount;
+}
+
+function stripe_get_subscription_prices() {
+
+	try {
+		$plans = Stripe_Plan::all();
+	} catch (Stripe_Error $e) {
+		return array();
+	}
+
+	$prices = array();
+
+	$plans = $plans['data'];
+
+	foreach($plans as $plan) {
+		$id = $plan['id'];
+		$amount = $plan['amount'];
+		$prices[$id] = $amount;
+	}
+
+	return $prices;
 }
 
 ?>

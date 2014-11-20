@@ -6,16 +6,18 @@
 
 <?php 
 
-//TODO: MAKE ADMIN PAGE FOR THESE VARS
+// get these vars from stripe
+$prices = stripe_get_subscription_prices();
 
-$student_monthly = 1000.00;
-$student_annual = 9900.00;
+// set defaults
+$student_monthly = (empty($prices['student-monthly'])) ? 1000 : $prices['student-monthly'];
+$student_annual = (empty($prices['student-annual'])) ? 9900 : $prices['student-annual'];
 
-$resident_monthly = 10000.00;
-$resident_annual = 99900.00;
+$resident_monthly = (empty($prices['resident-monthly'])) ? 10000 : $prices['resident-monthly'];
+$resident_annual = (empty($prices['resident-annual'])) ? 99900 : $prices['resident-annual'];
 
-$attending_monthly = 20000.00;
-$attending_annual = 199800.00;
+$attending_monthly = (empty($prices['attending-monthly'])) ? 20000 : $prices['attending-monthly'];
+$attending_annual = (empty($prices['attending-annual'])) ? 199800 : $prices['attending-annual'];
 
 $discount_code = $_POST['discount_code'];
 
@@ -26,7 +28,6 @@ if(!empty($discount_code)) {
 		$percent_off = $discount * 100;
 		$discount = 1 - $discount;
 	} else {
-		$discount_code = 'Invalid Coupon';
 		$discount = 1;
 		$percent_off = 0;
 	}

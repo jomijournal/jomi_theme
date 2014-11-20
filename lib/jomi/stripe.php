@@ -55,16 +55,15 @@ function stripe_charge() {
 				'email' => $email
 				, 'card'  => $token_id
 			));
-
-			$cust_id = $customer['id'];
-
-			update_user_meta($user_id, 'stripe_cust_id', $cust_id);
-
 		} catch(Stripe_Error $e) {
 			//print_r($e);
 			echo "trouble creating user";
 			return;
 		}
+
+		$cust_id = $customer['id'];
+		update_user_meta($user_id, 'stripe_cust_id', $cust_id);
+
 	} else {
 		try {
 			$customer = Stripe_Customer::retrieve($cust_id);
@@ -90,7 +89,6 @@ function stripe_charge() {
 			);
 		}
 		echo "success";
-		return;
 
 	} catch(Stripe_Error $e) {
 		//print_r($e);
@@ -103,28 +101,6 @@ function stripe_charge() {
 	$admin_email = get_option('admin_email');
 
 	wp_mail($admin_email, $email . ' Subscribed to JoMI!', 'plan: ' . $plan . '<br>coupon: ' . $discount . '<br>');
-
-	//print_r($customer);
-
-	// Create the charge on Stripe's servers - this will charge the user's default card
-	/*try {
-		$charge = Stripe_Charge::create( array(
-				'amount'      => $amount // amount in cents, again
-				, 'currency'    => $currency
-				//, 'card'        => $token_id
-				, 'customer'    => $cust_id
-				, 'description' => $description
-			)
-		);
-
-		//wp_redirect(site_url('/pricing/?action=orderplaced'));
-		echo "success";
-
-	} catch(Stripe_CardError $e) {
-		//print_r($e);
-		//wp_redirect(site_url('/pricing/?action=ordererror'));
-		echo "error";
-	}*/
 	
 }
 add_action( 'wp_ajax_nopriv_stripe-charge', 'stripe_charge' );

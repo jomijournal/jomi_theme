@@ -23,11 +23,12 @@ if(!empty($discount_code)) {
 	$discount = stripe_get_coupon_discount($discount_code);
 	$percent_off = $discount * 100;
 
-	$discount = 1 - $discount;
+	if($discount != 1) {
+		$discount = 1 - $discount;
+	}
 	
-	//echo $discount;
 } else {
-	$discount_code = '';
+	$discount_code = 'Invalid Coupon!';
 	$discount = 1;
 }
 
@@ -217,8 +218,14 @@ if(empty($action)) {
 				<?php if(!empty($discount_code)) { ?>
 				<div class="col-xs-12">
 					<div class="coupon-display">
+
+						<?php if ($percent_off < 1 && $percent_off > 0) { ?>
 						Coupon used: <span class="coupon-code"><?php echo $discount_code; ?></span><br>
 						Percent Off: <?php echo $percent_off; ?>%
+						<?php } else { ?>
+						Invalid Coupon: <span class="coupon-code"><?php echo $discount_code; ?></span><br>
+						No Discount Applied
+						<?php } ?>
 					</div>
 				</div>
 				<?php } ?>

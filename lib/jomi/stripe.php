@@ -154,7 +154,7 @@ function stripe_get_coupon_discount($coupon_id = "") {
 	try {
 		$coupon = Stripe_Coupon::retrieve($id);
 	} catch (Stripe_Error $e) {
-		print_r($e);
+		//print_r($e);
 		return 1;
 	}
 

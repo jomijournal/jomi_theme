@@ -8,21 +8,36 @@
 
 //TODO: MAKE ADMIN PAGE FOR THESE VARS
 
-$student_monthly = 1000;
-$student_annual = 9900;
+$student_monthly = 1000.00;
+$student_annual = 9900.00;
 
-$resident_monthly = 10000;
-$resident_annual = 99900;
+$resident_monthly = 10000.00;
+$resident_annual = 99900.00;
 
-$attending_monthly = 20000;
-$attending_annual = 199800;
+$attending_monthly = 20000.00;
+$attending_annual = 199800.00;
 
 $discount_code = $_POST['discount_code'];
 
 if(!empty($discount_code)) {
-	echo stripe_get_coupon_discount($discount_code);
-} else $discount_code = '';
+	$discount = stripe_get_coupon_discount($discount_code);
+	$percent_off = $discount * 100;
+	//echo $discount;
+} else {
+	$discount_code = '';
+	$discount = 1;
+}
 
+if($discount < 1) {
+	$student_monthly *= $discount;
+	$student_annual *= $discount;
+
+	$resident_monthly *= $discount;
+	$resident_annual *= $discount;
+
+	$attending_monthly *= $discount;
+	$attending_annual *= $discount;
+}
 
 
 $student_monthly_text = '$' . number_format($student_monthly / 100, 2);
@@ -35,28 +50,24 @@ $attending_monthly_text = '$' . number_format($attending_monthly / 100, 2);
 $attending_annual_text = '$' . number_format($attending_annual / 1200, 2);
 
 
-$student_monthly_cents = substr(number_format($student_monthly % 100, 2), 2);
-$student_annual_cents = substr(number_format($student_annual % 100, 2), 2);
+$student_monthly_cents = sprintf("%02d", $student_monthly % 100);
+$student_annual_cents = sprintf("%02d", $student_annual % 100);
 
-$resident_monthly_cents = substr(number_format($resident_monthly % 100, 2), 2);
-$resident_annual_cents = substr(number_format($resident_annual % 100, 2), 2);
+$resident_monthly_cents = sprintf("%02d", $resident_monthly % 100);
+$resident_annual_cents = sprintf("%02d", $resident_annual % 100);
 
-$attending_monthly_cents = substr(number_format($attending_monthly % 100, 2), 2);
-$attending_annual_cents = substr(number_format($attending_annual % 100, 2), 2);
-
-
-$student_monthly_dollars = number_format($student_monthly / 100);
-$student_annual_dollars = number_format($student_annual / 100);
-
-$resident_monthly_dollars = number_format($resident_monthly / 100);
-$resident_annual_dollars = number_format($resident_annual / 100);
-
-$attending_monthly_dollars = number_format($attending_monthly / 100);
-$attending_annual_dollars = number_format($attending_annual / 100);
+$attending_monthly_cents = sprintf("%02d", $attending_monthly % 100);
+$attending_annual_cents = sprintf("%02d", $attending_annual % 100);
 
 
-// percent off
-$discount = 1.00;
+$student_monthly_dollars = number_format(floor($student_monthly / 100));
+$student_annual_dollars = number_format(floor($student_annual / 100));
+
+$resident_monthly_dollars = number_format(floor($resident_monthly / 100));
+$resident_annual_dollars = number_format(floor($resident_annual / 100));
+
+$attending_monthly_dollars = number_format(floor($attending_monthly / 100));
+$attending_annual_dollars = number_format(floor($attending_annual / 100));
 
 global $user_stripe_subscribed;
 
@@ -112,7 +123,7 @@ if(empty($action)) {
 					<div class="plan-body">
 						<p class="desc">For inquisitive pre-medical and medical students</p>
 						<p class="as-low-as">As low as</p>
-						<p class="price">$<?php echo ($student_annual / 100); ?>/year</p>
+						<p class="price">$<?php echo ($student_annual_dollars . '.' . $student_annual_cents) ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
@@ -127,7 +138,7 @@ if(empty($action)) {
 						</p>
 					</div>
 					<div class="plan-cost">
-						<p class="price">$<?php echo ($student_annual / 100); ?><sup class="cents">.<?php echo $student_annual_cents; ?></sup></p>
+						<p class="price">$<?php echo $student_annual_dollars; ?><sup class="cents">.<?php echo $student_annual_cents; ?></sup></p>
 						<p><button class="subscribe-btn" id="student-sub">Subscribe</button></p>
 					</div>
 				</div>
@@ -141,7 +152,7 @@ if(empty($action)) {
 					<div class="plan-body">
 						<p class="desc">For apprehensive medical and surgical residents</p>
 						<p class="as-low-as">As low as</p>
-						<p class="price">$<?php echo ($resident_annual / 100); ?>/year</p>
+						<p class="price">$<?php echo ($resident_annual_dollars . '.' . $resident_annual_cents); ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
@@ -156,7 +167,7 @@ if(empty($action)) {
 						</p>
 					</div>
 					<div class="plan-cost">
-						<p class="price">$<?php echo ($resident_annual / 100); ?><sup class="cents">.<?php echo $resident_annual_cents; ?></sup></p>
+						<p class="price">$<?php echo $resident_annual_dollars; ?><sup class="cents">.<?php echo $resident_annual_cents; ?></sup></p>
 						<p><button class="subscribe-btn" id="resident-sub">Subscribe</button></p>
 					</div>
 				</div>
@@ -170,7 +181,7 @@ if(empty($action)) {
 					<div class="plan-body">
 						<p class="desc">For adaptive surgeons and attending physicians</p>
 						<p class="as-low-as">As low as</p>
-						<p class="price">$<?php echo ($attending_annual / 100); ?>/year</p>
+						<p class="price">$<?php echo ($attending_annual_dollars . '.' . $attending_annual_cents); ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
@@ -185,7 +196,7 @@ if(empty($action)) {
 						</p>
 					</div>
 					<div class="plan-cost">
-						<p class="price">$<?php echo ($attending_annual / 100); ?><sup class="cents">.<?php echo $attending_annual_cents; ?></sup></p>
+						<p class="price">$<?php echo $attending_annual_dollars; ?><sup class="cents">.<?php echo $attending_annual_cents; ?></sup></p>
 						<p><button class="subscribe-btn" id="attending-sub">Subscribe</button></p>
 					</div>
 				</div>
@@ -196,7 +207,8 @@ if(empty($action)) {
 				<?php if(!empty($discount_code)) { ?>
 				<div class="col-xs-12">
 					<div class="coupon-display">
-						Coupon used: <span class="coupon-code"><?php echo $discount_code; ?></span>
+						Coupon used: <span class="coupon-code"><?php echo $discount_code; ?></span><br>
+						Percent Off: <?php echo $percent_off; ?>%
 					</div>
 				</div>
 				<?php } ?>

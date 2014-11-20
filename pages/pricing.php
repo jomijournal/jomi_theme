@@ -10,17 +10,17 @@
 $prices = stripe_get_subscription_prices();
 
 // set defaults
-$student_monthly = (empty($prices['student-monthly'])) ? 1000 : $prices['student-monthly'];
-$student_annual = (empty($prices['student-annual'])) ? 9900 : $prices['student-annual'];
+$student_monthly   = (empty($prices['student-monthly']))   ? 1000 : $prices['student-monthly'];
+$student_annual    = (empty($prices['student-annual']))    ? 1000 : $prices['student-annual'];
+$resident_monthly  = (empty($prices['resident-monthly']))  ? 1000 : $prices['resident-monthly'];
+$resident_annual   = (empty($prices['resident-annual']))   ? 1000 : $prices['resident-annual'];
+$attending_monthly = (empty($prices['attending-monthly'])) ? 1000 : $prices['attending-monthly'];
+$attending_annual  = (empty($prices['attending-annual']))  ? 1000 : $prices['attending-annual'];
 
-$resident_monthly = (empty($prices['resident-monthly'])) ? 10000 : $prices['resident-monthly'];
-$resident_annual = (empty($prices['resident-annual'])) ? 99900 : $prices['resident-annual'];
-
-$attending_monthly = (empty($prices['attending-monthly'])) ? 20000 : $prices['attending-monthly'];
-$attending_annual = (empty($prices['attending-annual'])) ? 199800 : $prices['attending-annual'];
-
+// get discount code
 $discount_code = $_POST['discount_code'];
 
+// process discount code and percent off
 if(!empty($discount_code)) {
 	$discount = stripe_get_coupon_discount($discount_code);
 
@@ -31,64 +31,52 @@ if(!empty($discount_code)) {
 		$discount = 1;
 		$percent_off = 0;
 	}
-	
 } else {
 	$discount_code = '';
 	$discount = 1;
 }
 
-// testing
-if(!empty($_GET['testdiscount'])) {
-	$discount = $_GET['testdiscount'];
-	$percent_off = (1 - $discount) * 100;
-	$discount_code = "COUPONFROMGET";
+// apply test variable
+// dont do this in production
+if(WP_ENV != "PROD") {
+	if(!empty($_GET['testdiscount'])) {
+		$discount = $_GET['testdiscount'];
+		$percent_off = (1 - $discount) * 100;
+		$discount_code = "COUPONFROMGET";
+	}
 }
 
+// apply discount to prices
 if($discount < 1) {
-	$student_monthly *= $discount;
-	$student_annual *= $discount;
-
-	$resident_monthly *= $discount;
-	$resident_annual *= $discount;
-
+	$student_monthly   *= $discount;
+	$student_annual    *= $discount;
+	$resident_monthly  *= $discount;
+	$resident_annual   *= $discount;
 	$attending_monthly *= $discount;
-	$attending_annual *= $discount;
+	$attending_annual  *= $discount;
 }
 
-
-$student_monthly_text = '$' . number_format($student_monthly / 100, 2);
-$student_annual_text = '$' . number_format($student_annual / 1200, 2);
-
-$resident_monthly_text = '$' . number_format($resident_monthly / 100, 2);
-$resident_annual_text = '$' . number_format($resident_annual / 1200, 2);
-
-$attending_monthly_text = '$' . number_format($attending_monthly / 100, 2);
-$attending_annual_text = '$' . number_format($attending_annual / 1200, 2);
-
-
-$student_monthly_cents = sprintf("%02d", $student_monthly % 100);
-$student_annual_cents = sprintf("%02d", $student_annual % 100);
-
-$resident_monthly_cents = sprintf("%02d", $resident_monthly % 100);
-$resident_annual_cents = sprintf("%02d", $resident_annual % 100);
-
+// helper vars to display cents of price
+$student_monthly_cents   = sprintf("%02d", $student_monthly   % 100);
+$student_annual_cents    = sprintf("%02d", $student_annual    % 100);
+$resident_monthly_cents  = sprintf("%02d", $resident_monthly  % 100);
+$resident_annual_cents   = sprintf("%02d", $resident_annual   % 100);
 $attending_monthly_cents = sprintf("%02d", $attending_monthly % 100);
-$attending_annual_cents = sprintf("%02d", $attending_annual % 100);
+$attending_annual_cents  = sprintf("%02d", $attending_annual  % 100);
 
-
-$student_monthly_dollars = number_format(floor($student_monthly / 100));
-$student_annual_dollars = number_format(floor($student_annual / 100));
-
-$resident_monthly_dollars = number_format(floor($resident_monthly / 100));
-$resident_annual_dollars = number_format(floor($resident_annual / 100));
-
+// helper vars to display dollars of price
+$student_monthly_dollars   = number_format(floor($student_monthly   / 100));
+$student_annual_dollars    = number_format(floor($student_annual    / 100));
+$resident_monthly_dollars  = number_format(floor($resident_monthly  / 100));
+$resident_annual_dollars   = number_format(floor($resident_annual   / 100));
 $attending_monthly_dollars = number_format(floor($attending_monthly / 100));
-$attending_annual_dollars = number_format(floor($attending_annual / 100));
+$attending_annual_dollars  = number_format(floor($attending_annual  / 100));
 
+// verify if user is subscribed
 global $user_stripe_subscribed;
-
 verify_user_stripe_subscribed();
 
+// default page
 $action = $_GET['action'];
 if(empty($action)) {
 
@@ -145,12 +133,12 @@ if(empty($action)) {
 						<p>
 							<input id="student-monthly" type="radio" name="student" period="monthly" value="<?php echo $student_monthly; ?>">
 							Monthly &nbsp;&nbsp;
-							(<?php echo $student_monthly_text; ?>/mo.)
+							($<?php echo ($student_monthly_dollars . '.' . $student_monthly_cents) ?>/mo.)
 						</p>
 						<p>
 							<input id="student-annually" type="radio" name="student" period="annual" value="<?php echo $student_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							(<?php echo $student_annual_text; ?>/mo.)
+							($<?php echo ($student_annual_dollars . '.' . $student_annual_cents) ?>/mo.)
 						</p>
 					</div>
 					<div class="plan-cost">
@@ -174,12 +162,12 @@ if(empty($action)) {
 						<p>
 							<input id="resident-monthly" type="radio" name="resident" period="monthly" value="<?php echo $resident_monthly; ?>">
 							Monthly &nbsp;&nbsp;
-							(<?php echo $resident_monthly_text; ?>/mo.)
+							($<?php echo ($resident_monthly_dollars . '.' . $resident_monthly_cents); ?>/mo.)
 						</p>
 						<p>
 							<input id="resident-annually" type="radio" name="resident" period="annual" value="<?php echo $resident_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							(<?php echo $resident_annual_text; ?>/mo.)
+							($<?php echo ($resident_annual_dollars . '.' . $resident_annual_cents); ?>/mo.)
 						</p>
 					</div>
 					<div class="plan-cost">
@@ -203,12 +191,12 @@ if(empty($action)) {
 						<p>
 							<input id="attending-monthly" type="radio" name="attending" period="monthly" value="<?php echo $attending_monthly; ?>">
 							Monthly &nbsp;&nbsp;
-							(<?php echo $attending_monthly_text; ?>/mo.)
+							($<?php echo ($attending_monthly_dollars . '.' . $attending_monthly_cents); ?>/mo.)
 						</p>
 						<p>
 							<input id="attending-annually" type="radio" name="attending" period="annual" value="<?php echo $attending_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							(<?php echo $attending_annual_text; ?>/mo.)
+							($<?php echo ($attending_annual_dollars . '.' . $attending_annual_cents); ?>/mo.)
 						</p>
 					</div>
 					<div class="plan-cost">
@@ -317,6 +305,7 @@ $(function() {
 			return;
 		}
 
+		// already subscribed
 		if($('#user-stripe-subscribed').attr('value') == 1 ||
 			$('#user-stripe-subscribed').attr('value') == true) {
 			$('.modal-title').html("Warning");
@@ -325,9 +314,9 @@ $(function() {
 			return;
 		}
 
+		// grab price
 		var price = $(this).parent().parent().parent().find('input[type="radio"]:checked');
 		var price_amount = price.attr('value');
-		//price *= 12;
 
 		// default values
 		name = 'JoMI';

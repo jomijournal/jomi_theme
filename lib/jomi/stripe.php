@@ -34,7 +34,7 @@ function stripe_charge() {
 	$desc = $_POST['desc'];
 	$email = $_POST['email'];
 	$plan = $_POST['plan'];
-	$discount = $_POST['discount'];
+	$discount = (empty($_POST['discount'])) ? '' : $_POST['discount'];
 
 	$user_id = get_current_user_id();
 
@@ -79,7 +79,14 @@ function stripe_charge() {
 			array (
 				'plan' => $plan
 				, 'coupon' => $discount
-		));
+			)
+		);
+
+		wp_mail($email, 'JoMI Subscription', 'Thanks for subscribing to JoMI! <br>Let us know if you have any questions.');
+
+		$admin_email = get_option('admin_email');
+
+		wp_mail($admin_email, $email . ' Subscribed to JoMI!', 'plan: ' . $plan . '<br>coupon: ' . $discount . '<br>');
 
 		echo "success";
 		return;

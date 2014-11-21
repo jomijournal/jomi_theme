@@ -114,7 +114,7 @@ function set_env_flag() {
 		define('WP_ENV','PROD');
 	}
 }
-add_action('init', 'set_env_flag');
+add_action('init', 'set_env_flag', -100);
 
 /* COMPOSER INCLUDES */
 require_once('vendor/autoload.php');

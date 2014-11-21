@@ -138,7 +138,7 @@ if(empty($action)) {
 						<p>
 							<input id="student-annually" type="radio" name="student" period="annual" value="<?php echo $student_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							($<?php echo ($student_annual_dollars . '.' . $student_annual_cents) ?>/mo.)
+							($<?php echo ($student_annual_dollars . '.' . $student_annual_cents) ?>/year)
 						</p>
 					</div>
 					<div class="plan-cost">
@@ -167,7 +167,7 @@ if(empty($action)) {
 						<p>
 							<input id="resident-annually" type="radio" name="resident" period="annual" value="<?php echo $resident_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							($<?php echo ($resident_annual_dollars . '.' . $resident_annual_cents); ?>/mo.)
+							($<?php echo ($resident_annual_dollars . '.' . $resident_annual_cents); ?>/year)
 						</p>
 					</div>
 					<div class="plan-cost">
@@ -196,7 +196,7 @@ if(empty($action)) {
 						<p>
 							<input id="attending-annually" type="radio" name="attending" period="annual" value="<?php echo $attending_annual; ?>" checked>
 							Annually &nbsp;&nbsp;
-							($<?php echo ($attending_annual_dollars . '.' . $attending_annual_cents); ?>/mo.)
+							($<?php echo ($attending_annual_dollars . '.' . $attending_annual_cents); ?>/year)
 						</p>
 					</div>
 					<div class="plan-cost">
@@ -247,7 +247,8 @@ if(empty($action)) {
 						<p class="price">Early Adopter Pricing</p>
 					</div>
 					<div class="plan-form">
-						<p>Pricing is based on institution size but is also flexible to budget constraints</p>
+						<p>JoMI is used at prestigious medical schools and hospitals around the world</p>
+						<p><a href="<?php echo site_url('/subscribers/'); ?>">See all subscribers</a></p>
 					</div>
 					<div class="plan-cost">
 						<p>JoMI was created to improve outcomes in healthcare and surgery.<br> If your institution does not have the resources or budget to subscribe at our normal rate, we will personally work with your institution to guarantee access to our content</p>

@@ -4,6 +4,10 @@
 global $user_inst;
 $user_order = $user_inst['order'];
 
+global $stripe_user_subscribed;
+global $stripe_user_stripe;
+global $stripe_user_active_sub;
+
 // all valid order types that will trigger a free trial smidget
 $valid_trial_types = array(
 	'free-trial',
@@ -22,18 +26,34 @@ $valid_subscribed_types = array(
 	'Subscribed'
 );
 
-$order_type = $user_order->type;
+// display free trial
+if(!empty($user_order)) {
+	$order_type = $user_order->type;
 
-$status = get_post_status();
+	$status = get_post_status();
 
-if(in_array($order_type, $valid_trial_types)) {
-?>
-<div id="free-trial-notification">
-	<span class="free-trial-head">TRIAL</span>
-	<p>You are currently using trial access.<br>
-	Please recommend JoMI to your institution.</p>
-</div>
+	if(in_array($order_type, $valid_trial_types)) {
+	?>
+	<div id="free-trial-notification">
+		<span class="free-trial-head">TRIAL</span>
+		<p>You are currently using trial access.<br>
+		Please recommend JoMI to your institution.</p>
+	</div>
+	<?php } 
+} elseif ($stripe_user_subscribed) { ?>
+	
+	<div class="row stripe-notification">
+		<div class="col-xs-12">
+			<span class="stripe-subscribed">Subscribed</span>
+		</div>
+		<div class="col-xs-12">
+			<span class="plan">Plan:</span>
+			<span class="plan-details"><?php echo $stripe_user_active_sub['plan']['name']; ?></span>
+		</div>
+	</div>
+
 <?php } ?>
+
 
 <h3>Share This Article</h3>
 

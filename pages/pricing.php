@@ -76,6 +76,9 @@ $attending_annual_dollars  = number_format(floor($attending_annual  / 100));
 global $stripe_user_subscribed;
 stripe_verify_user_subscribed();
 
+global $current_user;
+get_currentuserinfo();
+
 // default page
 $action = $_GET['action'];
 if(empty($action)) {
@@ -287,6 +290,7 @@ $(function() {
 	var handler = StripeCheckout.configure({
 		key: '<?php echo get_option("stripe_test_public_api_key"); ?>'
 		, image: '/wp-content/themes/jomi/assets/img/enso_transparent.png'
+		, email: '<?php echo $current_user->user_email; ?>'
 		, token: function(token) {
 			// Use the token to create the charge with a server-side script.
 			// You can access the token ID with `token.id`

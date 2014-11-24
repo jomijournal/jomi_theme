@@ -27,7 +27,6 @@
 
 	global $access_blocks;
 	check_access();
-	//block_deny();
 	
 	$id = get_the_ID();
 

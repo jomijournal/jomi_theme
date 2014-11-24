@@ -125,13 +125,27 @@
 				<!-- FOR REGULAR ARTICLES -->
 				<div class="tab-content" id="content-article">
 
+					<?php
+					// fetch content custom fields
+					$meta = get_field('meta');
+					$abstract = get_field('abstract');
+					$citations = get_field('citations');
+					$outline = get_field('outline');
+					?>
+
 					<div class="tab-pane active" id="main">
-						<?php echo get_field('meta'); ?>
+						<?php echo $meta; ?>
 						<!-- separating into a div for easier jquery grabbing-->
-						<div id="the-content"><?php the_content(); ?></div>
-						<?php if(!empty(get_field('citations'))) { ?>
+						<div id="the-content">
+							<?php if(!empty($abstract)) { ?>
+								<h4>Abstract</h4>
+								<?php echo $abstract; ?>
+							<?php } ?>
+							<?php the_content(); ?>
+						</div>
+						<?php if(!empty($citations)) { ?>
 							<h3>Citations</h3>
-							<?php echo get_field('citations'); ?>
+							<?php echo $citations; ?>
 						<?php } ?>
 					</div>
 
@@ -139,10 +153,10 @@
 						<div id="toc_container" class="toc_wrap_right toc_white no_bullets">
 							<p class="toc_title">Table of Contents</p>
 							<ul class="toc_list">
-								<?php echo toc_get_index(get_field('outline'));?>
+								<?php echo toc_get_index($outline);?>
 							</ul>
 						</div>
-						<?php echo get_field('outline'); ?>
+						<?php echo $outline; ?>
 					</div>
 
 				</div>

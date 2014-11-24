@@ -137,43 +137,44 @@ $user_stripe_subscribed = false;
  * Roots includes
  */
 $roots_includes = array(
-	'/lib/utils.php',           // Utility functions
-	'/lib/init.php',            // Initial theme setup and constants
-	'/lib/wrapper.php',         // Theme wrapper class
-	'/lib/sidebar.php',         // Sidebar class
-	'/lib/config.php',          // Configuration
-	'/lib/activation.php',      // Theme activation
-	'/lib/titles.php',          // Page titles
-	'/lib/cleanup.php',         // Cleanup
-	'/lib/nav.php',             // Custom nav modifications
-	'/lib/gallery.php',         // Custom [gallery] modifications
-	'/lib/comments.php',        // Custom comments modifications
-	'/lib/relative-urls.php',   // Root relative URLs
-	'/lib/widgets.php',         // Sidebars and widgets
-	'/lib/scripts.php',         // Scripts and stylesheets
-	'/lib/custom.php',          // Custom functions
+	'/lib/utils.php'             // Utility functions
+	, '/lib/init.php'            // Initial theme setup and constants
+	, '/lib/wrapper.php'         // Theme wrapper class
+	, '/lib/sidebar.php'         // Sidebar class
+	, '/lib/config.php'          // Configuration
+	, '/lib/activation.php'      // Theme activation
+	, '/lib/titles.php'          // Page titles
+	, '/lib/cleanup.php'         // Cleanup
+	, '/lib/nav.php'             // Custom nav modifications
+	, '/lib/gallery.php'         // Custom [gallery] modifications
+	, '/lib/comments.php'        // Custom comments modifications
+	, '/lib/relative-urls.php'   // Root relative URLs
+	, '/lib/widgets.php'         // Sidebars and widgets
+	, '/lib/scripts.php'         // Scripts and stylesheets
+	, '/lib/custom.php'          // Custom functions
 );
 $jomi_includes = array(
-	'/lib/jomi/admin.php', // admin usability and visual improvements
-	'/lib/jomi/access_logic.php', // access frontend check and block displays
-	'/lib/jomi/access_db.php', // access db management
-	'/lib/jomi/access_util.php', // access helper functions
-	'/lib/jomi/access_ui.php', // access ui + javascript
-	'/lib/jomi/access_blocks.php', // access block templates
-	'/lib/jomi/article_count.php',  // count # of articles published/preprinted
-	'/lib/jomi/db_switch.php', // db switch utility on dashboard
-	'/lib/jomi/inst_db.php',
-	'/lib/jomi/inst_ui.php',
-	'/lib/jomi/login.php', // login page utility and restyling
-	'/lib/jomi/post_status.php', // register post statuses
-	'/lib/jomi/post_types.php', // register post types (article)
-	'/lib/jomi/rewrite.php', // rewrite rules for article
-	'/lib/jomi/sidebars.php', // custom sidebars
-	'/lib/jomi/stripe.php',
-	'/lib/jomi/relevanssi.php',
-	'/lib/jomi/user_orders.php',
-	'/lib/jomi/vid_length.php', // video thumbnail length code
-	'/lib/jomi/yoast_seo.php'
+	'/lib/jomi/admin.php'            // admin usability and visual improvements
+	, '/lib/jomi/access_logic.php'   // access frontend check and block displays
+	, '/lib/jomi/access_db.php'      // access db management
+	, '/lib/jomi/access_util.php'    // access helper functions
+	, '/lib/jomi/access_ui.php'      // access ui + javascript
+	, '/lib/jomi/access_blocks.php'  // access block templates
+	, '/lib/jomi/article_count.php'  // count # of articles published/preprinted
+	, '/lib/jomi/db_switch.php'      // db switch utility on dashboard
+	, '/lib/jomi/inst_db.php'        // institution db management
+	, '/lib/jomi/inst_ui.php'        // institution admin UI
+	, '/lib/jomi/login.php'          // login page utility and restyling
+	, '/lib/jomi/post_status.php'    // register post statuses
+	, '/lib/jomi/post_types.php'     // register post types (article)
+	, '/lib/jomi/referral_db.php'    // referral DB management
+	, '/lib/jomi/rewrite.php'        // rewrite rules for articles
+	, '/lib/jomi/sidebars.php'       // custom sidebars
+	, '/lib/jomi/stripe.php'         // stripe-php helper functions
+	, '/lib/jomi/relevanssi.php'     // relevanssi (search) modifications
+	, '/lib/jomi/user_orders.php'    // user order logic and UI
+	, '/lib/jomi/vid_length.php'     // video thumbnail length code
+	, '/lib/jomi/yoast_seo.php'      // SEO mods and improvements
 );
 
 $includes = array_merge($jomi_includes, $roots_includes);

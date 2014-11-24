@@ -9,7 +9,7 @@
 global $wpdb;
 
 global $referral_db_version;
-$referral_db_version = '1.00';
+$referral_db_version = '1.03';
 
 global $referral_table_name;
 $referral_table_name = $wpdb->prefix . "user_referrals";
@@ -31,11 +31,13 @@ function referral_table_install() {
 	  $charset_collate .= " COLLATE {$wpdb->collate}";
 	}
 	$sql = "CREATE TABLE $referral_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT
-		, user_id int NOT NULL
-		, refer_code varchar(10) NOT NULL
-		, referred_by int NOT NULL
-		, num_referrals int NOT NULL
+		id mediumint(9)    NOT NULL AUTO_INCREMENT
+		, user_id          int NOT NULL
+		, refer_code       varchar(10) NOT NULL
+		, referred_by      int NOT NULL
+		, num_referrals    int NOT NULL
+		, discount_percent int NOT NULL
+		, discount_amount  int NOT NULL
 		, UNIQUE KEY id (id)
 	) $charset_collate;";
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -135,6 +137,26 @@ function process_referral_post_data() {
 	);
 
 	return $out; 
+}
+
+/**
+ * get a referral object from the database
+ * @param  [type] $refer_code [description]
+ * @return [type]             [description]
+ */
+function get_referral_object($refer_code){
+
+	global $wpdb;
+	global $referral_table_name;
+
+	$sql = "SELECT * FROM $referral_table_name 
+	WHERE refer_code='$refer_code'";
+
+	$results = $wpdb->get_results($sql);
+
+	$referral_obj = $results[0];
+
+	return $referral_obj;
 }
 
 

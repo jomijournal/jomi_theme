@@ -30,8 +30,6 @@ if($_GET['clearsession'] == 'true') {
 $coupons = (empty($_SESSION['coupons'])) ? array() : $_SESSION['coupons'];
 $referral = $_SESSION['referral'];
 
-
-
 $code = $_POST['code'];
 
 // parse user-entered code
@@ -54,6 +52,11 @@ if(!empty($code)) {
 			// invalid code
 		}
 	}
+}
+// parse GET codes
+if(!empty($_GET['referral'])) {
+	$referral_obj = get_referral_object($_GET['referral']);
+	if(!empty($referral_obj)) $referral = $referral_obj;
 }
 
 // default discounts
@@ -105,14 +108,6 @@ if($_GET['showdebug'] == true) {
 
 //** APPLY DISCOUNTS TO PRICES
 
-if($discount_percent < 1) {
-	$student_monthly   *= $discount_percent;
-	$student_annual    *= $discount_percent;
-	$resident_monthly  *= $discount_percent;
-	$resident_annual   *= $discount_percent;
-	$attending_monthly *= $discount_percent;
-	$attending_annual  *= $discount_percent;
-}
 if($discount_amount > 0) {
 	$student_monthly   -= $discount_amount;
 	$student_annual    -= $discount_amount;
@@ -120,6 +115,14 @@ if($discount_amount > 0) {
 	$resident_annual   -= $discount_amount;
 	$attending_monthly -= $discount_amount;
 	$attending_annual  -= $discount_amount;
+}
+if($discount_percent < 1) {
+	$student_monthly   *= $discount_percent;
+	$student_annual    *= $discount_percent;
+	$resident_monthly  *= $discount_percent;
+	$resident_annual   *= $discount_percent;
+	$attending_monthly *= $discount_percent;
+	$attending_annual  *= $discount_percent;
 }
 
 if($student_monthly < 0) $student_monthly = 0;

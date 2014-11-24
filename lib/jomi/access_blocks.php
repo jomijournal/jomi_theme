@@ -175,7 +175,7 @@ function block_free_trial() {
 			</form>
 			<br/>
 			<p>
-			We have institutional, individual, and emergency access available.
+			We have institutional and individual access available. If you are unable to afford access, please send an email at <a href="mailto:lib@jomi.com?Subject=Need%20Based%request">lib@jomi.com</a>
 			</p>
 			<br/>
 		</div>

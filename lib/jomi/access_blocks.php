@@ -266,7 +266,7 @@ function block_free_trial_thanks() {
 	</div>
 	<div class="row">
 		<h1>Thanks for using our free trial!</h1>
-		<h4>Please let your institution know about JoMI!</h4>
+		<!--h4>Please let your institution know about JoMI!</h4-->
 	</div>
 	<div class="row link-close">
 		<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>

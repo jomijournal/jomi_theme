@@ -194,11 +194,11 @@ function stripe_verify_user_subscribed() {
 //add_action('init', 'verify_user_stripe_subscribed');
 
 /**
- * get the percentage discount based on the coupon id
+ * fetch coupon based on its id
  * @param  string $coupon_id [description]
  * @return [type]            [description]
  */
-function stripe_get_coupon_discount($coupon_id = "") {
+function stripe_get_coupon($coupon_id = "") {
 
 	$id = $coupon_id;
 
@@ -212,14 +212,16 @@ function stripe_get_coupon_discount($coupon_id = "") {
 		$coupon = Stripe_Coupon::retrieve($id);
 	} catch (Stripe_Error $e) {
 		//print_r($e);
-		return 1;
+		return null;
 	}
 
 	// apply values
-	$discount = $coupon['percent_off'];
-	$discount /= 100;
+	//$discount = $coupon['percent_off'];
+	//$discount /= 100;
 
-	return $discount;
+	//return $discount;
+	
+	return $coupon;
 }
 
 /**

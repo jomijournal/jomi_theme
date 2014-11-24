@@ -5,6 +5,7 @@
 ?>
 
 <?php 
+//** FETCH PRICES
 
 // get these vars from stripe
 $prices = stripe_get_subscription_prices();
@@ -17,49 +18,79 @@ $resident_annual   = (empty($prices['resident-annual']))   ? 1000 : $prices['res
 $attending_monthly = (empty($prices['attending-monthly'])) ? 1000 : $prices['attending-monthly'];
 $attending_annual  = (empty($prices['attending-annual']))  ? 1000 : $prices['attending-annual'];
 
-// get discount code
-$discount_code = $_POST['discount_code'];
 
-// process discount code and percent off
-if(!empty($discount_code)) {
-	// check stripe coupon codes
-	$discount = stripe_get_coupon_discount($discount_code);
+//** PROCESS COUPONS AND CODES
 
-	if($discount != 1) {
-		$percent_off = $discount * 100;
-		$discount = 1 - $discount;
+// collect session vars
+$coupons = (empty($_SESSION['coupons'])) ? array() : $_SESSION['coupons'];
+$referral = $_SESSION['referral'];
+
+$code = $_POST['code'];
+
+// parse user-entered code
+if(!empty($code)) {
+
+	// try a stripe coupon first
+	$coupon = stripe_get_coupon($code);
+	if(!empty($coupon)) {
+
+		// check for invalid/expired coupon?
+		
+		array_push($coupons, $coupon);
 	} else {
-		$discount = 1;
-		$percent_off = 0;
+		// try a referral code
+		$referral_obj = get_referral_object($code);
+		if(!empty($referral_obj)) {
+			// valid code
+			$referral = $referral_obj;
+		} else {
+			// invalid code
+		}
 	}
-
-	//check referral codes
-	
-
-} else {
-	$discount_code = '';
-	$discount = 1;
 }
+
+// default discounts
+$discount_amount = 0;
+$discount_percent = 1;
+
+//** APPLY COUPONS
+
+if(!empty($coupons)) {
+	// remove dupes
+	$coupons = array_unique($coupons);
+
+	// modify global discounts
+	foreach($coupons as $coupon) {
+		if($coupon['amount_off'] > 0) $discount_amount += $coupon['amount_off'];
+		elseif($coupon['percent_off'] > 0) $discount_percent *= $coupon['percent_off'];
+	}
+}
+if($referral->discount_amount > 0) $discount_amount += $referral->discount_amount;
+elseif($referral->discount_percent > 0) $discount_percent *= $referral->discount_percent;
+
+
+// save coupons and referral
+$_SESSION['coupons'] = $coupons;
+$_SESSION['referral'] = $referral;
 
 // apply test variable
 // dont do this in production
 if(WP_ENV != "PROD") {
-	if(!empty($_GET['testdiscount'])) {
-		$discount = $_GET['testdiscount'];
-		$percent_off = (1 - $discount) * 100;
-		$discount_code = "COUPONFROMGET";
+	if(!empty($_GET['testdiscountpercent'])) {
+		$discount_percent = $_GET['testdiscountpercent'];
+		$discount_code = "TESTDISCOUNTPERCENT";
+	}
+	if(!empty($_GET['testdiscountamount'])) {
+		$discount_amount = $_GET['testdiscountamount'];
+		$discount_code = "TESTDISCOUNTAMOUNT";
 	}
 }
 
-// apply discount to prices
-if($discount < 1) {
-	$student_monthly   *= $discount;
-	$student_annual    *= $discount;
-	$resident_monthly  *= $discount;
-	$resident_annual   *= $discount;
-	$attending_monthly *= $discount;
-	$attending_annual  *= $discount;
-}
+
+$percent_off = (1 - $discount_percent) * 100;
+
+print_r_pre($coupons);
+print_r_pre($referral);
 
 // helper vars to display cents of price
 $student_monthly_cents   = sprintf("%02d", $student_monthly   % 100);
@@ -216,24 +247,24 @@ if(empty($action)) {
 			</div>
 
 			<div class="row">
-				<?php if(!empty($discount_code)) { ?>
+				<?php //if(!empty($discount_code)) { ?>
 				<div class="col-xs-12">
 					<div class="coupon-display">
 
 						<?php if ($discount < 1) { ?>
-						Coupon used: <span class="coupon-code"><?php echo $discount_code; ?></span><br>
-						Percent Off: <?php echo $percent_off; ?>%
+						Coupon used: <span class="coupon-code"><?php //echo $discount_code; ?></span><br>
+						Percent Off: <?php //echo $percent_off; ?>%
 						<?php } else { ?>
-						Invalid Coupon: <span class="coupon-code"><?php echo $discount_code; ?></span><br>
+						Invalid Coupon: <span class="coupon-code"><?php //echo $discount_code; ?></span><br>
 						No Discount Applied
 						<?php } ?>
 					</div>
 				</div>
-				<?php } ?>
+				<?php //} ?>
 				<div class="col-xs-12">
 					<form class="coupon-container" method="POST" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 						Coupon / Referral Code:
-						<input type="text" class="coupon-input" id="coupon-input" name="discount_code">
+						<input type="text" class="coupon-input" id="coupon-input" name="code">
 						<input type="submit" class="btn coupon-submit" value="Submit">
 					</form>
 				</div>
@@ -417,7 +448,7 @@ function stripe_charge(token) {
 	console.log(token);
 
 	if(token.bank_account != null) {
-		$.post(MyAjax.ajaxurl, {
+		/*$.post(MyAjax.ajaxurl, {
 			action: 'stripe-charge'
 
 			, amount: amount
@@ -437,7 +468,7 @@ function stripe_charge(token) {
 
 		}, function(response) {
 			console.log(response);
-		});
+		});*/
 	} else {
 		$.post(MyAjax.ajaxurl, {
 			action: 'stripe-charge'

@@ -227,6 +227,13 @@ function reset_session() {
 	$_SESSION['expiretime'] = $curtime + 864000; //expire after 10 days
 }
 
+function reset_coupon_session() {
+	if(!is_page_template('pages/pricing.php')) {
+		$_SESSION['coupons'] = null;
+		$_SESSION['referral'] = null;
+	}
+}
+add_action('pre_get_posts', 'reset_coupon_session');
 
 function sitemap_register_preprint($where_filter) {
 	$where_filter = "OR post_status IN ('publish','preprint','inherit')";
@@ -329,5 +336,15 @@ function mrefer_add($message){
 add_filter('mandrill_payload','mrefer_add');
 //*/
 //mandrill_payload is correct filter for this not wp_mail.
+
+
+
+
+
+function print_r_pre($val) {
+	echo '<pre>';
+	print_r($val);
+	echo '</pre>';
+}
 
 ?>

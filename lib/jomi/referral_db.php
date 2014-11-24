@@ -9,7 +9,7 @@
 global $wpdb;
 
 global $referral_db_version;
-$referral_db_version = '1.03';
+$referral_db_version = '1.04';
 
 global $referral_table_name;
 $referral_table_name = $wpdb->prefix . "user_referrals";
@@ -42,7 +42,8 @@ function referral_table_install() {
 	) $charset_collate;";
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
-	add_option( 'referral_db_version', $referral_db_version );
+	
+	update_option( 'referral_db_version', $referral_db_version );
 }
 /**
  * runs the table install if the version numbers dont match
@@ -153,6 +154,8 @@ function get_referral_object($refer_code){
 	WHERE refer_code='$refer_code'";
 
 	$results = $wpdb->get_results($sql);
+
+	if(empty($results)) return null;
 
 	$referral_obj = $results[0];
 

@@ -98,6 +98,7 @@ if(WP_ENV != "PROD") {
 
 
 $percent_off = (1 - $discount_percent) * 100;
+
 if($discount_percent < 1 || $discount_amount > 0) $discounted = true;
 else $discounted = false;
 
@@ -112,11 +113,11 @@ if($_GET['showdebug'] == true) {
 
 if($discount_amount > 0) {
 	$student_monthly   -= $discount_amount;
-	$student_annual    -= $discount_amount;
+	$student_annual    -= ($discount_amount * 12);
 	$resident_monthly  -= $discount_amount;
-	$resident_annual   -= $discount_amount;
+	$resident_annual   -= ($discount_amount * 12);
 	$attending_monthly -= $discount_amount;
-	$attending_annual  -= $discount_amount;
+	$attending_annual  -= ($discount_amount * 12);
 }
 if($discount_percent < 1) {
 	$student_monthly   *= $discount_percent;
@@ -319,12 +320,13 @@ if(empty($action)) {
 				<?php if($discounted) { ?>
 				<div class="col-xs-6">
 					<div class="coupon-display">
-						<?php if(!empty($coupons)) { ?>
+						
 						Coupons used: 
 						<?php foreach($coupons as $key=>$coupon) { ?>
 							<strong> <?php echo $coupon['id']; ?></strong><?php if($key != count($coupons) - 1) echo ','; ?>
-						<?php }
-						 } ?><br>
+						<?php } ?>
+						<strong><?php if(empty($coupons)) {echo "none"; } ?></strong>
+						<br>
 						<?php if(!empty($referral)) { ?>
 						<?php $referred = get_user_by('id', $referral->user_id);
 							$referred_email = $referred->user_email; ?>
@@ -337,9 +339,9 @@ if(empty($action)) {
 					<?php //if($discount_percent < 1) { ?>
 					Percent off: <strong><?php echo $percent_off; ?>%</strong><br>
 					<?php //} ?>
-					<?php if ($discount_amount > 0) { ?>
+					<?php //if ($discount_amount > 0) { ?>
 					Amount off: <strong>$<?php echo sprintf("%01.2f", ($discount_amount / 100)); ?></strong>
-					<?php } else echo '&nbsp;'?>
+					<?php //} else echo '&nbsp;'?>
 					</div>
 				</div>
 				<?php } ?>
@@ -583,6 +585,44 @@ function stripe_charge(token) {
 
 <?php } elseif($action == 'orderplaced') { ?>
 
+<?php 
+
+$user_id = get_current_user_id();
+
+$referred_by = $_SESSION['referral'];
+
+if($user_id == 0) {
+	// not logged in
+	echo "It looks like you're lost...<br>";
+	echo "Click <a href='" . site_url('/') . "'>here</a> to go back to the home page";
+	exit();
+}
+
+$user = get_user_by('id', $user_id);
+
+$referral = has_referral($user_id);
+if(!$referral) {
+	// generate code
+	$code = hash('crc32', $user->user_email);
+
+	//echo 'created ' . $code;
+
+	$_POST['user_id'] = $user_id;
+	$_POST['refer_code'] = $code;
+	$_POST['referred_by'] = $referred_by->user_id;
+	$_POST['num_referrals'] = 0;
+	$_POST['discount_amount'] = 2000;
+	$_POST['discount_percent'] = 1;
+
+	insert_referral();
+
+} else {
+	// show code
+	$code = $referral->refer_code;
+	//echo 'fetched: ' . $code;
+}
+
+?>
 
 <div class="pricing orderplaced">
 
@@ -597,6 +637,23 @@ function stripe_charge(token) {
 		</div>
 	</div>
 
+	<div class="row refercode">
+		<div class="col-xs-4">
+			<p class="text">Your Referral Code:</p>
+		</div>
+		<div class="col-xs-8">
+			<input class="referbox" type="text" readonly value="<?php echo $code; ?>">
+			&nbsp;&nbsp;Or&nbsp;&nbsp;<a class="referlink" target="_blank" href="<?php echo site_url('/pricing?referral=') . $code;?>"><?php echo site_url('/pricing?referral=') . $code;?></a>
+
+		</div>
+	</div>
+	
+	<div class="row referinfo">
+		<div class="col-xs-12">
+			<marquee>GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT </marquee>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-sm-4 col-xs-12">
 			<a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a>
@@ -608,6 +665,8 @@ function stripe_charge(token) {
 			<a href="<?php echo site_url('/articles/'); ?>" class="link-block">Watch Some Videos</a>
 		</div>
 	</div>
+
+	
 
 </div>
 <?php } elseif($action = 'ordererror') { ?>

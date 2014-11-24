@@ -130,11 +130,16 @@ function process_referral_post_data() {
 	$referred_by = $_POST['referred_by'];
 	$num_referrals = $_POST['num_referrals'];
 
+	$discount_amount = $_POST['discount_amount'];
+	$discount_percent = $_POST['discount_percent'];
+
 	$out = array(
 		'user_id' => $user_id
 		, 'refer_code' => $refer_code
 		, 'referred_by' => $referred_by
 		, 'num_referrals' => $num_referrals
+		, 'discount_amount' => $discount_amount
+		, 'discount_percent' => $discount_percent
 	);
 
 	return $out; 
@@ -145,7 +150,7 @@ function process_referral_post_data() {
  * @param  [type] $refer_code [description]
  * @return [type]             [description]
  */
-function get_referral_object($refer_code){
+function get_referral_object($refer_code) {
 
 	global $wpdb;
 	global $referral_table_name;
@@ -160,6 +165,20 @@ function get_referral_object($refer_code){
 	$referral_obj = $results[0];
 
 	return $referral_obj;
+}
+
+function has_referral($user_id) {
+
+	global $wpdb;
+	global $referral_table_name;
+
+	$sql = "SELECT * FROM $referral_table_name
+	WHERE user_id=$user_id";
+
+	$results = $wpdb->get_results($sql);
+
+	if(empty($results)) return false;
+	else return $results[0];
 }
 
 

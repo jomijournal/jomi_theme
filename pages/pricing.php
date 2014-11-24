@@ -210,20 +210,16 @@ if(empty($action)) {
 					</div>
 					<div class="plan-body">
 						<p class="desc">For inquisitive pre-medical and medical students</p>
-						<p class="as-low-as">
-							<?php if($discounted) { ?> 
-								Normally 
-							<?php } else { ?> 
-								As low as 
-							<?php } ?>
-						</p>
-						<p class="price">$
-							<?php if($discounted) { ?>
-								<?php echo sprintf("%01.2f", (($student_annual / $discount_percent) + $discount_amount) / 100); ?>
-							<?php } else { ?>
-								<?php echo ($student_annual_dollars . '.' . $student_annual_cents) ?>
-							<?php } ?>
-						/year</p>
+						<p class="as-low-as"><?php if($discounted) { 
+								echo "Normally";
+							} else { 
+								echo "As low as";
+						} ?></p>
+						<p class="price">$<?php if($discounted) { 
+								echo sprintf("%01.2f", (($student_annual / $discount_percent) + $discount_amount) / 100);
+							} else {
+								echo ($student_annual_dollars . '.' . $student_annual_cents);
+						} ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
@@ -251,20 +247,16 @@ if(empty($action)) {
 					</div>
 					<div class="plan-body">
 						<p class="desc">For apprehensive medical and surgical residents</p>
-						<p class="as-low-as">
-							<?php if($discounted) { ?> 
-								Normally 
-							<?php } else { ?> 
-								As low as 
-							<?php } ?>
-						</p>
-						<p class="price">$
-							<?php if($discounted) { ?>
-								<?php echo sprintf("%01.2f", (($resident_annual / $discount_percent) + $discount_amount) / 100); ?>
-							<?php } else { ?>
-								<?php echo ($resident_annual_dollars . '.' . $resident_annual_cents) ?>
-							<?php } ?>
-						/year</p>
+						<p class="as-low-as"><?php if($discounted) {
+								echo "Normally";
+							} else {
+								echo "As low as";
+						} ?></p>
+						<p class="price">$<?php if($discounted) {
+								echo sprintf("%01.2f", (($resident_annual / $discount_percent) + $discount_amount) / 100);
+							} else {
+								echo ($resident_annual_dollars . '.' . $resident_annual_cents);
+						} ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>
@@ -292,20 +284,16 @@ if(empty($action)) {
 					</div>
 					<div class="plan-body">
 						<p class="desc">For adaptive surgeons and attending physicians</p>
-						<p class="as-low-as">
-							<?php if($discounted) { ?> 
-								Normally 
-							<?php } else { ?> 
-								As low as 
-							<?php } ?>
-						</p>
-						<p class="price">$
-							<?php if($discounted) { ?>
-								<?php echo sprintf("%01.2f", (($attending_annual / $discount_percent) + $discount_amount) / 100); ?>
-							<?php } else { ?>
-								<?php echo ($attending_annual_dollars . '.' . $attending_annual_cents) ?>
-							<?php } ?>
-						/year</p>
+						<p class="as-low-as"><?php if($discounted) {
+								echo "Normally";
+							} else {
+								echo "As low as";
+						} ?></p>
+						<p class="price">$<?php if($discounted) {
+								echo sprintf("%01.2f", (($attending_annual / $discount_percent) + $discount_amount) / 100);
+							} else {
+								echo ($attending_annual_dollars . '.' . $attending_annual_cents);
+						} ?>/year</p>
 					</div>
 					<div class="plan-form">
 						<p>

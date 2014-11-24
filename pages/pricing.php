@@ -21,9 +21,16 @@ $attending_annual  = (empty($prices['attending-annual']))  ? 1000 : $prices['att
 
 //** PROCESS COUPONS AND CODES
 
+if($_GET['clearsession'] == 'true') {
+	$_SESSION['coupons'] = null;
+	$_SESSION['referral'] = null;
+}
+
 // collect session vars
 $coupons = (empty($_SESSION['coupons'])) ? array() : $_SESSION['coupons'];
 $referral = $_SESSION['referral'];
+
+
 
 $code = $_POST['code'];
 
@@ -53,7 +60,7 @@ if(!empty($code)) {
 $discount_amount = 0;
 $discount_percent = 1;
 
-//** APPLY COUPONS
+//** APPLY COUPONS TO GLOBALS
 
 if(!empty($coupons)) {
 	// remove dupes
@@ -62,11 +69,11 @@ if(!empty($coupons)) {
 	// modify global discounts
 	foreach($coupons as $coupon) {
 		if($coupon['amount_off'] > 0) $discount_amount += $coupon['amount_off'];
-		elseif($coupon['percent_off'] > 0) $discount_percent *= $coupon['percent_off'];
+		elseif($coupon['percent_off'] > 0) $discount_percent *= (1 - ($coupon['percent_off'] / 100));
 	}
 }
 if($referral->discount_amount > 0) $discount_amount += $referral->discount_amount;
-elseif($referral->discount_percent > 0) $discount_percent *= $referral->discount_percent;
+elseif($referral->discount_percent > 0) $discount_percent *= (1 - ($referral->discount_percent / 100));
 
 
 // save coupons and referral
@@ -89,8 +96,41 @@ if(WP_ENV != "PROD") {
 
 $percent_off = (1 - $discount_percent) * 100;
 
-print_r_pre($coupons);
-print_r_pre($referral);
+if($_GET['showdebug'] == true) {
+	print_r_pre($coupons);
+	print_r_pre($referral);
+	print_r_pre($discount_percent);
+	print_r_pre($discount_amount);
+}
+
+//** APPLY DISCOUNTS TO PRICES
+
+if($discount_percent < 1) {
+	$student_monthly   *= $discount_percent;
+	$student_annual    *= $discount_percent;
+	$resident_monthly  *= $discount_percent;
+	$resident_annual   *= $discount_percent;
+	$attending_monthly *= $discount_percent;
+	$attending_annual  *= $discount_percent;
+}
+if($discount_amount > 0) {
+	$student_monthly   -= $discount_amount;
+	$student_annual    -= $discount_amount;
+	$resident_monthly  -= $discount_amount;
+	$resident_annual   -= $discount_amount;
+	$attending_monthly -= $discount_amount;
+	$attending_annual  -= $discount_amount;
+}
+
+if($student_monthly < 0) $student_monthly = 0;
+if($student_annual < 0) $student_annual = 0;
+if($resident_monthly < 0) $resident_monthly = 0;
+if($resident_annual < 0) $resident_annual = 0;
+if($attending_monthly < 0) $attending_monthly = 0;
+if($attending_annual < 0) $attending_annual = 0;
+
+
+
 
 // helper vars to display cents of price
 $student_monthly_cents   = sprintf("%02d", $student_monthly   % 100);
@@ -247,20 +287,33 @@ if(empty($action)) {
 			</div>
 
 			<div class="row">
-				<?php //if(!empty($discount_code)) { ?>
-				<div class="col-xs-12">
+				<?php if($discount_percent < 1 || $discount_amount > 0) { ?>
+				<div class="col-xs-6">
 					<div class="coupon-display">
-
-						<?php if ($discount < 1) { ?>
-						Coupon used: <span class="coupon-code"><?php //echo $discount_code; ?></span><br>
-						Percent Off: <?php //echo $percent_off; ?>%
-						<?php } else { ?>
-						Invalid Coupon: <span class="coupon-code"><?php //echo $discount_code; ?></span><br>
-						No Discount Applied
+						<?php if(!empty($coupons)) { ?>
+						Coupons used: 
+						<?php foreach($coupons as $key=>$coupon) { ?>
+							<strong> <?php echo $coupon['id']; ?></strong><?php if($key != count($coupons) - 1) echo ','; ?>
+						<?php }
+						 } ?><br>
+						<?php if(!empty($referral)) { ?>
+						<?php $referred = get_user_by('id', $referral->user_id);
+							$referred_email = $referred->user_email; ?>
+						Referred from: <strong><?php echo $referred_email; ?></strong>
 						<?php } ?>
 					</div>
 				</div>
-				<?php //} ?>
+				<div class "col-xs-6">
+					<div class="coupon-display">
+					<?php //if($discount_percent < 1) { ?>
+					Percent off: <strong><?php echo $percent_off; ?>%</strong><br>
+					<?php //} ?>
+					<?php if ($discount_amount > 0) { ?>
+					Amount off: <strong>$<?php echo sprintf("%01.2f", ($discount_amount / 100)); ?></strong>
+					<?php } else echo '&nbsp;'?>
+					</div>
+				</div>
+				<?php } ?>
 				<div class="col-xs-12">
 					<form class="coupon-container" method="POST" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 						Coupon / Referral Code:

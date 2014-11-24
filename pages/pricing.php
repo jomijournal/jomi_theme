@@ -22,6 +22,7 @@ $discount_code = $_POST['discount_code'];
 
 // process discount code and percent off
 if(!empty($discount_code)) {
+	// check stripe coupon codes
 	$discount = stripe_get_coupon_discount($discount_code);
 
 	if($discount != 1) {
@@ -31,6 +32,10 @@ if(!empty($discount_code)) {
 		$discount = 1;
 		$percent_off = 0;
 	}
+
+	//check referral codes
+	
+
 } else {
 	$discount_code = '';
 	$discount = 1;
@@ -227,7 +232,7 @@ if(empty($action)) {
 				<?php } ?>
 				<div class="col-xs-12">
 					<form class="coupon-container" method="POST" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-						Coupon Code:
+						Coupon / Referral Code:
 						<input type="text" class="coupon-input" id="coupon-input" name="discount_code">
 						<input type="submit" class="btn coupon-submit" value="Submit">
 					</form>
@@ -430,16 +435,6 @@ function stripe_charge(token) {
 			, used:     (token.used     == null) ? null : token.used
 			, email:    (token.email    == null) ? null : token.email
 
-			, bank_id:                   (token.bank_account['id'] == null)                   ? null : token.bank_account['id']
-			, bank_object:               (token.bank_account['object'] == null)               ? null : token.bank_account['object']
-			, bank_country:              (token.bank_account['country'] == null)              ? null : token.bank_account['country']
-			, bank_currency:             (token.bank_account['currency'] == null)             ? null : token.bank_account['currency']
-			, bank_default_for_currency: (token.bank_account['default_for_currency'] == null) ? null : token.bank_account['default_for_currency']
-			, bank_last4:                (token.bank_account['last4'] == null)                ? null : token.bank_account['last4']
-			, bank_status:               (token.bank_account['status'] == null)               ? null : token.bank_account['status']
-			, bank_name:                 (token.bank_account['bank_name'] == null)            ? null : token.bank_account['bank_name']
-			, bank_fingerprint:          (token.bank_account['fingerprint'] == null)          ? null : token.bank_account['fingerprint']
-
 		}, function(response) {
 			console.log(response);
 		});
@@ -461,25 +456,6 @@ function stripe_charge(token) {
 			, type:     (token.type     == null) ? null : token.type
 			, used:     (token.used     == null) ? null : token.used
 			, email:    (token.email    == null) ? null : token.email
-
-			, card_id:              (token.card['id'] == null)              ? null : token.card['id']
-			, card_object:          (token.card['object'] == null)          ? null : token.card['object']
-			, card_brand:           (token.card['brand'] == null)           ? null : token.card['brand']
-			, card_exp_month:       (token.card['exp_month'] == null)       ? null : token.card['exp_month']
-			, card_exp_year:        (token.card['exp_year'] == null)        ? null : token.card['exp_year']
-			, card_fingerprint:     (token.card['fingerprint'] == null)     ? null : token.card['fingerprint']
-			, card_funding:         (token.card['funding'] == null)         ? null : token.card['funding']
-			, card_last4:           (token.card['last4'] == null)           ? null : token.card['last4']
-			, card_address_city:    (token.card['address_city'] == null)    ? null : token.card['address_city']
-			, card_address_country: (token.card['address_country'] == null) ? null : token.card['address_country']
-			, card_address_line1:   (token.card['address_line1'] == null)   ? null : token.card['address_line1']
-			, card_address_line2:   (token.card['address_line2'] == null)   ? null : token.card['address_line2']
-			, card_address_state:   (token.card['address_state'] == null)   ? null : token.card['address_state']
-			, card_address_zip:     (token.card['address_zip'] == null)     ? null : token.card['address_zip']
-			, card_country:         (token.card['country'] == null)         ? null : token.card['country']
-			, card_customer:        (token.card['customer'] == null)        ? null : token.card['customer']
-			, card_dynamic_last4:   (token.card['dynamic_last4'] == null)   ? null : token.card['dynamic_last4']
-			, card_name:            (token.card['name'] == null)            ? null : token.card['name']
 
 		}, function(response) {
 			console.log(response);

@@ -53,10 +53,24 @@ if(!empty($code)) {
 		}
 	}
 }
+
 // parse GET codes
 if(!empty($_GET['referral'])) {
 	$referral_obj = get_referral_object($_GET['referral']);
 	if(!empty($referral_obj)) $referral = $referral_obj;
+}
+
+// redundancy check
+if(!empty($referral)) {
+	if($referral->user_id == get_current_user_id()) {
+		// cant refer yerself
+		$referral = null;
+		/*echo "
+		<script>
+		alert('you cant refer yourself!');
+		</script>
+		";*/
+	}
 }
 
 // default discounts
@@ -624,6 +638,8 @@ if(!$referral) {
 
 ?>
 
+<?php $referral_credit = 15; ?>
+
 <div class="pricing orderplaced">
 
 	<div class="row">
@@ -634,6 +650,8 @@ if(!$referral) {
 		<div class="col-xs-12">
 			<h2>You're now helping us produce the latest and greatest surgical procedures and educational videos</h2>
 			<br>
+			<hr>
+			<h3>Give $<?php echo $referral_credit; ?> Get $<?php echo $referral_credit; ?></h3>
 		</div>
 	</div>
 
@@ -643,14 +661,17 @@ if(!$referral) {
 		</div>
 		<div class="col-xs-8">
 			<input class="referbox" type="text" readonly value="<?php echo $code; ?>">
-			&nbsp;&nbsp;Or&nbsp;&nbsp;<a class="referlink" target="_blank" href="<?php echo site_url('/pricing?referral=') . $code;?>"><?php echo site_url('/pricing?referral=') . $code;?></a>
-
+			&nbsp;&nbsp;Or&nbsp;&nbsp;
+			<a class="referlink" target="_blank" href="<?php echo site_url('/pricing?referral=') . $code;?>"><?php echo site_url('/pricing?referral=') . $code;?></a>
 		</div>
 	</div>
 	
 	<div class="row referinfo">
 		<div class="col-xs-12">
-			<marquee>GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT GET IT </marquee>
+			<p>Give a friend $<?php echo $referral_credit; ?> off their first payment, and get $<?php echo $referral_credit; ?> in credit yourself.</p>
+			<p>Credit earned through referrals can count towards future payments, or immediately be cashed out.</p>
+			<p>That's right, you can <b>earn money</b> by spreading the word about JoMI</p>
+			<br>
 		</div>
 	</div>
 

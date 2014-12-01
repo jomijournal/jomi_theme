@@ -221,8 +221,10 @@ global $user_stripe_subscribed;
 			remember: true
 		}, function(response) {
 
-			response = response.substr(2, response.length - 3);
-			console.log("xx" + response + "xx");
+			response = response.substr(0, response.length - 1);
+			response = response.replace(/\s/g, "");
+
+			//console.log("xx" + response + "xx");
 
 			$('#greyout,#signal').hide();
 

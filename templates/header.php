@@ -138,7 +138,7 @@ global $user_stripe_subscribed;
 	$(' div.dropdown-menu a#user-email').textfill({
 		//explicitWidth: 200
 		widthOnly: true
-		, debug: true
+		//, debug: true
 	});
 
 	/* SIGNUP & LOGIN */
@@ -221,8 +221,9 @@ global $user_stripe_subscribed;
 			remember: true
 		}, function(response) {
 
-			response = response.substr(0, response.length - 1);
-			console.log(response);
+			response = response.substr(2, response.length - 3);
+			console.log("xx" + response + "xx");
+
 			$('#greyout,#signal').hide();
 
 			if(response != "failure") {
@@ -234,6 +235,8 @@ global $user_stripe_subscribed;
 				//$('a#logout-btn').show();
 				//$('#logout-toggle').text(response);
 				$('#logout-toggle').html($('#logout-toggle').attr('data-original'));
+
+				$('a#user-email span').html(response);
 				
 			} else {
 				$('#error').text("Incorrect username or password");

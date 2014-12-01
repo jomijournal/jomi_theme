@@ -38,26 +38,25 @@
 
 	<!-- SEGMENT.IO -->
 	<script type="text/javascript">
-	  window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
-	  window.analytics.load("g0tsfo2n3d");
-	  window.analytics.page();
+		window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
+		window.analytics.load("g0tsfo2n3d");
+		window.analytics.page();
 	</script>
 
 	<!-- HOTJAR -->
 	<script>
-		(function(f,b,g){
-			var d=g.prototype.open,a=g.prototype.send,c;
-			f.hj=f.hj||function(){(f.hj.q=f.hj.q||[]).push(arguments)};
-			f._hjSettings={hjid:2618};
-			if(b.addEventListener){b.addEventListener("DOMContentLoaded",function(){f.hj.documentHtml=b.documentElement.outerHTML})}
-			c=b.createElement("script");c.async=1;c.src="//static.hotjar.com/insights.js";b.getElementsByTagName("head")[0].appendChild(c);f.hj.xo=g.prototype.open;f.hj.xs=g.prototype.send;
-			if(!f._hjPlayback && b.addEventListener){
-				f.hj.xo=g.prototype.open;f.hj.xs=g.prototype.send;
-				g.prototype.open=function(l,j,m,h,k){this._u=j;f.hj.xo.call(this,l,j,m,h,k)};
-				g.prototype.send=function(e){var j=this,i=j._u.indexOf("insights.hotjar.com")===-1;if(i){function h(){if(j.readyState===4){f.hj("_xhr",j._u,j.status,j.response)}}this.addEventListener("readystatechange",h,false)}f.hj.xs.call(this,e)}
-			}
-		})(window,document,window.XMLHttpRequest);
+	(function(f,b,g){
+		var xo=g.prototype.open,xs=g.prototype.send,c;
+		f.hj=f.hj||function(){(f.hj.q=f.hj.q||[]).push(arguments)};
+		f._hjSettings={hjid:2618, hjsv:1};
+		if(b.addEventListener){b.addEventListener("DOMContentLoaded",function(){f.hj.documentHtml=b.documentElement.outerHTML;c=b.createElement("script");c.async=1;c.src="//static.hotjar.com/c/hotjar-2618.js?sv=1";b.getElementsByTagName("head")[0].appendChild(c);})}
+		if(!f._hjPlayback && b.addEventListener){
+			g.prototype.open=function(l,j,m,h,k){this._u=j;xo.call(this,l,j,m,h,k)};
+			g.prototype.send=function(e){var j=this;function h(){if(j.readyState===4){f.hj("_xhr",j._u,j.status,j.response)}}this.addEventListener("readystatechange",h,false);xs.call(this,e)};
+		}
+	})(window,document,window.XMLHttpRequest);
 	</script>
+
 
 	<?php } ?>
 

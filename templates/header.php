@@ -83,6 +83,7 @@ global $user_stripe_subscribed;
 				<li class="dropdown logout-dropdown" <?php if(!is_user_logged_in()){echo "style='display:none;'";} ?>>
 					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-toggle" href="#" data-original="<span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span>"><span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span></a>
 					<div class="dropdown-menu" role="menu">
+						<a id="user-email"><span><?php echo $current_user->user_email; ?></span></a>
 						<a href="<?php echo site_url('/profile/'); ?>">Account Settings</a>
 						<hr/>
 						<a href="#" data-toggle="tooltip" data-placement="top" title="Feature Coming Soon">Send Invite</a>
@@ -115,6 +116,13 @@ global $user_stripe_subscribed;
 	}
 	/* VIDEO LOAD CONDITIONALS */
 	$(window).resize(function() {
+
+		$(' div.dropdown-menu a#user-email').textfill({
+			//explicitWidth: 200
+			widthOnly: true
+			, debug: true
+		});
+
 		if ($(window).width() < 768 && $('#video-source').attr("src") != '') {
 			$('#video-source').attr('src', '');
 			$('#video-source-webm').attr('src', '');
@@ -127,8 +135,20 @@ global $user_stripe_subscribed;
 	});
 
 
+	$(' div.dropdown-menu a#user-email').textfill({
+		//explicitWidth: 200
+		widthOnly: true
+		, debug: true
+	});
+
 	/* SIGNUP & LOGIN */
 	$(function() {
+
+		$(' div.dropdown-menu a#user-email').textfill({
+			//explicitWidth: 200
+			widthOnly: true
+			, debug: true
+		});
 
 		$('[data-toggle="tooltip"]').tooltip();
 

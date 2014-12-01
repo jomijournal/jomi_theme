@@ -327,7 +327,6 @@ if(empty($action)) {
 						<p><button class="subscribe-btn" id="attending-sub">Subscribe</button></p>
 					</div>
 				</div>
-
 			</div>
 
 			<div class="row">
@@ -361,19 +360,17 @@ if(empty($action)) {
 				<?php } ?>
 				<div class="col-xs-12">
 					<form class="coupon-container" method="POST" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-						Coupon / Referral Code:
+						<!--Coupon / Referral Code:-->
+						Coupon Code:&nbsp;
 						<input type="text" class="coupon-input" id="coupon-input" name="code">
 						<input type="submit" class="btn coupon-submit" value="Submit">
 					</form>
 				</div>
 			</div>
-
 		</div>
 
 		<div class="col-md-3 col-xs-12">
-
 			<div class="row">
-
 				<div class="institution col-xs-12 col-sm-12">
 					<div class="plan-header">
 						<h2>Institutions</h2>
@@ -385,18 +382,15 @@ if(empty($action)) {
 					</div>
 					<div class="plan-form">
 						<p>JoMI is used at prestigious medical schools and hospitals around the world</p>
-						<p><a href="<?php echo site_url('/subscribers/'); ?>">See all subscribers</a></p>
+						<p><a href="<?php echo site_url('/subscribers/'); ?>">See all subscribers →</a></p>
 					</div>
 					<div class="plan-cost">
-						<p>JoMI was created to improve outcomes in healthcare and surgery.<br> If your institution does not have the resources or budget to subscribe at our normal rate, we will personally work with your institution to guarantee access to our content</p>
+						<p>JoMI was created to improve outcomes in healthcare and surgery.<br> If your institution does not have the resources or budget to subscribe at our normal rate, we will personally work with your institution to guarantee access to our content</p><br>
 						<a class="contact-btn" href="mailto:lib@jomi.com">Contact Us</a>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 </div>
 
@@ -650,12 +644,12 @@ if(!$referral) {
 		<div class="col-xs-12">
 			<h2>You're now helping us produce the latest and greatest surgical procedures and educational videos</h2>
 			<br>
-			<hr>
-			<h3>Give $<?php echo $referral_credit; ?> Get $<?php echo $referral_credit; ?></h3>
+			<!--hr>
+			<h3>Give $<?php echo $referral_credit; ?> Get $<?php echo $referral_credit; ?></h3-->
 		</div>
 	</div>
 
-	<div class="row refercode">
+	<!--div class="row refercode">
 		<div class="col-xs-4">
 			<p class="text">Your Referral Code:</p>
 		</div>
@@ -673,11 +667,12 @@ if(!$referral) {
 			<p>That's right, you can <b>earn money</b> by spreading the word about JoMI</p>
 			<br>
 		</div>
-	</div>
+	</div-->
 
 	<div class="row">
 		<div class="col-sm-4 col-xs-12">
-			<a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a>
+			<!--a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a-->
+			<a href="#" data-toggle="tooltip" data-placement="top" title="Feature Coming Soon" class="link-block">Edit Your Profile</a>
 		</div>
 		<div class="col-sm-4 col-xs-12">
 			<a href="<?php echo site_url('/index/'); ?>" class="link-block">Check out the Index</a>

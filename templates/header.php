@@ -147,7 +147,7 @@ global $user_stripe_subscribed;
 		$(' div.dropdown-menu a#user-email').textfill({
 			//explicitWidth: 200
 			widthOnly: true
-			, debug: true
+			//, debug: true
 		});
 
 		$('[data-toggle="tooltip"]').tooltip();

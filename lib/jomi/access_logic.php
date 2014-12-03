@@ -788,7 +788,63 @@ function get_blocks($rules, $user_info) {
 
 					break;
 
-				// ADD ADDITIONAL CHECKS HERE
+				case 'is_free_trial':
+
+					//$user_subscribed = $user_info['subscribed'];
+					$inst_subscribed = $user_inst['is_subscribed'];
+					$check_free_trial = $check_values[$index];
+					$inst_order = $user_inst['order'];
+					$inst_order_type = $inst_order['type'];
+
+					$free_trial_matches = array(
+						'trial',
+						'Trial',
+						'free trial',
+						'Free trial',
+						'Free Trial',
+						'free-trial',
+						'Free-trial',
+						'Free-Trial'
+					);
+
+					if(!$inst_subscribed) {
+						if($check_free_trial == 'F') {
+							if($access_debug) {
+								echo "inst free trial matched!\n";
+								echo $check_free_trial . '==' . $inst_subscribed . "\n\n";
+							}
+							$check_count++;
+						} else {
+							if($access_debug) {
+								echo "inst free trial not matched!\n";
+								echo $check_free_trial . '!=' . $inst_subscribed . "\n\n";
+							}
+						}
+						break;
+					}
+
+					if(in_array($inst_order_type, $free_trial_matches) && $check_free_trial == 'T') {
+						if($access_debug) {
+							echo "inst free trial matched!\n";
+							echo $check_free_trial . '==' . $inst_order_type . "\n\n";
+						}
+						$check_count++;
+					} else if (!in_array($inst_order_type, $free_trial_matches) && $check_free_trial == 'F') {
+						if($access_debug) {
+							echo "inst free trial matched!\n";
+							echo $check_free_trial . '==' . $inst_order_type . "\n\n";
+						}
+						$check_count++;
+					} else {
+						if($access_debug) {
+							echo "inst free trial not matched!\n";
+							echo $check_free_trial . '!=' . $inst_order_type . "\n\n";
+						}
+						break;
+					}
+
+					break;
+				// ADD ADDITIONAL CHECKS HERE ^^^
 
 				default:
 					echo "invalid check type";

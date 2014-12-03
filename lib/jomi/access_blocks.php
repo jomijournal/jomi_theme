@@ -175,7 +175,7 @@ function block_free_trial() {
 			</form>
 			<br/>
 			<p>
-			We have institutional and individual access available. If you are unable to afford access, please send an email at <a href="mailto:lib@jomi.com?Subject=Need%20Based%request">lib@jomi.com</a>
+			We have institutional and individual subscriptions available. If you are unable to afford access, please send an email at <a href="mailto:lib@jomi.com?Subject=Need%20Based%request">lib@jomi.com</a>
 			</p>
 			<br/>
 		</div>
@@ -258,15 +258,29 @@ add_action( 'wp_ajax_nopriv_send-free-trial', 'send_free_trial' );
  * @return [type] [description]
  */
 function block_free_trial_thanks() {
-  $id = $_POST['id'];
+	$id = $_POST['id'];
+
+	$order = $_SESSION['order'];
+
+	$date_end = $order->date_end;
+
+	$year = substr($date_end, 0, 4);
+
+	$month = substr($date_end, 5, 2);
+	$month = date('F', mktime(0, 0, 0, $month, 10));
+
+	$day = substr($date_end, 8, 2);
+	$day = date('jS', mktime(0, 0, 0, 0, $day));
+
 ?>
 <div class="container free-trial free-trial-thanks">
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
 	<div class="row">
-		<h1>Thanks for using our free trial!</h1>
-		<!--h4>Please let your institution know about JoMI!</h4-->
+		<h1>Thank you for using JoMI</h1>
+		<h4>Your trial expires on <?php echo $year . ' ' . $month . ' ' . $day; ?></h4>
+		<h4>Please let your librarian know if you enjoyed this video</h4>
 	</div>
 	<div class="row link-close">
 		<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>

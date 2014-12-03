@@ -432,48 +432,6 @@ function load_user_info() {
 	} else {
 		$logged_in = false;
 	}
-     
-
-
-	//** GET PER USER ORDERS
-
-	/*if($logged_in) {
-
-		global $wpdb;
-		global $inst_order_table_name;
-
-		// get user id
-		$user_id = $user['id'];
-
-		// build query
-		$order_query = 
-		"SELECT * FROM $inst_order_table_name
-		WHERE user_id=$user_id";
-
-		// query database for matching orders
-		$user_orders = $wpdb->get_results($order_query);
-
-		if($access_debug) {
-			echo "User Order History:\n";
-			print_r($user_orders);
-		}
-
-		// get current time
-		$cur_time = time();
-
-		// cycle through all orders. if an order is valid, break the loop
-		foreach($user_orders as $user_order) {
-			// check if order falls within today's date
-			$fromtime = strtotime($user_order->date_start);
-			$endtime = strtotime($user_order->date_end);
-
-			// order is valid. flip is_subscribed flag and break
-			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
-				$is_subscribed = true;
-				break;
-			}
-		}
-	}*/
 
 	if($logged_in) {
 		$stripe_subscribed = stripe_verify_user_subscribed();

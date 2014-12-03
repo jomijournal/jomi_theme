@@ -88,6 +88,24 @@ function stripe_charge() {
 			echo "trouble retreiving user";
 			return;
 		}
+
+		if($customer['id'] != $cust_id) {
+			// mismatch... lets create a new user
+			try{
+				$customer = Stripe_Customer::create( array(
+					'email' => $email
+					, 'card'  => $token_id
+				));
+			} catch(Stripe_Error $e) {
+				//print_r($e);
+				echo "trouble creating user";
+				return;
+			}
+
+			// update user meta
+			$cust_id = $customer['id'];
+			update_user_meta($user_id, 'stripe_cust_id', $cust_id);
+		}
 	}
 
 	// create a subscription

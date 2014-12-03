@@ -73,13 +73,13 @@
 	//echo '</pre>';
 
 	// generate html for chapters
-	$chapters_html = "";
+	//$chapters_html = "";
 
-	if(!empty($chapters)) {
-		foreach($chapters as $chapter) {
-			$chapters_html .= "<li class='vtime-item' data-time='" . $chapter['time'] . "'><a href='#video' onclick='wistiaEmbed.time(" . $chapter['time'] . ").play();'>" . $chapter['title'] . "</a></li>";
-		}
-	}
+	//if(!empty($chapters)) {
+	//	foreach($chapters as $chapter) {
+	//		$chapters_html .= "<li class='vtime-item' data-time='" . $chapter['time'] . "'><a href='#video' onclick='wistiaEmbed.time(" . $chapter['time'] . ").play();'>" . $chapter['title'] . "</a></li>";
+	//	}
+	//}
 
 	?>
 
@@ -96,7 +96,17 @@
 				<div id="content" style="width: 100%; height: 100%;"></div>
 			</div>
 			<div id="chapters" class="col-sm-3">
-				<ul></ul>
+				<ul>
+					<?php if(!empty($chapters)) {
+						foreach($chapters as $chapter) { ?>
+						<li class="vtime-item" data-time="<?php echo $chapter['time']; ?>">
+							<a href="#" onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();">
+								<?php echo $chapter['title']; ?>
+							</a>
+						</li>
+						<?php } ?>
+					<?php } ?>
+				</ul>
 			</div>
 
 			<!--div class="hide-chapter">

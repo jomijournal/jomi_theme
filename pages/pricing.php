@@ -642,7 +642,7 @@ if(!$referral) {
 			<hr>
 		</div>
 		<div class="col-xs-12">
-			<h2>You're now helping us produce the latest and greatest surgical procedures and educational videos</h2>
+			<h2>You're now helping us produce the latest and greatest surgical procedures and educational videos.</h2>
 			<br>
 			<!--hr>
 			<h3>Give $<?php echo $referral_credit; ?> Get $<?php echo $referral_credit; ?></h3-->
@@ -670,14 +670,13 @@ if(!$referral) {
 	</div-->
 
 	<div class="row">
-		<div class="col-sm-4 col-xs-12">
-			<!--a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a-->
-			<a href="#" data-toggle="tooltip" data-placement="top" title="Feature Coming Soon" class="link-block">Edit Your Profile</a>
-		</div>
-		<div class="col-sm-4 col-xs-12">
+		<!--div class="col-sm-4 col-xs-12">
+			<a href="<?php echo site_url('/profile/'); ?>" class="link-block">Edit Your Profile</a>
+		</div-->
+		<div class="col-sm-6 col-xs-12">
 			<a href="<?php echo site_url('/index/'); ?>" class="link-block">Check out the Index</a>
 		</div>
-		<div class="col-sm-4 col-xs-12">
+		<div class="col-sm-6 col-xs-12">
 			<a href="<?php echo site_url('/articles/'); ?>" class="link-block">Watch Some Videos</a>
 		</div>
 	</div>

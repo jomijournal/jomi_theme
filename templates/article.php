@@ -263,6 +263,7 @@
 				//======================
 				// GENERATED JAVASCRIPT
 				// =====================
+				<?php $access_blocks = array_reverse($access_blocks); ?>
 				<?php if(is_array($access_blocks)) { foreach($access_blocks as $block) { ?>
 					<?php if($block['time_elapsed'] == 'custom' && !empty($custom_stop)) {?>
 						// custom elapsed time

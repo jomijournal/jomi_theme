@@ -279,8 +279,10 @@ function block_free_trial_thanks() {
 	</div>
 	<div class="row">
 		<h1>Thank you for using JoMI</h1>
-		<h4>Your trial expires on <?php echo $year . ' ' . $month . ' ' . $day; ?></h4>
-		<h4>Please let your librarian know if you enjoyed this video</h4>
+		<h4>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
+		<strong><u>Your Opinion Matters!</u></strong>
+		<p>Please let your librarian know if you found our content valuable.</p>
+		<br>
 	</div>
 	<div class="row link-close">
 		<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>

@@ -111,6 +111,7 @@ foreach($rules as $rule_index=>$rule) {
 					<option val="is_logged_in"   >Is Logged In (T/F)</option>
 					<option val="is_subscribed"  >Is Subscribed (T/F)</option>
 					<option val="is_free_trial"  >Is Free Trial (T/F)</option>
+					<option val="is_user_subscribed">Is User Subscribed (T/F)</option>
 				</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
 				<?php if($index > 1) { ?>

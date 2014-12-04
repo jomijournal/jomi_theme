@@ -844,6 +844,32 @@ function get_blocks($rules, $user_info) {
 					}
 
 					break;
+				case "is_user_subscribed":
+
+					$check_user_sub = $check_values[$index];
+					global $stripe_user_subscribed;
+					$user_subscribed = $stripe_user_subscribed;
+
+					if($check_user_sub == 'T' && $user_subscribed) {
+						if($access_debug) {
+							echo "user subscribed matched!\n";
+							echo $check_user_sub . '==' . $user_subscribed . "\n\n";
+						}
+						$check_count++;
+					} elseif ($check_user_sub == 'F' && !$user_subscribed) {
+						if($access_debug) {
+							echo "user subscribed matched!\n";
+							echo $check_user_sub . '==' . $user_subscribed . "\n\n";
+						}
+						$check_count++;
+					} else {
+						if($access_debug) {
+							echo "user subscribed not matched!\n";
+							echo $check_user_sub . '!=' . $user_subscribed . "\n\n";
+						}
+					}
+
+					break;
 				// ADD ADDITIONAL CHECKS HERE ^^^
 
 				default:

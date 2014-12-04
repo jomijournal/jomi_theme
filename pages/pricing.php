@@ -581,10 +581,15 @@ function stripe_charge(token) {
 			, email:    (token.email    == null) ? null : token.email
 
 		}, function(response) {
+
+			response = response.substr(0, response.length - 1);
+			response = response.replace(/\s/g, "");
+			response = response.replace(/(\r\n|\r|\n)/gm, "");
+
 			console.log(response);
 
-			if(response == "success" || response == "success0") window.location.href = "<?php echo site_url('/pricing/?action=orderplaced'); ?>";
-			else window.location.href = "<?php echo site_url('/pricing/?action=ordererror'); ?>";
+			if(response == "success" || response == "success0") window.location.href = "<?php echo site_url('/subscribe?action=orderplaced'); ?>";
+			else window.location.href = "<?php echo site_url('/subscribe?action=ordererror'); ?>";
 		});
 	}
 }
@@ -656,7 +661,7 @@ if(!$referral) {
 		<div class="col-xs-8">
 			<input class="referbox" type="text" readonly value="<?php echo $code; ?>">
 			&nbsp;&nbsp;Or&nbsp;&nbsp;
-			<a class="referlink" target="_blank" href="<?php echo site_url('/pricing?referral=') . $code;?>"><?php echo site_url('/pricing?referral=') . $code;?></a>
+			<a class="referlink" target="_blank" href="<?php echo site_url('/subscribe?referral=') . $code;?>"><?php echo site_url('/subscribe?referral=') . $code;?></a>
 		</div>
 	</div>
 	

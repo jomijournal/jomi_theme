@@ -794,7 +794,7 @@ function get_blocks($rules, $user_info) {
 					$inst_subscribed = $user_inst['is_subscribed'];
 					$check_free_trial = $check_values[$index];
 					$inst_order = $user_inst['order'];
-					$inst_order_type = $inst_order['type'];
+					$inst_order_type = $inst_order->type;
 
 					$free_trial_matches = array(
 						'trial',

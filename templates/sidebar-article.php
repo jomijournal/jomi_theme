@@ -27,8 +27,36 @@ $valid_subscribed_types = array(
 );
 
 // display free trial
+if(!empty($user_order)) {
+	$order_type = $user_order->type;
 
-if ($stripe_user_subscribed) { ?>
+	$status = get_post_status();
+
+	if(in_array($order_type, $valid_trial_types)) {
+	?>
+	<div id="free-trial-notification">
+		<span class="free-trial-head">TRIAL</span>
+		<p>Your institution is currently using trial access.<br>
+		Please recommend JoMI to your institution.</p>
+	</div>
+	<?php } 
+}
+
+global $jomi_user_order;
+
+if(!empty($jomi_user_order)) { ?>
+
+	<div class="row stripe-notification">
+		<div class="col-xs-12">
+			<span class="stripe-subscribed">Subscribed</span>
+		</div>
+		<div class="col-xs-12">
+			<span class="plan">Plan:</span>
+			<span class="plan-details"><?php echo $jomi_user_order->type; ?></span>
+		</div>
+	</div>
+
+<?php } elseif ($stripe_user_subscribed) { ?>
 	
 	<div class="row stripe-notification">
 		<div class="col-xs-12">
@@ -40,20 +68,7 @@ if ($stripe_user_subscribed) { ?>
 		</div>
 	</div>
 
-<?php } elseif(!empty($user_order)) {
-	$order_type = $user_order->type;
-
-	$status = get_post_status();
-
-	if(in_array($order_type, $valid_trial_types)) {
-	?>
-	<div id="free-trial-notification">
-		<span class="free-trial-head">TRIAL</span>
-		<p>You are currently using trial access.<br>
-		Please recommend JoMI to your institution.</p>
-	</div>
-	<?php } 
-} ?>
+<?php } ?>
 
 
 <h3>Share This Article</h3>

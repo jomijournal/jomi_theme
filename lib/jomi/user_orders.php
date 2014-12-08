@@ -1,7 +1,7 @@
 <?php 
 
-//add_action('show_user_profile', 'add_user_order_table');
-//add_action('edit_user_profile', 'add_user_order_table');
+add_action('show_user_profile', 'add_user_order_table');
+add_action('edit_user_profile', 'add_user_order_table');
 
 function add_user_order_table($user) {
 ?>

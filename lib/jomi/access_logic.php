@@ -391,6 +391,8 @@ function load_user_info() {
 	global $wpdb;
 	global $access_debug;
 	global $reader;
+
+	$is_subscribed = false;
 	
 	// grab user object from wordpress
 	$current_user = wp_get_current_user();
@@ -433,14 +435,66 @@ function load_user_info() {
 		$logged_in = false;
 	}
 
-	if($logged_in) {
-		$stripe_subscribed = stripe_verify_user_subscribed();
+	//** GET PER USER ORDERS		
+		
+	// check our own system first (orders set via. the profile page)
+	if($logged_in) {		
+		
+		global $wpdb;		
+		global $inst_order_table_name;		
+		
+		// get user id		
+		$user_id = $user['id'];		
+		
+		// build query		
+		$order_query = 		
+		"SELECT * FROM $inst_order_table_name		
+		WHERE user_id=$user_id";		
+		
+		// query database for matching orders		
+		$user_orders = $wpdb->get_results($order_query);		
 
-		if($stripe_subscribed) $is_subscribed = true;
+		if(empty($user_orders)) {
+			if($access_debug) {
+				echo "User Order History empty\n";
+			}
+		} else { 
+			if($access_debug) {		
+				echo "User Order History:\n";		
+				print_r($user_orders);		
+			}		
+		}
 
-		if($access_debug) {
-			echo "User Stripe Subscribed:\n";
-			echo $stripe_subscribed . "\n";
+		// get current time		
+		$cur_time = time();		
+		
+		// cycle through all orders. if an order is valid, break the loop		
+		foreach($user_orders as $user_order) {		
+			// check if order falls within today's date		
+			$fromtime = strtotime($user_order->date_start);		
+			$endtime = strtotime($user_order->date_end);		
+		
+			// order is valid. flip is_subscribed flag and break		
+			if ($cur_time >= $fromtime && $cur_time <= $endtime) {		
+				$is_subscribed = true;
+
+				global $jomi_user_order;
+				$jomi_user_order = $user_order;
+
+				break;		
+			}		
+		}
+
+		// check stripe if all else fails
+		if(!$is_subscribed) {
+			$stripe_subscribed = stripe_verify_user_subscribed();
+
+			if($stripe_subscribed) $is_subscribed = true;
+
+			if($access_debug) {
+				echo "User Stripe Subscribed:\n";
+				echo $stripe_subscribed . "\n";
+			}
 		}
 	}
 

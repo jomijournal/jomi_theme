@@ -188,22 +188,15 @@ function global_rulebook(){
 		<div id="signal" class="signal"></div>
 	</div>
 
-	<b>DEBUG</b>
+	<!-- was used to toggle debug text. now it only shows up when the showdebug flag is set to true -->
+	<!--b>DEBUG</b>
 	&nbsp;
 	<label class="switch">
 		<input id="debug_toggle" type="checkbox" class="switch-input" <?php echo (get_option('access_debug', 'false') == 'true') ? 'checked' : ''; ?>>
 		<span class="switch-label" data-on="On" data-off="Off"></span>
 		<span class="switch-handle"></span>
-	</label>
+	</label-->
 
-	<br>
-
-	<div id="select_container">
-		<select id="category">
-			<option val="all">All</option>
-			<option val="adf">asdf</option>
-		</select>
-	</div>
 
 	<div id="results">
 	</div>

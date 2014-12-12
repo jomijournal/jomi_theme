@@ -139,7 +139,7 @@ module.exports = function(grunt) {
 				],
 				tasks: ['less:dev'/*, 'autoprefixer:dev'*/],
 				options: {
-					livereload: 35729
+					//livereload: 35729
 				}
 			},
 			js: {
@@ -149,20 +149,20 @@ module.exports = function(grunt) {
 				],
 				tasks: ['jshint', 'concat'],
 				options: {
-					livereload: 35729
+					//livereload: 35729
 				}
 			},
 			php: {
 				files: ['**/*.php'],
 				options: {
-					livereload: 35729
+					//livereload: 35729
 				}
 			},
 			livereload: {
 				// Browser live reloading
 				// https://github.com/gruntjs/grunt-contrib-watch#live-reloading
 				options: {
-					livereload: true
+					//livereload: true
 				},
 				files: [
 					'assets/css/main.min.css',

@@ -391,6 +391,8 @@ function load_user_info() {
 	global $wpdb;
 	global $access_debug;
 	global $reader;
+
+	$is_subscribed = false;
 	
 	// grab user object from wordpress
 	$current_user = wp_get_current_user();
@@ -432,45 +434,66 @@ function load_user_info() {
 	} else {
 		$logged_in = false;
 	}
-     
 
+	//** GET PER USER ORDERS		
+		
+	// check our own system first (orders set via. the profile page)
+	if($logged_in) {		
+		
+		global $wpdb;		
+		global $inst_order_table_name;		
+		
+		// get user id		
+		$user_id = $user['id'];		
+		
+		// build query		
+		$order_query = 		
+		"SELECT * FROM $inst_order_table_name		
+		WHERE user_id=$user_id";		
+		
+		// query database for matching orders		
+		$user_orders = $wpdb->get_results($order_query);		
 
-	//** GET PER USER ORDERS
-
-	if($logged_in) {
-
-		global $wpdb;
-		global $inst_order_table_name;
-
-		// get user id
-		$user_id = $user['id'];
-
-		// build query
-		$order_query = 
-		"SELECT * FROM $inst_order_table_name
-		WHERE user_id=$user_id";
-
-		// query database for matching orders
-		$user_orders = $wpdb->get_results($order_query);
-
-		if($access_debug) {
-			echo "User Order History:\n";
-			print_r($user_orders);
+		if(empty($user_orders)) {
+			if($access_debug) {
+				echo "User Order History empty\n";
+			}
+		} else { 
+			if($access_debug) {		
+				echo "User Order History:\n";		
+				print_r($user_orders);		
+			}		
 		}
 
-		// get current time
-		$cur_time = time();
-
-		// cycle through all orders. if an order is valid, break the loop
-		foreach($user_orders as $user_order) {
-			// check if order falls within today's date
-			$fromtime = strtotime($user_order->date_start);
-			$endtime = strtotime($user_order->date_end);
-
-			// order is valid. flip is_subscribed flag and break
-			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
+		// get current time		
+		$cur_time = time();		
+		
+		// cycle through all orders. if an order is valid, break the loop		
+		foreach($user_orders as $user_order) {		
+			// check if order falls within today's date		
+			$fromtime = strtotime($user_order->date_start);		
+			$endtime = strtotime($user_order->date_end);		
+		
+			// order is valid. flip is_subscribed flag and break		
+			if ($cur_time >= $fromtime && $cur_time <= $endtime) {		
 				$is_subscribed = true;
-				break;
+
+				global $jomi_user_order;
+				$jomi_user_order = $user_order;
+
+				break;		
+			}		
+		}
+
+		// check stripe if all else fails
+		if(!$is_subscribed) {
+			$stripe_subscribed = stripe_verify_user_subscribed();
+
+			if($stripe_subscribed) $is_subscribed = true;
+
+			if($access_debug) {
+				echo "User Stripe Subscribed:\n";
+				echo $stripe_subscribed . "\n";
 			}
 		}
 	}
@@ -819,7 +842,89 @@ function get_blocks($rules, $user_info) {
 
 					break;
 
-				// ADD ADDITIONAL CHECKS HERE
+				case 'is_free_trial':
+
+					//$user_subscribed = $user_info['subscribed'];
+					$inst_subscribed = $user_inst['is_subscribed'];
+					$check_free_trial = $check_values[$index];
+					$inst_order = $user_inst['order'];
+					$inst_order_type = $inst_order->type;
+
+					$free_trial_matches = array(
+						'trial',
+						'Trial',
+						'free trial',
+						'Free trial',
+						'Free Trial',
+						'free-trial',
+						'Free-trial',
+						'Free-Trial'
+					);
+
+					if(!$inst_subscribed) {
+						if($check_free_trial == 'F') {
+							if($access_debug) {
+								echo "inst free trial matched!\n";
+								echo $check_free_trial . '==' . $inst_subscribed . "\n\n";
+							}
+							$check_count++;
+						} else {
+							if($access_debug) {
+								echo "inst free trial not matched!\n";
+								echo $check_free_trial . '!=' . $inst_subscribed . "\n\n";
+							}
+						}
+						break;
+					}
+
+					if(in_array($inst_order_type, $free_trial_matches) && $check_free_trial == 'T') {
+						if($access_debug) {
+							echo "inst free trial matched!\n";
+							echo $check_free_trial . '==' . $inst_order_type . "\n\n";
+						}
+						$check_count++;
+					} else if (!in_array($inst_order_type, $free_trial_matches) && $check_free_trial == 'F') {
+						if($access_debug) {
+							echo "inst free trial matched!\n";
+							echo $check_free_trial . '==' . $inst_order_type . "\n\n";
+						}
+						$check_count++;
+					} else {
+						if($access_debug) {
+							echo "inst free trial not matched!\n";
+							echo $check_free_trial . '!=' . $inst_order_type . "\n\n";
+						}
+						break;
+					}
+
+					break;
+				case "is_user_subscribed":
+
+					$check_user_sub = $check_values[$index];
+					global $stripe_user_subscribed;
+					$user_subscribed = $stripe_user_subscribed;
+
+					if($check_user_sub == 'T' && $user_subscribed) {
+						if($access_debug) {
+							echo "user subscribed matched!\n";
+							echo $check_user_sub . '==' . $user_subscribed . "\n\n";
+						}
+						$check_count++;
+					} elseif ($check_user_sub == 'F' && !$user_subscribed) {
+						if($access_debug) {
+							echo "user subscribed matched!\n";
+							echo $check_user_sub . '==' . $user_subscribed . "\n\n";
+						}
+						$check_count++;
+					} else {
+						if($access_debug) {
+							echo "user subscribed not matched!\n";
+							echo $check_user_sub . '!=' . $user_subscribed . "\n\n";
+						}
+					}
+
+					break;
+				// ADD ADDITIONAL CHECKS HERE ^^^
 
 				default:
 					echo "invalid check type";

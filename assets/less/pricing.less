@@ -2,14 +2,25 @@
 
 .page div.container.wrap{
 
-	div.pricing{
+	.modal{
+		.btn{
+			border-radius: 5px;
+			border: 0px;
+		}
+	}
+
+	div.pricing, div.subscribe{
+
 		h1{
 			text-align: center;
 		}
 		.plans{
-			> div{
+			> div > div.row {
 				padding: 0;
-				margin-bottom: 15px;
+				> div{
+					padding: 0;
+					margin-bottom: 15px;
+				}
 			}
 		}
 		.student{
@@ -32,9 +43,57 @@
 		}
 		.institution{
 			.plan-header{background-color: #333;}
-			.plan-body{background-color: #666;}
+			.plan-body{
+				background-color: #666;
+				p.as-low-as a{
+					color: #96CFFF;
+					text-decoration: none;
+					&:hover{
+						color: #4CADFF;
+						text-decoration: underline;
+					}
+				}
+				p.price{
+					//font-size: 1.4em;
+				}
+			}
 			.plan-form{border-color: #666;}
-			.plan-cost{border-color: #666;}
+			.plan-cost{
+				border-color: #666;
+				text-align: center;
+
+				p{
+					font-size: 1em;
+					text-align: left;
+				}
+				a.contact-btn{
+					display: inline-block;
+					margin: 5px 0;
+					padding: 5px;
+					font-size: 1.75em;
+					border: 1px solid rgba(255, 255, 255, 0);
+
+					background: #333;
+					color: #eee;
+					border-radius: 5px;
+
+					text-decoration: none;
+
+					transition: 0.2s all ease-in-out;
+					-webkit-transition: 0.2s all ease-in-out;
+
+					&:hover {
+						background: #888;
+						color: #fff;
+						border: 1px solid #333;
+					}
+					&:active {
+						background: #eee;
+						color: #333;
+						border: 0px solid #eee;
+					}
+				}
+			}
 		}
 		.plan-header {
 			margin:0 4px;
@@ -48,6 +107,7 @@
 				//font-weight: bold;
 				text-align: center;
 			}
+			
 		}
 		.plan-body{
 			//height: 150px;
@@ -102,7 +162,7 @@
 			margin: 0px 4px;
 			padding: 10px 0;
 
-			color: #888;
+			color: #333;
 			text-align: left;
 
 			background-color: #ddd;
@@ -119,6 +179,161 @@
 				vertical-align: middle;
 				font-size: 0.5em;
 			}
+
+			button.subscribe-btn{
+				font-size: 0.75em;
+				background: #333;
+				color: #eee;
+				border-radius: 5px;
+				border: 0px solid #eee;
+
+				transition: 0.2s all ease-in-out;
+				-webkit-transition: 0.2s all ease-in-out;
+
+				&:hover {
+					background: #888;
+					color: #fff;
+					border: 1px solid #333;
+				}
+				&:active {
+					background: #eee;
+					color: #333;
+					border: 0px solid #eee;
+				}
+			}
+		}
+
+		.coupon-display{
+			text-align: center;
+
+			margin: 5px;
+			margin-bottom: 0px;
+			//margin-top: 8px;
+			padding: 8px 10px;
+
+			background: #ccc;
+			border: 1px solid #bbb;
+			border-bottom: 0px;
+
+			font-size: 1.125em;
+
+			span.coupon-code{
+				font-weight: bold;
+				//text-decoration: underline;
+			}
+		}
+		.coupon-container{
+
+			text-align: center;
+
+			margin: 5px 5px;
+			margin-top: 0px;
+			padding: 8px 10px;
+
+			background: #ddd;
+			border: 1px solid #ccc;
+
+			font-size: 1.125em;
+			font-weight: bold;
+
+			input.coupon-input{
+				//color: #FF4545;
+				color: #666;
+			}
+			input.coupon-submit{
+				border-radius: 5px;
+				background: #eee;
+				color: #666;
+				border: 1px solid #888;
+
+				transition: 0.2s all ease-in-out;
+				-webkit-transition: 0.2s all ease-in-out;
+
+				&:hover{
+					background: #ccc;
+				}
+			}
+		}
+
+	}
+	div.pricing.orderplaced{
+		h1{
+			font-size: 2.5em;
+			font-weight: bold;
+		}
+		h2{
+			text-align: center;
+			font-size: 1.5em;
+		}
+		h3{
+			text-align: center;
+			font-size: 2.5em;
+			font-weight: bold;
+		}
+		hr{
+			margin: 0 0;
+			border-color: #ddd;
+		}
+
+		a.link-block{
+			display: block;
+			width: 90%;
+			margin: 0 auto;
+
+			background: #666;
+			padding: 30px 15px;
+			text-align: center;
+			color: #eee;
+			font-size: 1.75em;
+			font-weight: bold;
+			text-decoration: none;
+			border-radius: 5px;
+
+			transition: 0.25s all ease-in-out;
+			-webkit-transition: 0.25s all ease-in-out;
+
+			&:hover {
+				width: 100%;
+				background: #888;
+			}
+		}
+		div.refercode{
+			text-align: left;
+			margin-bottom: 10px;
+			font-size: 1.25em;
+			p.text{
+				//font-size: 1.25em;
+				text-align: right;
+			}
+			input.referbox{
+				//width: 100%;
+				text-align: center;
+				font-weight: bold;
+				font-size: 0.75em;
+			}
+			a.referlink{
+				//font-size: 1.25em;
+			}
+		}
+		div.referinfo{
+			text-align: center;
+			font-size: 1.25em;
+		}
+	}
+	div.pricing.ordererror{
+		h1{
+			font-size: 2.5em;
+			font-weight: bold;
+		}
+		hr{
+			margin: 0 0;
+		}
+		img{
+			width: 100%;
+			border-radius: 5px;
+		}
+		strong{
+			font-size: 1.25em;
 		}
 
 	}

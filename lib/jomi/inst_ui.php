@@ -520,7 +520,7 @@ foreach($locations as $location) {
 		<input id="inst-location-zip" type="text" placeholder="zip code" value="<?php echo $location->zip; ?>">
 		<input id="inst-location-id" type="hidden" value="<?php echo $location->id; ?>">
 		<input id="inst-location-inst-id" type="hidden" value="<?php echo $id; ?>">
-		<input id="inst-location-comment" type="text" placeholder="comment" value="<?php echo $location->comment; ?>">
+		<textarea rows="4" cols="20" id="inst-location-comment" type="text" placeholder="comment" ><?php echo $location->comment; ?></textarea>
 	</td>
 	<td>
 		<?php inst_order_update($location->id); ?>

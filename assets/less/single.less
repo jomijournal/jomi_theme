@@ -63,46 +63,89 @@ main.main > div.col-sm-8 {
 				}
 
 			}
-			// generated chapters
-			#chapters{
+			div.panel-group#chapters{
+				margin-bottom: 0px;
+				padding-left: 2px;
 				float: left;
-				padding: 0px 0px;
 				width: 100%;
 				font-size: 0.8125em;
-				h3{
-					color: #999;
-					text-align: center;
-					margin-bottom: 15px;
-					text-transform: uppercase;
-					font-weight:700;
-					margin-top:10px;
-				}
-				ul{
-					list-style: none;
-					padding: 0;
-					li{
-						margin: 2px 0;
-						a{
-							display:block;
-							background: #333;
-							padding:4px 10px;
-							text-decoration: none;
-							color:#999;
-							&:hover{
-								background:#555;
+
+				.panel.panel-chapter{
+					border: 0px;
+					margin-top: 2px;
+
+					div.panel-heading{
+						border-radius: 0px;
+						padding: 0px;
+
+						h4.panel-title{
+							font-size: 1em;
+							margin: 0px;
+							padding: 0px;
+
+							> span{
+								padding: 4px 10px;
+
+								display: block;
+								background: #333;
+								text-decoration: none;
+								color: #aaa;
+
+								cursor: pointer;
+								cursor: hand;
+
+								span.glyphicon{
+									font-size: 0.75em;
+								}
+
+								&:hover{
+									background: #555;
+								}
+								&.current{
+									background: #555;
+								}
+								&.done:not(.current) {
+									background:#111;
+									&:hover{
+										background:#555;
+									}
+								}
 							}
 						}
-						&.current{
-							a{
-								background:#555;
-							}
-							font-weight:700;
-						}
-						&.done:not(.current) a{
-							background:#111;
-							&:hover{
-								background:#555;
-							}
+					}
+					div.panel-collapse{
+						div.panel-body{
+							padding: 0px;
+							margin: 0px;
+							border: 0px;
+							border-radius: 0px;
+
+							span{
+								padding: 4px 10px;
+
+								display: block;
+								background: #383838;
+								text-decoration: none;
+								color: #aaa;
+								border-top: 1px solid #555;
+
+								cursor: pointer;
+								cursor: hand;
+
+								&:hover{
+									background: #666;
+								}
+								&.current{
+									background: #666;
+								}
+								&.done:not(.current) {
+									background:#222;
+									border-color: #333;
+									&:hover{
+										background:#555;
+									}
+								}
+							}	
 						}
 					}
 				}
@@ -247,7 +290,7 @@ main.main > div.col-sm-8 {
 			margin-top: -50px;
 			margin-bottom: 25px;
 			.video-area {
-				#chapters{
+				div.panel-group#chapters{
 				  width: 25%;
 				  padding-right: 2px;
 				  overflow: hidden;

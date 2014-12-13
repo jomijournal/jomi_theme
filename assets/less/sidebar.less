@@ -25,6 +25,7 @@
 		text-align: center;
 		.free-trial-head{
 			display: block;
+			margin-bottom: 5px;
 			width: 100%;
 			padding: 5px 10px;
 			font-weight: bold;
@@ -34,6 +35,35 @@
 		}
 		p{
 			font-weight: bold;
+		}
+	}
+
+	.row.stripe-notification{
+		span.stripe-subscribed{
+			display: block;
+			margin: 0 auto;
+			text-align: center;
+			background: #7DBE7D;
+			color: #eee;
+			font-weight: bold;
+			border-radius: 5px 5px 0px 0px;
+		}
+		span.plan{
+			display: inline-block;
+			width: 25%;
+			float: left;
+			clear: both;
+			background: #ddd;
+			padding-left: 20px;
+		}
+		span.plan-details{
+			display: inline-block;
+			float: right;
+			width: 75%;
+			margin: 0 auto;
+			background: #ddd;
+			font-style: italic;
+			text-align: center;
 		}
 	}
 
@@ -83,6 +113,25 @@
 				vertical-align: top;
 			}
 		}
+	}
+	.notification-submit{
+		width: 27%;
+		float: right;
+		border-radius: 5px;
+		/* margin: auto; */
+		margin-top: 2px;
+	}
+	.notification-input{
+		width: 70%;
+		float: left;
+	}
+	.notification-status{
+		display: none;
+		color: #eee;
+		text-align: center;
+		font-weight: bold;
+		background-color: #2EBB2E;
+		border-radius: 5px;
 	}
 }
 /**

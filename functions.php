@@ -114,7 +114,7 @@ function set_env_flag() {
 		define('WP_ENV','PROD');
 	}
 }
-add_action('init', 'set_env_flag', -100);
+add_action('init', 'set_env_flag');
 
 /* COMPOSER INCLUDES */
 require_once('vendor/autoload.php');
@@ -130,6 +130,7 @@ if(WP_ENV == 'PROD') {
 } else {
 	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));
 }
+
 global $user_stripe_subscribed;
 $user_stripe_subscribed = false;
 

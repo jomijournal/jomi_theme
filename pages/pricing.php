@@ -415,8 +415,17 @@ $(function() {
 	});
 
 	// load stripe handler
+
+	<?php
+	if(WP_ENV == 'PROD') {
+		$public_key = get_option("stripe_live_public_api_key");
+	} else {
+		$public_key = get_option("stripe_test_public_api_key");
+	}
+	?>
+
 	var handler = StripeCheckout.configure({
-		key: '<?php echo get_option("stripe_test_public_api_key"); ?>'
+		key: '<?php echo $public_key; ?>'
 		, image: '/wp-content/themes/jomi/assets/img/enso_transparent.png'
 		, email: '<?php echo $current_user->user_email; ?>'
 		, token: function(token) {

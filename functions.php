@@ -108,11 +108,15 @@ function set_env_flag() {
 		'127.0.0.1'
 	);
 
-	if(in_array($_SERVER['HTTP_HOST'], $local_envs)) {
+	if(!empty($_GET['setenv'])) {
+		define('WP_ENV', $_GET['setenv']);
+	} elseif (in_array($_SERVER['HTTP_HOST'], $local_envs)) {
 		define('WP_ENV','TEST');
 	} else {
 		define('WP_ENV','PROD');
 	}
+
+	
 }
 add_action('init', 'set_env_flag');
 

@@ -249,19 +249,19 @@
 				// skip chapters without subchapters
 				if($(this).attr('data-parent') != "#chapters") return;
 
-				if($(this).hasClass('glyphicon-chevron-right')) {
+				if($(this).hasClass('collapsed') && $(this).hasClass('glyphicon-chevron-right')) {
 					$(this).removeClass('glyphicon-chevron-right');
 					$(this).addClass('glyphicon-chevron-down');
 
 					for(var chapter in chapters) {
-						var glyph = chapter.find('.glyphicon');
+						var glyph = chapter.find('span.glyphicon');
 						if(glyph.hasClass('glyphicon-chevron-down')) {
 							glyph.addClass('glyphicon-chevron-right');
 							glyph.removeClass('glyphicon-chevron-down');
 						}
 					}
 
-				} else {
+				} else if ($(this).hasClass('glyphicon-chevron-down') && !$(this).hasClass('collapsed')) {
 					$(this).addClass('glyphicon-chevron-right');
 					$(this).removeClass('glyphicon-chevron-down');
 				}

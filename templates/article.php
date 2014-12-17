@@ -120,7 +120,7 @@
 						<h4 class="panel-title">
 							<span class="vtime-item collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse" 
 							data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"
-							data-time="<?php echo $chapter['time']; ?>">
+							data-time="<?php echo $chapter['time']; ?>" data-title-og="<?php echo $chapter['title']; ?>">
 								<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;<?php echo $chapter['title']; ?>
 							</span>
 						</h4>

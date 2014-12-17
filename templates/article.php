@@ -53,7 +53,7 @@
 			$ch['time'] = get_sub_field('time');
 
 			// catch incomplete chapters
-			if(empty($ch['title']) || empty($ch['time'])) continue;
+			if(empty($ch['title']) || $ch['time'] < 0) continue;
 
 			if(get_sub_field('subchapters')) {
 				$ch['subchapters'] = [];

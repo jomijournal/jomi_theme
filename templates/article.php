@@ -51,6 +51,7 @@
 			$ch = [];
 			$ch['title'] = get_sub_field('title');
 			$ch['time'] = get_sub_field('time');
+			$ch['title_clean'] = sanitize_title($ch['title']);
 
 			// catch incomplete chapters
 			if(empty($ch['title']) || $ch['time'] < 0) continue;
@@ -61,6 +62,7 @@
 					$sch = [];
 					$sch['title'] = get_sub_field('title_sub');
 					$sch['time'] = get_sub_field('time_sub');
+					$sch['title_clean'] = sanitize_title($ch['title']);
 
 					// catch incomplete subchapters
 					if(empty($sch['title']) || empty($sch['time'])) continue;
@@ -103,9 +105,9 @@
 
 					<?php if(empty($chapter['subchapters'])) { ?>
 
-					<div class="panel-heading" role="tab" id="<?php echo $chapter['title'] . 'heading'; ?>">
+					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<h4 class="panel-title">
-							<span class="vtime-item" href="#<?php echo trim($chapter['title']); ?>" 
+							<span class="vtime-item" href="#<?php echo trim($chapter['title_clean']); ?>" 
 							onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();" data-time="<?php echo $chapter['time']; ?>">
 								<?php echo $chapter['title']; ?>
 							</span>
@@ -114,21 +116,21 @@
 
 					<?php } else { ?>
 
-					<div class="panel-heading" role="tab" id="<?php echo $chapter['title'] . 'heading'; ?>">
+					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<h4 class="panel-title">
-							<span class="vtime-item collapsed" href="#<?php echo trim($chapter['title']); ?>" data-toggle="collapse" 
-							data-parent="#chapters" aria-controls="<?php echo $chapter['title']; ?>" aria-expanded="false"
+							<span class="vtime-item collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse" 
+							data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"
 							data-time="<?php echo $chapter['time']; ?>">
 								<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;<?php echo $chapter['title']; ?>
 							</span>
 						</h4>
 					</div>
-					<div id="<?php echo $chapter['title']; ?>" class="panel-collapse collapse" role="tabpanel" 
-					aria-labelledby="<?php echo $chapter['title'] . 'heading'; ?>">
+					<div id="<?php echo $chapter['title_clean']; ?>" class="panel-collapse collapse" role="tabpanel" 
+					aria-labelledby="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<div class="panel-body">
 							<?php foreach($chapter['subchapters'] as $subchapter) { ?>
 							<span class="vtime-item" href="#" onclick="wistiaEmbed.time(<?php echo $subchapter['time']; ?>).play();"
-							 data-time="<?php echo $subchapter['time']; ?>" data-parent-chapter="<?php echo $chapter['title']; ?>">
+							 data-time="<?php echo $subchapter['time']; ?>" data-parent-chapter="<?php echo $chapter['title_clean']; ?>">
 								<?php echo $subchapter['title']; ?>
 							</span>
 							<?php } ?>

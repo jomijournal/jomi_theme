@@ -238,7 +238,7 @@
 				// skip chapters without subchapters
 				if($(this).attr('data-parent') != "#chapters") return;
 
-				var title = $(this).attr('aria-controls');
+				var title = $(this).attr('data-title-og');
 				var glyph_right = '<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;';
 				var glyph_down = '<span class="glyphicon glyphicon-chevron-down"></span>&nbsp;&nbsp;';
 

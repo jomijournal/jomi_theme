@@ -107,10 +107,12 @@
 
 					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<h4 class="panel-title">
-							<span class="vtime-item" href="#<?php echo trim($chapter['title_clean']); ?>" 
+
+							<span class="vtime-item no-subchapters" href="#<?php echo trim($chapter['title_clean']); ?>" 
 							onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();" data-time="<?php echo $chapter['time']; ?>">
-								<?php echo $chapter['title']; ?>
+								<span class="vtime-title-text"><?php echo $chapter['title']; ?></span>
 							</span>
+
 						</h4>
 					</div>
 
@@ -118,10 +120,15 @@
 
 					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<h4 class="panel-title">
-							<span class="vtime-item collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse" 
-							data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"
-							data-time="<?php echo $chapter['time']; ?>" data-title-og="<?php echo $chapter['title']; ?>">
-								<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;<?php echo $chapter['title']; ?>
+							<span class="vtime-item">
+
+								<span class="vtime-title-text" onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();"
+										href="#<?php echo trim($chapter['title_clean']); ?>"><?php echo $chapter['title']; ?></span>
+
+								<span class="glyphicon glyphicon-chevron-right collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse" 
+										data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"
+										data-time="<?php echo $chapter['time']; ?>" data-title-og="<?php echo $chapter['title']; ?>"></span>
+
 							</span>
 						</h4>
 					</div>
@@ -233,20 +240,17 @@
 		$(function(){
 
 			// handle glyph switching with subchapters
-			$(".vtime-item").on('click', function() {
+			$(".vtime-item span.glyphicon").on('click', function() {
 
 				// skip chapters without subchapters
 				if($(this).attr('data-parent') != "#chapters") return;
 
-				var title = $(this).attr('data-title-og');
-				var glyph_right = '<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;';
-				var glyph_down = '<span class="glyphicon glyphicon-chevron-down"></span>&nbsp;&nbsp;';
-
 				if($(this).hasClass('collapsed')) {
-					//console.log("down");
-					$(this).html(glyph_down + title);
+					$(this).removeClass('glyphicon-chevron-right');
+					$(this).addClass('glyphicon-chevron-down');
 				} else {
-					$(this).html(glyph_right + title);
+					$(this).addClass('glyphicon-chevron-right');
+					$(this).removeClass('glyphicon-chevron-down');
 				}
 			});
 
@@ -255,7 +259,7 @@
 				chapters[index] = $(this);
 			});
 
-			console.log(chapters);
+			//console.log(chapters);
 
 
 			// load the wistia id (used for getting the video from wistia)

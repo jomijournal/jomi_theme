@@ -120,14 +120,13 @@
 
 					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<h4 class="panel-title">
-							<span class="vtime-item">
+							<span class="vtime-item" data-time="<?php echo $chapter['time']; ?>">
 
 								<span class="vtime-title-text" onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();"
 										href="#<?php echo trim($chapter['title_clean']); ?>"><?php echo $chapter['title']; ?></span>
 
 								<span class="glyphicon glyphicon-chevron-right collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse" 
-										data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"
-										data-time="<?php echo $chapter['time']; ?>" data-title-og="<?php echo $chapter['title']; ?>"></span>
+										data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"></span>
 
 							</span>
 						</h4>
@@ -239,6 +238,11 @@
 
 		$(function(){
 
+			// load chapters into object for looping
+			$('.vtime-item').each(function(index) {
+				chapters[index] = $(this);
+			});
+
 			// handle glyph switching with subchapters
 			$(".vtime-item span.glyphicon").on('click', function() {
 
@@ -248,15 +252,19 @@
 				if($(this).hasClass('collapsed')) {
 					$(this).removeClass('glyphicon-chevron-right');
 					$(this).addClass('glyphicon-chevron-down');
+
+					for(var chapter in chapters) {
+						var glyph = chapter.find('.glyphicon');
+						if(glyph.hasClass('glyphicon-chevron-down')) {
+							glyph.addClass('glyphicon-chevron-right');
+							glyph.removeClass('glyphicon-chevron-down');
+						}
+					}
+
 				} else {
 					$(this).addClass('glyphicon-chevron-right');
 					$(this).removeClass('glyphicon-chevron-down');
 				}
-			});
-
-			// load chapters into object for looping
-			$('.vtime-item').each(function(index) {
-				chapters[index] = $(this);
 			});
 
 			//console.log(chapters);
@@ -430,8 +438,9 @@
 					var parent_chapter = cur_chapter.attr('data-parent-chapter');
 					if(parent_chapter != null) {
 						// highlight parent chapter
-						parent_chapter = $('.vtime-item[aria-controls="' + parent_chapter + '"');
-						parent_chapter.addClass('current');
+						parent_chapter = $('.panel-heading#' + parent_chapter + 'heading span.vtime-item');
+						//parent_chapter.addClass('current');
+						parent_chapter.removeClass('done');
 					}
 				}
 

@@ -249,7 +249,7 @@
 				// skip chapters without subchapters
 				if($(this).attr('data-parent') != "#chapters") return;
 
-				if($(this).hasClass('collapsed')) {
+				if($(this).hasClass('glyphicon-chevron-right')) {
 					$(this).removeClass('glyphicon-chevron-right');
 					$(this).addClass('glyphicon-chevron-down');
 

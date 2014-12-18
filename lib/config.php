@@ -57,6 +57,7 @@ function roots_display_sidebar() {
       'is_404',
       'is_front_page',
       'is_single',
+	  'is_author',
       array('is_page', 'is_page_template'),
       array('is_page', 'pricing'),
       array('is_page', 'subscribe'),
@@ -67,7 +68,8 @@ function roots_display_sidebar() {
       array('is_page', 'planned'),
       array('is_page', 'index'),
       array('is_page', 'profile'),
-      array('is_page_template', 'templates/template-full-page.php')
+      array('is_page_template', 'templates/template-full-page.php'),
+	  
       #array('is_page', 'articles')
     ),
     /**

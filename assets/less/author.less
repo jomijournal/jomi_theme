@@ -1,0 +1,45 @@
+//* Author Page
+
+.author-container {
+
+	margin: 10px 30px;
+
+	.author-info {
+		overflow: hidden;
+		
+		> .headshot {
+			img {
+				margin: 0 auto;
+				display: block;
+				width: 100%;
+				height: 100%;
+				max-width: 177px;
+				max-height: 177px;
+			}
+		}
+		
+		.info h4 {
+			text-align: center;
+			@media (min-width: 768px) { 
+				text-align: left;
+			}
+		}
+	}
+
+	.author-article-list {
+		
+		margin: 10px 0;
+		
+		> .article-thumbnail {
+			margin-bottom: 15px !important;
+			
+			.article-overlay {
+				position: static !important;
+			}
+			
+			.entry-title {
+				height: 60px;
+			}
+		}
+	}
+}

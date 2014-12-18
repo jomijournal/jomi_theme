@@ -13,7 +13,7 @@ Template Name: Frontpage
 			<h3>JoMI is used at prestigious medical schools and hospitals around the world:</h3>
 			<div class="logos">
 				<img src="<?php echo site_url('/wp-content/themes/jomi/assets/img/clients/logo-ucsf.png'); ?>">
-				<img src="<?php echo site_url('/wp-content/themes/jomi/assets/img/clients/logo-mgh.png'); ?>">
+				<img src="<?php echo site_url('/wp-content/themes/jomi/assets/img/clients/logo-mskcc.png'); ?>">
 			</div>
 			<a class="mini-link" href="<?php echo site_url('/subscribers/'); ?>">See all subscribers →</a>
 		</div>

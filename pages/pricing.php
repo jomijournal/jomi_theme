@@ -65,11 +65,11 @@ if(!empty($referral)) {
 	if($referral->user_id == get_current_user_id()) {
 		// cant refer yerself
 		$referral = null;
-		/*echo "
+		echo "
 		<script>
-		alert('you cant refer yourself!');
+			alert('you cant refer yourself!');
 		</script>
-		";*/
+		";
 	}
 }
 
@@ -349,12 +349,12 @@ if(empty($action)) {
 				</div>
 				<div class "col-xs-6">
 					<div class="coupon-display">
-					<?php //if($discount_percent < 1) { ?>
+					<?php if($discount_percent < 1) { ?>
 					Percent off: <strong><?php echo $percent_off; ?>%</strong><br>
-					<?php //} ?>
-					<?php //if ($discount_amount > 0) { ?>
+					<?php } ?>
+					<?php if ($discount_amount > 0) { ?>
 					Amount off: <strong>$<?php echo sprintf("%01.2f", ($discount_amount / 100)); ?></strong>
-					<?php //} else echo '&nbsp;'?>
+					<?php } else echo '&nbsp;'?>
 					</div>
 				</div>
 				<?php } ?>
@@ -415,8 +415,17 @@ $(function() {
 	});
 
 	// load stripe handler
+
+	<?php
+	if(WP_ENV == 'PROD') {
+		$public_key = get_option("stripe_live_public_api_key");
+	} else {
+		$public_key = get_option("stripe_test_public_api_key");
+	}
+	?>
+
 	var handler = StripeCheckout.configure({
-		key: '<?php echo get_option("stripe_test_public_api_key"); ?>'
+		key: '<?php echo $public_key; ?>'
 		, image: '/wp-content/themes/jomi/assets/img/enso_transparent.png'
 		, email: '<?php echo $current_user->user_email; ?>'
 		, token: function(token) {
@@ -651,10 +660,12 @@ if(!$referral) {
 			<br>
 			<!--hr>
 			<h3>Give $<?php echo $referral_credit; ?> Get $<?php echo $referral_credit; ?></h3-->
+			<hr>
+			<h3>Give $<?php echo $referral_credit; ?></h3>
 		</div>
 	</div>
 
-	<!--div class="row refercode">
+	<div class="row refercode">
 		<div class="col-xs-4">
 			<p class="text">Your Referral Code:</p>
 		</div>
@@ -667,12 +678,13 @@ if(!$referral) {
 	
 	<div class="row referinfo">
 		<div class="col-xs-12">
-			<p>Give a friend $<?php echo $referral_credit; ?> off their first payment, and get $<?php echo $referral_credit; ?> in credit yourself.</p>
+			<!--p>Give a friend $<?php echo $referral_credit; ?> off their first payment, and get $<?php echo $referral_credit; ?> in credit yourself.</p>
 			<p>Credit earned through referrals can count towards future payments, or immediately be cashed out.</p>
-			<p>That's right, you can <b>earn money</b> by spreading the word about JoMI</p>
+			<p>That's right, you can <b>earn money</b> by spreading the word about JoMI</p-->
+			<p>Give a friend $<?php echo $referral_credit; ?> off their first payment!</p>
 			<br>
 		</div>
-	</div-->
+	</div>
 
 	<div class="row">
 		<!--div class="col-sm-4 col-xs-12">

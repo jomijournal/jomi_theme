@@ -41,45 +41,43 @@
 	$chapters = array();
 	$chapter_count = 0;
 
-	//echo '<pre>';
+	// temp fields
+	$ch = [];
+	$sch = [];
 
 	//load acf chapter repeater field
 	if(get_field('chapters')) {
 		while(has_sub_field('chapters')) {
-			$chapter_title = get_sub_field('title');
-			$chapter_time = get_sub_field('time');
+			$ch = [];
+			$ch['title'] = get_sub_field('title');
+			$ch['time'] = get_sub_field('time');
+			$ch['title_clean'] = sanitize_title($ch['title']);
 
-			//echo $chapter_title . '@' . $chapter_time . "\r\n";
+			// catch incomplete chapters
+			if(empty($ch['title']) || $ch['time'] < 0) continue;
 
 			if(get_sub_field('subchapters')) {
+				$ch['subchapters'] = [];
 				while(has_sub_field('subchapters')) {
-					$subchapter_title = get_sub_field('title_sub');
-					$subchapter_time = get_sub_field('time_sub');
+					$sch = [];
+					$sch['title'] = get_sub_field('title_sub');
+					$sch['time'] = get_sub_field('time_sub');
+					$sch['title_clean'] = sanitize_title($ch['title']);
 
-					//echo '      ' . $subchapter_title . ' ' . $subchapter_time . "\r\n";
+					// catch incomplete subchapters
+					if(empty($sch['title']) || empty($sch['time'])) continue;
+
+					array_push($ch['subchapters'],$sch);
 				}
 			}
 
 			// load into chapter array
-			array_push($chapters, array(
-				'title' => $chapter_title,
-				'time' => $chapter_time
-			));
+			array_push($chapters, $ch);
 		}
 		$chapter_count = count($chapters);
 	}
 
-	//echo "\r\n\r\n";
-	//echo '</pre>';
-
-	// generate html for chapters
-	//$chapters_html = "";
-
-	//if(!empty($chapters)) {
-	//	foreach($chapters as $chapter) {
-	//		$chapters_html .= "<li class='vtime-item' data-time='" . $chapter['time'] . "'><a href='#video' onclick='wistiaEmbed.time(" . $chapter['time'] . ").play();'>" . $chapter['title'] . "</a></li>";
-	//	}
-	//}
+	//print_r_pre($chapters);
 
 	?>
 
@@ -95,20 +93,63 @@
 			<div id="access_block" class="access-block">
 				<div id="content" style="width: 100%; height: 100%;"></div>
 			</div>
-			<div id="chapters" class="col-sm-3">
-				<ul>
-					<?php if(!empty($chapters)) {
-						foreach($chapters as $chapter) { ?>
-						<li class="vtime-item" data-time="<?php echo $chapter['time']; ?>">
-							<a href="#" onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();">
-								<?php echo $chapter['title']; ?>
-							</a>
-						</li>
-						<?php } ?>
-					<?php } ?>
-				</ul>
-			</div>
 
+			<!-- CHAPTER GENERATION -->
+			<?php if(!empty($chapters)) { ?>
+
+			<div class="panel-group col-sm-3" role="tablist" aria-multiselectable="true" id="chapters">
+
+				<?php foreach($chapters as $chapter) { ?>
+
+				<div class="panel panel-chapter">
+
+					<?php if(empty($chapter['subchapters'])) { ?>
+
+					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
+						<h4 class="panel-title">
+
+							<span class="vtime-item no-subchapters" href="#<?php echo trim($chapter['title_clean']); ?>" 
+							onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();" data-time="<?php echo $chapter['time']; ?>">
+								<span class="vtime-title-text"><?php echo $chapter['title']; ?></span>
+							</span>
+
+						</h4>
+					</div>
+
+					<?php } else { ?>
+
+					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
+						<h4 class="panel-title">
+							<span class="vtime-item" data-time="<?php echo $chapter['time']; ?>">
+
+								<span class="vtime-title-text" onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();"
+										href="#<?php echo trim($chapter['title_clean']); ?>"><?php echo $chapter['title']; ?></span>
+
+								<span class="glyphicon glyphicon-chevron-right collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse" 
+										data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"></span>
+
+							</span>
+						</h4>
+					</div>
+					<div id="<?php echo $chapter['title_clean']; ?>" class="panel-collapse collapse" role="tabpanel" 
+					aria-labelledby="<?php echo $chapter['title_clean'] . 'heading'; ?>">
+						<div class="panel-body">
+							<?php foreach($chapter['subchapters'] as $subchapter) { ?>
+							<span class="vtime-item" href="#" onclick="wistiaEmbed.time(<?php echo $subchapter['time']; ?>).play();"
+							 data-time="<?php echo $subchapter['time']; ?>" data-parent-chapter="<?php echo $chapter['title_clean']; ?>">
+								<?php echo $subchapter['title']; ?>
+							</span>
+							<?php } ?>
+						</div>
+					</div>
+
+					<?php } ?>
+
+				</div> <!-- /chapter -->
+				<?php } ?>
+
+			</div> <!-- /chapters -->
+			<?php } ?> 
 			<!--div class="hide-chapter">
 				<a href="#" id="hide-chapter-btn">hide chapters</a>
 			</div-->
@@ -193,7 +234,41 @@
 	<script>
 		var blocked = false;
 
+		var chapters = [];
+
 		$(function(){
+
+			// load chapters into object for looping
+			$('.vtime-item').each(function(index) {
+				chapters[index] = $(this);
+			});
+
+			// handle glyph switching with subchapters
+			$(".vtime-item span.glyphicon").on('click', function() {
+
+				// skip chapters without subchapters
+				if($(this).attr('data-parent') != "#chapters") return;
+
+				if($(this).hasClass('collapsed') && $(this).hasClass('glyphicon-chevron-right')) {
+					$(this).removeClass('glyphicon-chevron-right');
+					$(this).addClass('glyphicon-chevron-down');
+
+					for(var chapter in chapters) {
+						var glyph = chapter.find('span.glyphicon');
+						if(glyph.hasClass('glyphicon-chevron-down')) {
+							glyph.addClass('glyphicon-chevron-right');
+							glyph.removeClass('glyphicon-chevron-down');
+						}
+					}
+
+				} else if ($(this).hasClass('glyphicon-chevron-down') && !$(this).hasClass('collapsed')) {
+					$(this).addClass('glyphicon-chevron-right');
+					$(this).removeClass('glyphicon-chevron-down');
+				}
+			});
+
+			//console.log(chapters);
+
 
 			// load the wistia id (used for getting the video from wistia)
 			$("#wistia").attr('id', 'wistia_<?php echo $wistia; ?>').show();
@@ -224,7 +299,8 @@
 			});
 
 			// load chapters from meta tags
-			loadChapters();
+			// DEPRECATED
+			//loadChapters();
 
 			/*$('#hide-chapter-btn').on('click', function() {
 				$('#chapters').attr('class', 'col-sm-1').css('width', '8.33333%');
@@ -300,18 +376,74 @@
 				// ==========================
 				
 				// chapter control
-				$('.vtime-item').removeClass('done').removeClass('current');
-				$('.vtime-item').each(function(index){
-					if($(this).data('time') < s)
-					{
+				/*$('.vtime-item').removeClass('done').removeClass('current');
+				$('.vtime-item').each(function(index) {
+					if($(this).attr('data-time') <= s) {
 						$(this).addClass('done');
-					}
-					else
-					{
-						$('.vtime-item:nth-child('+index+')').addClass('current');
+					} else {
+						$('span.vtime-item:nth-child('+index+')').addClass('current');
 						return false;
 					}
-				});
+				});*/
+
+				// highlight chapters
+
+				// helper var to check if nothing was highlighted
+				var noneHighlighted = true;
+
+				// loop thru all chapters
+				for(var i = 0; i < chapters.length; i++) {
+					// grab meta
+					var chapter = chapters[i];
+					var time = chapter.attr('data-time');
+
+					// if the chapter is at or before the time of the video
+					if(time <= s) {
+						// something will be highlighted
+						noneHighlighted = false;
+
+						// if not already set
+						if(!chapter.hasClass('current')) {
+							// make current
+							chapter.addClass('current');
+							// remove current status of previous chapter
+							if(i > 0) {
+								chapters[i-1].removeClass('current');
+								chapters[i-1].addClass('done');
+							}
+						// if already set
+						} else {
+							if(i > 0) {
+								// remove current status of previous chapter
+								chapters[i-1].removeClass('current');
+								chapters[i-1].addClass('done');
+							}
+						}
+					} else {
+						// clear statuses
+						if(chapter.hasClass('done')) chapter.removeClass('done');
+						if(chapter.hasClass('current')) chapter.removeClass('current');
+					}
+				}
+
+				// highlight last chapter if nothing else is
+				if(noneHighlighted) {
+					chapters[chapters.length-1].addClass('current');
+				} 
+
+				//highlight parent chapters if one exists
+				var cur_chapter = $('.vtime-item.current');
+				if(cur_chapter != null) {
+					// grab parent chapter
+					var parent_chapter = cur_chapter.attr('data-parent-chapter');
+					if(parent_chapter != null) {
+						// highlight parent chapter
+						parent_chapter = $('.panel-heading#' + parent_chapter + 'heading span.vtime-item');
+						//parent_chapter.addClass('current');
+						parent_chapter.removeClass('done');
+					}
+				}
+
 			});
 
 			/**
@@ -398,6 +530,7 @@
 
 			/**
 			 * load chapters from meta tags
+			 * DEPRECATED
 			 * @return {[type]} [description]
 			 */
 			function loadChapters() {

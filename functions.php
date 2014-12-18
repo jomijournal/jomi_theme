@@ -108,13 +108,17 @@ function set_env_flag() {
 		'127.0.0.1'
 	);
 
-	if(in_array($_SERVER['HTTP_HOST'], $local_envs)) {
+	if(!empty($_GET['setenv'])) {
+		define('WP_ENV', $_GET['setenv']);
+	} elseif (in_array($_SERVER['HTTP_HOST'], $local_envs)) {
 		define('WP_ENV','TEST');
 	} else {
 		define('WP_ENV','PROD');
 	}
+
+	
 }
-add_action('init', 'set_env_flag', -100);
+add_action('init', 'set_env_flag');
 
 /* COMPOSER INCLUDES */
 require_once('vendor/autoload.php');
@@ -130,6 +134,7 @@ if(WP_ENV == 'PROD') {
 } else {
 	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));
 }
+
 global $user_stripe_subscribed;
 $user_stripe_subscribed = false;
 

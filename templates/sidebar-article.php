@@ -1,6 +1,6 @@
 <div class="sidebar">
 
-<?php 
+<?php
 global $user_inst;
 $user_order = $user_inst['order'];
 
@@ -39,7 +39,7 @@ if(!empty($user_order)) {
 		<p>Your institution is currently using trial access.<br>
 		Please recommend JoMI to your institution.</p>
 	</div>
-	<?php } 
+	<?php }
 }
 
 global $jomi_user_order;
@@ -57,7 +57,7 @@ if(!empty($jomi_user_order)) { ?>
 	</div>
 
 <?php } elseif ($stripe_user_subscribed) { ?>
-	
+
 	<div class="row stripe-notification">
 		<div class="col-xs-12">
 			<span class="stripe-subscribed">Subscribed</span>
@@ -137,7 +137,7 @@ if( ! empty($location) ):
    load();
 //]]>
 </script>
-<?php endif; ?> 
+<?php endif; ?>
 </div>
 
 
@@ -149,7 +149,7 @@ if( ! empty($location) ):
 	</tr>
 	<tr>
 		<td><strong>Publication Date</strong></td>
-		<?php if($status == 'publish') { ?>
+		<?php if(get_post_status() == 'publish') { ?>
 			<td><?php echo get_the_date(); ?></td>
 		<?php } else { ?>
 			<td>Article Not Yet Published</td>
@@ -161,7 +161,7 @@ if( ! empty($location) ):
 	</tr>
 	<tr>
 		<td><strong>Volume</strong></td>
-		<?php if($status == 'publish') { ?>
+		<?php if(get_post_status() == 'publish') { ?>
 			<td><?php the_time('Y'); ?></td>
 		<?php } else { ?>
 			<td>Article Not Yet Published</td>
@@ -169,7 +169,7 @@ if( ! empty($location) ):
 	</tr>
 	<tr>
 		<td><strong>Issue</strong></td>
-		<?php if($status == 'publish') { ?>
+		<?php if(get_post_status() == 'publish') { ?>
 			<td><?php the_time('n'); ?></td>
 		<?php } else { ?>
 			<td>Article Not Yet Published</td>
@@ -179,14 +179,14 @@ if( ! empty($location) ):
 
 
 <!-- PUBLISH NOTIFICATION -->
-<?php if($status != 'publish') { ?> 
+<?php if($status != 'publish') { ?>
 <h3>Stay Updated</h3>
 <table class="info">
 	<tr>
 		<td id="notification-status" class="notification-status">Request Sent!</td>
 	</tr>
 	<tr>
-		
+
 		<td><input type="text" placeholder="Email:" id="notification-input" class="notification-input">
 		<a href="#" class="btn notification-submit" id="notification-submit">Submit</a></td>
 	</tr>
@@ -224,7 +224,7 @@ function isEmail(email){
 
 <?php } ?>
 
-<?php 
+<?php
 global $user_inst;
 //print_r($inst);
 

@@ -74,4 +74,21 @@ $('li').each(function(index){
 		});
 	}
 });
+
+function moveFrontFooter(){
+        // If the window is taller than category count/3 * 70 + 610, than the footer
+        // should be locked to the bottom.
+        // If the window is thinner than 992px, the footer is in a single column so it should not
+        // be locked to the bottom.
+        if($(window).width() > 992 &&
+           $(window).height() > <?php echo floor(count($categories)/3) * 70 + 610 ?> ){
+                $('.front-footer').css('position', 'fixed');
+                $('.front-footer').css('bottom','0');
+        }else{
+                $('.front-footer').css('position', 'relative');
+        }
+}
+
+moveFrontFooter();
+$(window).on('resize', moveFrontFooter);
 </script>

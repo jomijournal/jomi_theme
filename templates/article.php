@@ -463,14 +463,21 @@
 				wistiaEmbed.pause();
 				$('.access-block').show();
 				wistiaEmbed.pause();
-
-			 if (document.cancelFullScreen) {
+				
+				// So it turns out Wistia as we have it is running Flash and flash doesn't really seem to obey
+				// the general commands to close the full screen view. But I'll leave it in here just in case
+				if (document.cancelFullScreen) {
 					document.cancelFullScreen();
-			 } else if (document.mozCancelFullScreen) {
+				} else if (document.mozCancelFullScreen) {
 					document.mozCancelFullScreen();
-			 } else if (document.webkitCancelFullScreen) {
+				} else if (document.webkitCancelFullScreen) {
 					document.webkitCancelFullScreen();
-			 }
+				}
+				
+				// What should actually work is telling Wistia itself to cancel the full screen
+				wistiaEmbed.cancelFullscreen();
+
+			 
 			 // hard block?
 			 //$('.video-holder').empty();
 			 //wistiaEmbed.remove();

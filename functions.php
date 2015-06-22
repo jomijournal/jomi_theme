@@ -129,7 +129,7 @@ global $reader;
 $reader = new Reader(ABSPATH . '/wp-content/themes/jomi/assets/data/geolite2/GeoLite2-City.mmdb');
 
 /* SET UP STRIPE */
-if(WP_ENV == 'PROD') {
+if('WP_ENV' == 'PROD') {
 	Stripe::setApiKey(get_option("stripe_live_secret_api_key"));
 } else {
 	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));

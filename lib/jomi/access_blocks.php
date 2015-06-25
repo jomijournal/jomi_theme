@@ -114,20 +114,22 @@ $(function() {
 			password: pass,
 			remember: true
 		}, function(response) {
-			response = response.substr(0, response.length - 1);
-			//console.log(response);
-			$('#greyout,#signal').hide();
+				// Response seems to be, for no particular reason "\nusername0" on success or "\nfailure0"
+            // so... (the \n is a newline in the string)
+            response = response.trim();
+            response = response.substr(0, response.length - 1);
+            $('#greyout,#signal').hide();
 
-			if(response == "success") {
-				$('.login-dropdown').hide();
-				$('.login-dropdown').dropdown('toggle');
-				$('.logout-dropdown').show();
+            if(response == "failure") {
+                $('#block-error').text("Incorrect username or password");
+                $('#block-error').show();
+            } else {
+                $('.login-dropdown').hide();
+                $('.login-dropdown').dropdown('toggle');
+                $('.logout-dropdown').show();
 
-				$('#access_block').hide();
-			} else {
-				$('#block-error').text("Incorrect username or password");
-				$('#block-error').show();
-			}
+                $('#access_block').hide();
+            }
 		});
 	});
 });

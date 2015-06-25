@@ -3,21 +3,21 @@
 	<?php $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author)); ?>
 	
 	<div class="author-container">
-		<h1><?php echo $curauth->nickname; ?></h1>
-		<div class="author-info row">
-			<div class="headshot col-xs-12 col-sm-4 col-md-2">
-				<?php echo get_wp_user_avatar($curauth->ID); ?>
-			</div>
-			<div class="info col-xs-12 col-sm-6 col-md-6">
-				
-				<h4><?php echo $curauth->user_description; ?></h4>
-			</div>
-			
-		</div>
-		
-		<div class="row">
-			<h4 class="col-xs-12">Articles by <?php echo $curauth->nickname; ?>:</h4>
-		</div>
+		<h1><?php echo $curauth->display_name; ?></h1>
+        <div class="author-info row">
+            <div class="headshot col-xs-12 col-sm-4 col-md-2">
+                <?php echo get_wp_user_avatar($curauth->ID); ?>
+            </div>
+            <div class="info col-xs-12 col-sm-6 col-md-6">
+                
+                <h4><?php echo $curauth->user_description; ?></h4>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <h4 class="col-xs-12">Articles by <?php echo $curauth->display_name; ?>:</h4>
+        </div>
 		<div class="author-article-list row">
 
 			<?php

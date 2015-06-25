@@ -7,7 +7,7 @@
 </div>
 
 <h3>Stay Updated</h3>
-<a class="btn fat white newsletter-btn" target="_blank" href="http://eepurl.com/GL-7L">Sign Up for the Newsletter</a>
+<a class="btn fat white newsletter-btn" style="white-space: normal;" target="_blank" href="http://eepurl.com/GL-7L">Sign Up for the Newsletter</a>
 
 <h3>Contact Us</h3>
 

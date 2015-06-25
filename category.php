@@ -1,8 +1,19 @@
-<?php if (!have_posts()) : ?>
-  <div class="alert alert-warning">Sorry, no results were found.</div>
-<?php endif; ?>
-
 <?php 
+// gets the id of the category we are in
+$category_id = get_cat_id( single_cat_title("",false) );
+// change default query. This gets rid of pagination so we can do our own sorting.
+
+$type = 'article';
+$args=array(
+  'post_type' => $type,
+  'posts_per_page' => -1,
+  'cat' => $category_id
+);
+query_posts($args);
+
+if (!have_posts()){
+    echo '<div class="alert alert-warning">Sorry, no results were found.</div>';
+}
 
 $exclude = array(
   'internal_review'

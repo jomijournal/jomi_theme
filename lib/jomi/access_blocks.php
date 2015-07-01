@@ -24,9 +24,9 @@ function block_deny() {
 		<p style="text-align:center;">To subscribe (or have us speak to your librarian), please <a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request"><strong>send us an email</strong></a>.</p>
 	</div>
 
+	<br>
 	<div class="row">
-		<div class="col-xs-6" style="border-right: 3px dashed #fff;text-align:right;">
-			<h3>Sign In</h3>
+		<div class="col-xs-12" style="text-align:center;">
 			<div id="login-form" class="aligncenter" style="">
 				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
 					<p class="error" id="block-error"></p>
@@ -39,50 +39,19 @@ function block_deny() {
 						<input type="password" name="pwd" id="user_pass" class="input" value="" size="15"></label>
 					</div>
 					<p class="login-remember"><input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked"></p>
-
-					<p>&nbsp;</p>
+					<br/>
 					<p class="login-submit">
 						<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
 						<input type="hidden" name="redirect_to" value="/">
-					</p>
-					<!--p class="login-register" style="width:45%">
-						<a href="/register"><btn type="register" name="register" id="register" class="btn btn-default" value="Register"/></a>
-					</p-->
+					</p><br/>
+					<p>
+					Not a member? <a href="/register">Create an Account.</a>
 					
 				</form>
 			</div>
 		</div>
-		<div class="col-xs-6">
-			<h3>Register</h3>
-			<div id="login">
-				<form name="registerform" id="registerform" action="<?php echo site_url('wp-login.php?action=register'); ?>" method="post">
-					<div id="user_login-p" style="display: none;">
-						<label for="user_login" id="user_login-label">Username/Email<br>
-						<input type="text" name="user_login" id="user_login" class="input" value=""></label>
-					</div>
-					<div id="user_email-p">
-						<label for="user_email" id="user_email-label">Username/E-mail<br>
-						<input type="text" name="user_email" id="user_email" class="input" value=""></label>
-					</div>
-					<p id="pass1-p">
-						<label id="pass1-label" for="pass1">Password<br>
-						<input type="password" autocomplete="off" name="pass1" id="pass1"></label>
-					</p>
-					<p id="pass1-p">
-						<label id="pass1-label" for="pass1">Confirm Password<br>
-						<input type="password" autocomplete="off" name="pass2" id="pass2"></label>
-					</p>
-					<p id="pass_strength_msg">Your password must be at least 6 characters long.</p>
-					<input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>">
-					<p class="submit">
-						<input type="submit" name="wp-submit" id="wp-submit" class="btn btn-default" value="Register">
-					</p>
-				</form>
-			</div>
-        </div>
 
 	</div>
-	<br>
 	<div class="social-box">
 		<?php do_action('oa_social_login'); ?>
 	</div>

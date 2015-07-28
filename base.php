@@ -18,7 +18,7 @@ Base is the entry point for most pages.
       <?php if (roots_display_sidebar()) : ?>
         <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
           <?php 
-          if(is_page('about') || is_page('contact') || is_page('pricing') || is_page('area-notification-request')) {
+          if(is_page('about') || is_page('contact') || is_page('pricing') || is_page('area-notification-request') || is_page('additional-journal-information') ) {
             include about_sidebar_path();
           } else if ( is_single() ) {
             include article_sidebar_path();

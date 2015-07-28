@@ -4,6 +4,8 @@
 	 * ARTICLE ACCESS CHECK HERE
 	 */
 	
+	$temporary_access = false;
+        $temporary_access = (get_field('publication_id') == 13 && $_GET['accessKey'] == 'ab174s29643jkasiuhs7')	|| (get_field('publication_id') == 8 && $_GET['accessKey'] == 'p1n97ytk3si785xb7rxm');
 
 	if(!empty(get_field('password'))) {
 
@@ -340,6 +342,7 @@
 				// GENERATED JAVASCRIPT
 				// =====================
 				<?php //$access_blocks = array_reverse($access_blocks); 
+				if(!$temporary_access){
 				 if(is_array($access_blocks)) { foreach($access_blocks as $block) { 
 					if($block['time_elapsed'] == 'custom' && !empty($custom_stop)) {?>
 						// custom elapsed time
@@ -370,7 +373,7 @@
 						block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
 					<?php } 
 
-				} }?>
+				} } }?>
 				// ==========================
 				// END GENERATED JAVASCRIPT
 				// ==========================

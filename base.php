@@ -46,3 +46,4 @@ Base is the entry point for most pages.
 
 </body>
 </html>
+<?php } ?>

@@ -16,7 +16,7 @@ Template Name: Frontpage
 					 <img src="<?php echo site_url('/wp-content/themes/jomi/assets/img/clients/logo-ucsf.png'); ?>">
 				-->
 				<img src="<?php echo site_url('/wp-content/uploads/2015/07/cornell7.png'); ?>">
-				<img src="<?php echo site_url('/wp-content/uploads/2015/09/logo-stanford.png'); ?>">
+				<img src="<?php echo site_url('/wp-content/uploads/2015/09/HK Logo_White.png'); ?>">
 		
 		</div>
 			<a class="mini-link" href="<?php echo site_url('/subscribers/'); ?>">See all subscribers →</a>

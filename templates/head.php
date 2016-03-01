@@ -72,6 +72,10 @@
 	  }
 	  </style>
 	<![endif]-->
-
+    <?php
+        if(is_page("Usage Statistics")){ 
+            echo '<script src="/wp-content/themes/jomi/assets/js/chartjs/Chart.min.js"></script>';
+        } 
+    ?>
 	
 </head>

@@ -3,7 +3,9 @@
 Template Name: Frontpage
 */
 ?>
-
+<script>
+mixpanel.track("Visit Home Page");
+</script>
 <div class="taglines">
 		<h1>Surgical Video Articles <br/> for Attendings, Residents, and Medical Students</h1>
 		<h2>The Journal of Medical Insight seeks to improve outcomes through publication  

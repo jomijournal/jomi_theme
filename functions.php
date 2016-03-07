@@ -342,9 +342,23 @@ add_filter('mandrill_payload','mrefer_add');
 //*/
 //mandrill_payload is correct filter for this not wp_mail.
 
+function on_wp_login( $user_login, $user ){
+	echo '<script>
+		 mixpanel.identify(' . $user->ID . ');
+		 mixpanel.people.set( { $email: "'.$user->user_email.'" } );
+		
+		 mixpanel.track( "Login" );
+		</script>';
+}
+add_action( 'wp_login', 'on_wp_login', 10, 2 );
 
-
-
+function on_init()
+{   
+	echo '<script>
+                 mixpanel.track( "Visit " + location.pathname.substring(1) );
+              </script>';
+}
+add_action( 'wp_footer', 'on_init' );
 
 function print_r_pre($val) {
 	echo '<pre>';

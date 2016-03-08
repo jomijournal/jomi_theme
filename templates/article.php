@@ -584,7 +584,7 @@
         if( $user->ID <> 0 ){
                 echo 'mixpanel.identify('.$user->ID.');';
         } 
-       echo 'mixpanel.track( "View Article", {"Title" : "'.get_the_title( $post ).'", "Article ID" : "' . get_field( "publication_id" ). '" } );';
+       echo 'mixpanel.track( "Open article", {"Title" : "'.get_the_title( $post ).'", "Article ID" : "' . get_field( "publication_id" ). '" } );';
 	?>
 	</script>
 <?php endwhile; ?>

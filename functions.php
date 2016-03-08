@@ -131,7 +131,7 @@ global $reader;
 $reader = new Reader(ABSPATH . '/wp-content/themes/jomi/assets/data/geolite2/GeoLite2-City.mmdb');
 
 /* SET UP STRIPE */
-if('WP_ENV' == 'PROD') {
+if(WP_ENV == 'PROD') {
 	Stripe::setApiKey(get_option("stripe_live_secret_api_key"));
 } else {
 	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));
@@ -347,10 +347,10 @@ add_filter('mandrill_payload','mrefer_add');
 // Keeping track of activity using mixpanel
 function on_wp_login( $user_login, $user ){
 
-	//$mix_panel_key = "9f28013773e9c4bbed6df6d2f3013483";
-	//if('WP_ENV' == 'PROD') {
+	$mix_panel_key = "9f28013773e9c4bbed6df6d2f3013483";
+	if(WP_ENV == 'PROD') {
 		$mix_panel_key = "c75c83d6b279b9f623cfa461d7b9a8bc";	
-	//} 
+	} 
 
 	$mp = Mixpanel::getInstance( $mix_panel_key );
 	

@@ -577,11 +577,14 @@
 				activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
 			});
 		});
-	</script>
-	<?php 
-       echo '<script>
-		mixpanel.track( "Article", {"Title" : "'.get_the_title( $post ).'", "Article ID" : "' . get_field( "publication_id" ). '" } );
-             </script>';
-	?>
+	
 
+	<?php
+        $user = wp_get_current_user();
+        if( $user->ID <> 0 ){
+                echo 'mixpanel.identify('.$user->ID.');';
+        } 
+       echo 'mixpanel.track( "Article", {"Title" : "'.get_the_title( $post ).'", "Article ID" : "' . get_field( "publication_id" ). '" } );';
+	?>
+	</script>
 <?php endwhile; ?>

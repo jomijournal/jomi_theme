@@ -102,18 +102,20 @@
 
 function set_env_flag() {
 
+	/* removing - easier to say what is production than what is dev
 	$local_envs = array (
 		'localhost',
 		'jomi',
 		'127.0.0.1'
-	);
+	);*/
+	$prod_env = array ( 'jomi.com' );
 
 	if(!empty($_GET['setenv'])) {
 		define('WP_ENV', $_GET['setenv']);
-	} elseif (in_array($_SERVER['HTTP_HOST'], $local_envs)) {
-		define('WP_ENV','TEST');
-	} else {
+	} elseif (in_array($_SERVER['HTTP_HOST'], $prod_env)) {
 		define('WP_ENV','PROD');
+	} else {
+		define('WP_ENV','TEST');
 	}
 
 	
@@ -342,23 +344,35 @@ add_filter('mandrill_payload','mrefer_add');
 //*/
 //mandrill_payload is correct filter for this not wp_mail.
 
+// Keeping track of activity using mixpanel
 function on_wp_login( $user_login, $user ){
-	echo '<script>
-		 mixpanel.identify(' . $user->ID . ');
-		 mixpanel.people.set( { $email: "'.$user->user_email.'" } );
-		
-		 mixpanel.track( "Login" );
-		</script>';
+
+	$mix_panel_key = "9f28013773e9c4bbed6df6d2f3013483";
+	if('WP_ENV' == 'PROD') {
+		$mix_panel_key = "c75c83d6b279b9f623cfa461d7b9a8bc";	
+	} 
+
+	$mp = Mixpanel::getInstance( $mix_panel_key );
+	
+	$mp->identify( $user->ID );
+	// this could be when the user is being crteated.  Information unlikely to change.
+	$mp->people->set( $user->ID, array( 
+					'email' => $user->user_email,
+					'first_name' => $user->first_name,
+					'last_name' => $user->last_name ) );
+	$mp->track( "Logged in" );
 }
 add_action( 'wp_login', 'on_wp_login', 10, 2 );
 
-function on_init()
+// Logout is handled in tempaltes/header.php - client-side
+
+function on_wp_footer()
 {   
 	echo '<script>
                  mixpanel.track( "Visit " + location.pathname.substring(1) );
               </script>';
 }
-add_action( 'wp_footer', 'on_init' );
+add_action( 'wp_footer', 'on_wp_footer' );
 
 function print_r_pre($val) {
 	echo '<pre>';

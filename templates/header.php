@@ -254,6 +254,8 @@ global $user_stripe_subscribed;
 		$.post(MyAjax.ajaxurl, {
 			action: 'ajax-logout'
 		}, function(response) {
+			mixpanel.track( "Logging out" );
+			mixpanel.cookie.clear();
 			//$('#greyout,#signal').hide();
 
 			//$('.login-dropdown').show();

@@ -5,7 +5,8 @@
         "geoip/geoip": "~1.14",
         "geoip2/geoip2": "~0.7.0",
         "phpunit/phpunit": "4.3.*",
-        "stripe/stripe-php": "1.*"
+        "stripe/stripe-php": "1.*",
+	"mixpanel/mixpanel-php" : "2.*"
     },
     "require-dev": {
     	"phpunit/phpunit": "4.3.*"

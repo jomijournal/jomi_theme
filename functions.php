@@ -367,10 +367,17 @@ add_action( 'wp_login', 'on_wp_login', 10, 2 );
 // Logout is handled in tempaltes/header.php - client-side
 
 function on_wp_footer()
-{   
-	echo '<script>
-                 mixpanel.track( "Visit " + location.pathname.substring(1) );
-              </script>';
+{  
+	if( is_single() ){
+		// mixpanel registration for the article is handled in templates/article.php 
+	} else {
+		echo '<script>
+                         mixpanel.track( "Visit " + location.pathname.substring(1) );
+                </script>';
+
+
+	}
+
 }
 add_action( 'wp_footer', 'on_wp_footer' );
 

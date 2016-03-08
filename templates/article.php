@@ -27,6 +27,7 @@
 	}
 
 
+
 	global $access_blocks;
 	check_access();
 	
@@ -168,7 +169,6 @@
 			<?php $wistia = get_field('wistia_id'); ?>
 
 			<h1 class="entry-title"><?php the_title(); ?></h1>
-			
 			<div class="tabbable tabs-left">
 				<ul class="nav nav-tabs" role="tablist" data-toggle="tabs">
 					<li class="active"><a href="#main" data-toggle="tab">Main Text</a></li>
@@ -578,4 +578,10 @@
 			});
 		});
 	</script>
+	<?php 
+       echo '<script>
+		mixpanel.track( "Article", {"Title" : "'.get_the_title( $post ).'", "Article ID" : "' . get_field( "publication_id" ). '" } );
+             </script>';
+	?>
+
 <?php endwhile; ?>

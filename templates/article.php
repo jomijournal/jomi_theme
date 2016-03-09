@@ -486,7 +486,7 @@
 			 //wistiaEmbed.remove();
 
 			 console.log(function_name);
-
+			 mixpanel.track( "Block Reached", {"Title" : "<?php echo get_the_title( $post ) ?>" , "Article ID" : "<?php echo get_field( "publication_id" )?>" } );
 			 $.post(MyAjax.ajaxurl, {
 				action: function_name,
 				id: <?php echo get_the_ID(); ?>,

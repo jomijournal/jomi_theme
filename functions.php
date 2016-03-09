@@ -109,7 +109,7 @@ function set_env_flag() {
 		'127.0.0.1'
 	);*/
 	$prod_env = array ( 'jomi.com' );
-
+	
 	if(!empty($_GET['setenv'])) {
 		define('WP_ENV', $_GET['setenv']);
 	} elseif (in_array($_SERVER['HTTP_HOST'], $prod_env)) {
@@ -133,9 +133,12 @@ $reader = new Reader(ABSPATH . '/wp-content/themes/jomi/assets/data/geolite2/Geo
 /* SET UP STRIPE */
 if(WP_ENV == 'PROD') {
 	Stripe::setApiKey(get_option("stripe_live_secret_api_key"));
+	define( 'MIXPANEL_KEY', 'c75c83d6b279b9f623cfa461d7b9a8bc' );
 } else {
 	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));
+	define( 'MIXPANEL_KEY', '9f28013773e9c4bbed6df6d2f3013483' );
 }
+
 
 global $user_stripe_subscribed;
 $user_stripe_subscribed = false;
@@ -344,22 +347,27 @@ add_filter('mandrill_payload','mrefer_add');
 //*/
 //mandrill_payload is correct filter for this not wp_mail.
 
+function on_wp_register_user( $user_id )
+{
+        $mp = Mixpanel::getInstance( $mix_panel_key );
+
+	$d_id = $_COOKIE['mixpanel_distinct_id'];
+	$mp->createAlias( $d_id, $user_id );
+	$mp->track( "Created an account" );
+
+        $mp->people->set( $user_id, array(
+                                        '$email' 	=> $_POST['user_email'],
+                                        '$first_name' 	=> $_POST['first_name'],
+                                        '$last_name' 	=> $_POST['last_name'] ));
+}
+add_action( 'user_register', 'on_wp_register_user', 10, 1 );
+
 // Keeping track of activity using mixpanel
 function on_wp_login( $user_login, $user ){
-	set_env_flag();
-	$mix_panel_key = "9f28013773e9c4bbed6df6d2f3013483";
-	if( WP_ENV == 'PROD') {
-		$mix_panel_key = "c75c83d6b279b9f623cfa461d7b9a8bc";	
-	} 
 
-	$mp = Mixpanel::getInstance( $mix_panel_key );
+	$mp = Mixpanel::getInstance( MIXPANEL_KEY );
 	
 	$mp->identify( $user->ID );
-	// this could be when the user is being crteated.  Information unlikely to change.
-	$mp->people->set( $user->ID, array( 
-					'email' => $user->user_email,
-					'first_name' => $user->first_name,
-					'last_name' => $user->last_name ) );
 	$mp->track( "Logged in" );
 }
 add_action( 'wp_login', 'on_wp_login', 10, 2 );
@@ -377,7 +385,8 @@ function on_wp_footer()
                 	echo 'mixpanel.identify('.$user->ID.');';
         	}	
 		echo 'mixpanel.track( "Open " + location.pathname.substring(1) );';
-                echo '</script>';
+        
+	        echo '</script>';
 
 
 	}

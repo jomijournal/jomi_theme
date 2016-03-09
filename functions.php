@@ -355,7 +355,8 @@ function on_wp_register_user( $user_id )
 
 	$d_id = $_COOKIE['mixpanel_distinct_id'];
 	$mp->createAlias( $d_id, $user_id );
-	$mp->track( "Created an account" );
+	$mp->identify( $user_id );
+	$mp->track( "Created an account", array( "source_ip" => $_SERVER[ 'REMOTE_ADDR' ] ) );
 
 /*
 	// We could do this here, but are instead doing it when the user is logging in
@@ -374,7 +375,7 @@ function on_wp_login( $user_login, $user ){
 	$mp = Mixpanel::getInstance( MIXPANEL_KEY );
 	
 	$mp->identify( $user->ID );
-	$mp->track( "Logged in" );
+	$mp->track( "Logged in", array( "source_ip" => $_SERVER[ 'REMOTE_ADDR' ] ) );
 
        	$mp->people->set( $user->ID, array(
                                         '$email'        => $user->user_email,

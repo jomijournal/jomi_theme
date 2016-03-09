@@ -4,7 +4,7 @@ Template Name: Frontpage
 */
 ?>
 <script>
-mixpanel.track("Open home page");
+mixpanel.track("Open home page", { "source_ip": "<?php echo $_SERVER[ 'REMOTE_ADDR'] ?>"});
 </script>
 <div class="taglines">
 		<h1>Surgical Video Articles <br/> for Attendings, Residents, and Medical Students</h1>

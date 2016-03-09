@@ -395,7 +395,7 @@ function on_wp_footer()
         	if( $user->ID <> 0 ){
                 	echo 'mixpanel.identify('.$user->ID.');';
         	}	
-		echo 'mixpanel.track( "Open " + location.pathname.substring(1) );';
+		echo 'mixpanel.track( "Open " + location.pathname.substring(1), {"$ip": "'. $_SERVER[ 'REMOTE_ADDR' ] . '"} );';
         
 	        echo '</script>';
 

@@ -349,7 +349,7 @@ add_filter('mandrill_payload','mrefer_add');
 
 function on_wp_register_user( $user_id )
 {
-        $mp = Mixpanel::getInstance( $mix_panel_key );
+        $mp = Mixpanel::getInstance( MIXPANEL_KEY );
 
 	$d_id = $_COOKIE['mixpanel_distinct_id'];
 	$mp->createAlias( $d_id, $user_id );
@@ -374,13 +374,11 @@ function on_wp_login( $user_login, $user ){
 	$mp->identify( $user->ID );
 	$mp->track( "Logged in" );
 
-       $mp->people->set( $user->ID, array(
+       	$mp->people->set( $user->ID, array(
                                         '$email'        => $user->user_email,
                                         '$first_name'   => $user->first_name,
                                         '$last_name'    => $user->last_name ) );;
 }
-
-
 add_action( 'wp_login', 'on_wp_login', 10, 2 );
 
 // Logout is handled in tempaltes/header.php - client-side

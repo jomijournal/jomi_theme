@@ -374,7 +374,7 @@ function on_wp_login( $user_login, $user ){
 	$mp->identify( $user->ID );
 	$mp->track( "Logged in" );
 
-       $mp->people->set( $user_id, array(
+       $mp->people->set( $user->ID, array(
                                         '$email'        => $user->user_email,
                                         '$first_name'   => $user->first_name,
                                         '$last_name'    => $user->last_name ) );;

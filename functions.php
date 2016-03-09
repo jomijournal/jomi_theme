@@ -379,7 +379,8 @@ function on_wp_login( $user_login, $user ){
        	$mp->people->set( $user->ID, array(
                                         '$email'        => $user->user_email,
                                         '$first_name'   => $user->first_name,
-                                        '$last_name'    => $user->last_name ) );;
+                                        '$last_name'    => $user->last_name,
+					'$ip'		=> $_SERVER[ 'REMOTE_ADDR' ] ) );;
 }
 add_action( 'wp_login', 'on_wp_login', 10, 2 );
 
@@ -395,7 +396,7 @@ function on_wp_footer()
         	if( $user->ID <> 0 ){
                 	echo 'mixpanel.identify('.$user->ID.');';
         	}	
-		echo 'mixpanel.track( "Open " + location.pathname.substring(1), {"$ip": "'. $_SERVER[ 'REMOTE_ADDR' ] . '"} );';
+		echo 'mixpanel.track( "Open " + location.pathname.substring(1), {"source_ip": "'. $_SERVER[ 'REMOTE_ADDR' ] . '"} );';
         
 	        echo '</script>';
 

@@ -355,10 +355,14 @@ function on_wp_register_user( $user_id )
 	$mp->createAlias( $d_id, $user_id );
 	$mp->track( "Created an account" );
 
+/*
+	// We could do this here, but are instead doing it when the user is logging in
+	// this way we catch any changes and catch users who may have been missed in the past.
         $mp->people->set( $user_id, array(
                                         '$email' 	=> $_POST['user_email'],
                                         '$first_name' 	=> $_POST['first_name'],
                                         '$last_name' 	=> $_POST['last_name'] ));
+*/
 }
 add_action( 'user_register', 'on_wp_register_user', 10, 1 );
 
@@ -369,7 +373,14 @@ function on_wp_login( $user_login, $user ){
 	
 	$mp->identify( $user->ID );
 	$mp->track( "Logged in" );
+
+       $mp->people->set( $user_id, array(
+                                        '$email'        => $user->user_email,
+                                        '$first_name'   => $user->first_name,
+                                        '$last_name'    => $user->last_name ) );;
 }
+
+
 add_action( 'wp_login', 'on_wp_login', 10, 2 );
 
 // Logout is handled in tempaltes/header.php - client-side

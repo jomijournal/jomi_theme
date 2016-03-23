@@ -135,10 +135,8 @@ $reader = new Reader(ABSPATH . '/wp-content/themes/jomi/assets/data/geolite2/Geo
 /* SET UP STRIPE */
 if(WP_ENV == 'PROD') {
 	Stripe::setApiKey(get_option("stripe_live_secret_api_key"));
-	define( 'MIXPANEL_KEY', 'c75c83d6b279b9f623cfa461d7b9a8bc' );
 } else {
 	Stripe::setApiKey(get_option("stripe_test_secret_api_key"));
-	define( 'MIXPANEL_KEY', '9f28013773e9c4bbed6df6d2f3013483' );
 }
 
 
@@ -187,7 +185,7 @@ $jomi_includes = array(
 	, '/lib/jomi/user_orders.php'    // user order logic and UI
 	, '/lib/jomi/vid_length.php'     // video thumbnail length code
 	, '/lib/jomi/yoast_seo.php'      // SEO mods and improvements
-	, '/lib/jomi/stats_mixpanel.php'      // SEO mods and improvements
+	, '/lib/jomi/stats_mixpanel.php' // Mixpanel statistics
 );
 
 $includes = array_merge($jomi_includes, $roots_includes);
@@ -355,5 +353,10 @@ function print_r_pre($val) {
 	print_r($val);
 	echo '</pre>';
 }
+
+
+
+
+
 
 ?>

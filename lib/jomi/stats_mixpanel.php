@@ -1,4 +1,10 @@
-<?php
+<?php 
+// Set up mixpanel!
+if(WP_ENV == 'PROD') {
+	define( 'MIXPANEL_KEY', 'c75c83d6b279b9f623cfa461d7b9a8bc' );
+} else {
+	define( 'MIXPANEL_KEY', '9f28013773e9c4bbed6df6d2f3013483' );
+}
 
 function on_wp_register_user( $user_id )
 {
@@ -28,11 +34,14 @@ function on_wp_login( $user_login, $user ){
 	$mp->identify( $user->ID );
 	$mp->track( "Logged in", array( "source_ip" => $_SERVER[ 'REMOTE_ADDR' ] ) );
 
-       	$mp->people->set( $user->ID, array(
-                                        '$email'        => $user->user_email,
-                                        '$first_name'   => $user->first_name,
-                                        '$last_name'    => $user->last_name,
-					'$ip'		=> $_SERVER[ 'REMOTE_ADDR' ] ) );;
+   	$mp->people->set( $user->ID, array(
+                                      '$email'        => $user->user_email
+                                    , '$first_name'   => $user->first_name
+                                    , '$last_name'    => $user->last_name
+									, '$ip'			=> $_SERVER[ 'REMOTE_ADDR' ]
+									, '$institution_stated'	=> $user->rpr_institutional_association
+									) 
+   	);
 }
 add_action( 'wp_login', 'on_wp_login', 10, 2 );
 
@@ -57,4 +66,5 @@ function on_wp_footer()
 
 }
 add_action( 'wp_footer', 'on_wp_footer' );
+
 ?>

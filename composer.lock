@@ -5,7 +5,6 @@
         "This file is @generated automatically"
     ],
     "hash": "ddb26c9c11dd8fce8050b9415e34ef63",
-    "content-hash": "4bfcbaec0931df06903a394b5fbff9c1",
     "packages": [
         {
             "name": "doctrine/instantiator",

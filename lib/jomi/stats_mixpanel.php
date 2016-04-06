@@ -38,7 +38,7 @@ function on_wp_login( $user_login, $user ){
                                       '$email'        => $user->user_email
                                     , '$first_name'   => $user->first_name
                                     , '$last_name'    => $user->last_name
-									, '$ip'			=> $_SERVER[ 'REMOTE_ADDR' ]
+									, 'ip'			=> $_SERVER[ 'REMOTE_ADDR' ]
 									, '$institution_stated'	=> $user->rpr_institutional_association
 									) 
    	);

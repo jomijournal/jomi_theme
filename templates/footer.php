@@ -14,7 +14,7 @@
 						<li><a target="_blank" href="http://blog.jomi.com">JoMI Blog</a></li>
 						<li><a target="_blank" href="http://eepurl.com/GL-7L">Newsletter</a></li>
 						<li><a                 href="<?php echo site_url('/pricing/'); ?>">Pricing</a></li>
-						<li><a                 href="<?php echo site_url('/partners/'); ?>">Partners / Sponsors</a></li>
+						<li><a                 href="<?php echo site_url('/partners/'); ?>">Partners/Sponsors</a></li>
 					</ul>
 				</div>
 				<div class="col-sm-3 col-xs-6">

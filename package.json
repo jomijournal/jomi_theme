@@ -35,5 +35,8 @@
     "grunt-wp-assets": "~0.2.6",
     "load-grunt-tasks": "~0.6.0",
     "time-grunt": "~0.3.2"
+  },
+  "dependencies": {
+    "graceful-fs": "^4.1.3"
   }
 }

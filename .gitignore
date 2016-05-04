@@ -26,3 +26,5 @@ vendor/*
 api_keys.json
 
 *.phar
+
+composer.phar

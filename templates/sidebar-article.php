@@ -72,6 +72,10 @@ if(!$logged_in) {
 	if(empty($user_order) || (!empty($user_order) && !$user_inst['is_subscribed'])) {
 ?>
 <div class="sign-up-block">
+	<?php
+		# @COPY_SIGNIN
+		# let users know that they have to sign in and let their librarian know to subscribe to jomi
+	?>
 	<span class="sign-up-head">JoMI is not a free resource.</span>
 	<p>
 		You may <a href='/register'>create an account</a> to gain access.
@@ -99,6 +103,10 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 	if($user_order->require_login && !$logged_in) {
 ?>
 <div class="subscribed-block">
+	<?php
+		# @COPY_REQUIRE_SIGN_IN
+		# institution is subscribed but user still has to sign in
+	?>
 	<span class="subscribed-head">
 		Subscribed
 	</span>
@@ -112,6 +120,10 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 </div>
 <?php } else { ?>
 <div class="subscribed-block">
+	<?php
+		# @COPY_SUBSCRIBED
+		# instutiton is subscribed and user is signed in/ does not have to sign in
+	?>
 	<span class="subscribed-head">
 		Subscribed
 	</span>

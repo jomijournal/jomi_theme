@@ -18,6 +18,7 @@ function block_deny() {
 	</div>
 
 	<!-- header -->
+	<?php # @COPY_SIGNIN ?>
 	<div class="row" style="margin-bottom: 10px; margin-top: 10px;">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
 		<p style="text-align:center;"><strong>JoMI is not a free resource.</strong> Please sign in or register to continue viewing this article</p>
@@ -119,6 +120,10 @@ function block_free_trial() {
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
+	<?php
+		# @COPY_FREETRIAL
+		# this was used for flysheet and isnt/shouldnt be used anymore
+	?>
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1">
 			<strong><h1>Subscription Required</h1></strong>
@@ -254,6 +259,10 @@ function block_free_trial_thanks() {
 		<div id="signal" class="signal"></div>
 	</div>
 	<div class="row">
+		<?php
+			# @COPY_FREETRIAL
+			# for letting users know that they're on a free trial
+		?>
 		<h1>Thank you for using JoMI</h1>
 		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.</h4>
 		<h4>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
@@ -311,6 +320,10 @@ function block_subscribed_sign_in() {
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
+	<?php
+		# @COPY_REQUIRE_SIGN_IN
+		# to let users know that their institution requires them to sign in/register first
+	?>
 	<div class="row">
 		<h1>Thank you for using JoMI</h1>
 		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently subscribed</h4>

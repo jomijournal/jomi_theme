@@ -40,7 +40,7 @@ function check_access() {
   // load metadata on the current article being viewed
   $selector_meta = extract_selector_meta(get_the_ID());
 
-  if($access_debug) echo '<pre>';
+  if($access_debug) echo '<pre style="margin-bottom:100px;">';
 
   // extract user IP and matching institution (if applicable)
   $institution_meta = extract_institution_meta();
@@ -86,7 +86,7 @@ function check_access() {
 function extract_selector_meta($id) {
 
 	// TODO: match up against defaults?
-	
+
 	// get publication id from the ACF field
 	$publication_id = get_field('publication_id');
 
@@ -157,10 +157,10 @@ function extract_institution_meta() {
 	if(empty($_SESSION['ip']) || empty($_SESSION['ip_long'])) {
 
 	} elseif($ip == $_SESSION['ip'] || $ip_long == $_SESSION['ip_long']) {
-		if(!empty($_SESSION['inst']) 
-			&& !empty($_SESSION['inst_ip']) 
-			&& !empty($_SESSION['location']) 
-			&& !empty($_SESSION['order']) 
+		if(!empty($_SESSION['inst'])
+			&& !empty($_SESSION['inst_ip'])
+			&& !empty($_SESSION['location'])
+			&& !empty($_SESSION['order'])
 			&& !empty($_SESSION['is_subscribed'])) {
 
 			global $user_inst;
@@ -194,7 +194,7 @@ function extract_institution_meta() {
 	//** LOAD MATCHING IPS
 
 	// query database for user's IP
-	$ip_query = "SELECT * FROM $inst_ip_table_name 
+	$ip_query = "SELECT * FROM $inst_ip_table_name
 	WHERE $ip_long BETWEEN start AND end";
 	$inst_ips = $wpdb->get_results($ip_query);
 
@@ -211,13 +211,13 @@ function extract_institution_meta() {
 	$inst_locations = array();
 	if(empty($inst_ips)) {
 		// no ips matched
-	} else { 
+	} else {
 
 		// load location id from matched ip entry
 		$location_id = $inst_ip->location_id;
 
 		// query DB for location
-		$location_query = 
+		$location_query =
 		"SELECT * FROM $inst_location_table_name
 		WHERE id=$location_id";
 		$inst_locations = $wpdb->get_results($location_query);
@@ -232,7 +232,7 @@ function extract_institution_meta() {
 	}
 
 	//** LOAD MATCHING ORDER ENTRIES
-	
+
 	$inst_orders = array();
 	if(empty($inst_locations)) {
 
@@ -241,7 +241,7 @@ function extract_institution_meta() {
 		$location_id = $inst_location->id;
 
 		// query DB for matching orders
-		$order_query = 
+		$order_query =
 		"SELECT * FROM $inst_order_table_name
 		WHERE location_id=$location_id";
 		$inst_orders = $wpdb->get_results($order_query);
@@ -251,14 +251,14 @@ function extract_institution_meta() {
 			print_r($inst_orders);
 		}
 	}
-	
+
 	//** CHECK VALIDITY OF ORDER
-	
+
 	// not subscribed by default. will flip when conditions are met
 	$is_subscribed = false;
 
 	if(empty($inst_orders)) {
-		
+
 	} else {
 		// grab today's date and time
 		$cur_time = time();
@@ -273,12 +273,12 @@ function extract_institution_meta() {
 				// order is valid, break loop
 				$is_subscribed = true;
 				break;
-			} 
+			}
 		}
 	}
 
 	//** GRAB INSTITUTION OBJECT (structure that groups locations)
-	
+
 	if(!empty($inst_ip) && !empty($inst_location) && !empty($inst_order)) {
 
 		// grab institution id from location
@@ -372,9 +372,9 @@ function collect_rules($selector_meta, $institution_meta) {
 	$where_conditional .= "('-1','-1'))";
 
 	// build query
-	$rules_query ="SELECT * 
-						FROM $access_table_name 
-						WHERE $where_conditional 
+	$rules_query ="SELECT *
+						FROM $access_table_name
+						WHERE $where_conditional
 						ORDER BY priority DESC";
 
 	// collect matches and return
@@ -393,7 +393,7 @@ function load_user_info() {
 	global $reader;
 
 	$is_subscribed = false;
-	
+
 	// grab user object from wordpress
 	$current_user = wp_get_current_user();
 
@@ -435,54 +435,54 @@ function load_user_info() {
 		$logged_in = false;
 	}
 
-	//** GET PER USER ORDERS		
-		
+	//** GET PER USER ORDERS
+
 	// check our own system first (orders set via. the profile page)
-	if($logged_in) {		
-		
-		global $wpdb;		
-		global $inst_order_table_name;		
-		
-		// get user id		
-		$user_id = $user['id'];		
-		
-		// build query		
-		$order_query = 		
-		"SELECT * FROM $inst_order_table_name		
-		WHERE user_id=$user_id";		
-		
-		// query database for matching orders		
-		$user_orders = $wpdb->get_results($order_query);		
+	if($logged_in) {
+
+		global $wpdb;
+		global $inst_order_table_name;
+
+		// get user id
+		$user_id = $user['id'];
+
+		// build query
+		$order_query =
+		"SELECT * FROM $inst_order_table_name
+		WHERE user_id=$user_id";
+
+		// query database for matching orders
+		$user_orders = $wpdb->get_results($order_query);
 
 		if(empty($user_orders)) {
 			if($access_debug) {
 				echo "User Order History empty\n";
 			}
-		} else { 
-			if($access_debug) {		
-				echo "User Order History:\n";		
-				print_r($user_orders);		
-			}		
+		} else {
+			if($access_debug) {
+				echo "User Order History:\n";
+				print_r($user_orders);
+			}
 		}
 
-		// get current time		
-		$cur_time = time();		
-		
-		// cycle through all orders. if an order is valid, break the loop		
-		foreach($user_orders as $user_order) {		
-			// check if order falls within today's date		
-			$fromtime = strtotime($user_order->date_start);		
-			$endtime = strtotime($user_order->date_end);		
-		
-			// order is valid. flip is_subscribed flag and break		
-			if ($cur_time >= $fromtime && $cur_time <= $endtime) {		
+		// get current time
+		$cur_time = time();
+
+		// cycle through all orders. if an order is valid, break the loop
+		foreach($user_orders as $user_order) {
+			// check if order falls within today's date
+			$fromtime = strtotime($user_order->date_start);
+			$endtime = strtotime($user_order->date_end);
+
+			// order is valid. flip is_subscribed flag and break
+			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
 				$is_subscribed = true;
 
 				global $jomi_user_order;
 				$jomi_user_order = $user_order;
 
-				break;		
-			}		
+				break;
+			}
 		}
 
 		// check stripe if all else fails
@@ -539,7 +539,7 @@ function load_user_info() {
 		$continent = array (
 		'iso' => $record->continent->code,
 		'name' => $record->continent->name
-		);	
+		);
 
 		// package city data
 		$city = $record->city->name;
@@ -561,12 +561,11 @@ function load_user_info() {
 		$city = 'Boston';
 
 	}
-
 	// apply various debugs, if they exist
 	$country['name'] = (empty($_GET['testcountry'])) ? $country['name'] : $_GET['testcountry'];
 	$region['name'] = (empty($_GET['testregion'])) ? $region['name'] : $_GET['testregion'];
 	$continent['name'] = (empty($_GET['testcontinent'])) ? $continent['name'] : $_GET['testcontinent'];
-	$logged_in  = (empty($_GET['testloggedin']))   ? $logged_in  : $_GET['testloggedin'];
+	$logged_in  = (empty($_GET['testloggedin'])) ? $logged_in  : $_GET['testloggedin'];
 	// correct for strings passed in by get
 	if($logged_in === "true" || $logged_in === "1") {
 		$logged_in = true;
@@ -595,6 +594,12 @@ function load_user_info() {
 		'continent' => $continent,
 		'city' => $city
 	);
+
+  // load some stuff into the session so other parts of the app operating in ajax mode can use it
+  if(empty($_SESSION['access_logged_in'])) $_SESSION['access_logged_in'] = $logged_in;
+  if(empty($_SESSION['access_subscribed'])) $_SESSION['access_subscribed'] = $is_subscribed;
+  if(empty($_SESSION['access_user'])) $_SESSION['access_user'] = $user;
+
 	return $user_info;
 }
 
@@ -622,6 +627,10 @@ function get_blocks($rules, $user_info) {
 	$blocks = array();
 
 	foreach($rules as $rule) {
+    if($access_debug) {
+      echo "checking whether to apply " . $rule->result_msg . "\r\n";
+    }
+
 		// check for invalid/empty result first and skip over if so
 		switch($rule->result_type) {
 			case '':
@@ -638,7 +647,7 @@ function get_blocks($rules, $user_info) {
 		if($rule->priority < 0) continue;
 
 		// TODO: check for invalid time results
-		
+
 		// SPLIT UP CHECK TYPES
 		$check_types = explode(',', $rule->check_type);
 		$check_values = explode('|', $rule->check_value);
@@ -778,7 +787,6 @@ function get_blocks($rules, $user_info) {
 
 				// checks if user is logged in or not.
 				case 'is_logged_in':
-
 					$logged_in_check = $user_info['logged_in'];
 					$logged_ins = explode(',', $check_values[$index]);
 					foreach($logged_ins as $logged_in) {
@@ -948,9 +956,9 @@ function get_blocks($rules, $user_info) {
 			));
 		}
 	}
-	
+
 	//remove dupes
-	$no_more_duplicates = false;
+	/*$no_more_duplicates = false;
 	while(!$no_more_duplicates) {
 		foreach($blocks as $block) {
 			foreach($blocks as $index_check => $block_check) {
@@ -965,7 +973,7 @@ function get_blocks($rules, $user_info) {
 			}
 		}
 		$no_more_duplicates = true;
-	}
+	}*/
 	return $blocks;
 }
 

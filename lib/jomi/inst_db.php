@@ -83,6 +83,7 @@ function inst_table_install() {
 		date_end    date NOT NULL,
 		type        VARCHAR(20) NOT NULL,
 		order_amount      int NOT NULL,
+		require_login tinyint(1) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_contact_sql = "CREATE TABLE $inst_contact_table_name (
@@ -128,7 +129,7 @@ add_action('init', 'update_inst_table');
 function insert_inst() {
 	global $wpdb;
 	global $inst_table_name;
-	
+
 	$push_data = array(
 		'name' => (empty($_POST['name'])) ? 'Institution' : $_POST['name']
 	);
@@ -173,7 +174,7 @@ function update_inst() {
 	global $inst_table_name;
 
 	$id = $_POST['id'];
-	
+
 	$push_data = array(
 		'name' => (empty($_POST['name'])) ? 'Institution' : $_POST['name']
 	);
@@ -251,7 +252,7 @@ function update_inst_location() {
 	);
 
 	$wpdb->update(
-		$inst_location_table_name, 
+		$inst_location_table_name,
 		$push_data,
 		array('ID' => $id),
 		array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'),
@@ -384,6 +385,7 @@ function insert_inst_order() {
 	$date_end = $_POST['date_end'];
 	$type = $_POST['type'];
 	$amount = $_POST['amount'];
+	$require_login = $_POST['require_login'];
 
 	$push_data = array(
 		'inst_id' => $inst_id,
@@ -392,7 +394,8 @@ function insert_inst_order() {
 		'date_start' => $date_start,
 		'date_end' => $date_end,
 		'type' => $type,
-		'order_amount' => $amount
+		'order_amount' => $amount,
+		'require_login' => $require_login
  	);
 
  	$wpdb->insert(
@@ -422,6 +425,7 @@ function update_inst_order() {
 	$date_end = $_POST['date_end'];
 	$type = $_POST['type'];
 	$amount = $_POST['amount'];
+	$require_login = $_POST['require_login'];
 
 	$push_data = array(
 		'inst_id' => $inst_id,
@@ -430,19 +434,20 @@ function update_inst_order() {
 		'date_start' => $date_start,
 		'date_end' => $date_end,
 		'type' => $type,
-		'order_amount' => $amount
+		'order_amount' => $amount,
+		'require_login' => $require_login
  	);
 
  	$wpdb->update(
  		$inst_order_table_name,
  		$push_data,
  		array('ID' => $id),
- 		array('%d', '%d', '%d', '%s', '%s', '%s', '%f'),
+ 		array('%d', '%d', '%d', '%s', '%s', '%s', '%f', '%d'),
  		array('%d')
  	);
 
  	check_db_errors();
-}	
+}
 add_action( 'wp_ajax_nopriv_update-inst-order', 'update_inst_order');
 add_action( 'wp_ajax_update-inst-order', 'update_inst_order');
 
@@ -462,7 +467,7 @@ function delete_inst_order() {
 	);
 
 	check_db_errors();
-}	
+}
 add_action( 'wp_ajax_nopriv_delete-inst-order', 'delete_inst_order');
 add_action( 'wp_ajax_delete-inst-order', 'delete_inst_order');
 

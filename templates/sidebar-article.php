@@ -4,6 +4,10 @@
 global $user_inst;
 $user_order = $user_inst['order'];
 
+global $access_blocks;
+$logged_in = $_SESSION['access_logged_in'];
+
+
 global $stripe_user_subscribed;
 global $stripe_user_stripe;
 global $stripe_user_active_sub;
@@ -32,15 +36,94 @@ if(!empty($user_order)) {
 
 	$status = get_post_status();
 
+	$inst = $user_inst['inst'];
+	$ip = $user_inst['ip'];
+	$location = $user_inst['location'];
+	$is_sub = $user_inst['is_subscribed'];
+
+	$require_login = $order->require_login;
+	$require_login = (empty($_GET['requirelogin'])) ? $require_login : $_GET['requirelogin'];
+
 	if(in_array($order_type, $valid_trial_types)) {
 	?>
 	<div id="free-trial-notification">
-		<span class="free-trial-head">TRIAL</span>
-		<p>Your institution is currently using trial access.<br>
-		Please recommend JoMI to your institution.</p>
+		<span class="free-trial-head">TRIAL ACCESS</span>
+		<p>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.
+			<br>
+			<?php if($require_login && !$logged_in) { ?>
+				Please create an account and let your librarian know about JoMI.
+			<?php } else { ?>
+				Please recommend JoMI to your librarian.
+			<?php } ?>
+		</p>
 	</div>
 	<?php }
 }
+
+// DISPLAY NOTIFICATION FOR NON-LOGGED IN USERS TO SIGN UP OR CONTACT LIBRARIAN
+
+// ok so for now don't rely on the access table db to display this
+// we're just going to assume that any non-logged in user is going to get blocked one way or another
+// so we can start conversations and whatever
+
+// if the user isn't logged in
+if(!$logged_in) {
+	// if an order does not exist or if the order has expired
+	if(empty($user_order) || (!empty($user_order) && !$user_inst['is_subscribed'])) {
+?>
+<div class="sign-up-block">
+	<span class="sign-up-head">JoMI is not a free resource.</span>
+	<p>
+		You may <a href='/register'>create an account</a> to gain access.
+		<br />
+		Please make a request to your librarian or <a href='mailto:lib@jomi.com' target='_blank'>send us an email.</a> to maintain access.
+		<br />
+		Or, please <a href='/login'>sign in</a> if you are at a subscribed institution.
+	</p>
+</div>
+<?php
+	}
+}
+
+if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->type, $valid_trial_types)) {
+	$date_end = $user_order->date_end;
+
+	$year = substr($date_end, 0, 4);
+
+	$month = substr($date_end, 5, 2);
+	$month = date('F', mktime(0, 0, 0, $month, 10));
+
+	$day = substr($date_end, 8, 2);
+	$day = date('jS', mktime(0, 0, 0, 0, $day));
+
+	if($user_order->require_login && !$logged_in) {
+?>
+<div class="subscribed-block">
+	<span class="subscribed-head">
+		Subscribed
+	</span>
+	<p>
+		Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is subscribed.
+		<br />
+		Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?>
+		<br />
+		Please sign in to access content
+	</p>
+</div>
+<?php } else { ?>
+<div class="subscribed-block">
+	<span class="subscribed-head">
+		Subscribed
+	</span>
+	<p>
+		Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is subscribed.
+		<br />
+		Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?>
+	</p>
+</div>
+<?php } }
+
+
 
 global $jomi_user_order;
 

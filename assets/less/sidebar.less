@@ -20,10 +20,13 @@
 .single .sidebar{
 	margin-right: -15px;
 
-	#free-trial-notification{
+	#free-trial-notification, .sign-up-block {
 		margin-top: 10px;
-		text-align: center;
-		.free-trial-head{
+		text-align: left;
+		padding: 10px;
+		background-color: lighten(@jomi-red-warning, 50%);
+		border-radius: 5px;
+		.free-trial-head, .sign-up-head {
 			display: block;
 			margin-bottom: 5px;
 			width: 100%;
@@ -35,6 +38,29 @@
 		}
 		p{
 			font-weight: bold;
+			font-size: 0.9em;
+		}
+	}
+
+	.subscribed-block {
+		margin-top: 10px;
+		text-align: left;
+		padding: 10px;
+		background-color: lighten(#2CB673, 50%);
+		border-radius: 5px;
+		.subscribed-head {
+			display: block;
+			margin-bottom: 5px;
+			width: 100%;
+			padding: 5px 10px;
+			font-weight: bold;
+			border-radius: 5px;
+			background: #2CB673;
+			color: @jomi-light;
+		}
+		p {
+			font-weight: bold;
+			font-size: 0.9em;
 		}
 	}
 
@@ -290,7 +316,7 @@
 //* MOBILE
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
 	.articles div.container.wrap, .category div.container.wrap, .search div.container.wrap, .archive div.container.wrap {
 		aside.sidebar{
 			padding: 10px;
@@ -323,7 +349,7 @@
 	}
 }
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
 	.articles div.container.wrap, .category div.container.wrap, .search div.container.wrap, .archive div.container.wrap {
 		.sidebar ul li a {
 			padding: 10px 25px !important;
@@ -331,5 +357,5 @@
 	}
 }
 /* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 }

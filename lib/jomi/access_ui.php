@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * ACCESS UI
@@ -59,9 +59,9 @@ foreach($rules as $rule_index=>$rule) {
 			<input type="number" id="priority" placeholder="<?php echo $rule->priority; ?>" data="<?php echo $rule->priority; ?>">
 		</td>
 		<td>
-			<?php 
+			<?php
 			#$selector_types = explode(',', $rule->selector_type);
-			#$selector_vals = explode(',', $rule->selector_value); 
+			#$selector_vals = explode(',', $rule->selector_value);
 			#$selectors = array();
 			#foreach($selector_types as $key=>$value) {
 			#	array_push($selectors, array(
@@ -88,9 +88,9 @@ foreach($rules as $rule_index=>$rule) {
 			<?php #} ?>
 		</td>
 		<td id="checks">
-			<?php 
+			<?php
 			$check_types = explode(',', $rule->check_type);
-			$check_vals = explode('|', $rule->check_value); 
+			$check_vals = explode('|', $rule->check_value);
 			$checks = array();
 			foreach($check_types as $key=>$value) {
 				array_push($checks, array(
@@ -121,12 +121,12 @@ foreach($rules as $rule_index=>$rule) {
 		</td>
 		<td>
 				<select id="result_type" data="<?php echo $rule->result_type; ?>">
-						<option val=""                 >None</option>
-					<option val="deny"             >DENY</option>
-					<option val="sign_up"          >SIGN UP</option>
-					<option val="checkpoint"       >CHECKPOINT</option>
-					<option val="free_trial"       >FREE TRIAL</option>
-					<option val="free_trial_thanks">FREE TRIAL THANKS</option>
+					<option val="">none</option>
+					<option val="deny">deny</option>
+					<option val="sign_up">sign_up</option>
+					<option val="checkpoint">checkpoint</option>
+					<option val="free_trial">free_trial</option>
+					<option val="free_trial_thanks">free_trial_thanks</option>
 				</select>
 			<input type="text" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
 			<input type="text" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">
@@ -183,7 +183,7 @@ add_action('admin_menu', 'global_rulebook_menu');
  */
 function global_rulebook(){
 	?>
-	
+
 	<div id="greyout" class="greyout">
 		<div id="signal" class="signal"></div>
 	</div>
@@ -334,9 +334,9 @@ function global_rulebook(){
 		}*/
 		params.selector_type = params.hasOwnProperty("selector_type") ? params.selector_type : row.find('select#selector_type option:selected').attr('val');
 		params.selector_value = params.hasOwnProperty("selector_value") ? params.selector_value : row.find('input#selector_value').val();
-		if(!params.hasOwnProperty("check_type")) 
+		if(!params.hasOwnProperty("check_type"))
 			params.check_type = get_check_types(row);
-		if(!params.hasOwnProperty("check_value")) 
+		if(!params.hasOwnProperty("check_value"))
 			params.check_value = get_check_vals(row);
 		params.result_type = params.hasOwnProperty("result_type") ? params.result_type : row.find('#result_type option:selected').attr('val');
 		params.result_time_start = params.hasOwnProperty("result_time_start") ? params.result_time_start : row.find('input#result_time_start').val();

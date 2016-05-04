@@ -3,11 +3,11 @@
 	/**
 	 * ARTICLE ACCESS CHECK HERE
 	 */
-	
+
 	$temporary_access = false;
         $temporary_access = (get_field('publication_id') == 13 && $_GET['accessKey'] == 'ab174s29643jkasiuhs7')	|| (get_field('publication_id') == 8 && $_GET['accessKey'] == 'p1n97ytk3si785xb7rxm');
 
-	if(!empty(get_field('password'))) {
+	if(!get_field('password')) {
 
 		if($_POST['password'] != get_field('password')) {
 	?>
@@ -30,7 +30,7 @@
 
 	global $access_blocks;
 	check_access();
-	
+
 	$id = get_the_ID();
 
 	// get a custom stop time, if it exists
@@ -45,8 +45,8 @@
 	$chapter_count = 0;
 
 	// temp fields
-	$ch = [];
-	$sch = [];
+	$ch = array();
+	$sch = array();
 
 	//load acf chapter repeater field
 	if(get_field('chapters')) {
@@ -84,12 +84,12 @@
 
 	?>
 
-	<?php 
+	<?php
 	if(get_post_status() == "preprint") { ?>
 	<div class="container preprint-container">
 		<div class="preprint"><strong>PREPRINT</strong></div>
 	</div>
-	<?php } 
+	<?php }
 	?>
 	<div class="container video-container">
 		<div class="video-area row">
@@ -111,7 +111,7 @@
 					<div class="panel-heading" role="tab" id="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<h4 class="panel-title">
 
-							<span class="vtime-item no-subchapters" href="#<?php echo trim($chapter['title_clean']); ?>" 
+							<span class="vtime-item no-subchapters" href="#<?php echo trim($chapter['title_clean']); ?>"
 							onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();" data-time="<?php echo $chapter['time']; ?>">
 								<span class="vtime-title-text"><?php echo $chapter['title']; ?></span>
 							</span>
@@ -128,13 +128,13 @@
 								<span class="vtime-title-text" onclick="wistiaEmbed.time(<?php echo $chapter['time']; ?>).play();"
 										href="#<?php echo trim($chapter['title_clean']); ?>"><?php echo $chapter['title']; ?></span>
 
-								<span class="glyphicon glyphicon-chevron-right collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse" 
+								<span class="glyphicon glyphicon-chevron-right collapsed" href="#<?php echo trim($chapter['title_clean']); ?>" data-toggle="collapse"
 										data-parent="#chapters" aria-controls="<?php echo $chapter['title_clean']; ?>" aria-expanded="false"></span>
 
 							</span>
 						</h4>
 					</div>
-					<div id="<?php echo $chapter['title_clean']; ?>" class="panel-collapse collapse" role="tabpanel" 
+					<div id="<?php echo $chapter['title_clean']; ?>" class="panel-collapse collapse" role="tabpanel"
 					aria-labelledby="<?php echo $chapter['title_clean'] . 'heading'; ?>">
 						<div class="panel-body">
 							<?php foreach($chapter['subchapters'] as $subchapter) { ?>
@@ -152,7 +152,7 @@
 				<?php } ?>
 
 			</div> <!-- /chapters -->
-			<?php } ?> 
+			<?php } ?>
 			<!--div class="hide-chapter">
 				<a href="#" id="hide-chapter-btn">hide chapters</a>
 			</div-->
@@ -341,9 +341,9 @@
 				//======================
 				// GENERATED JAVASCRIPT
 				// =====================
-				<?php //$access_blocks = array_reverse($access_blocks); 
+				<?php //$access_blocks = array_reverse($access_blocks);
 				if(!$temporary_access){
-				 if(is_array($access_blocks)) { foreach($access_blocks as $block) { 
+				 if(is_array($access_blocks)) { foreach($access_blocks as $block) {
 					if($block['time_elapsed'] == 'custom' && !empty($custom_stop)) {?>
 						// custom elapsed time
 						if(elapsed >= <?php echo $custom_stop; ?>) {
@@ -351,7 +351,7 @@
 							block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
 						}
 					<?php } elseif($block['time_elapsed'] == 'custom' && empty($custom_stop)) {?>
-						
+
 					<?php } elseif($block['time_elapsed'] > 0) {?>
 						if(elapsed >= <?php echo $block['time_elapsed']; ?>) {
 							// block it
@@ -371,13 +371,13 @@
 					// block immediately
 					<?php } else { ?>
 						block("<?php echo $block['msg']; ?>", <?php echo ($block['closable'] > 0) ? 'true' : 'false';?>);
-					<?php } 
+					<?php }
 
 				} } }?>
 				// ==========================
 				// END GENERATED JAVASCRIPT
 				// ==========================
-				
+
 				// chapter control
 				/*$('.vtime-item').removeClass('done').removeClass('current');
 				$('.vtime-item').each(function(index) {
@@ -432,7 +432,7 @@
 				// highlight last chapter if nothing else is
 				if(noneHighlighted) {
 					chapters[chapters.length-1].addClass('current');
-				} 
+				}
 
 				//highlight parent chapters if one exists
 				var cur_chapter = $('.vtime-item.current');
@@ -462,11 +462,11 @@
 				if(closable) blocked = true;
 
 				var function_name = msg;
-				
+
 				wistiaEmbed.pause();
 				$('.access-block').show();
 				wistiaEmbed.pause();
-				
+
 				// So it turns out Wistia as we have it is running Flash and flash doesn't really seem to obey
 				// the general commands to close the full screen view. But I'll leave it in here just in case
 				if (document.cancelFullScreen) {
@@ -476,11 +476,11 @@
 				} else if (document.webkitCancelFullScreen) {
 					document.webkitCancelFullScreen();
 				}
-				
+
 				// What should actually work is telling Wistia itself to cancel the full screen
 				wistiaEmbed.cancelFullscreen();
 
-			 
+
 			 // hard block?
 			 //$('.video-holder').empty();
 			 //wistiaEmbed.remove();
@@ -492,7 +492,7 @@
 				id: <?php echo get_the_ID(); ?>,
 				msg: 'ACCESS RESTRICTED',
 				redirectto: $('#url-share-box').attr('value')
-			 }, 
+			 },
 			 function(response) {
 				wistiaEmbed.pause();
 				response = response.substring(0, response.length - 1);
@@ -577,13 +577,13 @@
 				activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
 			});
 		});
-	
+
 
 	<?php
         $user = wp_get_current_user();
         if( $user->ID <> 0 ){
                 echo 'mixpanel.identify('.$user->ID.');';
-        } 
+        }
        echo 'mixpanel.track( "Open article", {"Title" : "'.get_the_title( $post ).'", "Article ID" : "' . get_field( "publication_id" ). '" } );';
 	?>
 	</script>

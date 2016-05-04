@@ -51,6 +51,12 @@ function process_access_post_data() {
 			case 'free_trial_thanks':
 				$result_msg = "block-free-trial-thanks";
 				break;
+			case 'create_account':
+				$result_msg = 'create_account';
+				break;
+			case 'subscribed':
+				$result_msg = 'subscribed';
+				break;
 			case 'none':
 			case '':
 			case $default['result_type']:

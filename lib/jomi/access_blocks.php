@@ -18,42 +18,42 @@ function block_deny() {
 	</div>
 
 	<!-- header -->
-	<div class="row">
+	<div class="row" style="margin-bottom: 10px; margin-top: 10px;">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
-		<p style="text-align:center;">Please sign in or register to continue viewing this article</p>
-		<p style="text-align:center;">To subscribe (or have us speak to your librarian), please <a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request"><strong>send us an email</strong></a>.</p>
+		<p style="text-align:center;"><strong>JoMI is not a free resource.</strong> Please sign in or register to continue viewing this article</p>
+		<p style="text-align:center;">Please make a request to your librarian or <a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request"><strong>send us an email</strong></a> to maintain access.</p>
 	</div>
-
-	<br>
 	<div class="row">
 		<div class="col-xs-12" style="text-align:center;">
 			<div id="login-form" class="aligncenter" style="">
 				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
 					<p class="error" id="block-error"></p>
-					<div class="login-username">
-						<label for="user_login">Username/Email<br>
-						<input type="text" name="log" id="user_login" class="input" value="" size="15"></label>
+					<div class="row" style="margin-bottom: 10px;">
+						<div class="col-xs-5">
+							<div class="login-username" style="width: 100%;">
+								<label for="user_login" style="width: 90%;">Username/Email<br>
+								<input type="text" name="log" id="user_login" class="input" value="" style="width: 100%;"></label>
+							</div>
+						</div>
+						<div class="col-xs-5">
+							<div class="login-password" style="width: 100%;">
+								<label for="user_pass" style="width: 90%;">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)<br>
+								<input type="password" name="pwd" id="user_pass" class="input" value="" style="width: 100%;"></label>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<p class="login-remember"><input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked"></p>
+							<p class="login-submit">
+								<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In" style="width: 90%; margin-top: 25px;">
+								<input type="hidden" name="redirect_to" value="/">
+							</p>
+						</div>
 					</div>
-					<div class="login-password">
-						<label for="user_pass">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)<br>
-						<input type="password" name="pwd" id="user_pass" class="input" value="" size="15"></label>
-					</div>
-					<p class="login-remember"><input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked"></p>
-					<br/>
-					<p class="login-submit">
-						<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In">
-						<input type="hidden" name="redirect_to" value="/">
-					</p><br/>
 					<p>
 					Not a member? <a href="/register">Create an Account.</a>
-					
 				</form>
 			</div>
 		</div>
-
-	</div>
-	<div class="social-box">
-		<?php do_action('oa_social_login'); ?>
 	</div>
 </div>
 <script>
@@ -74,7 +74,7 @@ $(function() {
 			return;
 		}
 		//var dataString = 'log='+ login + '&pwd=' + pass;
-		
+
 		$('#greyout,#signal').show();
 
 		$.post(MyAjax.ajaxurl, {
@@ -185,7 +185,7 @@ $(function() {
 			$('#email-error').text('Invalid Email Address!');
 			$("#email-error").css("-webkit-animation-play-state", "running");
 			$("#email-error").css("animation-play-state", "running");
-		     setTimeout(function() { 
+		     setTimeout(function() {
 		       $("#email-error").css("-webkit-animation-play-state", "paused");
 		       $("#email-error").css("animation-play-state", "paused");
 		     }, 280);
@@ -212,7 +212,7 @@ function send_free_trial(){
 	$email = $_POST['email'];
 
 	// let us know about it
-	
+
 	$dev_body = $email . ' would like to request a free trial' . '<br>';
 	$dev_body .= 'http_referer:' . $_SERVER['HTTP_REFERER'];
 
@@ -232,6 +232,7 @@ function block_free_trial_thanks() {
 	$id = $_POST['id'];
 
 	$order = $_SESSION['order'];
+	$inst = $_SESSION['inst'];
 
 	$date_end = $order->date_end;
 
@@ -243,6 +244,10 @@ function block_free_trial_thanks() {
 	$day = substr($date_end, 8, 2);
 	$day = date('jS', mktime(0, 0, 0, 0, $day));
 
+	$logged_in = is_user_logged_in();
+
+	$require_login = $order->require_login;
+	//$require_login = (empty($_GET['requirelogin'])) ? $require_login : $_GET['requirelogin'];
 ?>
 <div class="container free-trial free-trial-thanks">
 	<div id="greyout" class="greyout">
@@ -250,13 +255,22 @@ function block_free_trial_thanks() {
 	</div>
 	<div class="row">
 		<h1>Thank you for using JoMI</h1>
+		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.</h4>
 		<h4>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
-		<strong><u>Your Opinion Matters!</u></strong>
-		<p>Please let your librarian know if you found our content valuable.</p>
+		<?php if($require_login && !$logged_in) { ?>
+			<strong>Your institution requires you to <a href='/login'>sign in</a> before viewing this content.</strong>
+			<p>Or, if you do not have an account yet, <a href='/register'>register here</a>
+		<?php } else { ?>
+			<strong><u>Your Opinion Matters!</u></strong>
+			<p>Please let your librarian know if you found our content valuable.</p>
+		<?php } ?>
 		<br>
 	</div>
 	<div class="row link-close">
-		<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>
+		<?php if($require_login && !$logged_in) { ?>
+		<?php } else { ?>
+			<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>
+		<?php } ?>
 	</div>
 </div>
 <script>

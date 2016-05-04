@@ -135,7 +135,7 @@ $(function() {
 		$.post(MyAjax.ajaxurl, {
 			action: 'insert-inst-location',
 			id: inst_id,
-			description: description 
+			description: description
 		}, function(response) {
 			refresh_location(inst_id);
 		})
@@ -289,6 +289,9 @@ $(function() {
 		var type = 'default';
 		var amount = -1;
 
+    // require login by default
+    var require_login = 1;
+
 		$.post(MyAjax.ajaxurl, {
 			action: 'insert-inst-order',
 			inst_id: inst_id,
@@ -297,7 +300,8 @@ $(function() {
 			date_start: date_start,
 			date_end: date_end,
 			type: type,
-			amount: amount
+			amount: amount,
+      require_login: require_login
 		}, function(response) {
 			refresh_order_list(location_id);
 		});
@@ -325,6 +329,9 @@ $(function() {
 		var type = table.find('#inst-order-type').val();
 		var amount = table.find('#inst-order-amount').val();
 
+    var require_login = table.find('#inst-order-require-login').val();
+    console.log('require_login', require_login);
+
 		$.post(MyAjax.ajaxurl, {
 			action: 'update-inst-order',
 			id: id,
@@ -334,7 +341,8 @@ $(function() {
 			date_start: date_start,
 			date_end: date_end,
 			type: type,
-			amount: amount
+			amount: amount,
+      require_login: require_login
 		}, function(response) {
 			refresh_order_list(location_id);
 		});
@@ -500,7 +508,7 @@ global $inst_order_table_name;
 $id = (empty($_POST['id'])) ? 1 : $_POST['id'];
 
 $inst_location_query = "SELECT * FROM $inst_location_table_name WHERE inst_id = $id";
-$locations = $wpdb->get_results($inst_location_query); 
+$locations = $wpdb->get_results($inst_location_query);
 //print_r($locations);
 foreach($locations as $location) {
 ?>
@@ -577,7 +585,7 @@ if(!empty($_POST['location_id'])) $location_id = $_POST['location_id'];
 			<input id="inst-ip-add-location-id" type="hidden" value="<?php echo $location_id; ?>">
 		</td>
 	</tr>
-<?php 
+<?php
 
 global $wpdb;
 global $inst_ip_table_name;
@@ -599,7 +607,7 @@ foreach($ips as $ip) {
 		<input id="inst-ip-location-id" type="hidden" value="<?php echo $location_id; ?>">
 	</td>
 </tr>
-<?php 
+<?php
 }
 ?>
 </table>
@@ -651,15 +659,24 @@ foreach($orders as $order) {
 	<td><input id="inst-order-amount" type="number" value="<?php echo $order->amount; ?>"></td>
 </tr>
 <tr>
+  <th>Require Login?</th>
+  <td>
+    <select id="inst-order-require-login" type="number" data="<?php echo $order->require_login; ?>">
+      <option val="0">FALSE</option>
+      <option val="1">TRUE</option>
+    </select>
+  </td>
+</tr>
+<tr>
 	<th>Actions</th>
 	<td>
-		<a href="#" id="inst-order-update">update</a> | 
+		<a href="#" id="inst-order-update">update</a> |
 		<a href="#" id="inst-order-delete">delete</a>
 		<!-- hidden stuff -->
 		<input id="inst-order-id" type="hidden" value="<?php echo $order->id; ?>">
 	</td>
 </tr>
-<?php 
+<?php
 }
 ?>
 </table>

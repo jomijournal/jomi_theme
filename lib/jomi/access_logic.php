@@ -932,6 +932,29 @@ function get_blocks($rules, $user_info) {
 					}
 
 					break;
+        case "does_require_login":
+          //$check_require_login = $check_values[$index];
+          $inst_order = $user_inst['order'];
+          $require_login_check = $inst_order->require_login;
+          //$is_user_logged_in = $user_info['logged_in'];
+
+          $require_logins = explode(',', $check_values[$index]);
+          foreach($require_logins as $require_login) {
+            if(($require_login == 'T' && $require_login_check)
+              || ($require_login == 'F' && !$require_login_check)) {
+              if($access_debug) {
+                echo "require login matched!\n";
+                echo $require_login_check . ' == ' . $require_login . "\r\n\r\n";
+              }
+              $check_count++;
+            } else {
+              if($access_debug) {
+                echo "require login not matched!\n";
+                echo $require_login_check . ' != ' . $require_login . "\r\n\r\n";
+              }
+            }
+          }
+          break;
 				// ADD ADDITIONAL CHECKS HERE ^^^
 
 				default:

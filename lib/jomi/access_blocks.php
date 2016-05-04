@@ -287,4 +287,41 @@ $(function() {
 }
 add_action( 'wp_ajax_block-free-trial-thanks', 'block_free_trial_thanks' );
 add_action( 'wp_ajax_nopriv_block-free-trial-thanks', 'block_free_trial_thanks' );
+
+function block_subscribed_sign_in() {
+	$id = $_POST['id'];
+
+	$order = $_SESSION['order'];
+	$inst = $_SESSION['inst'];
+
+	$date_end = $order->date_end;
+
+	$year = substr($date_end, 0, 4);
+
+	$month = substr($date_end, 5, 2);
+	$month = date('F', mktime(0, 0, 0, $month, 10));
+
+	$day = substr($date_end, 8, 2);
+	$day = date('jS', mktime(0, 0, 0, 0, $day));
+
+	$logged_in = is_user_logged_in();
+
+?>
+<div class="container subscribe-sign-in">
+	<div id="greyout" class="greyout">
+		<div id="signal" class="signal"></div>
+	</div>
+	<div class="row">
+		<h1>Thank you for using JoMI</h1>
+		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently subscribed</h4>
+		<h4>Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
+		<h4>Your institution requires you to sign in to access our content.</h4>
+		<h4><a href='/login'>Sign in</a> or <a href='/register'>create an account</a></h4>
+		<br>
+	</div>
+</div>
+<?php
+}
+add_action('wp_ajax_block-subscribed-sign-in', 'block_subscribed_sign_in');
+add_action('wp_ajax_nopriv_block-subscribed-sign-in', 'block_subscribed_sign_in');
 ?>

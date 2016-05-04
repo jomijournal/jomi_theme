@@ -112,6 +112,7 @@ foreach($rules as $rule_index=>$rule) {
 					<option val="is_subscribed"  >Is Subscribed (T/F)</option>
 					<option val="is_free_trial"  >Is Free Trial (T/F)</option>
 					<option val="is_user_subscribed">Is User Subscribed (T/F)</option>
+					<option val="does_require_login">Does Require Login (T/F)</option>
 				</select>
 			<input id="check_value" placeholder="<?php echo $check['value']; ?>" data="<?php echo $check['value']; ?>">
 				<?php if($index > 1) { ?>
@@ -123,10 +124,15 @@ foreach($rules as $rule_index=>$rule) {
 				<select id="result_type" data="<?php echo $rule->result_type; ?>">
 					<option val="">none</option>
 					<option val="deny">deny</option>
+					<?php # prompts user to sign in before viewing video. soft block ?>
 					<option val="sign_up">sign_up</option>
 					<option val="checkpoint">checkpoint</option>
+					<?php # completely blocks video and prompts user to email us. designed for flysheet but never used ?>
 					<option val="free_trial">free_trial</option>
+					<?php # simple non-obstructive block that lets users know they're on a free trial ?>
 					<option val="free_trial_thanks">free_trial_thanks</option>
+					<?php # block for subscribed institutions that require a signed in user ?>
+					<option val="subscribed_sign_in">subscribed_sign_in</option>
 				</select>
 			<input type="text" id="result_time_start" placeholder="Time Start: <?php echo $rule->result_time_start; ?>" data="<?php echo $rule->result_time_start; ?>">
 			<input type="text" id="result_time_elapsed" placeholder="Time Elapsed: <?php echo $rule->result_time_elapsed ?>" data="<?php echo $rule->result_time_elapsed ?>">

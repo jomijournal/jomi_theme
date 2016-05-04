@@ -83,7 +83,7 @@ function inst_table_install() {
 		date_end    date NOT NULL,
 		type        VARCHAR(20) NOT NULL,
 		order_amount      int NOT NULL,
-		require_login tinyint(1) NOT NULL,
+		require_login VARCHAR(1) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	$inst_contact_sql = "CREATE TABLE $inst_contact_table_name (
@@ -442,7 +442,7 @@ function update_inst_order() {
  		$inst_order_table_name,
  		$push_data,
  		array('ID' => $id),
- 		array('%d', '%d', '%d', '%s', '%s', '%s', '%f', '%d'),
+ 		array('%d', '%d', '%d', '%s', '%s', '%s', '%f', '%s'),
  		array('%d')
  	);
 

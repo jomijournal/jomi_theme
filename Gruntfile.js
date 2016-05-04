@@ -179,14 +179,14 @@ module.exports = function(grunt) {
 		'dev'
 	]);
 	grunt.registerTask('dev', [
-		'jshint',
+		//'jshint',
 		'less:dev',
 		'autoprefixer:dev',
 		'concat',
 		'watch'
 	]);
 	grunt.registerTask('build', [
-		'jshint',
+		//'jshint',
 		'less:build',
 		'autoprefixer:build',
 		'uglify',

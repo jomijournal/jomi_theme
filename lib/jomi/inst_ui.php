@@ -578,8 +578,8 @@ if(!empty($_POST['location_id'])) $location_id = $_POST['location_id'];
 		<th>Actions</th>
 	</tr>
 	<tr>
-		<td><input id="inst-ip-add-start" type="text" placeholder="Start IP Range"></td>
-		<td><input id="inst-ip-add-end" type="text" placeholder="End IP Range"></td>
+		<td><input id="inst-ip-add-start" type="text" placeholder="Start IP Range" style="width: 100%;"></td>
+		<td><input id="inst-ip-add-end" type="text" placeholder="End IP Range" style="width: 100%;"></td>
 		<td>
 			<a href="#" id="inst-ip-add-submit">add ip</a>
 			<input id="inst-ip-add-location-id" type="hidden" value="<?php echo $location_id; ?>">
@@ -596,8 +596,8 @@ $ips = $wpdb->get_results($inst_ip_query);
 foreach($ips as $ip) {
 ?>
 <tr>
-	<td><input id="inst-ip-start" type="text" value="<?php echo long2ip($ip->start); ?>"></td>
-	<td><input id="inst-ip-end" type="text" value="<?php echo long2ip($ip->end); ?>"></td>
+	<td><input id="inst-ip-start" type="text" value="<?php echo long2ip($ip->start); ?>" style="width: 100%;"></td>
+	<td><input id="inst-ip-end" type="text" value="<?php echo long2ip($ip->end); ?>" style="width: 100%;"></td>
 	<td>
 		<a href="#" id="inst-ip-update">update</a>
 		<br>
@@ -644,11 +644,11 @@ foreach($orders as $order) {
 ?>
 <tr>
 	<th>Date Start</th>
-	<td><input id="inst-order-date-start" type="date" value="<?php echo $order->date_start; ?>"></td>
+	<td><input id="inst-order-date-start" type="date" value="<?php echo $order->date_start; ?>" style="width: 100%;"></td>
 </tr>
 <tr>
 	<th>Date End</th>
-	<td><input id="inst-order-date-end" type="date" value="<?php echo $order->date_end; ?>"></td>
+	<td><input id="inst-order-date-end" type="date" value="<?php echo $order->date_end; ?>" style="width: 100%;"></td>
 </tr>
 <tr>
 	<th>Type</th>

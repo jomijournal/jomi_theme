@@ -281,7 +281,7 @@ function extract_institution_meta() {
 
 	//** GRAB INSTITUTION OBJECT (structure that groups locations)
 
-	if(!empty($inst_ip) && !empty($inst_location) && !empty($inst_order)) {
+	if(!empty($inst_ip) && !empty($inst_location)/* && !empty($inst_order)*/) {
 
 		// grab institution id from location
 		$inst_id = $inst_location->inst_id;

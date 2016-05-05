@@ -63,48 +63,7 @@ if(!empty($user_order)) {
 	<?php }
 }
 
-// DISPLAY NOTIFICATION FOR NON-LOGGED IN USERS TO SIGN UP OR CONTACT LIBRARIAN
 
-// ok so for now don't rely on the access table db to display this
-// we're just going to assume that any non-logged in user is going to get blocked one way or another
-// so we can start conversations and whatever
-
-// if the user isn't logged in
-if(!$logged_in) {
-	// if an order does not exist or if the order has expired
-	if(empty($user_order) || (!empty($user_order) && !$user_inst['is_subscribed'])) {
-?>
-<div class="sign-up-block">
-	<?php
-		# @COPY_SIGNIN
-		# let users know that they have to sign in and let their librarian know to subscribe to jomi
-	?>
-	<span class="sign-up-head">JoMI is not a free resource.</span>
-	<p>
-		You may&nbsp;
-		<a title='Register'
-			href='<?php echo wp_registration_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>
-			create an account
-		</a>
-		&nbsp;to gain access.
-		<br />
-		Please make a request to your librarian or&nbsp;
-		<a href='mailto:lib@jomi.com' target='_blank'>
-			send us an email.
-		</a>
-		&nbsp;to maintain access.
-		<br />
-		Or, please&nbsp;
-		<a title='Sign In'
-			href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>
-			sign in
-		</a>
-		&nbsp;if you are at a subscribed institution.
-	</p>
-</div>
-<?php
-	}
-}
 
 if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->type, $valid_trial_types)) {
 	$date_end = $user_order->date_end;
@@ -156,11 +115,15 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 $is_sub = $user_inst['is_subscribed'];
 $inst = $user_inst['inst'];
 
-if($is_sub <= 0 && !empty($user_inst)) {
+
+// if the user is not subscribed, then either they are not part of an institution,
+// their institution's order has expired, or the institution has no order in the first place
+if($is_sub <= 0) {
 ?>
 <div class="expired-block">
-<?php 
-if(!empty($user_order)) { ?>
+<?php
+# check whether an institution and an order exists. this means the order expired
+if(!empty($user_inst) && !empty($user_order)) { ?>
 	<?php
 		# @COPY_EXPIRED
 		# shows when an institution's order has expired and they need to renew
@@ -169,10 +132,12 @@ if(!empty($user_order)) { ?>
 		EVALUATION ACCESS
 	</span>
 	<p>
-		The subscription from <?php echo $inst->name ?> expired on <?php echo $user_order->date_end; ?>.  
+		The subscription from <?php echo $inst->name ?> expired on <?php echo $user_order->date_end; ?>.
 	</p>
-<?php } else { ?>
-	<?php
+<?php } elseif(!empty($user_inst)) {
+		// if the institution exists and the order does not, then the institution does not
+		// have an order on file.
+
 		# @COPY_NOT_SUBSCRIBED
 		# shows when an institution is recognized but an order does not exist
 	?>
@@ -183,10 +148,45 @@ if(!empty($user_order)) { ?>
 		blah blah blah blah blah
 		<?php echo $inst->name ?> is not subscribed
 	</p>
-<?php }?> 
+<?php } else {
+		// if the institution is empty, then the user is not accessing from a known institutional
+		// IP address, and is not affiliated with any institution
+
+		# @COPY_NOT_SUBSCRIBED
+		# no institution was recognized and the user is on his/her own
+	?>
+	<span class="expired-head">
+		NOT SUBSCRIBED
+	</span>
+<?php }
+
+// if the user isn't logged in
+if(!$logged_in) {
+	// if an order does not exist or if the order has expired
+	if(empty($user_order) || (!empty($user_order) && !$user_inst['is_subscribed'])) {
+?>
+	<?php
+		# @COPY_SIGNIN
+		# let users know that they have to sign in and let their librarian know to subscribe to jomi
+	?>
+	<p>JoMI is not a free resource.</p>
+	<p>
+		You may <a title='Register' href='<?php echo wp_registration_url()?>'> create an account</a> to gain access.
+		<br />
+		Please make a request to your librarian or <a href='mailto:lib@jomi.com' target='_blank'>send us an email</a> to maintain access.
+		<br />
+		Or, please <a title='Sign In' href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>sign in</a> if you are at a subscribed institution.
+	</p>
+<?php
+	}
+}
+
+# @COPY_CONTACT_LIBRARIAN
+# footer to let users know to contact their librarian
+?>
 <p>
  <b>To maintain access:</b> please let your librarian know you would like a subscription or send us an email at <a href="mailto:subscribe@jomi.com?Subject=Subscription Request: <?php echo $inst->name ?>">subscribe@jomi.com</a> and we will forward your feedback to your librarian.
-        </p>
+</p>
 
 </div>
 <?php }

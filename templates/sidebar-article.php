@@ -129,8 +129,10 @@ if(!empty($user_inst) && !empty($user_order)) { ?>
 		# shows when an institution's order has expired and they need to renew
 	?>
 	<span class="expired-head">
-		EVALUATION ACCESS
+		SUBSCRIPTION EXPIRED
 	</span>
+
+
 	<p>
 		The subscription from <?php echo $inst->name ?> expired on <?php echo $user_order->date_end; ?>.
 	</p>
@@ -142,10 +144,9 @@ if(!empty($user_inst) && !empty($user_order)) { ?>
 		# shows when an institution is recognized but an order does not exist
 	?>
 	<span class="expired-head">
-		NOT SUBSCRIBED
+		EVALUATION ACCESS
 	</span>
 	<p>
-		blah blah blah blah blah
 		<?php echo $inst->name ?> is not subscribed
 	</p>
 <?php } else {
@@ -156,7 +157,7 @@ if(!empty($user_inst) && !empty($user_order)) { ?>
 		# no institution was recognized and the user is on his/her own
 	?>
 	<span class="expired-head">
-		NOT SUBSCRIBED
+		EVALUATION ACCESS
 	</span>
 <?php }
 
@@ -169,13 +170,7 @@ if(!$logged_in) {
 		# @COPY_SIGNIN
 		# let users know that they have to sign in and let their librarian know to subscribe to jomi
 	?>
-	<p>JoMI is not a free resource.</p>
-	<p>
-		You may <a title='Register' href='<?php echo wp_registration_url()?>'> create an account</a> to gain access.
-		<br />
-		Please make a request to your librarian or <a href='mailto:lib@jomi.com' target='_blank'>send us an email</a> to maintain access.
-		<br />
-		Or, please <a title='Sign In' href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>sign in</a> if you are at a subscribed institution.
+	<p>You may <a title='Register' href='<?php echo wp_registration_url()?>'> create an account</a> or  <a title='Sign In' href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>Sign In</a> to gain temporary access for evaluation purposes.
 	</p>
 <?php
 	}

@@ -661,9 +661,14 @@ foreach($orders as $order) {
 <tr>
   <th>Require Login?</th>
   <td>
-    <select id="inst-order-require-login" type="number" data="<?php echo $order->require_login; ?>">
-      <option val="T">T</option>
-      <option val="F">F</option>
+    <select id="inst-order-require-login">
+      <?php if($order->require_login === 0 || $order->require_login === "F" || $order->require_login === "0") { ?>
+        <option val="T">T</option>
+        <option val="F" selected>F</option>
+      <?php } else { ?>
+        <option val="T" selected>T</option>
+        <option val="F">F</option>
+      <?php } ?>
     </select>
   </td>
 </tr>

@@ -21,89 +21,23 @@ function block_deny() {
 	<?php # @COPY_SIGNIN ?>
 	<div class="row" style="margin-bottom: 10px; margin-top: 10px;">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
-		<p style="text-align:center;"><strong>JoMI is not a free resource.</strong> Please sign in or register to continue viewing this article</p>
-		<p style="text-align:center;">Please make a request to your librarian or <a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request"><strong>send us an email</strong></a> to maintain access.</p>
-	</div>
-	<div class="row">
-		<div class="col-xs-12" style="text-align:center;">
-			<div id="login-form" class="aligncenter" style="">
-				<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php'); ?>" method="post">
-					<p class="error" id="block-error"></p>
-					<div class="row" style="margin-bottom: 10px;">
-						<div class="col-xs-5">
-							<div class="login-username" style="width: 100%;">
-								<label for="user_login" style="width: 90%;">Username/Email<br>
-								<input type="text" name="log" id="user_login" class="input" value="" style="width: 100%;"></label>
-							</div>
-						</div>
-						<div class="col-xs-5">
-							<div class="login-password" style="width: 100%;">
-								<label for="user_pass" style="width: 90%;">Password (<a href="/login/?action=lostpassword">Lost Password?</a>)<br>
-								<input type="password" name="pwd" id="user_pass" class="input" value="" style="width: 100%;"></label>
-							</div>
-						</div>
-						<div class="col-xs-2">
-							<p class="login-remember"><input name="rememberme" type="hidden" id="rememberme" value="forever" checked="checked"></p>
-							<p class="login-submit">
-								<input type="submit" name="submit" id="submit" class="btn btn-default" value="Log In" style="width: 90%; margin-top: 25px;">
-								<input type="hidden" name="redirect_to" value="/">
-							</p>
-						</div>
-					</div>
-					<p>
-					Not a member? <a href="/register">Create an Account.</a>
-				</form>
-			</div>
-		</div>
+		<p style="text-align:center;">
+			<strong>JoMI is not a free resource.</strong>
+			&nbsp;Please&nbsp;
+			<a title='Sign In' href='<?php echo wp_login_url($redirect_to) ?>'>sign in</a>
+			&nbsp;or&nbsp;
+			<a title='Register' href='<?php echo wp_registration_url($redirect_to) ?>'>register</a>
+			&nbsp;to continue viewing this article.
+		</p>
+		<p style="text-align:center;">
+			Please make a request to your librarian or&nbsp;
+			<a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request" target="_blank">
+				<strong>send us an email</strong>
+			</a>
+			&nbsp;to maintain access.
+		</p>
 	</div>
 </div>
-<script>
-$(function() {
-	$('#loginform').on('submit', function(e) {
-		e.preventDefault();
-
-		var login = $('#login-form input[name="log"]').val();
-		if(login === '') {
-			$('#block-error').text("ERROR: No username entered");
-			$('#block-error').show();
-			return;
-		}
-		var pass = $('#login-form input[name="pwd"]').val();
-		if(pass === '') {
-			$('#block-error').text("ERROR: No password entered");
-			$('#block-error').show();
-			return;
-		}
-		//var dataString = 'log='+ login + '&pwd=' + pass;
-
-		$('#greyout,#signal').show();
-
-		$.post(MyAjax.ajaxurl, {
-			action: 'ajax-login',
-			username: login,
-			password: pass,
-			remember: true
-		}, function(response) {
-				// Response seems to be, for no particular reason "\nusername0" on success or "\nfailure0"
-            // so... (the \n is a newline in the string)
-            response = response.trim();
-            response = response.substr(0, response.length - 1);
-            $('#greyout,#signal').hide();
-
-            if(response == "failure") {
-                $('#block-error').text("Incorrect username or password");
-                $('#block-error').show();
-            } else {
-                $('.login-dropdown').hide();
-                $('.login-dropdown').dropdown('toggle');
-                $('.logout-dropdown').show();
-
-                $('#access_block').hide();
-            }
-		});
-	});
-});
-</script>
 <?php
 }
 add_action( 'wp_ajax_block-deny', 'block_deny' );

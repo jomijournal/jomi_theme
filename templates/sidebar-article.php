@@ -48,7 +48,12 @@ if(!empty($user_order)) {
 	?>
 	<div id="free-trial-notification">
 		<span class="free-trial-head">TRIAL ACCESS</span>
-		<p>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.
+		<p>
+			Your institution,&nbsp;
+			<span style="text-decoration: underline;">
+				<?php echo $inst->name ?>
+			</span>
+			&nbsp;is currently using trial access.
 			<br>
 			<?php if($require_login && !$logged_in) { ?>
 				Please create an account and let your librarian know about JoMI.
@@ -78,11 +83,25 @@ if(!$logged_in) {
 	?>
 	<span class="sign-up-head">JoMI is not a free resource.</span>
 	<p>
-		You may <a title='Register' href='<?php echo wp_registration_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>create an account</a> to gain access.
+		You may&nbsp;
+		<a title='Register'
+			href='<?php echo wp_registration_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>
+			create an account
+		</a>
+		&nbsp;to gain access.
 		<br />
-		Please make a request to your librarian or <a href='mailto:lib@jomi.com' target='_blank'>send us an email.</a> to maintain access.
+		Please make a request to your librarian or&nbsp;
+		<a href='mailto:lib@jomi.com' target='_blank'>
+			send us an email.
+		</a>
+		&nbsp;to maintain access.
 		<br />
-		Or, please <a title='Sign In' href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>sign in</a> if you are at a subscribed institution.
+		Or, please&nbsp;
+		<a title='Sign In'
+			href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>
+			sign in
+		</a>
+		&nbsp;if you are at a subscribed institution.
 	</p>
 </div>
 <?php
@@ -111,11 +130,21 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 		Subscribed
 	</span>
 	<p>
-		Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is subscribed.
+		Your institution,&nbsp;
+		<span style="text-decoration: underline;">
+			<?php echo $inst->name ?>
+		</span>
+		&nbsp;is subscribed.
 		<br />
-		Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?>
+		Your subscription expires on&nbsp;
+		<?php echo $month . ' ' . $day . ', ' . $year; ?>
 		<br />
-		Please <a title='Sign In' href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>sign in</a> to access content
+		Please&nbsp;
+		<a title='Sign In'
+			href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>
+			sign in
+		</a>
+		&nbsp;to access content
 	</p>
 </div>
 <?php } else { ?>
@@ -128,9 +157,14 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 		Subscribed
 	</span>
 	<p>
-		Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is subscribed.
+		Your institution,&nbsp;
+		<span style="text-decoration: underline;">
+			<?php echo $inst->name ?>
+		</span>
+		&nbsp;is subscribed.
 		<br />
-		Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?>
+		Your subscription expires on&nbsp;
+		<?php echo $month . ' ' . $day . ', ' . $year; ?>
 	</p>
 </div>
 <?php } }

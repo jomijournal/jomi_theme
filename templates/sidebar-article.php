@@ -156,7 +156,8 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 $is_sub = $user_inst['is_subscribed'];
 $inst = $user_inst['inst'];
 
-if($is_sub <= 0 && !empty($user_inst)) { ?>
+if($is_sub <= 0 && !empty($user_inst)) {
+	if(!empty($user_order)) { ?>
 <div class="expired-block">
 	<?php
 		# @COPY_EXPIRED
@@ -171,7 +172,19 @@ if($is_sub <= 0 && !empty($user_inst)) { ?>
 		Expired on <?php echo $user_order->date_end; ?>
 	</p>
 </div>
-<?php }
+<?php } else { ?>
+	<?php
+		# @COPY_NOT_SUBSCRIBED
+		# shows when an institution is recognized but an order does not exist
+	?>
+	<span class="expired-head">
+		NOT SUBSCRIBED
+	</span>
+	<p>
+		blah blah blah blah blah
+		<?php echo $inst->name ?> is not subscribed
+	</p>
+<?php } }
 
 global $jomi_user_order;
 

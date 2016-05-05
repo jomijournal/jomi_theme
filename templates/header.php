@@ -1,4 +1,4 @@
-<?php 
+<?php
 // get current user info
 global $current_user;
 get_currentuserinfo();
@@ -78,7 +78,7 @@ global $user_stripe_subscribed;
 						</div>
 					</div>
 				</li>
-				
+
 				<!-- LOGOUT MENU -->
 				<li class="dropdown logout-dropdown" <?php if(!is_user_logged_in()){echo "style='display:none;'";} ?>>
 					<a class="dropdown-toggle" data-toggle="dropdown" id="logout-toggle" href="#" data-original="<span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span>"><span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='login-text'>&nbsp;&nbsp;Account</span></a>
@@ -228,18 +228,24 @@ global $user_stripe_subscribed;
 
 			$('#greyout,#signal').hide();
 
+			// if logging in from an article page, then permissions and access blocks
+			// probably need to be refreshed. force a page reload so nothing goes wrong.
+			<?php if(is_single()) { ?>
+			window.location.reload();
+			<?php } ?>
+
 			if(response != "failure") {
 
 				$('.login-dropdown').hide();
 				$('.login-dropdown').dropdown('toggle');
-				
+
 				$('.logout-dropdown').show();
 				//$('a#logout-btn').show();
 				//$('#logout-toggle').text(response);
 				$('#logout-toggle').html($('#logout-toggle').attr('data-original'));
 
 				$('a#user-email span').html(response);
-				
+
 			} else {
 				$('#error').text("Incorrect username or password");
 				$('#error').show();

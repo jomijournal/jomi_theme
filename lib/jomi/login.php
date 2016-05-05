@@ -44,7 +44,7 @@ add_filter('login_headerurl', 'jomi_login_header_url');
  */
 function jomi_login_footer(){
   echo '<div class="blackbg"></div>';
-  
+
   echo site_url('','relative');
 ?>
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -88,7 +88,8 @@ function my_login_redirect( $redirect_to, $request, $user ) {
       // redirect them to the default place
       return site_url('/wp-admin');
     } else {
-      return home_url();
+      if(empty($redirect_to)) return home_url();
+      else return $redirect_to;
     }
   } else {
     return $redirect_to;
@@ -125,7 +126,7 @@ if (!function_exists('possibly_redirect'))
       }
       /*else
       {
-        wp_redirect('/');       
+        wp_redirect('/');
       }*/
       //exit();
     }

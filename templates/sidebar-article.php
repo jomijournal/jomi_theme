@@ -78,11 +78,11 @@ if(!$logged_in) {
 	?>
 	<span class="sign-up-head">JoMI is not a free resource.</span>
 	<p>
-		You may <a href='/register'>create an account</a> to gain access.
+		You may <a title='Register' href='<?php echo wp_registration_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>create an account</a> to gain access.
 		<br />
 		Please make a request to your librarian or <a href='mailto:lib@jomi.com' target='_blank'>send us an email.</a> to maintain access.
 		<br />
-		Or, please <a href='/login'>sign in</a> if you are at a subscribed institution.
+		Or, please <a title='Sign In' href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>sign in</a> if you are at a subscribed institution.
 	</p>
 </div>
 <?php
@@ -115,7 +115,7 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 		<br />
 		Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?>
 		<br />
-		Please sign in to access content
+		Please <a title='Sign In' href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>sign in</a> to access content
 	</p>
 </div>
 <?php } else { ?>

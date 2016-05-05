@@ -115,6 +115,7 @@ add_action( 'wp_ajax_nopriv_block-deny', 'block_deny' );
  */
 function block_free_trial() {
 	$id = $_POST['id'];
+	$redirect_to = $_POST['redirectto'];
 ?>
 <div class="container free-trial">
 	<div id="greyout" class="greyout">
@@ -235,6 +236,7 @@ add_action( 'wp_ajax_nopriv_send-free-trial', 'send_free_trial' );
  */
 function block_free_trial_thanks() {
 	$id = $_POST['id'];
+	$redirect_to = $_POST['redirectto'];
 
 	$order = $_SESSION['order'];
 	$inst = $_SESSION['inst'];
@@ -267,8 +269,8 @@ function block_free_trial_thanks() {
 		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.</h4>
 		<h4>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
 		<?php if($require_login && !$logged_in) { ?>
-			<strong>Your institution requires you to <a href='/login'>sign in</a> before viewing this content.</strong>
-			<p>Or, if you do not have an account yet, <a href='/register'>register here</a>
+			<strong>Your institution requires you to <a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>sign in</a> before viewing this content.</strong>
+			<p>Or, if you do not have an account yet, <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>register here</a>
 		<?php } else { ?>
 			<strong><u>Your Opinion Matters!</u></strong>
 			<p>Please let your librarian know if you found our content valuable.</p>
@@ -299,6 +301,7 @@ add_action( 'wp_ajax_nopriv_block-free-trial-thanks', 'block_free_trial_thanks' 
 
 function block_subscribed_sign_in() {
 	$id = $_POST['id'];
+	$redirect_to = $_POST['redirectto'];
 
 	$order = $_SESSION['order'];
 	$inst = $_SESSION['inst'];
@@ -329,7 +332,7 @@ function block_subscribed_sign_in() {
 		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently subscribed</h4>
 		<h4>Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
 		<h4>Your institution requires you to sign in to access our content.</h4>
-		<h4><a href='/login'>Sign in</a> or <a href='/register'>create an account</a></h4>
+		<h4><a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>Sign in</a> or <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>create an account</a></h4>
 		<br>
 	</div>
 </div>

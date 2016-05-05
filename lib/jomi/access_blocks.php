@@ -29,7 +29,8 @@ function block_deny() {
                         to continue viewing this article.
 		</p>
 <hr/>
-<p>Please note: while there is no charge to evaluate, <b>JoMI is NOT a free resource</b>.  To maintain access, please request a subscription with your affiliated institution or purchase an individual subscription.  To maintain access:</p>
+<p>Please note: while there is no charge to evaluate, <b>JoMI is NOT a free resource</b>.</p>
+<p> To maintain access:</p>
 <p>Option 1: <a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request" target="_blank">
                                 <strong>Send us an Email</strong>
                         </a> requesting an institutional subscription and we will do the rest.

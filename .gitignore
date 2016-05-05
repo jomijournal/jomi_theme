@@ -28,3 +28,6 @@ api_keys.json
 *.phar
 
 composer.phar
+
+#ignore mac stuff
+.DS_Store

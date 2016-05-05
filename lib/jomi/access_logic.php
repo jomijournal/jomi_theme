@@ -258,6 +258,7 @@ function extract_institution_meta() {
 
 	// not subscribed by default. will flip when conditions are met
 	$is_subscribed = false;
+  $current_order = [];
 
 	if(empty($inst_orders)) {
 
@@ -273,15 +274,39 @@ function extract_institution_meta() {
 			$endtime = strtotime($inst_order->date_end);
 			if ($cur_time >= $fromtime && $cur_time <= $endtime) {
 				// order is valid, break loop
+        // set the subscribed flag to true
 				$is_subscribed = true;
+        // and load that order into the current order
+        $current_order = $inst_order;
 				break;
 			}
 		}
 	}
 
+  // if the current order is empty here, that means no valid order, within the
+  // allotted time frame, was found.
+  // we still need to fetch an expired order if possible so we can let the user
+  // know when the order expired. try to grab the closest order to today's time
+  // by that order's end date.
+  if(empty($current_order)) {
+    // reset the array's internal pointer to the first index
+    reset($inst_orders);
+    // and load that order into the current order
+    $current_order = current($inst_orders);
+    // loop thru the rest and try to find one closer to today
+    foreach($inst_orders as $inst_order) {
+      // if it is closer in time
+      if(($cur_time - strtotime($inst_order->date_end))
+        < ($cur_time - strtotime($current_order->date_end))) {
+        // then replace the current order with this order
+        $current_order = $inst_order;
+      }
+    }
+  }
+
 	//** GRAB INSTITUTION OBJECT (structure that groups locations)
 
-	if(!empty($inst_ip) && !empty($inst_location)/* && !empty($inst_order)*/) {
+	if(!empty($inst_ip) && !empty($inst_location)) {
 
 		// grab institution id from location
 		$inst_id = $inst_location->inst_id;
@@ -304,7 +329,7 @@ function extract_institution_meta() {
 			'inst' => $inst,
 			'ip' => $inst_ip,
 			'location' => $inst_location,
-			'order' => $inst_order,
+			'order' => $current_order,
 			'is_subscribed' => $is_subscribed
 		);
 

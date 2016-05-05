@@ -18,19 +18,18 @@ function block_deny() {
 	</div>
 
 	<!-- header -->
-	<?php # @COPY_SIGNIN ?>
+	<?php # @COPY_SIGNIN - Not recognized as any institution, default  ?>
 	<div class="row" style="margin-bottom: 10px; margin-top: 10px;">
 		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
 		<p style="text-align:center;">
 			<strong>JoMI is not a free resource.</strong>
-			&nbsp;Please&nbsp;
-			<a title='Sign In' href='<?php echo wp_login_url($redirect_to) ?>'>sign in</a>
-			&nbsp;or&nbsp;
-			<a title='Register' href='<?php echo wp_registration_url($redirect_to) ?>'>register</a>
-			&nbsp;to continue viewing this article.
+			Please <a title='Sign In' href='<?php echo wp_login_url($redirect_to) ?>'>Sign In</a>
+			or 
+			<a title='Register' href='<?php echo wp_registration_url($redirect_to) ?>'>Register</a>
+			to continue viewing this article.
 		</p>
 		<p style="text-align:center;">
-			Please make a request to your librarian or&nbsp;
+			Please make a request to your librarian or 
 			<a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request" target="_blank">
 				<strong>send us an email</strong>
 			</a>
@@ -202,11 +201,10 @@ function block_free_trial_thanks() {
 		<h1>Thank you for using JoMI</h1>
 		<p>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.</p>
 		<p>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></p>
-		<p>Please <a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>Sign In</a> or 
-		          <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>Create an Account</a> to gain access to this article.</p>
-	</div>
-	<div class="row link-close">
+
 		<?php if(($require_login == "T") && !$logged_in) { ?>
+			<p>Please <a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>Sign In</a> or 
+			          <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>Create an Account</a> to gain access to this article.</p>
 		<?php } else { ?>
 			<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>
 		<?php } ?>

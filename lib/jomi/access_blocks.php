@@ -204,10 +204,9 @@ function block_free_trial_thanks() {
 		<p>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></p>
 		<p>Please <a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>Sign In</a> or 
 		          <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>Create an Account</a> to gain access to this article.</p>
-		<br>
 	</div>
 	<div class="row link-close">
-		<?php if($require_login && !$logged_in) { ?>
+		<?php if(($require_login == "T") && !$logged_in) { ?>
 		<?php } else { ?>
 			<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>
 		<?php } ?>

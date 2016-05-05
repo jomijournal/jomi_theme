@@ -53,7 +53,7 @@ if(!empty($user_order)) {
 			    <?php echo $inst->name ?></span></b>
 			&nbsp;is currently using trial access, which will expire on  <?php echo $user_order->date_end; ?>.
 			<br/><br/>
-			<?php if($require_login && !$logged_in) { ?>
+			<?php if($require_login == "T" && !$logged_in) { ?>
 				Please log in / create an account and let your librarian know about JoMI.
 			<?php } else { ?>
 				<b>To maintain access:</b> please let your librarian know you would like a subscription or send us an email at <a href="mailto:subscribe@jomi.com?Subject=<?php echo str_replace( "Subscription Request: " . $inst->name, " ", "%20" ) ?>">subscribe@jomi.com</a> and we will forward your feedback to your librarian.
@@ -117,7 +117,7 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 	$day = substr($date_end, 8, 2);
 	$day = date('jS', mktime(0, 0, 0, 0, $day));
 
-	if($user_order->require_login && !$logged_in) {
+	if(($user_order->require_login == "T") && !$logged_in) {
 ?>
 <div class="subscribed-block">
 	<?php

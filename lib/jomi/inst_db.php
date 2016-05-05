@@ -82,7 +82,7 @@ function inst_table_install() {
 		date_start  date NOT NULL,
 		date_end    date NOT NULL,
 		type        VARCHAR(20) NOT NULL,
-		order_amount      int NOT NULL,
+		order_amount int NOT NULL,
 		require_login VARCHAR(1) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";

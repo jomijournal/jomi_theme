@@ -656,7 +656,7 @@ foreach($orders as $order) {
 </tr>
 <tr>
 	<th>Amount</th>
-	<td><input id="inst-order-amount" type="number" value="<?php echo $order->amount; ?>"></td>
+	<td><input id="inst-order-amount" type="number" value="<?php echo $order->order_amount; ?>"></td>
 </tr>
 <tr>
   <th>Require Login?</th>

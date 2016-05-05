@@ -44,8 +44,11 @@ function check_access() {
 
   if($access_debug) echo '<pre style="margin-bottom:100px;">';
 
+  // load user info, if the user is logged in
+  $user_info = load_user_info();
+
   // extract user IP and matching institution (if applicable)
-  $institution_meta = extract_institution_meta();
+  $institution_meta = extract_institution_meta($user_info);
 
   // get rules from the access database table
   $rules = collect_rules($selector_meta, $institution_meta);
@@ -54,9 +57,6 @@ function check_access() {
   	echo "Rules to be checked:\n";
   	print_r($rules);
   }
-
-  // load user info, if the user is logged in
-  $user_info = load_user_info();
 
   if($access_debug) {
   	echo "User Meta:\n";
@@ -133,7 +133,7 @@ function extract_selector_meta($id) {
  * can probably cache the result of this in the future
  * @return [int] institution ID (corresponds with row ID in the DB)
  */
-function extract_institution_meta() {
+function extract_institution_meta($user_info) {
 
 	global $access_debug;
 
@@ -209,8 +209,13 @@ function extract_institution_meta() {
 	}
 
 	//** LOAD INSTITUTION LOCATIONS
-
+  $inst_location = [];
 	$inst_locations = array();
+  // institutions collected from IP ranges
+  $ip_inst_locations = array();
+  // institutions loaded from email domains
+  $email_inst_locations = array();
+
 	if(empty($inst_ips)) {
 		// no ips matched
 	} else {
@@ -222,16 +227,42 @@ function extract_institution_meta() {
 		$location_query =
 		"SELECT * FROM $inst_location_table_name
 		WHERE id=$location_id";
-		$inst_locations = $wpdb->get_results($location_query);
+		$ip_inst_locations = $wpdb->get_results($location_query);
 
-		//only use first location result. the query should only produce one entry anyways
-		$inst_location = $inst_locations[0];
-
-		if($access_debug) {
-			echo "Institution Location Data:\n";
-			print_r($inst_location);
-		}
+    if($access_debug) {
+      echo "Matched " . count($ip_inst_locations) . " institution locations from the accessing IP address\r\n";
+    }
 	}
+
+  // try to load matching locations from the user's email address
+  // only try to do this if they're logged in
+  if($user_info['logged_in']) {
+    // just in case make sure that the user object isn't empty either
+    if(!empty($user_info['user']) && !empty($user_info['user']['email'])) {
+      $user_email = $user_info['user']['email'];
+      $pieces = explode('@', $user_email);
+      // there should only ever be two pieces
+      if(count($pieces) == 2) {
+        // the email domain. e.g., college.edu for an email student@college.edu
+        $domain = $pieces[1];
+        // query DB for matching email domains
+        $email_query = "SELECT * FROM $inst_location_table_name WHERE email='" . $domain . "'";
+        $email_inst_locations = $wpdb->get_results($email_query);
+        if($access_debug) {
+          echo "Matched " . count($email_inst_locations) . " institution locations from the user's email " . $user_email . "\r\n";
+        }
+      }
+    }
+  }
+  $inst_locations = array_merge($ip_inst_locations, $email_inst_locations);
+
+  //only use first location result. the query should only produce one entry anyways
+  $inst_location = $inst_locations[0];
+
+  if($access_debug) {
+    echo "Institution Location Data:\n";
+    print_r($inst_location);
+  }
 
 	//** LOAD MATCHING ORDER ENTRIES
 
@@ -306,7 +337,7 @@ function extract_institution_meta() {
 
 	//** GRAB INSTITUTION OBJECT (structure that groups locations)
 
-	if(!empty($inst_ip) && !empty($inst_location)) {
+	if(!empty($inst_location)) {
 
 		// grab institution id from location
 		$inst_id = $inst_location->inst_id;

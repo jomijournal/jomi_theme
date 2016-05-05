@@ -64,6 +64,7 @@ function inst_table_install() {
 		city        VARCHAR(50) NOT NULL,
 		zip         VARCHAR(10) NOT NULL,
 		address     VARCHAR(100) NOT NULL,
+		email       VARCHAR(50) NOT NULL,
 		comment     text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
@@ -212,6 +213,7 @@ function insert_inst_location() {
 		, 'country' => ''
 		, 'address' => ''
 		, 'comment' => ''
+		, 'email' => ''
 	);
 
 	$wpdb->insert($inst_location_table_name, $push_data);
@@ -238,6 +240,7 @@ function update_inst_location() {
 	$country = $_POST['country'];
 	$address = $_POST['address'];
 	$comment = $_POST['comment'];
+	$email = $_POST['email'];
 
 	$push_data = array(
 		'inst_id' => $inst_id
@@ -249,13 +252,14 @@ function update_inst_location() {
 		, 'country' => $country
 		, 'address' => $address
 		, 'comment' => $comment
+		, 'email' => $email
 	);
 
 	$wpdb->update(
 		$inst_location_table_name,
 		$push_data,
 		array('ID' => $id),
-		array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'),
+		array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'),
 		array('%d')
 	);
 	check_db_errors();

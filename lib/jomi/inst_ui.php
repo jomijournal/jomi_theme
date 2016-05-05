@@ -158,6 +158,7 @@ $(function() {
 		var country = row.find('#inst-location-country').val();
 		var zip = row.find('#inst-location-zip').val();
 		var comment = row.find('#inst-location-comment').val();
+    var email = row.find('#inst-location-email').val();
 
 		$.post(MyAjax.ajaxurl, {
 			action: 'update-inst-location'
@@ -170,6 +171,7 @@ $(function() {
 			, country: country
 			, zip: zip
 			, comment: comment
+      , email: email
 		}, function(response) {
 			refresh_location(inst_id);
 		});
@@ -515,20 +517,30 @@ foreach($locations as $location) {
 <!-- data -->
 <tr>
 	<td>
+    <label for="inst-location-description">Description</label><br />
 		<input id="inst-location-description" type="text" placeholder="description" value="<?php echo $location->description; ?>">
 		<br>
+    <label for="inst-location-address">Street Address</label><br />
 		<input id="inst-location-address" type="text" placeholder="address" value="<?php echo $location->address; ?>">
 		<br>
+    <label for="inst-location-city">City/Town</label><br />
 		<input id="inst-location-city" type="text" placeholder="city" value="<?php echo $location->city; ?>">
 		<br>
+    <label for="inst-location-region">Region (State/Province)</label><br />
 		<input id="inst-location-region" type="text" placeholder="region" value="<?php echo $location->region; ?>">
 		<br>
+    <label for="inst-location-country">Country</label><br />
 		<input id="inst-location-country" type="text" placeholder="country" value="<?php echo $location->country; ?>">
 		<br>
+    <label for="inst-location-zip">Zip Code</label><br />
 		<input id="inst-location-zip" type="text" placeholder="zip code" value="<?php echo $location->zip; ?>">
 		<input id="inst-location-id" type="hidden" value="<?php echo $location->id; ?>">
 		<input id="inst-location-inst-id" type="hidden" value="<?php echo $id; ?>">
+    <br /><label for="inst-location-comment">Comment</label><br />
 		<textarea rows="4" cols="20" id="inst-location-comment" type="text" placeholder="comment" ><?php echo $location->comment; ?></textarea>
+    <br />
+    <label for="inst-location-email">Email Domain. e.g.: "college.edu" if email is student@college.edu</label><br />
+    <input id="inst-location-email" type="text" placeholder="email domain. e.g.: university.edu" value="<?php echo $location->email; ?>">
 	</td>
 	<td>
 		<?php inst_order_update($location->id); ?>

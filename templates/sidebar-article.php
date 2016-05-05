@@ -128,11 +128,11 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 		Subscribed
 	</span>-->
 	<p>
-		Subscription provided by:<br/> 
+		Subscription provided by:<br/>
 		</span>
 			<b><?php echo $inst->name ?></b>.
 		<br /><br/>
-		Please 
+		Please
 		<a title='Sign In'
 			href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>
 			sign in
@@ -153,7 +153,25 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 </div>
 <?php } }
 
+$is_sub = $user_inst['is_subscribed'];
+$inst = $user_inst['inst'];
 
+if($is_sub <= 0 && !empty($user_inst)) { ?>
+<div class="expired-block">
+	<?php
+		# @COPY_EXPIRED
+		# shows when an institution's order has expired and they need to renew
+	?>
+	<span class="expired-head">
+		EXPIRED
+	</span>
+	<p>
+		blah blah blah blah blah
+		The subscription from <?php echo $inst->name ?> expired
+		Expired on <?php echo $user_order->date_end; ?>
+	</p>
+</div>
+<?php }
 
 global $jomi_user_order;
 
@@ -362,7 +380,9 @@ if(!empty($user_inst)) {
 	</tr-->
 	<tr>
 		<td><strong>Status</strong></td>
-		<td><?php echo ($is_sub > 0) ? '<!--span style="color:green;font-weight:bold;">SUBSCRIBED' : '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span-->
+		<td><?php echo ($is_sub > 0)
+			? '<!--span style="color:green;font-weight:bold;">SUBSCRIBED'
+			: '<span style="color:red;font-weight:bold;">EXPIRED'; ?></span-->
 		<?php if($is_sub > 0) { ?>
 		<strong style="color:green;font-weight:bold;"><?php echo $order->type; ?></strong>
 		<?php } else { ?>

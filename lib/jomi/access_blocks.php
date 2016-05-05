@@ -200,16 +200,10 @@ function block_free_trial_thanks() {
 			# for letting users know that they're on a free trial
 		?>
 		<h1>Thank you for using JoMI</h1>
-		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.</h4>
-		<h4>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
-		<?php if(($require_login == "T") && !$logged_in) { ?>
-			<strong>Your institution requires you to <a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>sign in</a> before viewing this content.</strong>
-			<p>Or, if you do not have an account yet, <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>register here</a>
-		<?php } else { ?>
-			<strong><u>Your Opinion Matters!</u></strong>
-			<p>Please let your librarian know if you found our content valuable.</p>
-		<?php } ?>
-		<br>
+		<p>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.</p>
+		<p>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></p>
+		<p>Please <a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>Sign In</a> or 
+		          <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>Create an Account</a> to gain access to this article.</p>
 	</div>
 	<div class="row link-close">
 		<?php if(($require_login == "T") && !$logged_in) { ?>
@@ -263,10 +257,9 @@ function block_subscribed_sign_in() {
 	?>
 	<div class="row">
 		<h1>Thank you for using JoMI</h1>
-		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently subscribed</h4>
-		<h4>Your subscription expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
-		<h4>Your institution requires you to sign in to access our content.</h4>
-		<h4><a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>Sign in</a> or <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>create an account</a></h4>
+		<p>Your institution, <b><?php echo $inst->name ?></b>, is currently subscribed</p>
+		<p>Please sign in to access this video-article.  If you do not have an account, please create an account and you will have full access.</p>
+		<h4><a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>Sign in</a> or <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>Create an Account</a></h4>
 		<br>
 	</div>
 </div>

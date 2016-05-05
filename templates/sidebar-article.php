@@ -49,16 +49,14 @@ if(!empty($user_order)) {
 	<div id="free-trial-notification">
 		<span class="free-trial-head">TRIAL ACCESS</span>
 		<p>
-			Your institution,&nbsp;
-			<span style="text-decoration: underline;">
-				<?php echo $inst->name ?>
-			</span>
-			&nbsp;is currently using trial access.
-			<br>
+		        <b><span style="text-decoration: underline;">
+			    <?php echo $inst->name ?></span></b>
+			&nbsp;is currently using trial access, which will expire on  <?php echo $user_order->date_end; ?>.
+			<br/><br/>
 			<?php if($require_login == "T" && !$logged_in) { ?>
-				Please create an account and let your librarian know about JoMI.
+				Please log in / create an account and let your librarian know about JoMI.
 			<?php } else { ?>
-				Please recommend JoMI to your librarian.
+				<b>To maintain access:</b> please let your librarian know you would like a subscription or send us an email at <a href="mailto:subscribe@jomi.com?Subject=<?php echo str_replace( "Subscription Request: " . $inst->name, " ", "%20" ) ?>">subscribe@jomi.com</a> and we will forward your feedback to your librarian.
 			<?php } ?>
 		</p>
 	</div>
@@ -126,25 +124,20 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 		# @COPY_REQUIRE_SIGN_IN
 		# institution is subscribed but user still has to sign in
 	?>
-	<span class="subscribed-head">
+	<!--<span class="subscribed-head">
 		Subscribed
-	</span>
+	</span>-->
 	<p>
-		Your institution,&nbsp;
-		<span style="text-decoration: underline;">
-			<?php echo $inst->name ?>
+		Subscription provided by:<br/> 
 		</span>
-		&nbsp;is subscribed.
-		<br />
-		Your subscription expires on&nbsp;
-		<?php echo $month . ' ' . $day . ', ' . $year; ?>
-		<br />
-		Please&nbsp;
+			<b><?php echo $inst->name ?></b>.
+		<br /><br/>
+		Please 
 		<a title='Sign In'
 			href='<?php echo wp_login_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")?>'>
 			sign in
 		</a>
-		&nbsp;to access content
+		 to access this article.
 	</p>
 </div>
 <?php } else { ?>
@@ -153,18 +146,9 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 		# @COPY_SUBSCRIBED
 		# instutiton is subscribed and user is signed in/ does not have to sign in
 	?>
-	<span class="subscribed-head">
-		Subscribed
-	</span>
 	<p>
-		Your institution,&nbsp;
-		<span style="text-decoration: underline;">
-			<?php echo $inst->name ?>
-		</span>
-		&nbsp;is subscribed.
-		<br />
-		Your subscription expires on&nbsp;
-		<?php echo $month . ' ' . $day . ', ' . $year; ?>
+		Subscription provided by:<br/>
+		<b><?php echo $inst->name ?></b>
 	</p>
 </div>
 <?php } }

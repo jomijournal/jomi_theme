@@ -20,21 +20,24 @@ function block_deny() {
 	<!-- header -->
 	<?php # @COPY_SIGNIN - Not recognized as any institution, default  ?>
 	<div class="row" style="margin-bottom: 10px; margin-top: 10px;">
-		<strong><h1 style="text-align:center;"><?php echo $msg; ?></h1></strong>
+		<strong><h1 style="text-align:center;">EVALUATION ACCESS</h1></strong>
 		<p style="text-align:center;">
-			<strong>JoMI is not a free resource.</strong>
+
 			Please <a title='Sign In' href='<?php echo wp_login_url($redirect_to) ?>'>Sign In</a>
-			or 
-			<a title='Register' href='<?php echo wp_registration_url($redirect_to) ?>'>Register</a>
-			to continue viewing this article.
+                        or
+                        <a title='Register' href='<?php echo wp_registration_url($redirect_to) ?>'>Register</a>
+                        to continue viewing this article.
 		</p>
-		<p style="text-align:center;">
-			Please make a request to your librarian or 
-			<a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request" target="_blank">
-				<strong>send us an email</strong>
-			</a>
-			&nbsp;to maintain access.
+<hr/>
+<p>Please note: while there is no charge to evaluate, <b>JoMI is NOT a free resource</b>.  To maintain access, please request a subscription with your affiliated institution or purchase an individual subscription.  To maintain access:</p>
+<p>Option 1: <a href="mailto:lib@jomi.com?Subject=JoMI Subscription Request" target="_blank">
+                                <strong>Send us an Email</strong>
+                        </a> requesting an institutional subscription and we will do the rest.
 		</p>
+<p>Option 2: <a href="mailto:lib@jomi.com?Subject=JoMI Individual Subscription" target="_blank">
+                                <strong>Request an Individual Subscription</strong>
+                        </a>.
+                </p>
 	</div>
 </div>
 <?php

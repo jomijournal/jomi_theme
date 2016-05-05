@@ -56,7 +56,7 @@ if(!empty($user_order)) {
 			<?php if($require_login == "T" && !$logged_in) { ?>
 				Please log in / create an account and let your librarian know about JoMI.
 			<?php } else { ?>
-				<b>To maintain access:</b> please let your librarian know you would like a subscription or send us an email at <a href="mailto:subscribe@jomi.com?Subject=<?php echo str_replace( "Subscription Request: " . $inst->name, " ", "%20" ) ?>">subscribe@jomi.com</a> and we will forward your feedback to your librarian.
+				<b>To maintain access:</b> please let your librarian know you would like a subscription or send us an email at <a href="mailto:subscribe@jomi.com?Subject=Subscription Request: <?php echo $inst->name ?>">subscribe@jomi.com</a> and we will forward your feedback to your librarian.
 			<?php } ?>
 		</p>
 	</div>
@@ -157,21 +157,20 @@ $is_sub = $user_inst['is_subscribed'];
 $inst = $user_inst['inst'];
 
 if($is_sub <= 0 && !empty($user_inst)) {
-	if(!empty($user_order)) { ?>
+?>
 <div class="expired-block">
+<?php 
+if(!empty($user_order)) { ?>
 	<?php
 		# @COPY_EXPIRED
 		# shows when an institution's order has expired and they need to renew
 	?>
 	<span class="expired-head">
-		EXPIRED
+		EVALUATION ACCESS
 	</span>
 	<p>
-		blah blah blah blah blah
-		The subscription from <?php echo $inst->name ?> expired
-		Expired on <?php echo $user_order->date_end; ?>
+		The subscription from <?php echo $inst->name ?> expired on <?php echo $user_order->date_end; ?>.  
 	</p>
-</div>
 <?php } else { ?>
 	<?php
 		# @COPY_NOT_SUBSCRIBED
@@ -184,7 +183,13 @@ if($is_sub <= 0 && !empty($user_inst)) {
 		blah blah blah blah blah
 		<?php echo $inst->name ?> is not subscribed
 	</p>
-<?php } }
+<?php }?> 
+<p>
+ <b>To maintain access:</b> please let your librarian know you would like a subscription or send us an email at <a href="mailto:subscribe@jomi.com?Subject=Subscription Request: <?php echo $inst->name ?>">subscribe@jomi.com</a> and we will forward your feedback to your librarian.
+        </p>
+
+</div>
+<?php }
 
 global $jomi_user_order;
 

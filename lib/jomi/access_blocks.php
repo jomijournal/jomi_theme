@@ -202,7 +202,7 @@ function block_free_trial_thanks() {
 		<h1>Thank you for using JoMI</h1>
 		<h4>Your institution, <span style="text-decoration: underline;"><?php echo $inst->name ?></span> is currently using trial access.</h4>
 		<h4>Your trial expires on <?php echo $month . ' ' . $day . ', ' . $year; ?></h4>
-		<?php if($require_login && !$logged_in) { ?>
+		<?php if(($require_login == "T") && !$logged_in) { ?>
 			<strong>Your institution requires you to <a title='Sign In' href='<?php echo wp_login_url($redirect_to)?>'>sign in</a> before viewing this content.</strong>
 			<p>Or, if you do not have an account yet, <a title='Register' href='<?php echo wp_registration_url($redirect_to)?>'>register here</a>
 		<?php } else { ?>
@@ -212,7 +212,7 @@ function block_free_trial_thanks() {
 		<br>
 	</div>
 	<div class="row link-close">
-		<?php if($require_login && !$logged_in) { ?>
+		<?php if(($require_login == "T") && !$logged_in) { ?>
 		<?php } else { ?>
 			<a class="btn border" href="#" id="close-free-trial">Continue Watching</a>
 		<?php } ?>

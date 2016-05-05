@@ -1,5 +1,7 @@
 <?php
 
+opcache_reset();
+
 global $wpdb;
 global $access_db_version;
 global $access_table_name;
@@ -940,8 +942,8 @@ function get_blocks($rules, $user_info) {
 
           $require_logins = explode(',', $check_values[$index]);
           foreach($require_logins as $require_login) {
-            if(($require_login == 'T' && $require_login_check)
-              || ($require_login == 'F' && !$require_login_check)) {
+            if(($require_login == "T" && $require_login_check == "T")
+              || ($require_login == "F" && $require_login_check == "F")) {
               if($access_debug) {
                 echo "require login matched!\n";
                 echo $require_login_check . ' == ' . $require_login . "\r\n\r\n";

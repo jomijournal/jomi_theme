@@ -55,7 +55,7 @@ if(!empty($user_order)) {
 			</span>
 			&nbsp;is currently using trial access.
 			<br>
-			<?php if($require_login && !$logged_in) { ?>
+			<?php if($require_login == "T" && !$logged_in) { ?>
 				Please create an account and let your librarian know about JoMI.
 			<?php } else { ?>
 				Please recommend JoMI to your librarian.
@@ -119,7 +119,7 @@ if(!empty($user_order) && $user_inst['is_subscribed'] && !in_array($user_order->
 	$day = substr($date_end, 8, 2);
 	$day = date('jS', mktime(0, 0, 0, 0, $day));
 
-	if($user_order->require_login && !$logged_in) {
+	if(($user_order->require_login == "T") && !$logged_in) {
 ?>
 <div class="subscribed-block">
 	<?php

@@ -540,7 +540,7 @@ foreach($locations as $location) {
 		<textarea rows="4" cols="20" id="inst-location-comment" type="text" placeholder="comment" ><?php echo $location->comment; ?></textarea>
     <br />
     <label for="inst-location-email">Email Domain. e.g.: "college.edu" if email is student@college.edu</label><br />
-    <input id="inst-location-email" type="text" placeholder="email domain. e.g.: university.edu" value="<?php echo $location->email; ?>">
+    @<input id="inst-location-email" type="text" placeholder="email domain. e.g.: university.edu" value="<?php echo $location->email; ?>">
 	</td>
 	<td>
 		<?php inst_order_update($location->id); ?>

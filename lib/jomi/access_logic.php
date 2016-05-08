@@ -157,13 +157,14 @@ function extract_institution_meta($user_info) {
 
 	//check current ip with cached session ip. if matching, then get institution data from cache and return
 	if(empty($_SESSION['ip']) || empty($_SESSION['ip_long'])) {
-
-	} elseif($ip == $_SESSION['ip'] || $ip_long == $_SESSION['ip_long']) {
+	} elseif ($ip == $_SESSION['ip'] || $ip_long == $_SESSION['ip_long']) {
 		if(!empty($_SESSION['inst'])
 			&& !empty($_SESSION['inst_ip'])
 			&& !empty($_SESSION['location'])
 			&& !empty($_SESSION['order'])
-			&& !empty($_SESSION['is_subscribed'])) {
+			&& !empty($_SESSION['is_subscribed'])
+      && $_GET["no_cache"] != "true"
+    ) {
 
 			global $user_inst;
 			$user_inst = array(

@@ -319,6 +319,7 @@ $(function() {
 		var table = $(this).parent().parent().parent().parent();
 
 		var id = table.find('#inst-order-id').val();
+    console.log('updating order', id);
 
 		// dont need inst id for now
 		var inst_id = 0;
@@ -346,7 +347,7 @@ $(function() {
 			amount: amount,
       require_login: require_login
 		}, function(response) {
-			refresh_order_list(location_id);
+			refresh_order_list(id, location_id);
 		});
 	});
 
@@ -430,14 +431,15 @@ function refresh_ip_list(location_id) {
  * @param  {[type]} location_id [description]
  * @return {[type]}             [description]
  */
-function refresh_order_list(location_id) {
+function refresh_order_list(order_id, location_id) {
 	$('#greyout,#signal').show();
 	$.post(MyAjax.ajaxurl, {
 		action: 'inst-order-update',
 		location_id: location_id
 	}, function(response) {
 		$('#greyout,#signal').hide();
-		$('#inst-order-list[location-id="' + location_id + '"]').html(response);
+		$('.order-container[location-id="' + location_id + '"]').html(response);
+    //window.location.reload();
 	});
 }
 </script>
@@ -638,12 +640,14 @@ function inst_order_update($location_id) {
 	if(!empty($_POST['location_id'])) $location_id = $_POST['location_id'];
 
 ?>
+<div class='order-container' location-id="<?php echo $location_id; ?>">
 <table id="inst-order-list" class="inst-order-list" location-id="<?php echo $location_id; ?>">
 <tr>
 	<td>
 		<a href="#" id="inst-order-insert">add order</a>
 	</td>
 </tr>
+</table>
 <?php
 
 global $wpdb;
@@ -654,6 +658,7 @@ $orders = $wpdb->get_results($inst_order_query);
 
 foreach($orders as $order) {
 ?>
+<table class="inst-order" location-id="<?php echo $location_id; ?>" order-id="<?php echo $order->id ?>">
 <tr>
 	<th>Date Start</th>
 	<td><input id="inst-order-date-start" type="date" value="<?php echo $order->date_start; ?>" style="width: 100%;"></td>
@@ -693,10 +698,11 @@ foreach($orders as $order) {
 		<input id="inst-order-id" type="hidden" value="<?php echo $order->id; ?>">
 	</td>
 </tr>
+</table>
 <?php
 }
 ?>
-</table>
+</div>
 <?php
 }
 add_action( 'wp_ajax_nopriv_inst-order-update', 'inst_order_update');

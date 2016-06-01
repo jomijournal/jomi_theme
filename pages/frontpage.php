@@ -8,7 +8,7 @@ mixpanel.track("Open home page", { "source_ip": "<?php echo $_SERVER[ 'REMOTE_AD
 </script>
 <div class="taglines">
 		<h1>Surgical Video Articles <br/> for Attendings, Residents, and Medical Students</h1>
-		<h2>The Journal of Medical Insight seeks to improve outcomes through publication  
+		<h2>The Journal of Medical Insight seeks to improve outcomes through publication
 		of videos of cutting-edge and standard of care surgical procedures.
 		<br/><a class="mini-link" href="<?php echo site_url('/about'); ?>">Learn more about us →</a></h2>
 		<div class="partners">
@@ -18,8 +18,8 @@ mixpanel.track("Open home page", { "source_ip": "<?php echo $_SERVER[ 'REMOTE_AD
 					 <img src="<?php echo site_url('/wp-content/themes/jomi/assets/img/clients/logo-ucsf.png'); ?>">
 				-->
 				<img src="<?php echo site_url('/wp-content/uploads/2015/07/cornell7.png'); ?>">
-				<img src="<?php echo site_url('/wp-content/uploads/2015/09/HK Logo_White.png'); ?>">
-		
+				<img src="<?php echo site_url('/wp-content/uploads/2016/06/logo-cuhk1.png'); ?>">
+
 		</div>
 			<a class="mini-link" href="<?php echo site_url('/subscribers/'); ?>">See all subscribers →</a>
 		</div>

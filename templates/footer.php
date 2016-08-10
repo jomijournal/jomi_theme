@@ -47,6 +47,8 @@
 						</li-->
 					</ul>
 
+<br/><br/>
+<a href='https://mixpanel.com/f/partner'><img src='https://cdn.mxpnl.com/site_media/images/partner/badge_blue.png' alt='Mobile Analytics' /></a>
 				</div>
 			</div>
 		</div>
